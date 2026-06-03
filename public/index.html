@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Lara'nın Sihirli Dolabı 👑</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="ust-bar">
+    <h1>👑 Lara'nın Sihirli Dolabı ✨</h1>
+  </header>
+
+  <main class="alan">
+    <!-- Giydirme sahnesi -->
+    <section class="sahne-cerceve">
+      <div id="sahne" class="sahne">
+        <div id="arkaplan" class="arkaplan"></div>
+        <!-- giysiler/aksesuarlar buraya JS ile eklenir -->
+      </div>
+      <div class="sahne-araclar">
+        <button id="btnFoto" class="arac-btn">➕ Fotoğraf Ekle</button>
+        <button id="btnKaydet" class="arac-btn">💾 Kaydet</button>
+        <button id="btnAlbum" class="arac-btn">🖼️ Albüm</button>
+        <button id="btnTemizle" class="arac-btn tehlike">🧹 Temizle</button>
+      </div>
+    </section>
+
+    <!-- Dolap paneli -->
+    <section class="panel">
+      <nav id="sekmeler" class="sekmeler"></nav>
+      <div id="urunler" class="urunler"></div>
+    </section>
+  </main>
+
+  <!-- Fotoğraf ekleme penceresi -->
+  <div id="fotoModal" class="modal gizli">
+    <div class="modal-ic">
+      <h2>Fotoğraf Ekle</h2>
+      <p>Bu fotoğraf ne olsun?</p>
+      <div class="secim-grid">
+        <button class="secim" data-kat="karakterler">🧍 Karakter</button>
+        <button class="secim" data-kat="kiyafetler">👗 Kıyafet</button>
+        <button class="secim" data-kat="saclar">💇 Saç</button>
+        <button class="secim" data-kat="aksesuarlar">👜 Aksesuar</button>
+        <button class="secim" data-kat="arkaplanlar">🏰 Arka Plan</button>
+      </div>
+      <button class="kapat" data-kapat>Vazgeç</button>
+    </div>
+  </div>
+
+  <!-- Albüm penceresi -->
+  <div id="albumModal" class="modal gizli">
+    <div class="modal-ic">
+      <h2>🖼️ Kombin Albümü</h2>
+      <div id="albumGrid" class="album-grid"></div>
+      <button class="kapat" data-kapat>Kapat</button>
+    </div>
+  </div>
+
+  <input id="dosyaGirisi" type="file" accept="image/*" capture="environment" hidden />
+
+  <div id="bildirim" class="bildirim gizli"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
