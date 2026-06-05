@@ -2,66 +2,163 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Lara'nın Sihirli Dolabı 👑</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#ff5c8a" />
+  <title>✨ Sihirli Stil Stüdyosu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- ============================ ÜST BAR ============================ -->
   <header class="ust-bar">
-    <h1>👑 Lara'nın Sihirli Dolabı ✨</h1>
+    <div class="logo">
+      <span class="logo-tac">✨</span>
+      <span class="logo-yazi">Sihirli Stil Stüdyosu</span>
+    </div>
+    <div class="ust-sag">
+      <div id="yildizKutu" class="yildiz-kutu">⭐ <span id="yildizSayi">0</span></div>
+      <button id="btnMuzik" class="ust-btn" title="Müzik aç/kapat" aria-label="Müzik">🎵</button>
+      <button id="btnSes" class="ust-btn" title="Ses aç/kapat" aria-label="Ses">🔊</button>
+      <button id="btnYonetim" class="ust-btn" title="Yönetim (görsel ekle)" aria-label="Yönetim">⚙️</button>
+    </div>
   </header>
 
+  <!-- ============================ ANA ALAN ============================ -->
   <main class="alan">
-    <!-- Giydirme sahnesi -->
+    <!-- Sahne (Sihirli Ayna) -->
     <section class="sahne-cerceve">
       <div id="sahne" class="sahne">
-        <div id="arkaplan" class="arkaplan"></div>
-        <!-- giysiler/aksesuarlar buraya JS ile eklenir -->
+        <div id="katmanlar" class="katmanlar"></div>
+        <div id="stickerKat" class="sticker-kat"></div>
+        <div id="parlamaKat" class="parlama-kat"></div>
       </div>
       <div class="sahne-araclar">
-        <button id="btnFoto" class="arac-btn">➕ Fotoğraf Ekle</button>
-        <button id="btnKaydet" class="arac-btn">💾 Kaydet</button>
+        <button id="btnSurpriz" class="arac-btn altin">🎲 Sürpriz</button>
+        <button id="btnDefile" class="arac-btn vurgu">🌟 Defile</button>
+        <button id="btnKaydet" class="arac-btn">📸 Kaydet</button>
         <button id="btnAlbum" class="arac-btn">🖼️ Albüm</button>
-        <button id="btnTemizle" class="arac-btn tehlike">🧹 Temizle</button>
+        <button id="btnTemizle" class="arac-btn tehlike">🧹 Sıfırla</button>
+      </div>
+      <div class="dolgunluk-kutu">
+        <span class="dolgunluk-et">🧍 İnce</span>
+        <input id="dolgunlukSlider" type="range" min="0" max="100" value="0" aria-label="Dolgunluk" />
+        <span class="dolgunluk-et">🧸 Dolgun</span>
       </div>
     </section>
 
-    <!-- Dolap paneli -->
-    <section class="panel">
+    <!-- Dolap Paneli -->
+    <aside class="panel">
       <nav id="sekmeler" class="sekmeler"></nav>
-      <div id="urunler" class="urunler"></div>
-    </section>
+      <div class="panel-govde">
+        <div id="urunler" class="urunler"></div>
+      </div>
+    </aside>
   </main>
 
-  <!-- Fotoğraf ekleme penceresi -->
-  <div id="fotoModal" class="modal gizli">
-    <div class="modal-ic">
-      <h2>Fotoğraf Ekle</h2>
-      <p>Bu fotoğraf ne olsun?</p>
-      <div class="secim-grid">
-        <button class="secim" data-kat="karakterler">🧍 Karakter</button>
-        <button class="secim" data-kat="kiyafetler">👗 Kıyafet</button>
-        <button class="secim" data-kat="saclar">💇 Saç</button>
-        <button class="secim" data-kat="aksesuarlar">👜 Aksesuar</button>
-        <button class="secim" data-kat="arkaplanlar">🏰 Arka Plan</button>
-      </div>
-      <button class="kapat" data-kapat>Vazgeç</button>
-    </div>
-  </div>
-
-  <!-- Albüm penceresi -->
+  <!-- ============================ ALBÜM MODALI ============================ -->
   <div id="albumModal" class="modal gizli">
-    <div class="modal-ic">
-      <h2>🖼️ Kombin Albümü</h2>
+    <div class="modal-ic genis">
+      <h2>🖼️ Albümüm</h2>
       <div id="albumGrid" class="album-grid"></div>
       <button class="kapat" data-kapat>Kapat</button>
     </div>
   </div>
 
-  <input id="dosyaGirisi" type="file" accept="image/*" capture="environment" hidden />
+  <!-- ============================ FOTOĞRAF EKLE MODALI ============================ -->
+  <div id="fotoModal" class="modal gizli">
+    <div class="modal-ic">
+      <h2>📷 Fotoğraf Ekle</h2>
+      <p>Ne eklemek istersin?</p>
+      <div class="secim-grid">
+        <button class="secim" data-kat="karakterler">🧍 Karakter</button>
+        <button class="secim" data-kat="kiyafetler">👗 Kıyafet</button>
+        <button class="secim" data-kat="aksesuarlar">👜 Aksesuar</button>
+        <button class="secim" data-kat="arkaplanlar">🌅 Arka Plan</button>
+      </div>
+      <button class="kapat" data-kapat>Vazgeç</button>
+    </div>
+  </div>
 
+  <!-- ============================ DEFİLE MODALI ============================ -->
+  <div id="defileModal" class="defile gizli">
+    <div class="defile-spot"></div>
+    <div class="defile-sahne">
+      <div id="defileGorsel" class="defile-gorsel"></div>
+      <div class="defile-yazi">✨ Muhteşemsin! ✨</div>
+    </div>
+    <div class="defile-araclar">
+      <button id="defileKaydet" class="arac-btn altin">📸 Albüme Kaydet</button>
+      <button id="defileKapat" class="arac-btn">Kapat</button>
+    </div>
+  </div>
+
+  <!-- ============================ YÖNETİM (ADMIN) MODALI ============================ -->
+  <div id="yonetimModal" class="modal gizli">
+    <div class="modal-ic genis yon-modal">
+      <h2>⚙️ Yönetim — Görsel Ekle</h2>
+
+      <!-- Şifre kapısı -->
+      <div id="yonGiris" class="yon-giris">
+        <p>Devam etmek için yönetim şifresini gir.</p>
+        <input id="yonParola" class="yon-input" type="password" placeholder="Yönetim şifresi" autocomplete="current-password" />
+        <div id="yonGirisHata" class="yon-hata gizli"></div>
+        <button id="yonGirisBtn" class="arac-btn vurgu">Giriş</button>
+      </div>
+
+      <!-- Panel -->
+      <div id="yonPanel" class="yon-panel gizli">
+        <div class="yon-bilgi">
+          📐 <b>Kurallar:</b> PNG · <b>1024×1365</b> (3:4) · arka plan <b>şeffaf</b> (sahneler hariç) ·
+          önden, ayakta, A-poz. Hizalamak için <a href="/assets/_referans/sablon.png" target="_blank">şablonu</a>
+          kullan. Parça yalnız kendi pikselini boyasın. (Yükleme yalnızca yerel sunucuda çalışır.)
+        </div>
+
+        <div class="yon-form">
+          <label>Kategori
+            <select id="yonSlot" class="yon-input">
+              <option value="modeller">🧍 Model (gövde)</option>
+              <option value="elbiseler" selected>👗 Elbise</option>
+              <option value="ayakkabilar">👠 Ayakkabı</option>
+              <option value="taclar">👑 Taç / Şapka</option>
+              <option value="takilar">💎 Kolye</option>
+              <option value="kanatlar">🦋 Kanat</option>
+              <option value="asalar">✨ Asa</option>
+              <option value="arkaplanlar">🌅 Arka plan</option>
+            </select>
+          </label>
+          <label>Dosya adı (id)
+            <input id="yonId" class="yon-input" type="text" placeholder="elb_yeni" />
+          </label>
+          <label>Görsel (PNG)
+            <input id="yonDosya" class="yon-input" type="file" accept="image/png,image/webp" />
+          </label>
+
+          <div id="yonKontrol" class="yon-kontrol"></div>
+          <div id="yonOnizleme" class="yon-onizleme gizli"><img id="yonOnizlemeImg" alt="önizleme" /></div>
+
+          <button id="yonYukleBtn" class="arac-btn vurgu" disabled>⬆️ Yükle</button>
+          <div id="yonSonuc" class="yon-sonuc"></div>
+        </div>
+
+        <div class="yon-liste-baslik">Mevcut görseller</div>
+        <div id="yonListe" class="yon-liste"></div>
+      </div>
+
+      <button class="kapat" data-kapat>Kapat</button>
+    </div>
+  </div>
+
+  <!-- ============================ EFEKTLER ============================ -->
+  <canvas id="konfeti" class="konfeti"></canvas>
   <div id="bildirim" class="bildirim gizli"></div>
+  <input type="file" id="dosyaGirisi" accept="image/*" style="display:none" />
 
+  <!-- ============================ KODLAR ============================ -->
+  <script src="dolap.js"></script>
+  <script src="ses.js"></script>
   <script src="app.js"></script>
+  <script src="admin.js"></script>
 </body>
 </html>

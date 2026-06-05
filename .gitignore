@@ -1,0 +1,50 @@
+# Python/runtime cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local virtual environments
+.venv/
+venv/
+env/
+
+# Node/local tooling
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Editor/OS noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.claude/
+
+# Local generated state
+.kenar_temizlendi
+*.log
+*.tmp
+*.temp
+
+# Project-local raw inputs, review outputs and backups
+_ham/
+_islenmis/
+_model_yeni/
+_yedek*/
+_eski_gorseller/
+
+# User-uploaded local photos should not be published to GitHub.
+fotograflar/**
+!fotograflar/
+!fotograflar/**/
+!fotograflar/**/.gitkeep

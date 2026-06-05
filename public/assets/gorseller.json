@@ -1,0 +1,82 @@
+{
+ "modeller": {
+  "m_ayla": "/assets/modeller/m_ayla.png",
+  "m_derya": "/assets/modeller/m_derya.png",
+  "m_elisa": "/assets/modeller/m_elisa.png",
+  "m_lara": "/assets/modeller/m_lara.png",
+  "m_mia": "/assets/modeller/m_mia.png",
+  "m_selin": "/assets/modeller/m_selin.png",
+  "m_yasemin": "/assets/modeller/m_yasemin.png",
+  "m_zoe": "/assets/modeller/m_zoe.png"
+ },
+ "arkaplanlar": {
+  "ap_altin_salon": "/assets/arkaplanlar/ap_altin_salon.png",
+  "ap_bahce": "/assets/arkaplanlar/ap_bahce.png",
+  "ap_balo": "/assets/arkaplanlar/ap_balo.png",
+  "ap_gece_balo": "/assets/arkaplanlar/ap_gece_balo.png",
+  "ap_kis_bahce": "/assets/arkaplanlar/ap_kis_bahce.png",
+  "ap_orman_aksam": "/assets/arkaplanlar/ap_orman_aksam.png",
+  "ap_pembe_podyum": "/assets/arkaplanlar/ap_pembe_podyum.png"
+ },
+ "kanatlar": {},
+ "elbiseler": {
+  "elb_balo_mavi": "/assets/elbiseler/elb_balo_mavi.png",
+  "elb_deniz_turkuaz": "/assets/elbiseler/elb_deniz_turkuaz.png",
+  "elb_esofman": "/assets/elbiseler/elb_esofman.png",
+  "elb_gece_bordo_tulum": "/assets/elbiseler/elb_gece_bordo_tulum.png",
+  "elb_gelinlik": "/assets/elbiseler/elb_gelinlik.png",
+  "elb_gul_pembe": "/assets/elbiseler/elb_gul_pembe.png",
+  "elb_inci_balo": "/assets/elbiseler/elb_inci_balo.png",
+  "elb_kazak": "/assets/elbiseler/elb_kazak.png",
+  "elb_kimono": "/assets/elbiseler/elb_kimono.png",
+  "elb_kirmizi_gece": "/assets/elbiseler/elb_kirmizi_gece.png",
+  "elb_kis_mavi": "/assets/elbiseler/elb_kis_mavi.png",
+  "elb_kot_ceket": "/assets/elbiseler/elb_kot_ceket.png",
+  "elb_kot_tulum": "/assets/elbiseler/elb_kot_tulum.png",
+  "elb_lacivert_gece": "/assets/elbiseler/elb_lacivert_gece.png",
+  "elb_mayo": "/assets/elbiseler/elb_mayo.png",
+  "elb_mor_saten": "/assets/elbiseler/elb_mor_saten.png",
+  "elb_okul": "/assets/elbiseler/elb_okul.png",
+  "elb_siyah": "/assets/elbiseler/elb_siyah.png",
+  "elb_spor_lila": "/assets/elbiseler/elb_spor_lila.png",
+  "elb_tulum": "/assets/elbiseler/elb_tulum.png",
+  "elb_turuncu": "/assets/elbiseler/elb_turuncu.png",
+  "elb_yazlik": "/assets/elbiseler/elb_yazlik.png",
+  "elb_zumrut": "/assets/elbiseler/elb_zumrut.png"
+ },
+ "ayakkabilar": {
+  "ayk_altin_sandalet": "/assets/ayakkabilar/ayk_altin_sandalet.png",
+  "ayk_bot": "/assets/ayakkabilar/ayk_bot.png",
+  "ayk_cam": "/assets/ayakkabilar/ayk_cam.png",
+  "ayk_gumus_cam": "/assets/ayakkabilar/ayk_gumus_cam.png",
+  "ayk_kirmizi_topuk": "/assets/ayakkabilar/ayk_kirmizi_topuk.png",
+  "ayk_lila_bot": "/assets/ayakkabilar/ayk_lila_bot.png",
+  "ayk_pembe_spor": "/assets/ayakkabilar/ayk_pembe_spor.png",
+  "ayk_sandalet": "/assets/ayakkabilar/ayk_sandalet.png",
+  "ayk_spor": "/assets/ayakkabilar/ayk_spor.png",
+  "ayk_topuk": "/assets/ayakkabilar/ayk_topuk.png"
+ },
+ "takilar": {
+  "kly_altin": "/assets/takilar/kly_altin.png",
+  "kly_gumus_kalp": "/assets/takilar/kly_gumus_kalp.png",
+  "kly_kalp": "/assets/takilar/kly_kalp.png",
+  "kly_mavi_kristal": "/assets/takilar/kly_mavi_kristal.png",
+  "kly_pembe_altin": "/assets/takilar/kly_pembe_altin.png",
+  "kly_zumrut_altin": "/assets/takilar/kly_zumrut_altin.png"
+ },
+ "saclar": {},
+ "taclar": {
+  "tac_bere": "/assets/taclar/tac_bere.png",
+  "tac_gumus_klasik": "/assets/taclar/tac_gumus_klasik.png",
+  "tac_gunes": "/assets/taclar/tac_gunes.png",
+  "tac_kelebek_toka": "/assets/taclar/tac_kelebek_toka.png",
+  "tac_klasik": "/assets/taclar/tac_klasik.png",
+  "tac_kovboy": "/assets/taclar/tac_kovboy.png",
+  "tac_lila_bere": "/assets/taclar/tac_lila_bere.png",
+  "tac_pembe_kelebek": "/assets/taclar/tac_pembe_kelebek.png",
+  "tac_siyah_kovboy": "/assets/taclar/tac_siyah_kovboy.png",
+  "tac_zumrut_kraliyet": "/assets/taclar/tac_zumrut_kraliyet.png"
+ },
+ "asalar": {},
+ "dolgun": {}
+}
