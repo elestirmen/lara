@@ -1,129 +1,120 @@
-# ✨ Sihirli Stil Stüdyosu
+# Leyla Stil Stüdyosu
 
-**Tüm yaşlara** uygun, **premium** bir moda & stil giydirme oyunu (Lara için yapıldı —
-varsayılan model **Lara** 🧡). Zarif bir manken/model figürünü giydirip stilliyorsun.
-Tüm gardırop (saçlar, elbiseler, tulumlar, taçlar, kanatlar, ayakkabılar, takılar,
-asalar, sahneler — **prenses, modern, gece ve günlük** stiller) oyunun içine
-çizilmiştir; hepsi tek dokunuşla mankene **otomatik oturur**. İstersen kendi
-fotoğraflarını da ekleyebilirsin. Her şey **kendi bilgisayarınızda** çalışır;
-fotoğraflar internete gönderilmez. 🔒
+Yetişkin kullanıma yönelik, fotogerçekçi PNG katmanlarıyla çalışan yerel giydirme
+stüdyosu. Varsayılan model ekranda **Leyla** olarak görünür; teknik dosya adı
+`m_lara` olarak korunur. Fotoğraflar ve yüklenen görseller yerel makineden dışarı
+gönderilmez.
 
----
-
-## ▶️ Nasıl başlatılır?
-
+## Başlatma
 ```bash
 bash /opt/lara/baslat.sh
 ```
-(veya `cd /opt/lara` sonra `node server.js`)
 
-Ekranda şuna benzer adresler çıkar:
+Terminalde çıkan adreslerden biriyle aç:
+- Bu bilgisayarda: `http://localhost:8080`
+- Aynı ağdaki tablette/telefonda: `http://<bilgisayar-ip>:8080`
 
-```
-Bu bilgisayarda aç:   http://localhost:8080
-Tablet/telefonda aç:  http://192.168.1.25:8080   (aynı wifi'de)
-```
-
-- **Bilgisayarda:** tarayıcıda `http://localhost:8080`
-- **Tablette/telefonda:** cihaz **aynı wifi'de** iken yukarıdaki `192.168.x.x:8080`
-
-Durdurmak için terminalde **Ctrl + C**.
-
-> İpucu: Tablette tarayıcı menüsünden **"Ana ekrana ekle"** → oyun uygulama gibi
-> bir simge olur. 📱  En iyi deneyim için tablet/telefonu **yatay** tutun.
-
----
-
-## 🎮 Oyun nasıl oynanır?
-
-Sağdaki dolaptan sekmeleri (👗 Elbise, 💇 Saç, 👑 Taç, 🦋 Kanat, 👠 Ayakkabı,
-💎 Takı, ✨ Asa) gez. Bir parçaya dokun → **anında mankene giydirilir**.
-Aynı parçaya tekrar dokunursan çıkar. Her slot için tek parça takılır, yani
-kombin hep tertemiz ve tutarlı görünür.
-
-- 🎨 **Renkler:** ten rengini ve saç rengini seç (9 saç rengi!).
-- 🎲 **Sürpriz:** tek tuşla rastgele, eğlenceli bir kombin oluşturur.
-- 🌟 **Defile:** kombini sahnede spot ışık, konfeti ve müzikle sergiler.
-- 🌟 **Görevler:** "Kar Prensesi", "Doğum Günü", "Orman Perisi" gibi tema
-  görevlerini tamamla, **⭐ yıldız** kazan (sağ üstte birikir).
-- 📸 **Kaydet / 🖼️ Albüm:** kombinin fotoğrafını çek, albümden cihaza indir.
-- 🎵 / 🔊 sağ üstten müzik ve sesi aç/kapat.
-
----
-
-## 🖼️ Lara kendi fotoğraflarını nasıl ekler?
-
-Dolapta **➕ Eşyalarım** sekmesi → **📷 Fotoğraf Ekle** → kategori seç → tabletle
-anında fotoğraf çek ya da galeriden seç. Fotoğraf **çıkartma** gibi sahnenin
-üstüne yapışır: parmakla sürükle, köşedeki ⤡ ile büyüt, ⟳ ile döndür, ✕ ile sil.
-Arka plan seçersen tüm sahneyi kaplar.
-
-İsterseniz fotoğrafları elle de koyabilirsiniz (oyun otomatik görür):
-
-```
-/opt/lara/fotograflar/
-├── karakterler/   → Lara'nın fotoğrafı, çizgi karakterler
-├── kiyafetler/    → gerçek kıyafet fotoğrafları
-├── aksesuarlar/   → taç, çanta, gözlük...
-└── arkaplanlar/   → ev, bahçe, tatil fotoğrafları
-```
-Desteklenen tipler: `png, jpg, jpeg, gif, webp, svg`
-
-> Eski örnek çizimler `/opt/lara/_eski_gorseller/` klasörüne taşındı (silinmedi).
-
----
-
-## ⚙️ Yönetim — kolayca gerçekçi görsel ekleme (şifreli)
-
-Üst bardaki **⚙️** butonu → **yönetim şifresi** (varsayılan `lara2018`; değiştirmek için
-`LARA_ADMIN="yeniSifre" node server.js`). Panelde:
-
-- **Kategori** seç (Model / Elbise / Ayakkabı / Taç / Kolye / Kanat / Asa / Arka plan),
-  **dosya adı (id)** ver, **PNG** seç → otomatik kontrol: tür, **1024×1365 (3:4)** boyut,
-  şeffaflık + önizleme. Uygunsa **⬆️ Yükle**. Eklenen parça anında dolapta görünür.
-- Alttaki listeden **🗑️** ile silebilirsin. Yönergeler panelin içinde yazılıdır.
-
-> Yükleme **yerel sunucu** gerektirir: tarayıcıda `http://localhost:8080` (ya da tabletten
-> `http://<bilgisayar-ip>:8080`). Dosyalar `public/assets/`'e yazıldığı için yayında
-> (perinet.org) otomatik görünür — izleyiciler **Ctrl+Shift+R** ile tazeler.
-> Görselleri AI ile üretmek için: `public/assets/_referans/AI_PROMPTLAR.md`.
-
-### Yeni parça eklerken kenarlar tertemiz olsun
-İki yol var:
-1. **Hazır PNG'yi panelden yükle** (en kolay): zaten kestiğin/temizlediğin 1024×1365 şeffaf PNG'yi
-   ⚙️ panelinden ekle. Kenarda hâle kalırsa: `bash /opt/lara/guncelle.sh` (hâleyi kırpar + thumbnail + manifest).
-2. **Ham (arka planlı) görseli otomatik kestir** — *yalnız ürünü izole üret, giydirilmiş değil*:
-   - Ürünü **tek başına** (flat-lay / düz-beyaz veya şeffaf zemin), **1024×1365 (3:4)** üret.
-   - `/opt/lara/_ham/` içine `<id>.png` olarak koy.
-   - Çalıştır: `/opt/lara/.venv/bin/python /opt/lara/process_images.py _ham --apply`
-     (BiRefNet/u2net + beyaz-despill ile arka planı tertemiz kaldırır, 1024×1365'e hizalar.)
-   - Sonra: `bash /opt/lara/thumbnails.sh && node /opt/lara/tara.js` → tarayıcıda **Ctrl+Shift+R**.
-
-> ⚠️ Not: `process_images.py` **kişiyi** keser. Modeller (gövde) ve **izole** ürünler için doğrudur;
-> "ürünü giymiş kişi" görselinden **yalnız ürünü** çıkaramaz (gövdeyi de tutar) — o yüzden kıyafet/
-> ayakkabı/aksesuarı **giydirilmeden, tek başına** üret.
-
----
-
-## 🌐 İnternetten yayınlarken (keenetic.link)
-
-Dışarıya açarken **mutlaka parola** koyun:
-
+Farklı port:
 ```bash
-LARA_PAROLA="gizliParola" node server.js
+PORT=3000 node /opt/lara/server.js
 ```
-Yayın adresi (router yönlendirmesi gerekir): `https://lara.urgup.keenetic.link`
 
----
+## Kullanım
+- Sağdaki sekmelerden model, elbise, özel parça, taç, kanat, ayakkabı, takı, asa ve
+  arka plan seçilir.
+- PNG parça varsa fotogerçekçi görsel kullanılır; yoksa vektör fallback görünür.
+- Saçlar model PNG'sine bake'li kabul edilir. Ayrı `saclar/*.png` eklenirse saç
+  sekmesi görünür.
+- Beden slider'ı hazır `_beden/b20..b100` PNG varyantları arasında geçiş yapar.
+- Kaydet/Albüm seçenekleri kombinleri tarayıcının localStorage alanında saklar.
 
-## 🎨 Kişiselleştirme
+## Yönetim Paneli
+Üst bardaki ⚙️ butonu admin panelini açar.
 
-- Başlık: `public/index.html`
-- Renkler/yazı tipi/animasyonlar: `public/style.css` (`--turuncu` vb.)
-- **Yeni kıyafet/saç/taç eklemek:** `public/dolap.js` — her parça 600×800
-  ortak koordinatta çizilen küçük bir SVG'dir; mevcut bir tanesini kopyalayıp
-  uyarlamak en kolayı. Sesler: `public/ses.js`. Oyun mantığı: `public/app.js`.
-- Port: `PORT=3000 node server.js`
+Varsayılan şifre:
+```bash
+lara2018
+```
 
-Yeni özellik (daha çok kıyafet, evcil hayvan, çıkartma paketleri, mevsimler…)
-istediğinizde söyleyin, ekleyelim. 🧡
+Değiştirmek için:
+```bash
+LARA_ADMIN="yeniSifre" node /opt/lara/server.js
+```
+
+Yükleme kuralları:
+- PNG
+- Tam 1024x1365 px
+- Arka planlar opak, diğer tüm slotlarda dört köşe şeffaf alpha
+- Önden hizalı, sablonla uyumlu
+- Slotlar: `modeller, arkaplanlar, kanatlar, elbiseler, ayakkabilar, takilar, saclar,
+  taclar, asalar, ozel`
+
+Yeni PNG için görünen ad, emoji ve görev etiketleri:
+```text
+public/assets/metadata.json
+```
+
+Görsel ekledikten sonra:
+```bash
+bash /opt/lara/guncelle.sh
+```
+
+Tam kalite kapısını tek başına çalıştırmak için:
+```bash
+/opt/lara/.venv/bin/python /opt/lara/quality_gate.py
+```
+Bu komut PNG sözleşmesini, beden slider oranlarını, kompozit smoke testlerini,
+elbise kontakt sayfasını, manifest invariantlarını ve prompt endpoint/CLI
+eşleşmesini kontrol eder.
+
+Beden slider varyantlarını yeniden üretmek için:
+```bash
+/opt/lara/.venv/bin/python /opt/lara/beden_uret.py --clean
+node /opt/lara/tara.js
+```
+
+## AI Görsel Üretimi
+Prompt rehberi:
+```text
+public/assets/_referans/AI_PROMPTLAR.md
+```
+
+Slot/ID'ye uygun tek prompt üret:
+```bash
+/opt/lara/.venv/bin/python /opt/lara/prompt_build.py elb_yeni --slot elbiseler \
+  --description "red satin evening dress"
+```
+
+Temel kural: tüm katmanlar 1024x1365, aynı kamera, aynı hizalama ve aynı merkez eksenle
+üretilir. Model `modeller/m_lara.png`, ekranda Leyla adını taşır. Yeni model
+üretirken gövde ölçeği mevcut modellerle aynı kalmalı; büyük/zoomlu mankenler tüm
+elbiseleri uyumsuz yapar.
+
+Kıyafet ve aksesuar üretirken iki güvenli yol var:
+- Hazır şeffaf 1024x1365 PNG üretip admin panelinden yükle.
+- Ürünü tek başına beyaz arka planla üret, sonra kes:
+```bash
+mkdir -p /opt/lara/_ham
+/opt/lara/.venv/bin/python /opt/lara/process_images.py /opt/lara/_ham --apply
+bash /opt/lara/guncelle.sh
+```
+
+Önemli: `process_images.py` ürünü giymiş kişiden yalnız kıyafeti çıkaramaz. Ürünleri
+tek başına, modelden ayrı üret.
+
+## Production
+`https://lara.perinet.org`, Nginx Proxy Manager üzerinden `lara-web` Docker konteynerine
+gider. Konteyner `/opt/lara` klasörünü `/app` olarak mount eder ve `node server.js`
+çalıştırır.
+
+`server.js` değiştiyse:
+```bash
+docker restart lara-web
+```
+
+HTML/JS/CSS/assets değiştiyse restart gerekmez; tarayıcıda Ctrl+Shift+R yeterlidir.
+
+Dış yayında mutlaka parola kullan:
+```bash
+LARA_PAROLA="gizliParola" node /opt/lara/server.js
+```

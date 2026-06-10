@@ -3,7 +3,7 @@
 # Yeni görsel ekleyince tekrar çalıştır: bash /opt/lara/thumbnails.sh
 set -e
 A="/opt/lara/public/assets"
-for slot in modeller elbiseler ayakkabilar taclar takilar kanatlar asalar arkaplanlar; do
+for slot in modeller elbiseler ayakkabilar taclar takilar kanatlar asalar arkaplanlar ozel; do
   mkdir -p "$A/_thumb/$slot"
   for f in "$A/$slot"/*.png "$A/$slot"/*.webp; do
     [ -e "$f" ] || continue

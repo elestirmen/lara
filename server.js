@@ -1,4 +1,4 @@
-// Lara'nın Sihirli Dolabı - küçük yerel sunucu
+// Leyla Stil Stüdyosu - küçük yerel sunucu
 // Sadece Node.js'in kendi modüllerini kullanır (kurulum/npm gerekmez).
 // Hiçbir şey internete gönderilmez; sadece evdeki cihazlara wifi üzerinden hizmet verir.
 
@@ -6,6 +6,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
+const zlib = require("zlib");
 
 const ROOT = __dirname;
 const PUBLIC = path.join(ROOT, "public");
@@ -25,9 +26,26 @@ const KATEGORILER = ["karakterler", "kiyafetler", "saclar", "aksesuarlar", "arka
 const RESIM_UZANTI = [".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"];
 
 // Gerçekçi (raster) gardırop override'ları: public/assets/<slot>/<id>.png varsa
-// oyun o parçanın vektör çizimi yerine bu PNG'yi kullanır. (drop-in; kod değişmez)
-const GORSEL_SLOTLAR = ["modeller", "arkaplanlar", "kanatlar", "elbiseler", "ayakkabilar", "takilar", "saclar", "taclar", "asalar"];
+// oyun o parçanın vektör çizimi yerine bu PNG'yi kullanır.
+const GORSEL_SLOTLAR = ["modeller", "arkaplanlar", "kanatlar", "elbiseler", "ayakkabilar", "takilar", "saclar", "taclar", "asalar", "ozel"];
 const ASSETS = path.join(PUBLIC, "assets");
+const PROMPT_CONTRACT_PATH = path.join(ASSETS, "_referans", "prompt_contract.json");
+
+const PROMPT_FALLBACK = {
+  master: "Photorealistic full-body fashion paper-doll layer for a local dress-up studio.\nExact canvas: 1024x1365 px, 3:4 portrait. Front view, centered on x512,\ncamera at chest height, no perspective tilt, no crop, head and both feet fully visible.\nSame adult female figure proportions and pose across every layer: standing straight,\nsymmetrical neutral A-pose, arms slightly away from torso, hands relaxed beside hips,\nlegs together, even weight, calm neutral expression.\n\nLock landmarks on the 1024x1365 canvas:\ntop of head y~130, eyes y~266, chin y~372, shoulders y~420, bust y~512,\nnarrow waist y~645, hips y~708, knees y~983, ankles y~1215, soles y~1269.\nVisible model alpha bbox target: x~378..647, y~100..1335, center x~512,\noverall visible width MUST BE exactly around 270 px. CRITICAL: Do NOT generate a larger, \ncloser, wider, zoomed-in, thicker, or different-scale body. Any deviation breaks the game. \nKeep arms near the existing A-pose reference.\nSoft even studio lighting, realistic fabric/material detail, no floor shadow unless\nthe slot is arkaplanlar.",
+  model: "Render one adult female model only. Transparent background.\nSimple matte black bra and brief set. Hair is baked into the model image.\nVisible alpha bbox target: x~378..647, y~100..1335, center x~512, visible width about 270 px.\nDo not make the body larger, closer to camera, wider, cropped, or different scale.",
+  layer: "Render ONLY the requested wardrobe item pixels. Transparent background.\nNo body, no skin, no mannequin, no face, no hair unless the slot is saclar,\nno background, no text. Align to Leyla/Yuna canonical 1024x1365 A-pose.\nFor fitted dresses and torso garments target: shoulder width ~200 px,\nbust ~205 px, waist ~245 px, hip ~255 px.",
+  background: "Render an opaque full-screen background, exact 1024x1365 px.\nNo person, no text, no watermark. Keep the center readable for the model layer.",
+  negative: "text, watermark, logo, extra people, cropped body, cropped head, cropped feet,\nside view, turned body, mismatched pose, extra limbs, bad hands, deformed fingers,\nbusy background, hard cast shadow, wrong canvas ratio, low quality, oversized body,\nzoomed body, thick proportions, giant model, wider pose, arms too far from torso, baked shoes in clothing layer,\nbaked skin/body in wardrobe layer, mismatched scale",
+};
+
+function promptContractOku() {
+  try {
+    return { ...PROMPT_FALLBACK, ...JSON.parse(fs.readFileSync(PROMPT_CONTRACT_PATH, "utf8")) };
+  } catch (e) {
+    return PROMPT_FALLBACK;
+  }
+}
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -111,19 +129,13 @@ function gorselleriListele() {
   for (const slot of GORSEL_SLOTLAR) {
     sonuc[slot] = slotTara(ASSETS, slot);
   }
-  // Dolgun (balık etli) beden varyantları
-  const dolgun = {};
-  for (const slot of GORSEL_SLOTLAR) {
-    const h = slotTara(path.join(ASSETS, "_dolgun"), slot);
-    if (Object.keys(h).length) dolgun[slot] = h;
-  }
-  sonuc.dolgun = dolgun;
-
   // Slider icin onceden uretilmis beden seviyeleri: _beden/b20/<slot>/<id>.png
   const beden = {};
   try {
-    for (const level of fs.readdirSync(path.join(ASSETS, "_beden")).sort()) {
-      if (!/^b\d{2,3}$/.test(level)) continue;
+    const seviyeler = fs.readdirSync(path.join(ASSETS, "_beden"))
+      .filter((level) => /^b\d{2,3}$/.test(level))
+      .sort((a, b) => Number(a.slice(1)) - Number(b.slice(1)));
+    for (const level of seviyeler) {
       const bySlot = {};
       for (const slot of GORSEL_SLOTLAR) {
         const h = slotTara(path.join(ASSETS, "_beden", level), slot);
@@ -136,8 +148,7 @@ function gorselleriListele() {
   return sonuc;
 }
 
-// Statik manifest: node'suz (statik) yayında da override'lar yüklensin diye
-// public/assets/gorseller.json dosyasını günceller.
+// Manifest: API ve statik fallback aynı asset listesini kullansın diye güncellenir.
 function gorselleriYaz() {
   try {
     const gorseller = gorselleriListele();
@@ -201,10 +212,81 @@ function govdeOku(req, limitMB, cb) {
   });
 }
 
-// PNG genişlik/yükseklik (IHDR'den) — kütüphanesiz boyut kontrolü
-function pngBoyut(buf) {
-  if (buf.length < 24 || buf.toString("ascii", 12, 16) !== "IHDR") return null;
-  return { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) };
+// PNG kalite kontrolü — kütüphanesiz IHDR + alpha/corner kontrolü.
+function pngAnaliz(buf) {
+  const imza = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
+  if (buf.length < 33 || !buf.subarray(0, 8).equals(imza)) return null;
+  let p = 8;
+  let ihdr = null;
+  const idat = [];
+  while (p + 8 <= buf.length) {
+    const len = buf.readUInt32BE(p); p += 4;
+    const type = buf.toString("ascii", p, p + 4); p += 4;
+    if (p + len + 4 > buf.length) return null;
+    const data = buf.subarray(p, p + len); p += len + 4; // CRC atlanır
+    if (type === "IHDR") {
+      ihdr = {
+        w: data.readUInt32BE(0),
+        h: data.readUInt32BE(4),
+        bitDepth: data[8],
+        colorType: data[9],
+      };
+    } else if (type === "IDAT") {
+      idat.push(data);
+    } else if (type === "IEND") {
+      break;
+    }
+  }
+  if (!ihdr) return null;
+  const hasAlpha = ihdr.colorType === 4 || ihdr.colorType === 6;
+  const sonuc = { ...ihdr, hasAlpha, cornerAlpha: null, transparentCorners: false };
+  if (!hasAlpha || ihdr.bitDepth !== 8 || !idat.length) return sonuc;
+
+  const channels = ihdr.colorType === 6 ? 4 : 2;
+  const bpp = channels;
+  const rowBytes = ihdr.w * channels;
+  let raw;
+  try { raw = zlib.inflateSync(Buffer.concat(idat)); } catch (e) { return sonuc; }
+  if (raw.length < (rowBytes + 1) * ihdr.h) return sonuc;
+
+  const rows = [];
+  let prev = Buffer.alloc(rowBytes);
+  let off = 0;
+  for (let y = 0; y < ihdr.h; y++) {
+    const filter = raw[off++];
+    const cur = Buffer.from(raw.subarray(off, off + rowBytes));
+    off += rowBytes;
+    for (let x = 0; x < rowBytes; x++) {
+      const left = x >= bpp ? cur[x - bpp] : 0;
+      const up = prev[x] || 0;
+      const upLeft = x >= bpp ? prev[x - bpp] || 0 : 0;
+      let val = cur[x];
+      if (filter === 1) val = (val + left) & 255;
+      else if (filter === 2) val = (val + up) & 255;
+      else if (filter === 3) val = (val + Math.floor((left + up) / 2)) & 255;
+      else if (filter === 4) {
+        const pr = left + up - upLeft;
+        const pa = Math.abs(pr - left), pb = Math.abs(pr - up), pc = Math.abs(pr - upLeft);
+        val = (val + (pa <= pb && pa <= pc ? left : (pb <= pc ? up : upLeft))) & 255;
+      } else if (filter !== 0) {
+        return sonuc;
+      }
+      cur[x] = val;
+    }
+    rows.push(cur);
+    prev = cur;
+  }
+  const alphaAt = (x, y) => rows[y][x * channels + channels - 1];
+  const ca = [
+    alphaAt(0, 0),
+    alphaAt(ihdr.w - 1, 0),
+    alphaAt(0, ihdr.h - 1),
+    alphaAt(ihdr.w - 1, ihdr.h - 1),
+  ];
+  sonuc.cornerAlpha = ca;
+  sonuc.transparentCorners = ca.every((a) => a < 8);
+  sonuc.opaqueCorners = ca.every((a) => a > 247);
+  return sonuc;
 }
 
 function adminYanit(res, kod, obj) {
@@ -220,15 +302,23 @@ function adminYukle(req, res) {
     if (!slot) return adminYanit(res, 400, { hata: "Geçersiz kategori" });
     const id = String(v.id || "").toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 40);
     if (!id) return adminYanit(res, 400, { hata: "Geçersiz dosya adı (id)" });
-    const m = /^data:image\/(png|webp);base64,(.+)$/.exec(v.dataUrl || "");
-    if (!m) return adminYanit(res, 400, { hata: "Sadece PNG veya WebP yüklenebilir" });
-    const ext = m[1] === "webp" ? "webp" : "png";
-    const buf = Buffer.from(m[2], "base64");
-    if (ext === "png") {
-      const b = pngBoyut(buf);
-      if (!b) return adminYanit(res, 400, { hata: "PNG okunamadı/bozuk" });
-      if (Math.abs(b.w / b.h - 3 / 4) > 0.02) {
-        return adminYanit(res, 400, { hata: `Oran 3:4 olmalı (1024×1365). Gelen: ${b.w}×${b.h}` });
+    const m = /^data:image\/png;base64,(.+)$/.exec(v.dataUrl || "");
+    if (!m) return adminYanit(res, 400, { hata: "Sadece 1024×1365 PNG yüklenebilir" });
+    const ext = "png";
+    const buf = Buffer.from(m[1], "base64");
+    const b = pngAnaliz(buf);
+    if (!b) return adminYanit(res, 400, { hata: "PNG okunamadı/bozuk" });
+    if (b.w !== 1024 || b.h !== 1365) {
+      return adminYanit(res, 400, { hata: `Boyut tam 1024×1365 olmalı. Gelen: ${b.w}×${b.h}` });
+    }
+    if (slot === "arkaplanlar") {
+      if (b.hasAlpha && !b.opaqueCorners) {
+        return adminYanit(res, 400, { hata: "Arka plan PNG'sinin köşeleri opak olmalı" });
+      }
+    } else {
+      if (!b.hasAlpha) return adminYanit(res, 400, { hata: "Parça PNG'sinde alpha/şeffaflık kanalı olmalı" });
+      if (!b.transparentCorners) {
+        return adminYanit(res, 400, { hata: "Parça dışı şeffaf olmalı; dört köşe tamamen şeffaf bekleniyor" });
       }
     }
     try {
@@ -236,6 +326,7 @@ function adminYukle(req, res) {
         const p = path.join(ASSETS, slot, id + "." + e);
         if (fs.existsSync(p)) fs.unlinkSync(p);
       }
+      fs.mkdirSync(path.join(ASSETS, slot), { recursive: true });
       fs.writeFileSync(path.join(ASSETS, slot, id + "." + ext), buf);
       gorselleriYaz();
       adminYanit(res, 200, { ok: true, slot, id, url: "/assets/" + slot + "/" + id + "." + ext });
@@ -262,6 +353,52 @@ function adminSil(req, res) {
   });
 }
 
+function metadataOku() {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(ASSETS, "metadata.json"), "utf8"));
+  } catch (e) {
+    return {};
+  }
+}
+
+function promptUret(slot, id, description) {
+  const meta = (metadataOku()[slot] || {})[id] || {};
+  const ad = meta.ad || id;
+  const emoji = meta.emoji || "✨";
+  const etiketler = Array.isArray(meta.etiketler) ? meta.etiketler : [];
+  const prompts = promptContractOku();
+  const contract = slot === "arkaplanlar" ? prompts.background : (slot === "modeller" ? prompts.model : prompts.layer);
+  const output = slot === "arkaplanlar"
+    ? "PNG, exact 1024x1365 px. Opaque image."
+    : "PNG, exact 1024x1365 px. Transparent alpha outside the item; all four corners alpha=0.";
+  return `id=${id} | slot=${slot} | ad=${ad} | emoji=${emoji} | etiketler=${JSON.stringify(etiketler)}
+
+PROMPT:
+${prompts.master}
+${contract}
+Requested item/model/background: ${description || ad}.
+
+NEGATIVE PROMPT:
+${prompts.negative}
+
+OUTPUT CONTRACT:
+${output}
+Run after generation:
+/opt/lara/.venv/bin/python /opt/lara/asset_quality.py`;
+}
+
+function adminPrompt(req, res) {
+  govdeOku(req, 1, (err, v) => {
+    if (err) return adminYanit(res, 400, { hata: "Geçersiz istek" });
+    if (!v || v.parola !== ADMIN) return adminYanit(res, 401, { hata: "Yönetim şifresi yanlış" });
+    const slot = GORSEL_SLOTLAR.includes(v.slot) ? v.slot : null;
+    const id = String(v.id || "").toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 40);
+    const desc = String(v.description || "").slice(0, 240);
+    if (!slot || !id) return adminYanit(res, 400, { hata: "Geçersiz slot/id" });
+    adminYanit(res, 200, { ok: true, prompt: promptUret(slot, id, desc) });
+  });
+}
+
 function yetkiVar(req) {
   if (!PAROLA) return true; // parola ayarlı değilse serbest (ev ağı)
   const m = /^Basic (.+)$/.exec(req.headers.authorization || "");
@@ -277,7 +414,7 @@ const sunucu = http.createServer((req, res) => {
   // Parola koruması (internetten yayında)
   if (!yetkiVar(req)) {
     res.writeHead(401, {
-      "WWW-Authenticate": 'Basic realm="Lara\'nin Sihirli Dolabi"',
+      "WWW-Authenticate": 'Basic realm="Leyla Stil Studyosu"',
       "Content-Type": "text/plain; charset=utf-8",
     });
     res.end("Parola gerekli");
@@ -305,6 +442,7 @@ const sunucu = http.createServer((req, res) => {
   }
   if (yol === "/api/admin/yukle" && req.method === "POST") { adminYukle(req, res); return; }
   if (yol === "/api/admin/sil" && req.method === "POST") { adminSil(req, res); return; }
+  if (yol === "/api/admin/prompt" && req.method === "POST") { adminPrompt(req, res); return; }
 
   // API: fotoğraf yükleme
   if (yol === "/api/upload" && req.method === "POST") {
@@ -355,7 +493,7 @@ try {
 } catch (e) {}
 
 sunucu.listen(PORT, "0.0.0.0", () => {
-  console.log("\n👑  Lara'nın Sihirli Dolabı çalışıyor!\n");
+  console.log("\n👑  Leyla Stil Stüdyosu çalışıyor!\n");
   console.log("  Bu bilgisayarda aç:   http://localhost:" + PORT);
   for (const a of yerelAdresler()) {
     console.log("  Tablet/telefonda aç:  http://" + a + ":" + PORT + "   (aynı wifi'de)");

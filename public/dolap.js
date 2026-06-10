@@ -1,6 +1,6 @@
 "use strict";
 /*
-  Lara'nın Sihirli Dolabı — Premium Yetişkin Mankenler & Vektör Gardırop Kütüphanesi (Genişletilmiş)
+  Leyla Stil Stüdyosu — Premium Yetişkin Mankenler & Vektör Gardırop Kütüphanesi (Genişletilmiş)
   ---------------------------------------------------------------------------------
   Mankenlerin vücut yapıları gerçekçi yetişkin oranlarına göre tasarlanmıştır. 
   Tüm gardırop sekmeleri iki katına çıkarılarak geniş bir koleksiyon oluşturulmuştur.
@@ -154,7 +154,7 @@ const VUCUT_SVG = S(vucutGovde());
 
 /* ============================ KARAKTER SEÇENEKLERİ (8 MODEL) ============================ */
 const MANKENLER = [
-  { id: "m_lara", ad: "Lara", emoji: "🧡",
+  { id: "m_lara", ad: "Leyla", emoji: "🧍",
     ten: "#f9d0a6", goz: "#5c3d24", ruj: "#ff758f", allik: "#ffb3c1",
     sac: "sac_dalgali", sacRenk: "#e76f51", svg: VUCUT_SVG },
   { id: "m_mia", ad: "Mia", emoji: "👑",
@@ -323,6 +323,13 @@ const ELBISELER = [
   { id: "elb_yazlik", ad: "Çiçekli Yazlık Elbise", emoji: "🌼", svg: elbiseSVG({ id: "elb_yazlik", ust: "#fff0f3", alt: "#ffb3c1", boy: "kisa" }), etiketler: ["gunluk", "yaz", "bahce", "modern"] },
   { id: "elb_tulum", ad: "Şık Gece Tulumu", emoji: "🌃", svg: pantolonSVG({ id: "elb_tulum", ust: "#5a3e85", alt: "#2d1b4e" }), etiketler: ["gece", "modern", "mor"] },
   { id: "elb_kot_tulum", ad: "Kot Tulum", emoji: "👖", svg: pantolonSVG({ id: "elb_kot_tulum", ust: "#6699cc", alt: "#3a5e85" }), etiketler: ["gunluk", "modern", "spor"] },
+  { id: "elb_deniz_turkuaz", ad: "Deniz Turkuazı", emoji: "🌊", svg: elbiseSVG({ id: "elb_deniz_turkuaz", ust: "#67e8f9", alt: "#0891b2", boy: "kisa" }), etiketler: ["mavi", "yaz", "sahil"] },
+  { id: "elb_gece_bordo_tulum", ad: "Bordo Gece Tulumu", emoji: "🍷", svg: pantolonSVG({ id: "elb_gece_bordo_tulum", ust: "#7f1d1d", alt: "#3f0f1f" }), etiketler: ["gece", "modern", "kirmizi"] },
+  { id: "elb_gul_pembe", ad: "Gül Pembe Elbise", emoji: "🌸", svg: elbiseSVG({ id: "elb_gul_pembe", ust: "#fecdd3", alt: "#fb7185", boy: "kisa" }), etiketler: ["pembe", "balo", "dogumgunu"] },
+  { id: "elb_inci_balo", ad: "İnci Balo Elbisesi", emoji: "🦪", svg: elbiseSVG({ id: "elb_inci_balo", ust: "#dbeafe", alt: "#2563eb" }), etiketler: ["balo", "saray", "beyaz"] },
+  { id: "elb_lacivert_gece", ad: "Lacivert Gece", emoji: "🌌", svg: elbiseSVG({ id: "elb_lacivert_gece", ust: "#312e81", alt: "#1e1b4b" }), etiketler: ["gece", "modern", "mavi"] },
+  { id: "elb_mor_saten", ad: "Mor Saten", emoji: "💜", svg: elbiseSVG({ id: "elb_mor_saten", ust: "#6d28d9", alt: "#3b0764" }), etiketler: ["mor", "gece", "balo"] },
+  { id: "elb_yuna_latex", ad: "Siyah Lateks Mini", emoji: "🖤", svg: elbiseSVG({ id: "elb_yuna_latex", ust: "#111827", alt: "#030712", boy: "kisa" }), etiketler: ["siyah", "gece", "modern", "lateks", "test"] },
 
   // Batch 2 Eklenen 8 Elbise
   { id: "elb_gelinlik", ad: "Zarif Beyaz Gelinlik", emoji: "👰", svg: elbiseSVG({ id: "elb_gelinlik", ust: "#ffffff", alt: "#f8fafc" }), etiketler: ["saray", "balo", "beyaz"] },
@@ -331,6 +338,7 @@ const ELBISELER = [
   { id: "elb_kot_ceket", ad: "Kot Ceket & Jean Pantolon", emoji: "🧥", svg: pantolonSVG({ id: "elb_kot_ceket", ust: "#2563eb", alt: "#1d4ed8" }), etiketler: ["gunluk", "spor", "mavi"] },
   { id: "elb_esofman", ad: "Spor Eşofman Takımı", emoji: "🏃‍♀️", svg: pantolonSVG({ id: "elb_esofman", ust: "#059669", alt: "#047857" }), etiketler: ["gunluk", "spor", "yesil"] },
   { id: "elb_kazak", ad: "Örgü Kazak Elbise", emoji: "🧶", svg: elbiseSVG({ id: "elb_kazak", ust: "#d97706", alt: "#b45309", boy: "kisa" }), etiketler: ["gunluk", "kis", "turuncu"] },
+  { id: "elb_kis_mavi", ad: "Kış Mavisi Elbise", emoji: "❄️", svg: elbiseSVG({ id: "elb_kis_mavi", ust: "#e0f2fe", alt: "#60a5fa", boy: "kisa" }), etiketler: ["mavi", "kis", "kar"] },
   { id: "elb_okul", ad: "Okul Üniforması", emoji: "🎒", svg: elbiseSVG({ id: "elb_okul", ust: "#1e293b", alt: "#334155", boy: "kisa" }), etiketler: ["gunluk", "modern"] },
   { id: "elb_mayo", ad: "Tasarım Mayo & Sarong", emoji: "🩱", svg: elbiseSVG({ id: "elb_mayo", ust: "#0891b2", alt: "#0e7490", boy: "kisa" }), etiketler: ["yaz", "sahil", "mavi"] },
 
@@ -340,7 +348,14 @@ const ELBISELER = [
   { id: "elb_gotik", ad: "Gotik Gece Elbisesi", emoji: "🖤", svg: elbiseSVG({ id: "elb_gotik", ust: "#111827", alt: "#030712", boy: "uzun" }), etiketler: ["gece", "siyah"] },
   { id: "elb_prenses_lila", ad: "Lila Prenses Elbisesi", emoji: "🦄", svg: elbiseSVG({ id: "elb_prenses_lila", ust: "#c084fc", alt: "#a855f7", boy: "uzun" }), etiketler: ["balo", "saray", "mor"] },
   { id: "elb_cicek_desen", ad: "Papatya Yazlık Elbise", emoji: "🌼", svg: elbiseSVG({ id: "elb_cicek_desen", ust: "#a7f3d0", alt: "#059669", boy: "kisa" }), etiketler: ["gunluk", "yaz", "yesil"] },
-  { id: "elb_safari", ad: "Safari Tulumu", emoji: "🏕️", svg: pantolonSVG({ id: "elb_safari", ust: "#78350f", alt: "#451a03" }), etiketler: ["gunluk", "spor"] }
+  { id: "elb_safari", ad: "Safari Tulumu", emoji: "🏕️", svg: pantolonSVG({ id: "elb_safari", ust: "#78350f", alt: "#451a03" }), etiketler: ["gunluk", "spor"] },
+
+  // esr_ serisi elbiseler (raster override)
+  { id: "elb_esr_siyah_gece", ad: "Esra Siyah Gece Elbisesi", emoji: "🖤", svg: elbiseSVG({ id: "elb_esr_siyah_gece", ust: "#16161d", alt: "#3a3a46", boy: "uzun" }), etiketler: ["modern", "gece", "siyah"] },
+  { id: "elb_esr_yesil_mini", ad: "Esra Yeşil Mini Elbise", emoji: "💚", svg: elbiseSVG({ id: "elb_esr_yesil_mini", ust: "#34d399", alt: "#065f46", boy: "kisa" }), etiketler: ["yesil", "modern"] },
+  { id: "elb_esr_kirmizi_balik", ad: "Esra Kırmızı Balık Elbisesi", emoji: "❤️", svg: elbiseSVG({ id: "elb_esr_kirmizi_balik", ust: "#ff5d73", alt: "#9d0208", boy: "uzun" }), etiketler: ["kirmizi", "balo", "modern"] },
+  { id: "elb_esr_kirmizi_siyah", ad: "Esra Kırmızı Siyah Kokteyl", emoji: "🖤", svg: elbiseSVG({ id: "elb_esr_kirmizi_siyah", ust: "#16161d", alt: "#9d0208", boy: "uzun" }), etiketler: ["kirmizi", "siyah", "modern"] },
+  { id: "elb_esr_mavi_tuy", ad: "Esra Mavi Tüylü Elbise", emoji: "💙", svg: elbiseSVG({ id: "elb_esr_mavi_tuy", ust: "#1d4ed8", alt: "#1e3a8a", boy: "uzun" }), etiketler: ["mavi", "modern", "balo"] }
 ];
 
 /* ============================== TAÇ & ŞAPKA (10 ADET) =============================== */
@@ -497,6 +512,8 @@ const GOREVLER = [
     aciklama: "Gece temalı şık ve asil bir kombini tamamlayarak gökyüzünü izle.", gerek: ["gece"], yildiz: 2 },
 ];
 
+const OZEL = [];
+
 /* ============================= DIŞA AKTAR ================================== */
 // Figürü sahneye oturtan yumuşak zemin gölgesi (ayak hizasında, bulanık elips)
 const GOLGE_SVG = S(
@@ -519,6 +536,7 @@ const DOLAP = {
     { id: "arkaplanlar", ad: "Sahne Seç", emoji: "🏰", liste: ARKAPLANLAR, zorunlu: true },
     { id: "kanatlar", ad: "Kanatlar", emoji: "🦋", liste: KANATLAR },
     { id: "elbiseler", ad: "Elbise", emoji: "👗", liste: ELBISELER },
+    { id: "ozel", ad: "Özel", emoji: "🖤", liste: OZEL },
     { id: "ayakkabilar", ad: "Ayakkabı", emoji: "👠", liste: AYAKKABILAR },
     { id: "takilar", ad: "Kolyeler", emoji: "💎", liste: TAKILAR },
     { id: "saclar", ad: "Saç Stili", emoji: "💇", liste: SACLAR, zorunlu: true },
@@ -529,6 +547,6 @@ const DOLAP = {
 };
 
 // Ayakkabı elbisenin ALTINDA: uzun elbise ayakkabıyı örter, kısa elbisede ayak görünür (doğru sıralama)
-DOLAP.cizimSirasi = ["arkaplanlar", "_golge", "kanatlar", "_vucut", "ayakkabilar", "elbiseler", "takilar", "saclar", "taclar", "asalar"];
+DOLAP.cizimSirasi = ["arkaplanlar", "_golge", "kanatlar", "_vucut", "ayakkabilar", "elbiseler", "ozel", "takilar", "saclar", "taclar", "asalar"];
 
 window.DOLAP = DOLAP;

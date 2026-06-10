@@ -8,8 +8,8 @@ variants instead, so the game can switch between pre-rendered body levels:
   public/assets/_beden/b40/<slot>/<id>.png
   ...
 
-Only model bodies, dresses and necklaces are morphed. Shoes, hats and
-backgrounds stay unchanged because they do not follow torso/body volume.
+Only model bodies, dresses, necklaces and special body-following pieces are
+morphed. Shoes, hats, hair and backgrounds stay unchanged.
 """
 import argparse
 import shutil
@@ -22,26 +22,28 @@ from PIL import Image
 ROOT = Path("/opt/lara")
 ASSETS = ROOT / "public" / "assets"
 OUT = ASSETS / "_beden"
-SLOTS = ("modeller", "elbiseler", "takilar")
+SLOTS = ("modeller", "elbiseler", "takilar", "ozel")
 LEVELS = (20, 40, 60, 80, 100)
 
 # (canvas y ratio, max horizontal scale at level b100)
-# Head, hands and feet stay close to original. This profile stays conservative:
-# it adds body volume without trying to redraw anatomy.
+# Head, hands and feet stay close to original. The gain is concentrated around
+# bust and hips while the waist stays close to the base image, so the slider
+# reads as a curvier hourglass instead of a uniform horizontal stretch.
 PROFILE = np.array(
     [
         (0.00, 1.00),
         (0.20, 1.00),
-        (0.28, 1.025),
-        (0.35, 1.135),
-        (0.43, 1.105),
-        (0.50, 1.055),
-        (0.57, 1.235),
-        (0.64, 1.360),
-        (0.72, 1.265),
-        (0.80, 1.130),
-        (0.88, 1.045),
-        (0.95, 1.012),
+        (0.28, 1.030),
+        (0.35, 1.120),
+        (0.42, 1.080),
+        (0.48, 1.060),
+        (0.52, 1.180),
+        (0.58, 1.280),
+        (0.64, 1.240),
+        (0.72, 1.150),
+        (0.80, 1.080),
+        (0.88, 1.040),
+        (0.95, 1.010),
         (1.00, 1.00),
     ],
     dtype=np.float32,

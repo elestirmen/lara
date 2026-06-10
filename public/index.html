@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#ff5c8a" />
-  <title>✨ Sihirli Stil Stüdyosu</title>
+  <title>✨ Leyla Stil Stüdyosu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -15,7 +15,7 @@
   <header class="ust-bar">
     <div class="logo">
       <span class="logo-tac">✨</span>
-      <span class="logo-yazi">Sihirli Stil Stüdyosu</span>
+      <span class="logo-yazi">Leyla Stil Stüdyosu</span>
     </div>
     <div class="ust-sag">
       <div id="yildizKutu" class="yildiz-kutu">⭐ <span id="yildizSayi">0</span></div>
@@ -112,7 +112,7 @@
         <div class="yon-bilgi">
           📐 <b>Kurallar:</b> PNG · <b>1024×1365</b> (3:4) · arka plan <b>şeffaf</b> (sahneler hariç) ·
           önden, ayakta, A-poz. Hizalamak için <a href="/assets/_referans/sablon.png" target="_blank">şablonu</a>
-          kullan. Parça yalnız kendi pikselini boyasın. (Yükleme yalnızca yerel sunucuda çalışır.)
+          kullan. Parça yalnız kendi pikselini boyasın. Ad/emoji/etiket için <code>assets/metadata.json</code> güncellenir.
         </div>
 
         <div class="yon-form">
@@ -120,6 +120,7 @@
             <select id="yonSlot" class="yon-input">
               <option value="modeller">🧍 Model (gövde)</option>
               <option value="elbiseler" selected>👗 Elbise</option>
+              <option value="ozel">🖤 Özel</option>
               <option value="ayakkabilar">👠 Ayakkabı</option>
               <option value="taclar">👑 Taç / Şapka</option>
               <option value="takilar">💎 Kolye</option>
@@ -131,8 +132,16 @@
           <label>Dosya adı (id)
             <input id="yonId" class="yon-input" type="text" placeholder="elb_yeni" />
           </label>
+          <label>Prompt açıklaması
+            <textarea id="yonPromptDesc" class="yon-input yon-textarea" rows="2" placeholder="glossy black sleeveless latex mini dress"></textarea>
+          </label>
+          <div class="yon-prompt-araclar">
+            <button id="yonPromptBtn" class="arac-btn altin" type="button">📝 Prompt üret</button>
+            <button id="yonPromptKopyalaBtn" class="arac-btn" type="button" disabled>📋 Kopyala</button>
+          </div>
+          <textarea id="yonPromptCikti" class="yon-input yon-prompt-cikti gizli" readonly></textarea>
           <label>Görsel (PNG)
-            <input id="yonDosya" class="yon-input" type="file" accept="image/png,image/webp" />
+            <input id="yonDosya" class="yon-input" type="file" accept="image/png" />
           </label>
 
           <div id="yonKontrol" class="yon-kontrol"></div>

@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# Görsel ekledikten/değiştirdikten sonra: thumbnail + manifest (güvenli, idempotent).
+# Görsel ekledikten/değiştirdikten sonra: kalite denetimi + thumbnail + manifest.
 # Slider beden varyantlarını yeniden üretmek için:
-#   python3 /opt/lara/beden_uret.py --clean
+#   /opt/lara/.venv/bin/python /opt/lara/beden_uret.py --clean
+# Yeni PNG'lerin ad/emoji/etiket bilgisi için public/assets/metadata.json dosyasını güncelle.
 bash /opt/lara/thumbnails.sh
 node /opt/lara/tara.js
+/opt/lara/.venv/bin/python /opt/lara/quality_gate.py
 echo "✅ Hazır — tarayıcıda Ctrl+Shift+R yap"

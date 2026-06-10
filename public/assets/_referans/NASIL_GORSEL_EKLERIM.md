@@ -1,159 +1,84 @@
-# 🎨 Gerçekçi Görsel Ekleme Rehberi (raster override)
+# Gerçekçi Görsel Ekleme Rehberi
 
-Bu oyun artık **drop-in raster** destekliyor: `public/assets/<slot>/<id>.png` dosyası
-koyarsan, o parçanın vektör çizimi yerine **senin PNG'in** kullanılır. Dosya yoksa eski
-vektör görünür, yani parçaları **tek tek** gerçekçiyle değiştirebilirsin (önce gövde, sonra
-kıyafetler…).
+Bu oyun PNG öncelikli hibrit çalışır: `public/assets/<slot>/<id>.png` varsa o parça
+fotogerçekçi PNG ile çizilir; yoksa aynı ID'nin vektör fallback'i kullanılır.
 
-> ⚠️ **ÖNEMLİ — görsel ekledikten/sildikten sonra manifesti tazele:** Yayın (perinet.org)
-> **statik** sunulduğu için override listesi `public/assets/gorseller.json` dosyasından
-> okunur. Yeni PNG koyunca bu dosyayı güncellemen gerekir:
-> ```bash
-> node /opt/lara/tara.js
-> ```
-> (veya `baslat.sh` ile sunucuyu yeniden başlat — açılışta otomatik tarar.) Sonra tarayıcıda
-> **Ctrl+Shift+R** ile sert yenile. Bunu yapmazsan yeni görsel yayında görünmez.
-
----
-
-## 1) Tuval & dosya kuralları (ÇOK ÖNEMLİ)
-
+## Temel Kurallar
 | Kural | Değer |
 |---|---|
-| **Boyut** | **1024 × 1365 piksel** (3:4 oran). Bu oranı koru. |
-| **Format** | **PNG**, **şeffaf arka planlı** (alpha) — *arka plan görselleri hariç* |
-| **Hizalama** | Her parça **tam ekran** çizilir, doğru yerde durur. `_referans/sablon.png`'i üstüne koyup hizala |
-| **Poz** | **Önden, ayakta, düz duruş**, kollar gövdeden hafif açık (A-poz). Tüm gövde ve kıyafetlerde **AYNI** poz |
-| **Dosya adı** | `<id>.png` (aşağıdaki tablodaki id). Örn. `modeller/m_lara.png`, `elbiseler/elb_turuncu.png` |
+| Boyut | Tam 1024x1365 px |
+| Model/Parça | Önden, ayakta, A-poz hizasına uygun |
+| Arka plan | Model/parça için dört köşe şeffaf; arka plan slotu için opak |
+| Hizalama | `sablon.png` referans çizgileriyle aynı |
+| Dosya adı | `<slot>/<id>.png`, örn. `modeller/m_lara.png` |
 
-> **Şeffaflık:** Her parça yalnızca kendi pikselini boyar; gerisi şeffaf olmalı.
-> Örn. kısa elbisede etek altı şeffaf kalmalı ki bacaklar görünsün. Saç, yüzün
-> görünmesi gereken yerde şeffaf olmalı. **Arka planlar** ise tam ekranı **opak** doldurur.
+Slotlar:
+`modeller, arkaplanlar, kanatlar, elbiseler, ayakkabilar, takilar, saclar, taclar, asalar, ozel`
 
-### Hizalama çapaları (sablon.png üzerindeki çizgiler)
-`_referans/sablon.png`'i resim üreticinde/düzenleyicinde referans katman olarak aç.
-Üzerindeki kırmızı çizgiler (1024×1365 tuvalde) şu hizaları işaretler:
-KAFA ÜST · GÖZ HATTI · ÇENE · OMUZ · GÖĞÜS · BEL · KALÇA · DİZ · BİLEK · AYAK TABANI,
-ve mavi merkez ekseni. **Gövdeni bu çizgilere göre üret; sonra kıyafetleri AYNI gövdeye göre üret.**
-
----
-
-## 2) Katman (z) sırası — arkadan öne
-
-```
-arkaplanlar → kanatlar → MODEL(gövde) → elbiseler → ayakkabilar → takilar → saclar → taclar → asalar
+## Katman Sırası
+```text
+arkaplanlar -> kanatlar -> model -> ayakkabilar -> elbiseler -> ozel -> takilar -> saclar -> taclar -> asalar
 ```
 
-Yani saç, elbisenin ve gövdenin **üstünde**; taç saçın üstünde; kanatlar gövdenin **arkasında**.
+`ozel` elbisenin üstünde, takının altında durur. Beden slider varyantı
+`modeller/elbiseler/takilar/ozel` için üretilir.
 
----
+## Yeni PNG Ekleme
+1. PNG'yi tam 1024x1365 ve doğru hizalı hazırla.
+2. Admin panelinden slot ve ID ile yükle veya dosyayı `public/assets/<slot>/` altına koy.
+3. Görünen ad/emoji/görev etiketleri için `public/assets/metadata.json` dosyasını güncelle.
+4. Kalite denetimi, thumbnail ve manifest üret:
+   ```bash
+   bash /opt/lara/guncelle.sh
+   ```
+5. Beden slider etkileniyorsa:
+   ```bash
+   /opt/lara/.venv/bin/python /opt/lara/beden_uret.py --clean
+   node /opt/lara/tara.js
+   ```
 
-## 3) İş akışı önerisi (en kolayı)
+## AI Üretim
+Fotogerçekçi prompt seti:
+```text
+public/assets/_referans/AI_PROMPTLAR.md
+```
 
-1. **Önce 1 model gövdesi** üret: `modeller/m_lara.png` (1024×1365, şeffaf, sablon'a hizalı, iç çamaşırlı manken). Oyunu aç → gövde anında gerçekçi olur.
-2. O gövdeyi beğenince, **kıyafetleri AYNI gövde üzerinde** üret, sonra gövdeyi silip sadece kıyafeti şeffaf PNG olarak dışa aktar (böylece kusursuz oturur).
-3. İstediğin parçayı ekledikçe oyunda görürsün; eklemediğin parçalar vektör kalır.
+Slot/ID metadata'sına göre tek prompt üretmek için:
+```bash
+/opt/lara/.venv/bin/python /opt/lara/prompt_build.py elb_yeni_latex --slot elbiseler \
+  --description "glossy black sleeveless latex mini dress"
+```
 
-> **Not (model & makyaj):** Bir model PNG'si kullanıldığında **Ten/Makyaj sekmeleri o
-> gövdeyi boyayamaz** (gerçekçi görselin tenini kod değiştiremez). Farklı tenler/yüzler
-> istiyorsan her birini ayrı **model** olarak üret (aşağıda 4 model var: m_lara, m_mia,
-> m_zoe, m_elisa). Daha fazla model eklemek istersen söyle, `dolap.js`'e tanım eklerim.
+Model üretirken `m_lara` teknik ID'si kullanılır; ekranda adı Leyla görünür. Model
+PNG'sinde sade siyah iç çamaşırı ve bake'li saç beklenir. Yeni model üretirken mevcut
+model ölçeğini koru: merkez x yaklaşık 512, görünür bbox genişliği yaklaşık 270 px.
+Yakın plan/iri manken üretmek tüm elbiseleri bozar.
 
-> **Saç:** İki seçenek — (a) saçı **modelin içine** bake et (her model = saçıyla bir kişi;
-> saç sekmesini şapka/taç için kullanırsın), ya da (b) saçı **ayrı şeffaf PNG** olarak
-> `saclar/<id>.png` üret (kafaya hizalı; alttan saç stilini değiştirebilirsin). İkisi de çalışır.
+Kıyafet/ayakkabı/takı/özel parça için en güvenli yöntem:
+- Parçayı tek başına, beyaz veya şeffaf arka planla üret.
+- Şeffaf hazır PNG ise doğrudan yükle.
+- Beyaz arka planlı izole ürün ise kes:
+  ```bash
+  /opt/lara/.venv/bin/python /opt/lara/process_images.py /opt/lara/_ham --apply
+  bash /opt/lara/guncelle.sh
+  ```
 
----
+`process_images.py` kişiyi veya izole ürünü keser; ürünü giymiş kişiden yalnız kıyafet
+çıkaramaz. Bu yüzden kıyafet/aksesuarı model üzerinde değil, tek başına üret.
 
-## 4) Dosya yerleşimi ve ID tabloları
+## Kalite Denetimi
+```bash
+/opt/lara/.venv/bin/python /opt/lara/asset_quality.py
+```
 
-Klasörler: `public/assets/<slot>/`
+Bu komut yanlış boyut, şeffaf olmayan parça köşesi, merkezden kaymış veya fazla büyük
+model gibi ölçülebilir uyumsuzlukları raporlar. Uyarılar kalite borcudur; `ERROR`
+satırları oyuna alınmadan düzeltilmelidir.
 
-### 🧍 modeller/  (gövde — `_vucut` katmanı)
-`m_lara.png` · `m_mia.png` · `m_zoe.png` · `m_elisa.png`
+## Production
+Perinet yayını Node konteynerdir, statik yayın değildir. `server.js` değiştiyse:
+```bash
+docker restart lara-web
+```
 
-### 🌅 arkaplanlar/  (tam ekran, **opak**)
-| id | ad |
-|---|---|
-| ap_balo | Kraliyet Balo Salonu |
-| ap_bahce | Büyülü Çiçek Ormanı |
-| ap_buz | Işıltılı Kar Kalesi |
-| ap_sahil | Altın Kum Gün Batımı |
-| ap_gece | Yıldızlı Gece Gökyüzü |
-| ap_defile | Podyum Işıkları |
-
-### 👗 elbiseler/
-| id | ad |
-|---|---|
-| elb_turuncu | Gün Işığı Balo Elbisesi |
-| elb_pembe | Gül Kurusu Balo Elbisesi |
-| elb_mor | Ametist Gece Yıldızı |
-| elb_buz | Kristal Buz Kraliçesi |
-| elb_altin | Altın Varaklı Işıltı |
-| elb_kirmizi | Kırmızı Kadife Balo |
-| elb_yesil | Zümrüt Yeşili Yaprak (kısa) |
-| elb_tutu | Gökkuşağı Tütü Etek (kısa) |
-| elb_siyah | Siyah Bodikon Mini (kısa) |
-| elb_kirmizi_gece | Kırmızı Halı Gecesi |
-| elb_zumrut | Zümrüt Saten Gece |
-| elb_yazlik | Çiçekli Yazlık (kısa) |
-| elb_tulum | Şık Gece Tulumu (pantolon) |
-| elb_kot_tulum | Kot Tulum (pantolon) |
-
-### 💇 saclar/
-| id | ad |
-|---|---|
-| sac_dalgali | Uzun Dalgalı |
-| sac_at | Fiyonklu At Kuyruğu |
-| sac_orgu | Kurdeleli İki Örgü |
-| sac_topuz | Topuz |
-| sac_bob | Modern Bob |
-
-### 👑 taclar/
-| id | ad |
-|---|---|
-| tac_klasik | Altın Kraliyet Tacı |
-| tac_tiara | Pırlanta Tiara |
-| tac_cicek | Kır Çiçekleri Tacı |
-| tac_kar | Buz Kristali Tacı |
-| tac_sapka | Silindir Şapka |
-
-### 👠 ayakkabilar/
-| id | ad |
-|---|---|
-| ayk_cam | Cam Topuklu |
-| ayk_balerin | Balerin Babet |
-| ayk_cizme | Süet Çizme |
-| ayk_spor | Spor Ayakkabı |
-
-### 💎 takilar/
-| id | ad |
-|---|---|
-| kly_kalp | Kalp Kolye |
-| kly_inci | İnci Kolye |
-| kly_kelebek | Ametist Kolye |
-
-### 🦋 kanatlar/  (gövdenin **arkasında**)
-| id | ad |
-|---|---|
-| kanat_kelebek | Kelebek Kanatları |
-| kanat_peri | Peri Kanatları |
-| kanat_melek | Melek Kanatları |
-
-### ✨ asalar/
-| id | ad |
-|---|---|
-| asa_yildiz | Yıldız Asası |
-| asa_kalp | Kalp Asası |
-| asa_cicek | Çiçek Asası |
-
----
-
-## 5) Üretim ipuçları (AI ile)
-- Hep **"front view, standing, full body, neutral A-pose, plain transparent/white background"** iste.
-- Tüm görsellerde **aynı kamera açısı/uzaklık/ışık** olsun (sablon hizasını koru).
-- Beyaz arka planla üretip sonra arka planı **şeffaf**a çevir (kıyafet/saç/aksesuarlar için).
-- Kıyafetleri **modelin üzerinde** üretip sonra gövdeyi silmek, hizayı garantiler.
-- Bittiğinde **1024×1365**'e ölçekle ve sablon ile üst üste koyup çapaları kontrol et.
-
-Yeni model/parça eklemek veya bir şeyi otomatikleştirmek istersen söyle. 🧡
+JS/CSS/assets değiştiyse restart gerekmez; tarayıcıda Ctrl+Shift+R yeterlidir.

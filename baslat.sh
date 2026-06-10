@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Lara'nın Sihirli Dolabı - başlatma
+# Leyla Stil Stüdyosu - başlatma
 cd "$(dirname "$0")"
-echo "👑 Lara'nın Sihirli Dolabı başlatılıyor..."
+echo "👑 Leyla Stil Stüdyosu başlatılıyor..."
 node server.js

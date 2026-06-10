@@ -1,6 +1,6 @@
 "use strict";
 /*
-  Lara'nın Sihirli Dolabı — Oyun Mantığı (Yenilenmiş & Güvenli)
+  Leyla Stil Stüdyosu — Oyun Mantığı (Yenilenmiş & Güvenli)
   -------------------------------------------------------------
   Manken değiştirme sistemi entegre edilmiş, XSS engelleme kurallarına göre 
   innerHTML kullanımı tamamen temizlenmiş ve güvenli DOM API'leri kullanılmıştır.
@@ -13,12 +13,13 @@ const sahne = $("#sahne");
 const slotById = {};
 DOLAP.slotlar.forEach((s) => (slotById[s.id] = s));
 
-// Varsayılan kombin (Lara mankeniyle başlar 🧡)
+// Varsayılan kombin (Leyla mankeniyle başlar)
 const giyim = {
   mankenler: "m_lara", // Seçili manken ID'si
   arkaplanlar: "ap_balo",
   kanatlar: null,
   elbiseler: "elb_turuncu",
+  ozel: null,
   ayakkabilar: "ayk_cam",
   takilar: null,
   saclar: "sac_dalgali",
@@ -45,18 +46,19 @@ let customVarliklar = {};
 // Gerçekçi (raster) görsel override'ları: { slot: { id: url } }
 // public/assets/<slot>/<id>.png varsa, o parça için vektör çizim yerine PNG kullanılır.
 let gorselOverride = {};
+let gorselMetadata = {};
 function ovr(slot, id) {
   return (gorselOverride[slot] && gorselOverride[slot][id]) || null;
 }
 
-// Gerçekçi mod: en az bir model PNG'si varsa, sadece gerçekçi (PNG'li) parçalar gösterilir
+// Gerçekçi mod: en az bir model PNG'si varsa ten/makyaj gövdeye bake'lidir.
 function gercekciAktif() {
   return Object.keys(gorselOverride.modeller || {}).length > 0;
 }
 
 // ===== Beden slider'i — canlı piksel şişirme yerine önceden üretilmiş PNG varyantları =====
 // Varyantlar: public/assets/_beden/b20..b100/<slot>/<id>.png
-const BEDEN_KATMAN = new Set(["_vucut", "elbiseler", "takilar"]);
+const BEDEN_KATMAN = new Set(["_vucut", "elbiseler", "takilar", "ozel"]);
 const BEDEN_SEVIYELERI = [20, 40, 60, 80, 100];
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 let dolgunlukDurum = {};
@@ -142,33 +144,69 @@ async function gorselleriYukle() {
   } catch (e) {}
 }
 
+async function metadataYukle() {
+  try {
+    const r = await fetch("/assets/metadata.json", { cache: "no-store" });
+    gorselMetadata = r.ok ? await r.json() : {};
+  } catch (e) {
+    gorselMetadata = {};
+  }
+}
+
 const BOS_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800"></svg>';
 function idGuzelAd(id) {
   const s = id.replace(/^[a-z]+_/, "").replace(/_/g, " ").trim();
   return (s || id).replace(/\b\w/g, (c) => c.toUpperCase());
+}
+function meta(slot, id) {
+  return (gorselMetadata[slot] && gorselMetadata[slot][id]) || {};
+}
+function etiketler(metaObj, eski) {
+  return Array.isArray(metaObj.etiketler) ? metaObj.etiketler : (eski || []);
+}
+function metaUygula(slot, oge) {
+  const m = meta(slot, oge.id);
+  if (m.ad) oge.ad = m.ad;
+  if (m.emoji) oge.emoji = m.emoji;
+  oge.etiketler = etiketler(m, oge.etiketler);
+  return oge;
+}
+function manifestOgesi(slot, id) {
+  const m = meta(slot, id);
+  return {
+    id,
+    ad: m.ad || idGuzelAd(id),
+    emoji: m.emoji || "✨",
+    svg: BOS_SVG,
+    etiketler: etiketler(m, []),
+  };
 }
 
 // Manifestte olup dolap.js'te tanımlı OLMAYAN parçaları otomatik ekle:
 // kullanıcı yeni bir PNG atıp tara.js çalıştırınca yeni parça kod gerektirmeden görünür.
 function manifestiBirlestir() {
   for (const slot of DOLAP.slotlar) {
+    slot.liste.forEach((oge) => metaUygula(slot.id, oge));
     const harita = gorselOverride[slot.id];
     if (!harita) continue;
     const mevcut = new Set(slot.liste.map((x) => x.id));
     for (const id of Object.keys(harita)) {
       if (mevcut.has(id)) continue;
-      slot.liste.push({ id, ad: idGuzelAd(id), emoji: "✨", svg: BOS_SVG, etiketler: [] });
+      slot.liste.push(manifestOgesi(slot.id, id));
     }
   }
   // Yeni modeller (gövdeler)
   const ilk = DOLAP.mankenler[0] || {};
+  DOLAP.mankenler.forEach((manken) => metaUygula("modeller", manken));
   const mevcutM = new Set(DOLAP.mankenler.map((m) => m.id));
   for (const id of Object.keys(gorselOverride.modeller || {})) {
     if (mevcutM.has(id)) continue;
+    const m = meta("modeller", id);
     DOLAP.mankenler.push({
-      id, ad: idGuzelAd(id), emoji: "🧍",
+      id, ad: m.ad || idGuzelAd(id), emoji: m.emoji || "🧍",
       ten: ilk.ten, goz: ilk.goz, ruj: ilk.ruj, allik: ilk.allik, sac: ilk.sac, sacRenk: ilk.sacRenk,
       svg: DOLAP.vucut,
+      etiketler: etiketler(m, []),
     });
   }
 }
@@ -176,9 +214,9 @@ function manifestiBirlestir() {
 let yildizlar = Number(localStorage.getItem("lara_yildiz") || 0);
 let bitenGorevler = new Set(JSON.parse(localStorage.getItem("lara_gorevler") || "[]"));
 
-// Panel sekme sırası (Lara için çocuk dostu sıralama)
+// Panel sekme sırası
 const SEKME_SIRASI = [
-  "mankenler", "elbiseler", "saclar", "taclar", "kanatlar", "ayakkabilar", "takilar", "asalar",
+  "mankenler", "elbiseler", "ozel", "saclar", "taclar", "kanatlar", "ayakkabilar", "takilar", "asalar",
   "renkler", "makyaj", "arkaplanlar", "gorevler", "eslerim",
 ];
 
@@ -365,7 +403,7 @@ function mankenDegistir(mankenId) {
 
   katmanGuncelle("_vucut", true);
   katmanGuncelle("saclar", true);
-  dolgunlukUygula(); // bu modelin dolgunluk değerini uygula (gövde+elbise+kolye) + slider'ı senkronla
+  dolgunlukUygula(); // bu modelin dolgunluk değerini uygula (gövde+elbise+özel+kolye) + slider'ı senkronla
   SES.efekt("buyu");
   pirilti();
   titre(12);
@@ -404,15 +442,16 @@ function sekmeleriKur() {
   const kap = $("#sekmeler");
   kap.replaceChildren(); // Güvenli temizleme
 
-  // Gerçekçi modda: ten/makyaj işlevsiz (görünüm modele gömülü) → gizle.
-  // Ayrıca hiç gerçekçi parçası olmayan dolap sekmelerini de gizle (tutarlılık için).
+  // Gerçekçi modelde ten/makyaj gövdeye, saç da çoğu modelde PNG'ye bake'lidir.
   const gercekci = gercekciAktif();
   const gizli = new Set(gercekci ? ["renkler", "makyaj"] : []);
-  if (gercekci) {
-    for (const slot of DOLAP.slotlar) {
-      if (Object.keys(gorselOverride[slot.id] || {}).length === 0) gizli.add(slot.id);
-    }
+  if (gercekci && Object.keys(gorselOverride.saclar || {}).length === 0) gizli.add("saclar");
+  for (const slot of DOLAP.slotlar) {
+    const hasPngs = slot.liste.some((x) => ovr(slot.id, x.id));
+    if (gercekci && !hasPngs && !slot.zorunlu) gizli.add(slot.id);
+    if (!slot.zorunlu && slot.liste.length === 0) gizli.add(slot.id);
   }
+  if (gizli.has(aktifSekme)) aktifSekme = "mankenler";
 
   for (const id of SEKME_SIRASI) {
     if (gizli.has(id)) continue;
@@ -450,12 +489,15 @@ function urunleriGoster(id) {
   
   // Normal dolap eşyaları
   const slot = slotById[id];
-  const gercekci = gercekciAktif();
   if (!slot.zorunlu) kap.appendChild(cikarHucresi(id));
 
-  for (const oge of slot.liste) {
-    // Gerçekçi modda eski çizili (PNG'siz) parçaları gösterme
-    if (gercekci && !ovr(id, oge.id)) continue;
+  const liste = slot.liste.slice().sort((a, b) => {
+    const pa = ovr(id, a.id) ? 1 : 0;
+    const pb = ovr(id, b.id) ? 1 : 0;
+    return pb - pa || a.ad.localeCompare(b.ad, "tr");
+  });
+  for (const oge of liste) {
+    if (gercekciAktif() && !ovr(id, oge.id)) continue;
     const d = document.createElement("div");
     d.className = "urun" + (giyim[id] === oge.id ? " secili" : "");
     d.dataset.ad = oge.ad;
@@ -490,6 +532,7 @@ function cikarHucresi(id) {
 
 function mankenleriGoster(kap) {
   for (const m of DOLAP.mankenler) {
+    if (gercekciAktif() && !ovr("modeller", m.id)) continue;
     const d = document.createElement("div");
     d.className = "urun manken-kart" + (giyim.mankenler === m.id ? " secili" : "");
     d.dataset.ad = m.ad;
@@ -672,10 +715,12 @@ function rastgele(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-// Bir slot için rastgele parça id'si; gerçekçi modda yalnızca PNG'li parçalardan (yoksa null)
+// Bir slot için rastgele parça id'si; PNG varsa onu, yoksa vektör fallback'i tercih eder.
 function rastgeleId(slotId) {
   let liste = slotById[slotId].liste;
   if (gercekciAktif()) liste = liste.filter((x) => ovr(slotId, x.id));
+  const pngListe = liste.filter((x) => ovr(slotId, x.id));
+  if (pngListe.length) liste = pngListe;
   return liste.length ? rastgele(liste).id : null;
 }
 
@@ -704,6 +749,7 @@ function surpriz() {
       giyim.taclar = Math.random() < 0.85 ? rastgeleId("taclar") : null;
       giyim.kanatlar = Math.random() < 0.6 ? rastgeleId("kanatlar") : null;
       giyim.ayakkabilar = rastgeleId("ayakkabilar");
+      giyim.ozel = Math.random() < 0.35 ? rastgeleId("ozel") : null;
       giyim.takilar = Math.random() < 0.7 ? rastgeleId("takilar") : null;
       giyim.asalar = Math.random() < 0.65 ? rastgeleId("asalar") : null;
 
@@ -1122,6 +1168,7 @@ function sifirla() {
   giyim.arkaplanlar = "ap_balo";
   giyim.kanatlar = null;
   giyim.elbiseler = "elb_turuncu";
+  giyim.ozel = null;
   giyim.ayakkabilar = "ayk_cam";
   giyim.takilar = null;
   giyim.saclar = "sac_dalgali";
@@ -1357,6 +1404,7 @@ function araclariBagla() {
 async function basla() {
   await varliklariYukle();
   await gorselleriYukle();
+  await metadataYukle();
   manifestiBirlestir(); // manifestteki yeni (PNG'li) parçaları dolaba ekle
   katmanlariKur();
   dolgunlukUygula(); // seçili modelin dolgunluk değerini uygula
@@ -1372,6 +1420,7 @@ async function basla() {
 // Yönetim paneli (admin.js) bir görsel ekleyince/silince gardırobu tazelemek için
 window.dolabiYenile = async function () {
   await gorselleriYukle();
+  await metadataYukle();
   manifestiBirlestir();
   sekmeleriKur();
   urunleriGoster(aktifSekme);

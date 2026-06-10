@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Görsel Hizalama Aracı</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background: #333; color: white; display: flex; gap: 20px; }
+        .canvas-container { position: relative; width: 1024px; height: 1365px; background: url('/assets/modeller/m_lara.png') no-repeat; background-size: 1024px 1365px; border: 2px solid #555; overflow: hidden; transform-origin: top left; transform: scale(0.6); }
+        .item-overlay { position: absolute; border: 2px dashed rgba(255,0,0,0.5); cursor: move; user-select: none; }
+        .item-overlay img { width: 100%; height: 100%; pointer-events: none; }
+        .resize-handle { position: absolute; width: 10px; height: 10px; background: red; right: -5px; bottom: -5px; cursor: se-resize; }
+        .sidebar { width: 300px; background: #222; padding: 20px; border-radius: 8px; max-height: 90vh; overflow-y: auto; }
+        button { padding: 10px 15px; margin: 5px 0; width: 100%; cursor: pointer; background: #e91e63; color: white; border: none; border-radius: 4px; font-weight: bold; }
+        button:hover { background: #c2185b; }
+        .item-btn { background: #444; text-align: left; margin-bottom: 5px; }
+        .item-btn:hover, .item-btn.active { background: #666; }
+        .controls { margin-top: 20px; display: none; }
+        input[type="number"] { width: 60px; background: #444; color: white; border: 1px solid #666; padding: 5px; }
+        .form-group { margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        hr { border-color: #555; }
+        #sifre-kutu { display: flex; gap: 10px; margin-bottom: 20px; }
+        #sifre { flex: 1; padding: 8px; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Hizalama Aracı</h2>
+        <div id="sifre-kutu">
+            <input type="password" id="sifre" placeholder="Admin Şifresi" value="lara2018">
+        </div>
+        
+        <p>Düzenlemek istediğiniz eşyayı seçin:</p>
+        <div id="item-list"></div>
+
+        <div class="controls" id="controls">
+            <h3>Seçili Eşya</h3>
+            <div class="form-group"><span>X:</span><input type="number" id="inp-x"></div>
+            <div class="form-group"><span>Y:</span><input type="number" id="inp-y"></div>
+            <div class="form-group"><span>Genişlik:</span><input type="number" id="inp-w"></div>
+            <div class="form-group"><span>Yükseklik:</span><input type="number" id="inp-h"></div>
+            <hr>
+            <button id="btn-save-item">Bu Eşyanın Ayarlarını Kaydet</button>
+        </div>
+
+        <hr>
+        <button id="btn-save-all" style="background:#4caf50;">Tüm Ayarları Sunucuya Gönder</button>
+        <p id="status" style="color: #4caf50; font-weight: bold;"></p>
+    </div>
+
+    <div class="canvas-container" id="canvas">
+        <!-- Secilen esya buraya eklenecek -->
+    </div>
+
+<script>
+const items = [
+    "oz_bodysuit", "oz_catears", "oz_harness", "oz_latex"
+];
+
+let hizalamaVerisi = {};
+let currentItem = null;
+let isDragging = false;
+let isResizing = false;
+let startX, startY, startLeft, startTop, startWidth, startHeight;
+
+const canvas = document.getElementById("canvas");
+const listDiv = document.getElementById("item-list");
+const controls = document.getElementById("controls");
+
+const inpx = document.getElementById("inp-x");
+const inpy = document.getElementById("inp-y");
+const inpw = document.getElementById("inp-w");
+const inph = document.getElementById("inp-h");
+
+// Baslangic degerleri
+items.forEach(id => {
+    hizalamaVerisi[id] = { x: 377, y: 490, w: 270, h: 300 };
+    const btn = document.createElement("button");
+    btn.className = "item-btn";
+    btn.innerText = id;
+    btn.onclick = () => selectItem(id, btn);
+    listDiv.appendChild(btn);
+});
+
+// Eski ayarlari getirmek istersen diye bir deneme yapabiliriz, simdilik default
+// İstege bagli: fetch('/assets/ozel_hizalama.json') yapilabilir
+fetch('/assets/ozel_hizalama.json').then(r => r.json()).then(data => {
+    if(data) {
+        Object.keys(data).forEach(k => {
+            if(hizalamaVerisi[k]) hizalamaVerisi[k] = data[k];
+        });
+    }
+}).catch(e => console.log("Eski ayar bulunamadi, varsayilan kullaniliyor."));
+
+let overlay = null;
+
+function selectItem(id, btnElement) {
+    document.querySelectorAll(".item-btn").forEach(b => b.classList.remove("active"));
+    btnElement.classList.add("active");
+    currentItem = id;
+    controls.style.display = "block";
+
+    const v = hizalamaVerisi[id];
+    inpx.value = v.x; inpy.value = v.y; inpw.value = v.w; inph.value = v.h;
+
+    if (overlay) overlay.remove();
+    
+    // Brain directory'den direkt alamayiz, aslinda optimize_ozel.py orjinal dosyalarini kullaniyor.
+    // Ancak hizalama icin public/assets/ozel_ham altinda dosyalar olmasi lazim.
+    // Eger yoksa public/assets/ozel altindakileri gosterelim. (Arka plani kesilmis olanlar)
+    // Aslinda Python'un isleyecegi resim background'siz olmali. 
+    // Gecici cozum olarak `public/assets/ozel/${id}.png` kullanalim. (Bu daha onceden kesilip konmus olan).
+    
+    overlay = document.createElement("div");
+    overlay.className = "item-overlay";
+    overlay.style.left = v.x + "px";
+    overlay.style.top = v.y + "px";
+    overlay.style.width = v.w + "px";
+    overlay.style.height = v.h + "px";
+    
+    // Rastgele bir query string ekliyoruz ki tarayici cache'den almasin
+    overlay.innerHTML = `<img src="/assets/ozel/${id}.png?t=${Date.now()}" draggable="false"><div class="resize-handle"></div>`;
+    canvas.appendChild(overlay);
+
+    const handle = overlay.querySelector(".resize-handle");
+
+    overlay.onmousedown = (e) => {
+        if(e.target === handle) return;
+        isDragging = true;
+        startX = e.clientX; startY = e.clientY;
+        startLeft = overlay.offsetLeft; startTop = overlay.offsetTop;
+    };
+    handle.onmousedown = (e) => {
+        isResizing = true;
+        startX = e.clientX; startY = e.clientY;
+        startWidth = overlay.offsetWidth; startHeight = overlay.offsetHeight;
+        e.stopPropagation();
+    };
+}
+
+document.onmousemove = (e) => {
+    // 0.6 scale factor yuzunden mouse hareketini 1/0.6 olarak hesaplamaliyiz
+    const scale = 0.6;
+    if (isDragging && overlay) {
+        const dx = (e.clientX - startX) / scale;
+        const dy = (e.clientY - startY) / scale;
+        overlay.style.left = Math.round(startLeft + dx) + "px";
+        overlay.style.top = Math.round(startTop + dy) + "px";
+        inpx.value = Math.round(startLeft + dx);
+        inpy.value = Math.round(startTop + dy);
+    }
+    if (isResizing && overlay) {
+        const dx = (e.clientX - startX) / scale;
+        const dy = (e.clientY - startY) / scale;
+        overlay.style.width = Math.max(10, Math.round(startWidth + dx)) + "px";
+        overlay.style.height = Math.max(10, Math.round(startHeight + dy)) + "px";
+        inpw.value = Math.max(10, Math.round(startWidth + dx));
+        inph.value = Math.max(10, Math.round(startHeight + dy));
+    }
+};
+
+document.onmouseup = () => { isDragging = false; isResizing = false; };
+
+document.getElementById("btn-save-item").onclick = () => {
+    if(!currentItem) return;
+    hizalamaVerisi[currentItem] = {
+        x: parseInt(inpx.value),
+        y: parseInt(inpy.value),
+        w: parseInt(inpw.value),
+        h: parseInt(inph.value)
+    };
+    if (overlay) {
+        overlay.style.left = hizalamaVerisi[currentItem].x + "px";
+        overlay.style.top = hizalamaVerisi[currentItem].y + "px";
+        overlay.style.width = hizalamaVerisi[currentItem].w + "px";
+        overlay.style.height = hizalamaVerisi[currentItem].h + "px";
+    }
+};
+
+// Input'lardan degistirme
+[inpx, inpy, inpw, inph].forEach(inp => {
+    inp.oninput = () => { document.getElementById("btn-save-item").click(); };
+});
+
+document.getElementById("btn-save-all").onclick = () => {
+    const parola = document.getElementById("sifre").value;
+    fetch("/api/admin/kaydet_hizalama", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ parola, veriler: hizalamaVerisi })
+    })
+    .then(r => r.json())
+    .then(res => {
+        if(res.ok) {
+            document.getElementById("status").innerText = "Başarıyla kaydedildi!";
+            setTimeout(() => { document.getElementById("status").innerText = ""; }, 3000);
+        } else {
+            alert("Hata: " + res.hata);
+        }
+    }).catch(e => alert(e));
+};
+</script>
+
+</body>
+</html>

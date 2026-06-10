@@ -1,6 +1,6 @@
 "use strict";
 /*
-  Lara'nın Sihirli Dolabı — Ses Motoru
+  Leyla Stil Stüdyosu — Ses Motoru
   ------------------------------------
   Hiç ses dosyası gerektirmez: tüm efektler WebAudio ile anlık üretilir.
   - SES.efekt("dokun" | "tak" | "cikar" | "parla" | "fanfar" | "hata" | "yildiz")

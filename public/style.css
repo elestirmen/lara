@@ -7,11 +7,11 @@
   --pembe-acik: #ffe5ec;
   --mor: #9b5de5;
   --krem: #fffaf0;
-  --metin: #4e3524;
-  --panel-cam: rgba(255, 255, 255, 0.65);
-  --golge: 0 12px 35px rgba(90, 45, 15, 0.15);
-  --yumusak: 0 6px 20px rgba(90, 45, 15, 0.08);
-  --font: "Quicksand", "Playfair Display", system-ui, -apple-system, sans-serif;
+  --metin: #221118;
+  --panel-cam: rgba(255, 255, 255, 0.45);
+  --golge: 0 12px 35px rgba(90, 45, 60, 0.15);
+  --yumusak: 0 6px 20px rgba(90, 45, 60, 0.08);
+  --font: 'Outfit', system-ui, -apple-system, sans-serif;
 }
 
 * {
@@ -29,7 +29,7 @@ html, body {
   background:
     radial-gradient(1300px 800px at 10% -20%, #ffeef2 0%, transparent 60%),
     radial-gradient(1200px 900px at 95% 15%, #f0ebff 0%, transparent 60%),
-    linear-gradient(150deg, #fff7ed 0%, #fff0f3 50%, #f5f0ff 100%);
+    linear-gradient(150deg, #fff7ed 0%, #ffe0e9 50%, #e9ddff 100%);
 }
 
 body {
@@ -77,9 +77,11 @@ body::after {
   justify-content: space-between;
   gap: 12px;
   padding: 10px 18px;
-  background: linear-gradient(95deg, var(--pembe), var(--turuncu) 65%, var(--mor));
-  box-shadow: 0 6px 25px rgba(255, 92, 138, 0.25);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, rgba(255,92,138,0.85), rgba(155,93,229,0.85));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(255, 92, 138, 0.25);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .logo {
@@ -97,7 +99,7 @@ body::after {
 
 .logo-yazi {
   color: #ffffff;
-  font-family: "Playfair Display", serif;
+  font-family: var(--font);
   font-weight: 900;
   font-size: clamp(16px, 3vw, 28px);
   text-shadow: 0 2px 8px rgba(0,0,0,0.15);
@@ -399,12 +401,12 @@ body::after {
   display: flex;
   flex-direction: column;
   background: var(--panel-cam);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 3px solid rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(28px) saturate(1.2);
+  -webkit-backdrop-filter: blur(28px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 28px;
   padding: 14px;
-  box-shadow: var(--golge);
+  box-shadow: var(--golge), inset 0 0 0 1px rgba(255,255,255,0.4);
   overflow: hidden;
 }
 
@@ -596,7 +598,7 @@ body::after {
 }
 
 .urun.manken-kart .manken-etiket {
-  font-family: 'Quicksand', sans-serif;
+  font-family: var(--font);
   font-weight: 700;
   font-size: 10px;
   color: var(--metin);
@@ -655,7 +657,7 @@ body::after {
 /* Renkler & Makyaj Seçenek Swatch'leri */
 .renk-baslik {
   grid-column: 1 / -1;
-  font-family: "Playfair Display", serif;
+  font-family: var(--font);
   font-weight: 900;
   font-size: 16px;
   margin: 10px 2px 2px;
@@ -811,7 +813,7 @@ body::after {
 }
 
 .modal-ic h2 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font);
   font-weight: 900;
   color: var(--pembe);
   margin: 0 0 8px;
@@ -990,7 +992,7 @@ body::after {
 
 .defile-yazi {
   color: #ffffff;
-  font-family: "Playfair Display", serif;
+  font-family: var(--font);
   font-weight: 900;
   font-size: clamp(22px, 4.5vw, 36px);
   text-shadow: 0 0 20px rgba(255, 202, 58, 0.85);
@@ -1120,6 +1122,29 @@ body::after {
   outline: none;
 }
 .yon-input:focus { border-color: var(--pembe); }
+.yon-textarea {
+  min-height: 54px;
+  resize: vertical;
+}
+.yon-prompt-araclar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.yon-prompt-araclar .arac-btn {
+  flex: 1 1 140px;
+}
+.yon-prompt-cikti {
+  min-height: 190px;
+  resize: vertical;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+.yon-prompt-cikti.gizli {
+  display: none;
+}
 .yon-hata { color: #d90429; font-weight: 700; font-size: 13.5px; background: #ffe3e3; padding: 8px 12px; border-radius: 12px; }
 .yon-panel { display: flex; flex-direction: column; gap: 12px; }
 .yon-bilgi {
@@ -1150,7 +1175,7 @@ body::after {
 .yon-sonuc { font-weight: 700; font-size: 13.5px; min-height: 18px; }
 .yon-sonuc.iyi { color: #2d6a4f; }
 .yon-sonuc.kotu { color: #d90429; }
-.yon-liste-baslik { font-family: "Playfair Display", serif; font-weight: 900; color: var(--pembe); margin-top: 6px; }
+.yon-liste-baslik { font-family: var(--font); font-weight: 900; color: var(--pembe); margin-top: 6px; }
 .yon-liste { display: grid; grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); gap: 10px; }
 .yon-bos { grid-column: 1 / -1; opacity: 0.7; font-weight: 600; }
 .yon-oge { position: relative; background: #fff; border-radius: 14px; padding: 6px; box-shadow: var(--yumusak); text-align: center; }

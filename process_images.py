@@ -31,7 +31,8 @@ ASSETS = os.path.join(KOK, "public", "assets")
 STATE = os.path.join(KOK, ".kenar_temizlendi")
 OUTW, OUTH = 1024, 1365
 ONEK_SLOT = {"m_": "modeller", "elb_": "elbiseler", "ayk_": "ayakkabilar", "tac_": "taclar",
-             "kly_": "takilar", "kanat_": "kanatlar", "asa_": "asalar", "ap_": "arkaplanlar"}
+             "kly_": "takilar", "kanat_": "kanatlar", "asa_": "asalar", "ap_": "arkaplanlar",
+             "oz_": "ozel"}
 UZ = (".png", ".webp", ".jpg", ".jpeg")
 MODELLER = ["birefnet-general", "isnet-general-use", "u2net"]
 
