@@ -34,7 +34,7 @@ def load_layer(slot: str, item_id: str, manifest: dict) -> Image.Image | None:
     if not url:
         return None
     path = asset_path(url)
-    if not path.exists() or path.suffix.lower() != ".png":
+    if not path.exists() or path.suffix.lower() not in (".png", ".webp"):
         return None
     img = Image.open(path).convert("RGBA")
     return img if img.size == CANVAS else None

@@ -97,7 +97,7 @@ def pngs(slot):
     source = ASSETS / slot
     if not source.is_dir():
         return []
-    return sorted(source.glob("*.png"))
+    return sorted(list(source.glob("*.png")) + list(source.glob("*.webp")))
 
 
 def main():
@@ -117,7 +117,11 @@ def main():
             dest_dir.mkdir(parents=True, exist_ok=True)
             for src_path in pngs(slot):
                 dest = dest_dir / src_path.name
-                body_morph(Image.open(src_path), strength).save(dest, optimize=True)
+                img = body_morph(Image.open(src_path), strength)
+                if dest.suffix.lower() == ".webp":
+                    img.save(dest, quality=90, method=6)
+                else:
+                    img.save(dest, optimize=True)
                 total += 1
                 print(f"  {level_name}/{slot}/{src_path.name}")
 

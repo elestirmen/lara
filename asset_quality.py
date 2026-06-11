@@ -185,8 +185,9 @@ def audit_assets(*, strict_shape: bool = False) -> list[Finding]:
         root = ASSETS / slot
         if not root.is_dir():
             continue
-        for path in sorted(root.glob("*.png")):
-            findings.extend(audit_png(path, slot, metadata, strict_shape=strict_shape))
+        for ext in ("*.png", "*.webp"):
+            for path in sorted(root.glob(ext)):
+                findings.extend(audit_png(path, slot, metadata, strict_shape=strict_shape))
     return findings
 
 

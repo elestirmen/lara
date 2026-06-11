@@ -40,9 +40,10 @@ def load_manifest() -> dict:
 
 
 def layer_path(model_id: str, level: str) -> Path:
+    ext = ".webp" if (ASSETS / "modeller" / f"{model_id}.webp").exists() or (ASSETS / "_beden" / "b20" / "modeller" / f"{model_id}.webp").exists() else ".png"
     if level == "base":
-        return ASSETS / "modeller" / f"{model_id}.png"
-    return ASSETS / "_beden" / level / "modeller" / f"{model_id}.png"
+        return ASSETS / "modeller" / f"{model_id}{ext}"
+    return ASSETS / "_beden" / level / "modeller" / f"{model_id}{ext}"
 
 
 def row_width(alpha: np.ndarray, y: int) -> int:
