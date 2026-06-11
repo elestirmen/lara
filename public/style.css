@@ -194,11 +194,11 @@ body::after {
 .sahne {
   position: relative;
   aspect-ratio: 3 / 4;
-  height: 100%;
-  max-height: 100%;
+  height: calc(100% - 110px);
+  max-height: calc(100% - 110px);
   max-width: 100%;
   border-radius: 30px;
-  overflow: hidden;
+  overflow: visible;
   background: #ffffff;
   border: 8px solid #ffffff;
   /* Gold glowing magic mirror effect */
@@ -218,6 +218,8 @@ body::after {
 .katmanlar, .sticker-kat, .parlama-kat {
   position: absolute;
   inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
 }
 
 .katmanlar img {
@@ -345,11 +347,15 @@ body::after {
 
 /* Araç Butonları Çubuğu */
 .sahne-araclar {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
-  margin-top: 14px;
+  z-index: 10;
+  width: max-content;
 }
 
 .arac-btn {
@@ -408,6 +414,10 @@ body::after {
   padding: 14px;
   box-shadow: var(--golge), inset 0 0 0 1px rgba(255,255,255,0.4);
   overflow: hidden;
+}
+
+.panel-kulp {
+  display: none;
 }
 
 .sekmeler {
@@ -1060,48 +1070,135 @@ body::after {
 /* ============================ RESPONSİVE DÜZEN (DAR/MOBİL EKRANLAR) ============================ */
 @media (max-width: 860px) {
   .alan {
-    flex-direction: column;
-    gap: 12px;
-    padding: 12px;
-    height: calc(100% - 62px);
+    display: block;
+    height: calc(100% - 66px);
+    padding: 10px;
+    position: relative;
   }
-  
+
   .sahne-cerceve {
-    flex: 1 1 56%;
+    width: 100%;
+    height: calc(100% - 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     min-height: 0;
   }
-  
+
   .sahne {
     height: 100%;
     width: auto;
+    overflow: visible;
   }
-  
+
+  .panel-kulp {
+    display: block;
+    width: 44px;
+    height: 6px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 999px;
+    margin: 0 auto 10px auto;
+    cursor: pointer;
+  }
+
   .panel {
-    flex: 1 1 44%;
-    max-width: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     width: 100%;
-    min-height: 0;
-    border-radius: 24px;
-    padding: 10px;
+    height: 48vh;
+    z-index: 20;
+    border-radius: 28px 28px 0 0;
+    transition: height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    background: var(--panel-cam);
+    backdrop-filter: blur(28px) saturate(1.2);
+    -webkit-backdrop-filter: blur(28px) saturate(1.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 14px;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
   }
-  
+
+  .panel.mini {
+    height: 80px;
+  }
+
+  .panel.mini .panel-govde {
+    display: none;
+  }
+
+  .sahne-araclar {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 10;
+    width: auto;
+  }
+
+  .sahne-araclar .arac-btn {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+  }
+
+  .btn-yazi {
+    display: none;
+  }
+
+  .dolgunluk-kutu {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 8px;
+    background: var(--panel-cam);
+    border: 2px solid rgba(255,255,255,0.8);
+    border-radius: 20px;
+    box-shadow: var(--yumusak);
+    z-index: 10;
+    width: auto;
+    height: auto;
+  }
+
+  #dolgunlukSlider {
+    -webkit-appearance: slider-vertical;
+    appearance: slider-vertical;
+    width: 8px;
+    height: 140px;
+    padding: 0 5px;
+    margin: 10px 0;
+  }
+
+  .dolgunluk-et {
+    font-size: 11px;
+    writing-mode: horizontal-tb;
+    text-align: center;
+  }
+
   .urunler {
     grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
     gap: 9px;
   }
-  
+
   .logo-yazi {
     font-size: 18px;
   }
 }
 
 @media (max-width: 520px) {
-  .arac-btn {
-    padding: 10px 14px;
-  }
-  .sahne-araclar {
-    gap: 6px;
-  }
   .sekme {
     padding: 8px 12px;
     font-size: 12.5px;
@@ -1207,11 +1304,21 @@ body::after {
 
 /* ============================ DOLGUNLUK SLIDER ============================ */
 .dolgunluk-kutu {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  margin-top: 10px; padding: 8px 16px;
-  background: var(--panel-cam); border: 2px solid rgba(255,255,255,0.8);
-  border-radius: 20px; box-shadow: var(--yumusak); max-width: 420px;
-  margin-left: auto; margin-right: auto;
+  position: absolute;
+  top: calc(100% + 64px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: var(--panel-cam);
+  border: 2px solid rgba(255,255,255,0.8);
+  border-radius: 20px;
+  box-shadow: var(--yumusak);
+  z-index: 10;
+  width: max-content;
 }
 .dolgunluk-et { font-weight: 700; font-size: 13px; color: var(--metin); white-space: nowrap; }
 #dolgunlukSlider {

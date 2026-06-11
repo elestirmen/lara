@@ -2,7 +2,7 @@
 /*
   Leyla Stil Stüdyosu — Oyun Mantığı (Yenilenmiş & Güvenli)
   -------------------------------------------------------------
-  Manken değiştirme sistemi entegre edilmiş, XSS engelleme kurallarına göre 
+  Manken değiştirme sistemi entegre edilmiş, XSS engelleme kurallarına göre
   innerHTML kullanımı tamamen temizlenmiş ve güvenli DOM API'leri kullanılmıştır.
 */
 
@@ -238,15 +238,15 @@ function getSkinShades(hex) {
   let r = parseInt(hex.slice(1, 3), 16);
   let g = parseInt(hex.slice(3, 5), 16);
   let b = parseInt(hex.slice(5, 7), 16);
-  
+
   let rl = Math.min(255, Math.floor(r + (255 - r) * 0.45));
   let gl = Math.min(255, Math.floor(g + (255 - g) * 0.45));
   let bl = Math.min(255, Math.floor(b + (255 - b) * 0.45));
-  
+
   let rd = Math.max(0, Math.floor(r * 0.72));
   let gd = Math.max(0, Math.floor(g * 0.67));
   let bd = Math.max(0, Math.floor(b * 0.62));
-  
+
   const toHex = (x) => x.toString(16).padStart(2, "0");
   return {
     light: "#" + toHex(rl) + toHex(gl) + toHex(bl),
@@ -296,7 +296,7 @@ const katmanEl = {};
 function katmanlariKur() {
   const kap = $("#katmanlar");
   kap.replaceChildren(); // Güvenli temizleme
-  
+
   for (const id of DOLAP.cizimSirasi) {
     const img = document.createElement("img");
     img.dataset.kat = id;
@@ -367,7 +367,7 @@ function katmanGuncelle(id, anim) {
 function giy(slotId, itemId) {
   const slot = slotById[slotId];
   if (!slot) return;
-  
+
   if (giyim[slotId] === itemId && !slot.zorunlu) {
     giyim[slotId] = null; // çıkar
     SES.efekt("cikar");
@@ -377,12 +377,12 @@ function giy(slotId, itemId) {
     pirilti();
     titre(8);
   }
-  
+
   if (slotId === "arkaplanlar") {
     arkaPlanOzel = null;
     SES.muzikDegistir(itemId);
   }
-  
+
   katmanGuncelle(slotId, true);
   if (aktifSekme === slotId) urunleriGoster(slotId);
   gorevleriDenetle();
@@ -392,7 +392,7 @@ function mankenDegistir(mankenId) {
   const m = DOLAP.mankenler.find(x => x.id === mankenId);
   if (!m) return;
   giyim.mankenler = mankenId;
-  
+
   // Karakterin varsayılan ten/makyaj + saç görünümünü uygula
   renkler.ten = m.ten;
   renkler.goz = m.goz;
@@ -458,19 +458,21 @@ function sekmeleriKur() {
     const meta = slotById[id] || OZEL_SEKME[id];
     const b = document.createElement("button");
     b.className = "sekme" + (id === aktifSekme ? " aktif" : "");
-    
+
     const ikonSpan = document.createElement("span");
     ikonSpan.className = "ikon";
     ikonSpan.textContent = meta.emoji;
-    
+
     b.appendChild(ikonSpan);
     b.appendChild(document.createTextNode(meta.ad));
-    
+
     b.onclick = () => {
       aktifSekme = id;
       document.querySelectorAll(".sekme").forEach((s) => s.classList.remove("aktif"));
       b.classList.add("aktif");
       urunleriGoster(id);
+      const panel = $(".panel");
+      if (panel) panel.classList.remove("mini");
       SES.efekt("dokun");
     };
     kap.appendChild(b);
@@ -480,13 +482,13 @@ function sekmeleriKur() {
 function urunleriGoster(id) {
   const kap = $("#urunler");
   kap.replaceChildren(); // Güvenli temizleme
-  
+
   if (id === "mankenler") return mankenleriGoster(kap);
   if (id === "renkler") return renkleriGoster(kap);
   if (id === "makyaj") return makyajGoster(kap);
   if (id === "gorevler") return gorevleriGoster(kap);
   if (id === "eslerim") return eslerimiGoster(kap);
-  
+
   // Normal dolap eşyaları
   const slot = slotById[id];
   if (!slot.zorunlu) kap.appendChild(cikarHucresi(id));
@@ -501,14 +503,14 @@ function urunleriGoster(id) {
     const d = document.createElement("div");
     d.className = "urun" + (giyim[id] === oge.id ? " secili" : "");
     d.dataset.ad = oge.ad;
-    
+
     const img = document.createElement("img");
     const tam = ovr(id, oge.id) ||
       svgURL(id === "saclar" ? renkUygula(oge.svg, { sac: renkler.sac }) : oge.svg);
     panelGorsel(img, id, oge.id, tam);
     img.alt = oge.ad;
     d.appendChild(img);
-    
+
     d.onclick = () => giy(id, oge.id);
     kap.appendChild(d);
   }
@@ -517,11 +519,11 @@ function urunleriGoster(id) {
 function cikarHucresi(id) {
   const d = document.createElement("div");
   d.className = "urun cikar" + (!giyim[id] ? " secili" : "");
-  
+
   const emoji = document.createElement("span");
   emoji.className = "cikar-emoji";
   emoji.textContent = "🚫";
-  
+
   d.appendChild(emoji);
   d.appendChild(document.createTextNode("Çıkar"));
   d.onclick = () => {
@@ -536,19 +538,19 @@ function mankenleriGoster(kap) {
     const d = document.createElement("div");
     d.className = "urun manken-kart" + (giyim.mankenler === m.id ? " secili" : "");
     d.dataset.ad = m.ad;
-    
+
     const img = document.createElement("img");
     panelGorsel(img, "modeller", m.id, ovr("modeller", m.id) || svgURL(mankenOnizlemeSVG(m)));
     img.alt = m.ad;
     img.style.objectFit = "contain";
     d.appendChild(img);
-    
+
     // Manken adı etiketi
     const etiket = document.createElement("div");
     etiket.className = "manken-etiket";
     etiket.textContent = m.emoji + " " + m.ad;
     d.appendChild(etiket);
-    
+
     d.onclick = () => mankenDegistir(m.id);
     kap.appendChild(d);
   }
@@ -559,7 +561,7 @@ function renkleriGoster(kap) {
   b1.className = "renk-baslik";
   b1.textContent = "🌈 Ten Rengi Tonu";
   kap.appendChild(b1);
-  
+
   for (const t of DOLAP.tenRenkleri) {
     const s = document.createElement("div");
     s.className = "swatch" + (renkler.ten === t.renk ? " secili" : "");
@@ -568,12 +570,12 @@ function renkleriGoster(kap) {
     s.onclick = () => tenSec(t.renk);
     kap.appendChild(s);
   }
-  
+
   const b2 = document.createElement("div");
   b2.className = "renk-baslik";
   b2.textContent = "💇 Saç Rengi";
   kap.appendChild(b2);
-  
+
   for (const t of DOLAP.sacRenkleri) {
     const s = document.createElement("div");
     s.className = "swatch" + (renkler.sac === t.renk ? " secili" : "");
@@ -589,7 +591,7 @@ function makyajGoster(kap) {
   b1.className = "renk-baslik";
   b1.textContent = "👁️ Göz Rengi";
   kap.appendChild(b1);
-  
+
   for (const g of DOLAP.gozRenkleri) {
     const s = document.createElement("div");
     s.className = "swatch" + (renkler.goz === g.renk ? " secili" : "");
@@ -598,12 +600,12 @@ function makyajGoster(kap) {
     s.onclick = () => makyajSec("goz", g.renk);
     kap.appendChild(s);
   }
-  
+
   const b2 = document.createElement("div");
   b2.className = "renk-baslik";
   b2.textContent = "💄 Dudak Parlatıcısı (Ruj)";
   kap.appendChild(b2);
-  
+
   for (const r of DOLAP.rujRenkleri) {
     const s = document.createElement("div");
     s.className = "swatch" + (renkler.ruj === r.renk ? " secili" : "");
@@ -614,12 +616,12 @@ function makyajGoster(kap) {
     s.onclick = () => makyajSec("ruj", r.renk);
     kap.appendChild(s);
   }
-  
+
   const b3 = document.createElement("div");
   b3.className = "renk-baslik";
   b3.textContent = "😊 Yanak Allığı";
   kap.appendChild(b3);
-  
+
   for (const a of DOLAP.allikRenkleri) {
     const s = document.createElement("div");
     s.className = "swatch" + (renkler.allik === a.renk ? " secili" : "");
@@ -664,12 +666,12 @@ function gorevleriGoster(kap) {
     const bitti = bitenGorevler.has(g.id);
     const d = document.createElement("div");
     d.className = "gorev" + (bitti ? " bitti" : "");
-    
+
     const emoji = document.createElement("div");
     emoji.className = "gorev-emoji";
     emoji.textContent = g.emoji;
     d.appendChild(emoji);
-    
+
     const ic = document.createElement("div");
     ic.className = "gorev-ic";
     const ad = document.createElement("div");
@@ -681,17 +683,17 @@ function gorevleriGoster(kap) {
     ic.appendChild(ad);
     ic.appendChild(desc);
     d.appendChild(ic);
-    
+
     const odul = document.createElement("div");
     odul.className = "gorev-odul";
     odul.textContent = `+${g.yildiz}⭐`;
     d.appendChild(odul);
-    
+
     const durum = document.createElement("div");
     durum.className = "gorev-durum";
     durum.textContent = bitti ? "✅" : "🔒";
     d.appendChild(durum);
-    
+
     kap.appendChild(d);
   }
 }
@@ -801,7 +803,7 @@ async function varliklariYukle() {
 function eslerimiGoster(kap) {
   const ekle = document.createElement("div");
   ekle.className = "ekle-btn";
-  
+
   const btn = document.createElement("button");
   btn.className = "arac-btn vurgu";
   btn.style.width = "100%";
@@ -812,28 +814,28 @@ function eslerimiGoster(kap) {
   };
   ekle.appendChild(btn);
   kap.appendChild(ekle);
-  
+
   let toplam = 0;
   for (const katId of Object.keys(EKLE_KATEGORI)) {
     const liste = customVarliklar[katId] || [];
     if (!liste.length) continue;
     toplam += liste.length;
-    
+
     const bas = document.createElement("div");
     bas.className = "renk-baslik";
     bas.textContent = `${EKLE_KATEGORI[katId].emoji} ${EKLE_KATEGORI[katId].ad}`;
     kap.appendChild(bas);
-    
+
     for (const oge of liste) {
       const d = document.createElement("div");
       d.className = "urun";
       d.dataset.ad = oge.ad;
-      
+
       const img = document.createElement("img");
       img.src = oge.url;
       img.alt = oge.ad;
       d.appendChild(img);
-      
+
       d.onclick = () => {
         if (katId === "arkaplanlar") {
           arkaPlanOzel = oge.url;
@@ -848,7 +850,7 @@ function eslerimiGoster(kap) {
       kap.appendChild(d);
     }
   }
-  
+
   if (!toplam) {
     const bos = document.createElement("div");
     bos.className = "bos-not";
@@ -875,7 +877,7 @@ async function stickerEkle(src) {
     bildir("Fotoğraf yüklenemedi 😕");
     return;
   }
-  
+
   const oran = img.naturalHeight / img.naturalWidth || 1;
   const p = { id: stickerSayac++, src, xRel: 0.5, yRel: 0.45, wRel: 0.34, rot: 0, oran, dugum: null };
   stickerlar.push(p);
@@ -888,47 +890,47 @@ function stickerDugumu(p) {
   const d = document.createElement("div");
   d.className = "parca";
   d.dataset.id = p.id;
-  
+
   const img = document.createElement("img");
   img.src = p.src;
   img.alt = "Sticker";
   d.appendChild(img);
-  
+
   const kontrol = document.createElement("div");
   kontrol.className = "kontrol";
-  
+
   const cerceve = document.createElement("div");
   cerceve.className = "secim-cercevesi";
   kontrol.appendChild(cerceve);
-  
+
   const btnDondur = document.createElement("div");
   btnDondur.className = "tutamac t-dondur";
   btnDondur.textContent = "⟳";
   kontrol.appendChild(btnDondur);
-  
+
   const btnSil = document.createElement("div");
   btnSil.className = "tutamac t-sil";
   btnSil.textContent = "✕";
   kontrol.appendChild(btnSil);
-  
+
   const btnBoyut = document.createElement("div");
   btnBoyut.className = "tutamac t-boyut";
   btnBoyut.textContent = "⤡";
   kontrol.appendChild(btnBoyut);
-  
+
   d.appendChild(kontrol);
   p.dugum = d;
-  
+
   $("#stickerKat").appendChild(d);
   stickerStil(p);
-  
+
   d.addEventListener("pointerdown", (e) => {
     if (e.target.closest(".tutamac")) return;
     e.preventDefault();
     stickerSec(p.id);
     stickerTasi(e, p);
   });
-  
+
   btnSil.addEventListener("pointerdown", (e) => { e.preventDefault(); e.stopPropagation(); stickerSil(p); });
   btnBoyut.addEventListener("pointerdown", (e) => { e.preventDefault(); e.stopPropagation(); stickerBoyut(e, p); });
   btnDondur.addEventListener("pointerdown", (e) => { e.preventDefault(); e.stopPropagation(); stickerDondur(e, p); });
@@ -1012,6 +1014,10 @@ sahne.addEventListener("pointerdown", (e) => {
     for (const p of stickerlar) {
       p.dugum.classList.remove("secili");
     }
+    const panel = $(".panel");
+    if (panel) {
+      panel.classList.add("mini");
+    }
   }
 });
 
@@ -1022,10 +1028,10 @@ async function kombinResmi() {
   c.width = W;
   c.height = H;
   const ctx = c.getContext("2d");
-  
+
   ctx.fillStyle = "#fde9f3";
   ctx.fillRect(0, 0, W, H);
-  
+
   for (const id of DOLAP.cizimSirasi) {
     const src = katmanKaynak(id);
     if (!src) continue;
@@ -1034,7 +1040,7 @@ async function kombinResmi() {
       ctx.drawImage(img, 0, 0, W, H);
     } catch (e) {}
   }
-  
+
   for (const p of stickerlar) {
     try {
       const img = await resimYukle(p.src);
@@ -1082,7 +1088,7 @@ async function kombinKaydet() {
 function albumAc() {
   const grid = $("#albumGrid");
   grid.replaceChildren(); // Güvenli temizleme
-  
+
   const a = albumOku();
   if (!a.length) {
     const notice = document.createElement("div");
@@ -1093,12 +1099,12 @@ function albumAc() {
     a.forEach((oge, i) => {
       const d = document.createElement("div");
       d.className = "album-oge";
-      
+
       const img = document.createElement("img");
       img.src = oge.url;
       img.alt = `Kombin ${i + 1}`;
       d.appendChild(img);
-      
+
       const aIndir = document.createElement("a");
       aIndir.className = "mini indir";
       aIndir.href = oge.url;
@@ -1106,7 +1112,7 @@ function albumAc() {
       aIndir.title = "İndir";
       aIndir.textContent = "⬇️";
       d.appendChild(aIndir);
-      
+
       const aSil = document.createElement("a");
       aSil.className = "mini sil";
       aSil.title = "Sil";
@@ -1116,7 +1122,7 @@ function albumAc() {
         albumSil(i);
       };
       d.appendChild(aSil);
-      
+
       grid.appendChild(d);
     });
   }
@@ -1136,21 +1142,21 @@ async function defileAc() {
   SES.efekt("parla");
   bildir("Defile hazırlanıyor… 🌟");
   const url = await kombinResmi();
-  
+
   const defileGorsel = $("#defileGorsel");
   defileGorsel.replaceChildren(); // Güvenli temizleme
-  
+
   const img = document.createElement("img");
   img.src = url;
   img.alt = "Defile Kombin";
   defileGorsel.appendChild(img);
-  
+
   $("#defileModal").dataset.url = url;
   $("#defileModal").classList.remove("gizli");
-  
+
   SES.muzikDegistir("ap_defile");
   SES.efekt("fanfar");
-  
+
   konfetiPatlat();
   setTimeout(konfetiPatlat, 600);
   setTimeout(konfetiPatlat, 1200);
@@ -1174,30 +1180,30 @@ function sifirla() {
   giyim.saclar = "sac_dalgali";
   giyim.taclar = "tac_klasik";
   giyim.asalar = null;
-  
+
   renkler.ten = DOLAP.mankenler[0].ten;
   renkler.sac = DOLAP.mankenler[0].sacRenk || DOLAP.sacRenkleri[0].renk;
   renkler.goz = DOLAP.mankenler[0].goz;
   renkler.ruj = DOLAP.mankenler[0].ruj;
   renkler.allik = DOLAP.mankenler[0].allik;
-  
+
   arkaPlanOzel = null;
   SES.muzikDegistir("ap_balo");
-  
+
   for (const p of stickerlar) {
     p.dugum.remove();
   }
   stickerlar = [];
   seciliSticker = null;
-  
+
   for (const id of DOLAP.cizimSirasi) {
     katmanGuncelle(id, true);
   }
-  
+
   if (slotById[aktifSekme] || aktifSekme === "renkler" || aktifSekme === "makyaj" || aktifSekme === "mankenler") {
     urunleriGoster(aktifSekme);
   }
-  
+
   SES.efekt("cikar");
   bildir("🧹 Dolap sıfırlandı!");
 }
@@ -1207,11 +1213,11 @@ async function dosyaSecildi(e) {
   const dosya = e.target.files[0];
   e.target.value = "";
   if (!dosya || !bekleyenKategori) return;
-  
+
   const kat = bekleyenKategori;
   bekleyenKategori = null;
   bildir("Fotoğraf yükleniyor… ⏳");
-  
+
   try {
     const dataUrl = await kucult(dosya, 1200);
     const r = await fetch("/api/upload", {
@@ -1249,7 +1255,7 @@ function kucult(dosya, maxKenar) {
         const olcek = Math.min(1, maxKenar / Math.max(w, h));
         w = Math.round(w * olcek);
         h = Math.round(h * olcek);
-        
+
         const c = document.createElement("canvas");
         c.width = w;
         c.height = h;
@@ -1353,7 +1359,7 @@ function sesButonlari() {
     }
   };
   m.classList.add("kapali");
-  
+
   s.onclick = () => {
     const yeni = !SES.sessizMi;
     SES.sessiz(yeni);
@@ -1371,7 +1377,16 @@ function araclariBagla() {
   $("#btnAlbum").onclick = albumAc;
   $("#btnTemizle").onclick = sifirla;
   $("#defileKapat").onclick = defileKapat;
-  
+
+  const kulp = $("#panelKulp");
+  if (kulp) {
+    kulp.onclick = () => {
+      const p = $(".panel");
+      if (p) p.classList.toggle("mini");
+      SES.efekt("dokun");
+    };
+  }
+
   $("#defileKaydet").onclick = () => {
     const url = $("#defileModal").dataset.url;
     if (url) {
@@ -1380,14 +1395,14 @@ function araclariBagla() {
       bildir("📸 Kombin albüme kaydedildi!");
     }
   };
-  
+
   document.querySelectorAll("[data-kapat]").forEach((b) => {
     b.onclick = () => {
       b.closest(".modal").classList.add("gizli");
       SES.efekt("dokun");
     };
   });
-  
+
   document.querySelectorAll(".secim").forEach((b) => {
     b.onclick = () => {
       bekleyenKategori = b.dataset.kat;
@@ -1395,7 +1410,7 @@ function araclariBagla() {
       $("#dosyaGirisi").click();
     };
   });
-  
+
   $("#dosyaGirisi").addEventListener("change", dosyaSecildi);
   window.addEventListener("pointerdown", () => SES.uyandir(), { once: true });
 }

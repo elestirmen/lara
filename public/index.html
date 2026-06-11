@@ -33,23 +33,25 @@
         <div id="katmanlar" class="katmanlar"></div>
         <div id="stickerKat" class="sticker-kat"></div>
         <div id="parlamaKat" class="parlama-kat"></div>
-      </div>
-      <div class="sahne-araclar">
-        <button id="btnSurpriz" class="arac-btn altin">🎲 Sürpriz</button>
-        <button id="btnDefile" class="arac-btn vurgu">🌟 Defile</button>
-        <button id="btnKaydet" class="arac-btn">📸 Kaydet</button>
-        <button id="btnAlbum" class="arac-btn">🖼️ Albüm</button>
-        <button id="btnTemizle" class="arac-btn tehlike">🧹 Sıfırla</button>
-      </div>
-      <div class="dolgunluk-kutu">
-        <span class="dolgunluk-et">🧍 İnce</span>
-        <input id="dolgunlukSlider" type="range" min="0" max="100" value="0" aria-label="Dolgunluk" />
-        <span class="dolgunluk-et">🧸 Dolgun</span>
+
+        <div class="sahne-araclar">
+          <button id="btnSurpriz" class="arac-btn altin">🎲 <span class="btn-yazi">Sürpriz</span></button>
+          <button id="btnDefile" class="arac-btn vurgu">🌟 <span class="btn-yazi">Defile</span></button>
+          <button id="btnKaydet" class="arac-btn">📸 <span class="btn-yazi">Kaydet</span></button>
+          <button id="btnAlbum" class="arac-btn">🖼️ <span class="btn-yazi">Albüm</span></button>
+          <button id="btnTemizle" class="arac-btn tehlike">🧹 <span class="btn-yazi">Sıfırla</span></button>
+        </div>
+        <div class="dolgunluk-kutu">
+          <span class="dolgunluk-et">🧍 İnce</span>
+          <input id="dolgunlukSlider" type="range" min="0" max="100" value="0" aria-label="Dolgunluk" />
+          <span class="dolgunluk-et">🧸 Dolgun</span>
+        </div>
       </div>
     </section>
 
     <!-- Dolap Paneli -->
     <aside class="panel">
+      <div class="panel-kulp" id="panelKulp"></div>
       <nav id="sekmeler" class="sekmeler"></nav>
       <div class="panel-govde">
         <div id="urunler" class="urunler"></div>
