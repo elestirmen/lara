@@ -355,7 +355,11 @@ const ELBISELER = [
   { id: "elb_esr_yesil_mini", ad: "Esra Yeşil Mini Elbise", emoji: "💚", svg: elbiseSVG({ id: "elb_esr_yesil_mini", ust: "#34d399", alt: "#065f46", boy: "kisa" }), etiketler: ["yesil", "modern"] },
   { id: "elb_esr_kirmizi_balik", ad: "Esra Kırmızı Balık Elbisesi", emoji: "❤️", svg: elbiseSVG({ id: "elb_esr_kirmizi_balik", ust: "#ff5d73", alt: "#9d0208", boy: "uzun" }), etiketler: ["kirmizi", "balo", "modern"] },
   { id: "elb_esr_kirmizi_siyah", ad: "Esra Kırmızı Siyah Kokteyl", emoji: "🖤", svg: elbiseSVG({ id: "elb_esr_kirmizi_siyah", ust: "#16161d", alt: "#9d0208", boy: "uzun" }), etiketler: ["kirmizi", "siyah", "modern"] },
-  { id: "elb_esr_mavi_tuy", ad: "Esra Mavi Tüylü Elbise", emoji: "💙", svg: elbiseSVG({ id: "elb_esr_mavi_tuy", ust: "#1d4ed8", alt: "#1e3a8a", boy: "uzun" }), etiketler: ["mavi", "modern", "balo"] }
+  { id: "elb_esr_mavi_tuy", ad: "Esra Mavi Tüylü Elbise", emoji: "💙", svg: elbiseSVG({ id: "elb_esr_mavi_tuy", ust: "#1d4ed8", alt: "#1e3a8a", boy: "uzun" }), etiketler: ["mavi", "modern", "balo"] },
+  { id: "elb_altin_payet_mini", ad: "Altın Payet Mini", emoji: "✨", svg: elbiseSVG({ id: "elb_altin_payet_mini", ust: "#facc15", alt: "#b45309", boy: "kisa" }), etiketler: ["altin", "gece", "modern"] },
+  { id: "elb_gumus_metalik", ad: "Gümüş Metalik", emoji: "🤍", svg: elbiseSVG({ id: "elb_gumus_metalik", ust: "#f8fafc", alt: "#64748b", boy: "kisa" }), etiketler: ["gumus", "gece", "modern"] },
+  { id: "elb_safir_kadife", ad: "Safir Kadife", emoji: "💙", svg: elbiseSVG({ id: "elb_safir_kadife", ust: "#1d4ed8", alt: "#0f172a", boy: "uzun" }), etiketler: ["mavi", "gece", "balo"] },
+  { id: "elb_sari_sarmal_balo", ad: "Sarı Sarmal Balo", emoji: "💛", svg: elbiseSVG({ id: "elb_sari_sarmal_balo", ust: "#fde047", alt: "#eab308", boy: "tutu" }), etiketler: ["sari", "balo", "yaz"] }
 ];
 
 /* ============================== TAÇ & ŞAPKA (10 ADET) =============================== */

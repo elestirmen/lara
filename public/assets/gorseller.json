@@ -28,6 +28,7 @@
   "kanat_peri": "/assets/kanatlar/kanat_peri.webp"
  },
  "elbiseler": {
+  "elb_altin_payet_mini": "/assets/elbiseler/elb_altin_payet_mini.webp",
   "elb_balo_mavi": "/assets/elbiseler/elb_balo_mavi.webp",
   "elb_esr_kirmizi_balik": "/assets/elbiseler/elb_esr_kirmizi_balik.webp",
   "elb_esr_kirmizi_siyah": "/assets/elbiseler/elb_esr_kirmizi_siyah.webp",
@@ -37,6 +38,7 @@
   "elb_gece_bordo_tulum": "/assets/elbiseler/elb_gece_bordo_tulum.webp",
   "elb_gelinlik": "/assets/elbiseler/elb_gelinlik.webp",
   "elb_gul_pembe": "/assets/elbiseler/elb_gul_pembe.webp",
+  "elb_gumus_metalik": "/assets/elbiseler/elb_gumus_metalik.webp",
   "elb_inci_balo": "/assets/elbiseler/elb_inci_balo.webp",
   "elb_kimono": "/assets/elbiseler/elb_kimono.webp",
   "elb_kirmizi_gece": "/assets/elbiseler/elb_kirmizi_gece.webp",
@@ -44,11 +46,13 @@
   "elb_lacivert_gece": "/assets/elbiseler/elb_lacivert_gece.webp",
   "elb_mayo": "/assets/elbiseler/elb_mayo.webp",
   "elb_mor_saten": "/assets/elbiseler/elb_mor_saten.webp",
+  "elb_safir_kadife": "/assets/elbiseler/elb_safir_kadife.webp",
+  "elb_sari_sarmal_balo": "/assets/elbiseler/elb_sari_sarmal_balo.png",
   "elb_siyah": "/assets/elbiseler/elb_siyah.webp",
   "elb_tulum": "/assets/elbiseler/elb_tulum.webp",
   "elb_turuncu": "/assets/elbiseler/elb_turuncu.webp",
   "elb_yazlik": "/assets/elbiseler/elb_yazlik.webp",
-  "elb_yuna_latex": "/assets/elbiseler/elb_yuna_latex.webp",
+  "elb_yuna_latex": "/assets/elbiseler/elb_yuna_latex.png",
   "elb_zumrut": "/assets/elbiseler/elb_zumrut.webp"
  },
  "ayakkabilar": {
@@ -105,6 +109,7 @@
     "m_zoe": "/assets/_beden/b20/modeller/m_zoe.webp"
    },
    "elbiseler": {
+    "elb_altin_payet_mini": "/assets/_beden/b20/elbiseler/elb_altin_payet_mini.webp",
     "elb_balo_mavi": "/assets/_beden/b20/elbiseler/elb_balo_mavi.webp",
     "elb_esr_kirmizi_balik": "/assets/_beden/b20/elbiseler/elb_esr_kirmizi_balik.webp",
     "elb_esr_kirmizi_siyah": "/assets/_beden/b20/elbiseler/elb_esr_kirmizi_siyah.webp",
@@ -114,6 +119,7 @@
     "elb_gece_bordo_tulum": "/assets/_beden/b20/elbiseler/elb_gece_bordo_tulum.webp",
     "elb_gelinlik": "/assets/_beden/b20/elbiseler/elb_gelinlik.webp",
     "elb_gul_pembe": "/assets/_beden/b20/elbiseler/elb_gul_pembe.webp",
+    "elb_gumus_metalik": "/assets/_beden/b20/elbiseler/elb_gumus_metalik.webp",
     "elb_inci_balo": "/assets/_beden/b20/elbiseler/elb_inci_balo.webp",
     "elb_kimono": "/assets/_beden/b20/elbiseler/elb_kimono.webp",
     "elb_kirmizi_gece": "/assets/_beden/b20/elbiseler/elb_kirmizi_gece.webp",
@@ -121,11 +127,13 @@
     "elb_lacivert_gece": "/assets/_beden/b20/elbiseler/elb_lacivert_gece.webp",
     "elb_mayo": "/assets/_beden/b20/elbiseler/elb_mayo.webp",
     "elb_mor_saten": "/assets/_beden/b20/elbiseler/elb_mor_saten.webp",
+    "elb_safir_kadife": "/assets/_beden/b20/elbiseler/elb_safir_kadife.webp",
+    "elb_sari_sarmal_balo": "/assets/_beden/b20/elbiseler/elb_sari_sarmal_balo.png",
     "elb_siyah": "/assets/_beden/b20/elbiseler/elb_siyah.webp",
     "elb_tulum": "/assets/_beden/b20/elbiseler/elb_tulum.webp",
     "elb_turuncu": "/assets/_beden/b20/elbiseler/elb_turuncu.webp",
     "elb_yazlik": "/assets/_beden/b20/elbiseler/elb_yazlik.webp",
-    "elb_yuna_latex": "/assets/_beden/b20/elbiseler/elb_yuna_latex.webp",
+    "elb_yuna_latex": "/assets/_beden/b20/elbiseler/elb_yuna_latex.png",
     "elb_zumrut": "/assets/_beden/b20/elbiseler/elb_zumrut.webp"
    },
    "takilar": {
@@ -149,6 +157,7 @@
     "m_zoe": "/assets/_beden/b40/modeller/m_zoe.webp"
    },
    "elbiseler": {
+    "elb_altin_payet_mini": "/assets/_beden/b40/elbiseler/elb_altin_payet_mini.webp",
     "elb_balo_mavi": "/assets/_beden/b40/elbiseler/elb_balo_mavi.webp",
     "elb_esr_kirmizi_balik": "/assets/_beden/b40/elbiseler/elb_esr_kirmizi_balik.webp",
     "elb_esr_kirmizi_siyah": "/assets/_beden/b40/elbiseler/elb_esr_kirmizi_siyah.webp",
@@ -158,6 +167,7 @@
     "elb_gece_bordo_tulum": "/assets/_beden/b40/elbiseler/elb_gece_bordo_tulum.webp",
     "elb_gelinlik": "/assets/_beden/b40/elbiseler/elb_gelinlik.webp",
     "elb_gul_pembe": "/assets/_beden/b40/elbiseler/elb_gul_pembe.webp",
+    "elb_gumus_metalik": "/assets/_beden/b40/elbiseler/elb_gumus_metalik.webp",
     "elb_inci_balo": "/assets/_beden/b40/elbiseler/elb_inci_balo.webp",
     "elb_kimono": "/assets/_beden/b40/elbiseler/elb_kimono.webp",
     "elb_kirmizi_gece": "/assets/_beden/b40/elbiseler/elb_kirmizi_gece.webp",
@@ -165,11 +175,13 @@
     "elb_lacivert_gece": "/assets/_beden/b40/elbiseler/elb_lacivert_gece.webp",
     "elb_mayo": "/assets/_beden/b40/elbiseler/elb_mayo.webp",
     "elb_mor_saten": "/assets/_beden/b40/elbiseler/elb_mor_saten.webp",
+    "elb_safir_kadife": "/assets/_beden/b40/elbiseler/elb_safir_kadife.webp",
+    "elb_sari_sarmal_balo": "/assets/_beden/b40/elbiseler/elb_sari_sarmal_balo.png",
     "elb_siyah": "/assets/_beden/b40/elbiseler/elb_siyah.webp",
     "elb_tulum": "/assets/_beden/b40/elbiseler/elb_tulum.webp",
     "elb_turuncu": "/assets/_beden/b40/elbiseler/elb_turuncu.webp",
     "elb_yazlik": "/assets/_beden/b40/elbiseler/elb_yazlik.webp",
-    "elb_yuna_latex": "/assets/_beden/b40/elbiseler/elb_yuna_latex.webp",
+    "elb_yuna_latex": "/assets/_beden/b40/elbiseler/elb_yuna_latex.png",
     "elb_zumrut": "/assets/_beden/b40/elbiseler/elb_zumrut.webp"
    },
    "takilar": {
@@ -193,6 +205,7 @@
     "m_zoe": "/assets/_beden/b60/modeller/m_zoe.webp"
    },
    "elbiseler": {
+    "elb_altin_payet_mini": "/assets/_beden/b60/elbiseler/elb_altin_payet_mini.webp",
     "elb_balo_mavi": "/assets/_beden/b60/elbiseler/elb_balo_mavi.webp",
     "elb_esr_kirmizi_balik": "/assets/_beden/b60/elbiseler/elb_esr_kirmizi_balik.webp",
     "elb_esr_kirmizi_siyah": "/assets/_beden/b60/elbiseler/elb_esr_kirmizi_siyah.webp",
@@ -202,6 +215,7 @@
     "elb_gece_bordo_tulum": "/assets/_beden/b60/elbiseler/elb_gece_bordo_tulum.webp",
     "elb_gelinlik": "/assets/_beden/b60/elbiseler/elb_gelinlik.webp",
     "elb_gul_pembe": "/assets/_beden/b60/elbiseler/elb_gul_pembe.webp",
+    "elb_gumus_metalik": "/assets/_beden/b60/elbiseler/elb_gumus_metalik.webp",
     "elb_inci_balo": "/assets/_beden/b60/elbiseler/elb_inci_balo.webp",
     "elb_kimono": "/assets/_beden/b60/elbiseler/elb_kimono.webp",
     "elb_kirmizi_gece": "/assets/_beden/b60/elbiseler/elb_kirmizi_gece.webp",
@@ -209,11 +223,13 @@
     "elb_lacivert_gece": "/assets/_beden/b60/elbiseler/elb_lacivert_gece.webp",
     "elb_mayo": "/assets/_beden/b60/elbiseler/elb_mayo.webp",
     "elb_mor_saten": "/assets/_beden/b60/elbiseler/elb_mor_saten.webp",
+    "elb_safir_kadife": "/assets/_beden/b60/elbiseler/elb_safir_kadife.webp",
+    "elb_sari_sarmal_balo": "/assets/_beden/b60/elbiseler/elb_sari_sarmal_balo.png",
     "elb_siyah": "/assets/_beden/b60/elbiseler/elb_siyah.webp",
     "elb_tulum": "/assets/_beden/b60/elbiseler/elb_tulum.webp",
     "elb_turuncu": "/assets/_beden/b60/elbiseler/elb_turuncu.webp",
     "elb_yazlik": "/assets/_beden/b60/elbiseler/elb_yazlik.webp",
-    "elb_yuna_latex": "/assets/_beden/b60/elbiseler/elb_yuna_latex.webp",
+    "elb_yuna_latex": "/assets/_beden/b60/elbiseler/elb_yuna_latex.png",
     "elb_zumrut": "/assets/_beden/b60/elbiseler/elb_zumrut.webp"
    },
    "takilar": {
@@ -237,6 +253,7 @@
     "m_zoe": "/assets/_beden/b80/modeller/m_zoe.webp"
    },
    "elbiseler": {
+    "elb_altin_payet_mini": "/assets/_beden/b80/elbiseler/elb_altin_payet_mini.webp",
     "elb_balo_mavi": "/assets/_beden/b80/elbiseler/elb_balo_mavi.webp",
     "elb_esr_kirmizi_balik": "/assets/_beden/b80/elbiseler/elb_esr_kirmizi_balik.webp",
     "elb_esr_kirmizi_siyah": "/assets/_beden/b80/elbiseler/elb_esr_kirmizi_siyah.webp",
@@ -246,6 +263,7 @@
     "elb_gece_bordo_tulum": "/assets/_beden/b80/elbiseler/elb_gece_bordo_tulum.webp",
     "elb_gelinlik": "/assets/_beden/b80/elbiseler/elb_gelinlik.webp",
     "elb_gul_pembe": "/assets/_beden/b80/elbiseler/elb_gul_pembe.webp",
+    "elb_gumus_metalik": "/assets/_beden/b80/elbiseler/elb_gumus_metalik.webp",
     "elb_inci_balo": "/assets/_beden/b80/elbiseler/elb_inci_balo.webp",
     "elb_kimono": "/assets/_beden/b80/elbiseler/elb_kimono.webp",
     "elb_kirmizi_gece": "/assets/_beden/b80/elbiseler/elb_kirmizi_gece.webp",
@@ -253,11 +271,13 @@
     "elb_lacivert_gece": "/assets/_beden/b80/elbiseler/elb_lacivert_gece.webp",
     "elb_mayo": "/assets/_beden/b80/elbiseler/elb_mayo.webp",
     "elb_mor_saten": "/assets/_beden/b80/elbiseler/elb_mor_saten.webp",
+    "elb_safir_kadife": "/assets/_beden/b80/elbiseler/elb_safir_kadife.webp",
+    "elb_sari_sarmal_balo": "/assets/_beden/b80/elbiseler/elb_sari_sarmal_balo.png",
     "elb_siyah": "/assets/_beden/b80/elbiseler/elb_siyah.webp",
     "elb_tulum": "/assets/_beden/b80/elbiseler/elb_tulum.webp",
     "elb_turuncu": "/assets/_beden/b80/elbiseler/elb_turuncu.webp",
     "elb_yazlik": "/assets/_beden/b80/elbiseler/elb_yazlik.webp",
-    "elb_yuna_latex": "/assets/_beden/b80/elbiseler/elb_yuna_latex.webp",
+    "elb_yuna_latex": "/assets/_beden/b80/elbiseler/elb_yuna_latex.png",
     "elb_zumrut": "/assets/_beden/b80/elbiseler/elb_zumrut.webp"
    },
    "takilar": {
@@ -281,6 +301,7 @@
     "m_zoe": "/assets/_beden/b100/modeller/m_zoe.webp"
    },
    "elbiseler": {
+    "elb_altin_payet_mini": "/assets/_beden/b100/elbiseler/elb_altin_payet_mini.webp",
     "elb_balo_mavi": "/assets/_beden/b100/elbiseler/elb_balo_mavi.webp",
     "elb_esr_kirmizi_balik": "/assets/_beden/b100/elbiseler/elb_esr_kirmizi_balik.webp",
     "elb_esr_kirmizi_siyah": "/assets/_beden/b100/elbiseler/elb_esr_kirmizi_siyah.webp",
@@ -290,6 +311,7 @@
     "elb_gece_bordo_tulum": "/assets/_beden/b100/elbiseler/elb_gece_bordo_tulum.webp",
     "elb_gelinlik": "/assets/_beden/b100/elbiseler/elb_gelinlik.webp",
     "elb_gul_pembe": "/assets/_beden/b100/elbiseler/elb_gul_pembe.webp",
+    "elb_gumus_metalik": "/assets/_beden/b100/elbiseler/elb_gumus_metalik.webp",
     "elb_inci_balo": "/assets/_beden/b100/elbiseler/elb_inci_balo.webp",
     "elb_kimono": "/assets/_beden/b100/elbiseler/elb_kimono.webp",
     "elb_kirmizi_gece": "/assets/_beden/b100/elbiseler/elb_kirmizi_gece.webp",
@@ -297,11 +319,13 @@
     "elb_lacivert_gece": "/assets/_beden/b100/elbiseler/elb_lacivert_gece.webp",
     "elb_mayo": "/assets/_beden/b100/elbiseler/elb_mayo.webp",
     "elb_mor_saten": "/assets/_beden/b100/elbiseler/elb_mor_saten.webp",
+    "elb_safir_kadife": "/assets/_beden/b100/elbiseler/elb_safir_kadife.webp",
+    "elb_sari_sarmal_balo": "/assets/_beden/b100/elbiseler/elb_sari_sarmal_balo.png",
     "elb_siyah": "/assets/_beden/b100/elbiseler/elb_siyah.webp",
     "elb_tulum": "/assets/_beden/b100/elbiseler/elb_tulum.webp",
     "elb_turuncu": "/assets/_beden/b100/elbiseler/elb_turuncu.webp",
     "elb_yazlik": "/assets/_beden/b100/elbiseler/elb_yazlik.webp",
-    "elb_yuna_latex": "/assets/_beden/b100/elbiseler/elb_yuna_latex.webp",
+    "elb_yuna_latex": "/assets/_beden/b100/elbiseler/elb_yuna_latex.png",
     "elb_zumrut": "/assets/_beden/b100/elbiseler/elb_zumrut.webp"
    },
    "takilar": {

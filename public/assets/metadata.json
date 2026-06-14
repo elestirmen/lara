@@ -20,6 +20,7 @@
     "ap_pembe_podyum": { "ad": "Pembe Podyum", "emoji": "🎀", "etiketler": ["defile", "sahne", "pembe"] }
   },
   "elbiseler": {
+    "elb_altin_payet_mini": { "ad": "Altın Payet Mini", "emoji": "✨", "etiketler": ["altin", "gece", "modern"] },
     "elb_balo_mavi": { "ad": "Kraliyet Mavisi Balo", "emoji": "💙", "etiketler": ["mavi", "balo", "saray"] },
     "elb_deniz_turkuaz": { "ad": "Deniz Turkuazı", "emoji": "🌊", "etiketler": ["mavi", "yaz", "sahil"] },
     "elb_esofman": { "ad": "Yeşil Eşofman", "emoji": "🏃", "etiketler": ["gunluk", "spor", "yesil"] },
@@ -31,6 +32,7 @@
     "elb_gece_bordo_tulum": { "ad": "Bordo Gece Tulumu", "emoji": "🍷", "etiketler": ["gece", "modern", "kirmizi"] },
     "elb_gelinlik": { "ad": "Beyaz Gelinlik", "emoji": "🤍", "etiketler": ["saray", "balo", "beyaz"] },
     "elb_gul_pembe": { "ad": "Gül Pembe Elbise", "emoji": "🌸", "etiketler": ["pembe", "balo", "dogumgunu"] },
+    "elb_gumus_metalik": { "ad": "Gümüş Metalik", "emoji": "🤍", "etiketler": ["gumus", "gece", "modern"] },
     "elb_inci_balo": { "ad": "İnci Balo Elbisesi", "emoji": "🦪", "etiketler": ["balo", "saray", "beyaz"] },
     "elb_kazak": { "ad": "Örgü Kazak Elbise", "emoji": "🧶", "etiketler": ["gunluk", "kis"] },
     "elb_kimono": { "ad": "Çiçekli Kimono", "emoji": "👘", "etiketler": ["gunluk", "yaz", "mor"] },
@@ -42,6 +44,8 @@
     "elb_mayo": { "ad": "Mayo ve Sarong", "emoji": "🩱", "etiketler": ["yaz", "sahil", "mavi"] },
     "elb_mor_saten": { "ad": "Mor Saten", "emoji": "💜", "etiketler": ["mor", "gece", "balo"] },
     "elb_okul": { "ad": "Lacivert Üniforma", "emoji": "🎒", "etiketler": ["gunluk", "modern"] },
+    "elb_safir_kadife": { "ad": "Safir Kadife", "emoji": "💙", "etiketler": ["mavi", "gece", "balo"] },
+    "elb_sari_sarmal_balo": { "ad": "Sarı Sarmal Balo", "emoji": "💛", "etiketler": ["sari", "balo", "yaz"] },
     "elb_siyah": { "ad": "Siyah Mini", "emoji": "🖤", "etiketler": ["modern", "gece", "siyah"] },
     "elb_spor_lila": { "ad": "Lila Spor", "emoji": "💜", "etiketler": ["gunluk", "spor", "mor"] },
     "elb_tulum": { "ad": "Mor Gece Tulumu", "emoji": "🌃", "etiketler": ["gece", "modern", "mor"] },
