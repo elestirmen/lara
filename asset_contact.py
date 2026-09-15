@@ -19,6 +19,18 @@ from PIL import Image, ImageDraw
 ROOT = Path("/opt/lara")
 ASSETS = ROOT / "public" / "assets"
 CANVAS = (1024, 1365)
+LAYER_ORDER = {
+    "arkaplanlar": 0,
+    "kanatlar": 2,
+    "modeller": 3,
+    "ayakkabilar": 4,
+    "elbiseler": 5,
+    "ozel": 6,
+    "takilar": 7,
+    "saclar": 8,
+    "taclar": 9,
+    "asalar": 10,
+}
 
 
 def load_manifest() -> dict:
@@ -41,17 +53,24 @@ def load_layer(slot: str, item_id: str, manifest: dict) -> Image.Image | None:
 
 
 def composite(slot: str, item_id: str, manifest: dict, model_id: str, shoe_id: str | None) -> Image.Image | None:
-    model = load_layer("modeller", model_id, manifest)
-    item = load_layer(slot, item_id, manifest)
-    if not model or not item:
-        return None
-    canvas = Image.new("RGBA", CANVAS, (0, 0, 0, 0))
-    canvas = Image.alpha_composite(canvas, model)
-    canvas = Image.alpha_composite(canvas, item)
+    katmanlar = [("modeller", model_id)]
     if shoe_id and slot != "ayakkabilar":
-        shoe = load_layer("ayakkabilar", shoe_id, manifest)
-        if shoe:
-            canvas = Image.alpha_composite(canvas, shoe)
+        katmanlar.append(("ayakkabilar", shoe_id))
+    if slot == "modeller":
+        katmanlar[0] = (slot, item_id)
+    else:
+        katmanlar.append((slot, item_id))
+
+    yuklenen: list[tuple[str, Image.Image]] = []
+    for katman_slot, katman_id in katmanlar:
+        img = load_layer(katman_slot, katman_id, manifest)
+        if not img:
+            return None
+        yuklenen.append((katman_slot, img))
+
+    canvas = Image.new("RGBA", CANVAS, (0, 0, 0, 0))
+    for _katman_slot, img in sorted(yuklenen, key=lambda oge: LAYER_ORDER.get(oge[0], 99)):
+        canvas = Image.alpha_composite(canvas, img)
     return canvas
 
 

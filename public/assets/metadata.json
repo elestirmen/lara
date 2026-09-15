@@ -31,6 +31,8 @@
     "elb_esr_yesil_mini": { "ad": "Yeşil Mini Elbise", "emoji": "💚", "etiketler": ["yesil", "modern"] },
     "elb_gece_bordo_tulum": { "ad": "Bordo Gece Tulumu", "emoji": "🍷", "etiketler": ["gece", "modern", "kirmizi"] },
     "elb_gelinlik": { "ad": "Beyaz Gelinlik", "emoji": "🤍", "etiketler": ["saray", "balo", "beyaz"] },
+    "elb_gunluk_beyaz_jean": { "ad": "Beyaz Tişört & Jean", "emoji": "👕", "etiketler": ["gunluk", "spor", "modern", "mavi", "beyaz"] },
+    "elb_gunluk_siyah_bej": { "ad": "Siyah Tişört & Bej Pantolon", "emoji": "👕", "etiketler": ["gunluk", "spor", "modern", "siyah"] },
     "elb_gul_pembe": { "ad": "Gül Pembe Elbise", "emoji": "🌸", "etiketler": ["pembe", "balo", "dogumgunu"] },
     "elb_gumus_metalik": { "ad": "Gümüş Metalik", "emoji": "🤍", "etiketler": ["gumus", "gece", "modern"] },
     "elb_inci_balo": { "ad": "İnci Balo Elbisesi", "emoji": "🦪", "etiketler": ["balo", "saray", "beyaz"] },
@@ -81,7 +83,7 @@
   "taclar": {
     "tac_bere": { "ad": "Örgü Bere", "emoji": "🧣", "etiketler": ["kis", "kar"] },
     "tac_cadi": { "ad": "Cadı Şapkası", "emoji": "🧙‍♀️", "etiketler": ["sihir", "siyah"] },
-    "tac_cicek": { "ad": "Kır Çiçekleri Tacı", "emoji": "🌺", "etiketler": ["cicek", "bahce", "peri", "yaz"] },
+    "tac_cicek": { "ad": "Kır Çiçekleri Tacı", "emoji": "🌺", "etiketler": ["cicek", "bahce", "peri", "yaz"], "pasif": true },
     "tac_gumus_klasik": { "ad": "Gümüş Klasik Taç", "emoji": "💎", "etiketler": ["tac", "balo", "gece"] },
     "tac_gunes": { "ad": "Güneş Şapkası", "emoji": "👒", "etiketler": ["yaz", "sahil"] },
     "tac_kar": { "ad": "Buz Kristali Tacı", "emoji": "❄️", "etiketler": ["kar", "buz", "kis", "mavi"] },

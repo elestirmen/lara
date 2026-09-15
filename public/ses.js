@@ -19,9 +19,31 @@ const SES = (() => {
     const AC = window.AudioContext || window.webkitAudioContext;
     if (!AC) return;
     ctx = new AC();
+
     anaKazanc = ctx.createGain();
-    anaKazanc.gain.value = sessizMi ? 0 : 0.9;
-    anaKazanc.connect(ctx.destination);
+    anaKazanc.gain.value = sessizMi ? 0 : 0.7;
+
+    // Tiz köşeleri yumuşatan alçak geçiren süzgeç + kısa gecikme yankısı:
+    // aynı notalar çok daha az "oyuncak" duyulur.
+    const suzgec = ctx.createBiquadFilter();
+    suzgec.type = "lowpass";
+    suzgec.frequency.value = 2600;
+    suzgec.Q.value = 0.4;
+
+    const gecikme = ctx.createDelay(1.0);
+    gecikme.delayTime.value = 0.24;
+    const geriBesleme = ctx.createGain();
+    geriBesleme.gain.value = 0.22;
+    const yankiSeviyesi = ctx.createGain();
+    yankiSeviyesi.gain.value = 0.3;
+
+    anaKazanc.connect(suzgec);
+    suzgec.connect(ctx.destination);
+    suzgec.connect(gecikme);
+    gecikme.connect(geriBesleme);
+    geriBesleme.connect(gecikme);
+    gecikme.connect(yankiSeviyesi);
+    yankiSeviyesi.connect(ctx.destination);
   }
   function uyandir() {
     if (!ctx) baslat();
@@ -30,14 +52,14 @@ const SES = (() => {
 
   // Tek bir nota çal
   function nota(frek, baslangic, sure, tip = "sine", ses = 0.2) {
-    if (!ctx) return;
+    if (!ctx || !anaKazanc || !Number.isFinite(frek) || frek <= 0) return;
     const o = ctx.createOscillator();
     const g = ctx.createGain();
     o.type = tip;
     o.frequency.value = frek;
     const t = ctx.currentTime + baslangic;
     g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(ses, t + 0.012);
+    g.gain.linearRampToValueAtTime(ses, t + 0.03);
     g.gain.exponentialRampToValueAtTime(0.0001, t + sure);
     o.connect(g);
     g.connect(anaKazanc);
@@ -47,7 +69,9 @@ const SES = (() => {
 
   // Nota adı → frekans
   const NOTA = { C: 261.63, D: 293.66, E: 329.63, F: 349.23, G: 392.0, A: 440.0, B: 493.88,
-                 C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99, A5: 880.0, B5: 987.77, C6: 1046.5 };
+                 A4: 440.0, B4: 493.88,
+                 C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99, A5: 880.0, B5: 987.77,
+                 C6: 1046.5, D6: 1174.66, E6: 1318.51 };
 
   function efekt(ad) {
     uyandir();
@@ -90,34 +114,54 @@ const SES = (() => {
 
   // --- Tematik Arka Plan Melodileri ---
   const MELODILER = {
-    ap_balo: {
-      notalar: ["C5", "E5", "G5", "C5", "F5", "A5", "D5", "F5", "A5", "G5", "B5", "D6"],
-      hiz: 450, sure: 0.50, tip: "triangle", ses: 0.08
+    salon: {
+      notalar: ["C5", "E5", "G5", "E5", "F5", "A5", "F5", "D5", "G5", "B5", "G5", "E5"],
+      hiz: 470, sure: 0.62, tip: "triangle", ses: 0.07
     },
-    ap_bahce: {
+    bahce: {
       notalar: ["C5", "D5", "E5", "G5", "A5", "G5", "E5", "D5"],
-      hiz: 320, sure: 0.35, tip: "sine", ses: 0.09
+      hiz: 380, sure: 0.44, tip: "sine", ses: 0.08
     },
-    ap_buz: {
-      notalar: ["C6", "G5", "A5", "E5", "F5", "C5", "D5", "G5"],
-      hiz: 420, sure: 0.50, tip: "sine", ses: 0.07
-    },
-    ap_sahil: {
-      notalar: ["C5", "E5", "G5", "E5", "F5", "A5", "C6", "A5"],
-      hiz: 380, sure: 0.40, tip: "triangle", ses: 0.08
-    },
-    ap_gece: {
+    gece: {
       notalar: ["E5", "B4", "C5", "A4", "F5", "C5", "D5", "B4"],
-      hiz: 550, sure: 0.60, tip: "sine", ses: 0.06
+      hiz: 580, sure: 0.72, tip: "sine", ses: 0.055
     },
-    ap_defile: {
+    kar: {
+      notalar: ["C6", "G5", "A5", "E5", "F5", "C5", "D5", "G5"],
+      hiz: 460, sure: 0.6, tip: "sine", ses: 0.06
+    },
+    gunbatimi: {
+      notalar: ["C5", "E5", "G5", "E5", "F5", "A5", "C6", "A5"],
+      hiz: 420, sure: 0.5, tip: "triangle", ses: 0.07
+    },
+    podyum: {
       notalar: ["A5", "C6", "E6", "C6", "G5", "B5", "D6", "B5"],
-      hiz: 220, sure: 0.25, tip: "triangle", ses: 0.08
+      hiz: 260, sure: 0.3, tip: "triangle", ses: 0.07
     },
     varsayilan: {
       notalar: ["E5", "G5", "A5", "G5", "E5", "C5", "D5", "E5", "D5", "C5", "D5", "E5", "G5", "E5", "C5", "D5"],
-      hiz: 360, sure: 0.42, tip: "triangle", ses: 0.09
+      hiz: 400, sure: 0.5, tip: "triangle", ses: 0.075
     }
+  };
+
+  // Sahne kimliği → melodi. Listede olmayan sahneler varsayılana düşer.
+  const SAHNE_MELODI = {
+    ap_balo: "salon",
+    ap_altin_salon: "salon",
+    ap_altin_bokeh: "salon",
+    ap_gece_balo: "gece",
+    ap_stud_gece: "gece",
+    ap_sehir_bokeh: "gece",
+    ap_orman_aksam: "gece",
+    ap_zumrut_kadife: "gece",
+    ap_bahce: "bahce",
+    ap_stud_fildisi: "bahce",
+    ap_kis_bahce: "kar",
+    ap_kar_isilti: "kar",
+    ap_gun_batimi: "gunbatimi",
+    ap_stud_gul: "gunbatimi",
+    ap_pembe_podyum: "podyum",
+    ap_podyum: "podyum"
   };
 
   let aktifMelodi = "varsayilan";
@@ -127,10 +171,13 @@ const SES = (() => {
     if (!muzikCalisiyor || !ctx) return;
     const mel = MELODILER[aktifMelodi] || MELODILER["varsayilan"];
     const n = mel.notalar[mAdim % mel.notalar.length];
-    nota(NOTA[n], 0, mel.sure, mel.tip, mel.ses);
-    if (mAdim % 4 === 0) {
-      // Hafif ritmik bas
-      nota(NOTA[n] / 2, 0, mel.sure * 1.2, "sine", mel.ses * 0.65);
+    const frek = NOTA[n];
+    if (Number.isFinite(frek) && frek > 0) {
+      nota(frek, 0, mel.sure, mel.tip, mel.ses);
+      if (mAdim % 4 === 0) {
+        // Hafif ritmik bas
+        nota(frek / 2, 0, mel.sure * 1.2, "sine", mel.ses * 0.65);
+      }
     }
     mAdim++;
     muzikZaman = setTimeout(muzikAdimi, mel.hiz);
@@ -150,16 +197,15 @@ const SES = (() => {
   }
 
   function muzikDegistir(sahneId) {
-    if (MELODILER[sahneId]) {
-      aktifMelodi = sahneId;
-    } else {
-      aktifMelodi = "varsayilan";
-    }
+    const ad = SAHNE_MELODI[sahneId] || (MELODILER[sahneId] ? sahneId : "varsayilan");
+    if (ad === aktifMelodi) return;
+    aktifMelodi = ad;
+    mAdim = 0;
   }
 
   function sessiz(deger) {
     sessizMi = !!deger;
-    if (anaKazanc) anaKazanc.gain.value = sessizMi ? 0 : 0.9;
+    if (anaKazanc) anaKazanc.gain.value = sessizMi ? 0 : 0.7;
     if (sessizMi) muzikKapat();
   }
 

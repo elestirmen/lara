@@ -336,6 +336,8 @@ const ELBISELER = [
   { id: "elb_balo_mavi", ad: "Kraliyet Mavisi Balo", emoji: "💙", svg: elbiseSVG({ id: "elb_balo_mavi", ust: "#1d4ed8", alt: "#1e3a8a" }), etiketler: ["mavi", "balo", "saray"] },
   { id: "elb_kimono", ad: "Çiçekli Kimono Rob", emoji: "👘", svg: elbiseSVG({ id: "elb_kimono", ust: "#312e81", alt: "#4338ca", boy: "uzun" }), etiketler: ["gunluk", "yaz", "mor"] },
   { id: "elb_kot_ceket", ad: "Kot Ceket & Jean Pantolon", emoji: "🧥", svg: pantolonSVG({ id: "elb_kot_ceket", ust: "#2563eb", alt: "#1d4ed8" }), etiketler: ["gunluk", "spor", "mavi"] },
+  { id: "elb_gunluk_beyaz_jean", ad: "Beyaz Tişört & Jean", emoji: "👕", svg: S(""), etiketler: ["gunluk", "spor", "modern", "mavi", "beyaz"] },
+  { id: "elb_gunluk_siyah_bej", ad: "Siyah Tişört & Bej Pantolon", emoji: "👕", svg: S(""), etiketler: ["gunluk", "spor", "modern", "siyah"] },
   { id: "elb_esofman", ad: "Spor Eşofman Takımı", emoji: "🏃‍♀️", svg: pantolonSVG({ id: "elb_esofman", ust: "#059669", alt: "#047857" }), etiketler: ["gunluk", "spor", "yesil"] },
   { id: "elb_kazak", ad: "Örgü Kazak Elbise", emoji: "🧶", svg: elbiseSVG({ id: "elb_kazak", ust: "#d97706", alt: "#b45309", boy: "kisa" }), etiketler: ["gunluk", "kis", "turuncu"] },
   { id: "elb_kis_mavi", ad: "Kış Mavisi Elbise", emoji: "❄️", svg: elbiseSVG({ id: "elb_kis_mavi", ust: "#e0f2fe", alt: "#60a5fa", boy: "kisa" }), etiketler: ["mavi", "kis", "kar"] },
@@ -470,50 +472,245 @@ const ASALAR = [
     svg: S(`<rect x="368" y="506" width="8" height="144" rx="4" fill="#bae6fd"/><path d="M356 485 L372 465 L388 485 L372 505 Z" fill="#38bdf8"/>`), etiketler: ["sihir", "buz"] }
 ];
 
-/* ================================ ARKA PLANLAR (12 ADET) =============================== */
+/* ================================ ARKA PLANLAR / STÜDYO FONLARI =============================== */
+/* PNG sahnesi olmayan fonlar, fotogerçekçi modelle uyumlu kalsın diye çizgi film
+   illüstrasyonu değil, atmosferik stüdyo fonu olarak tasarlanmıştır (vektorOk). */
+const FON_ORTAK =
+  '<defs>' +
+  '<radialGradient id="tepeIsik" cx="0.5" cy="0.06" r="0.85">' +
+  '<stop offset="0" stop-color="#ffffff" stop-opacity="0.34"/>' +
+  '<stop offset="0.55" stop-color="#ffffff" stop-opacity="0.06"/>' +
+  '<stop offset="1" stop-color="#ffffff" stop-opacity="0"/>' +
+  '</radialGradient>' +
+  '<radialGradient id="vinyet" cx="0.5" cy="0.46" r="0.78">' +
+  '<stop offset="0.5" stop-color="#000000" stop-opacity="0"/>' +
+  '<stop offset="1" stop-color="#000000" stop-opacity="0.42"/>' +
+  '</radialGradient>' +
+  '<filter id="yumusat" x="-30%" y="-30%" width="160%" height="160%">' +
+  '<feGaussianBlur stdDeviation="26"/></filter>' +
+  '<filter id="hafifYumusat" x="-30%" y="-30%" width="160%" height="160%">' +
+  '<feGaussianBlur stdDeviation="9"/></filter>' +
+  '</defs>';
+
+// Zemin: figürün ayağının bastığı yumuşak yansımalı taban.
+function fonZemin(ust, alt, yansima) {
+  return (
+    '<rect y="560" width="600" height="240" fill="' + ust + '"/>' +
+    '<rect y="560" width="600" height="240" fill="url(#zeminGecis)"/>' +
+    '<defs><linearGradient id="zeminGecis" x1="0" y1="0" x2="0" y2="1">' +
+    '<stop offset="0" stop-color="' + ust + '"/>' +
+    '<stop offset="1" stop-color="' + alt + '"/></linearGradient></defs>' +
+    '<ellipse cx="300" cy="600" rx="300" ry="26" fill="#ffffff" opacity="' + yansima + '" filter="url(#hafifYumusat)"/>'
+  );
+}
+
+// Bokeh: rastgele değil, elle yerleştirilmiş ışık topları (deterministik).
+function fonBokeh(renkler, alfa) {
+  const noktalar = [
+    [88, 132, 46], [186, 76, 26], [292, 168, 62], [400, 96, 34], [508, 148, 52],
+    [58, 288, 30], [148, 244, 20], [246, 332, 40], [356, 262, 24], [466, 336, 44],
+    [546, 254, 28], [118, 412, 22], [318, 452, 30], [498, 430, 20], [212, 118, 16],
+  ];
+  let g = "";
+  noktalar.forEach((n, i) => {
+    const r = renkler[i % renkler.length];
+    g += '<circle cx="' + n[0] + '" cy="' + n[1] + '" r="' + n[2] + '" fill="' + r +
+      '" opacity="' + (alfa * (0.45 + ((i % 5) * 0.13))).toFixed(3) + '" filter="url(#yumusat)"/>';
+  });
+  return g;
+}
+
 const ARKAPLANLAR = [
+  // PNG karşılığı olan sahneler (vektör yalnızca yedek)
   { id: "ap_balo", ad: "Kraliyet Balo Salonu", emoji: "🏰",
-    svg: S(`<rect width="600" height="800" fill="#d4a373"/><rect y="580" width="600" height="220" fill="#bc6c25"/><rect x="30" y="0" width="50" height="580" rx="5" fill="#fff1e0"/><rect x="520" y="0" width="50" height="580" rx="5" fill="#fff1e0"/>`), etiketler: ["saray", "balo"] },
-  { id: "ap_bahce", ad: "Büyülü Çiçek Ormanı", emoji: "🌷",
-    svg: S(`<rect width="600" height="800" fill="#bde0fe"/><circle cx="480" cy="150" r="60" fill="#fefae0" opacity="0.7"/><path d="M0 540 Q250 480 600 540 V800 H0 Z" fill="#52b788"/><path d="M0 600 Q300 560 600 600 V800 H0 Z" fill="#40916c"/>`), etiketler: ["bahce", "yaz", "peri"] },
-  { id: "ap_buz", ad: "Işıltılı Kar Kalesi", emoji: "🏔️",
-    svg: S(`<rect width="600" height="800" fill="#bae6fd"/><path d="M0 500 L180 250 L320 500 Z" fill="#38bdf8" opacity="0.8"/><rect y="580" width="600" height="220" fill="#f0f9ff"/>`), etiketler: ["buz", "kar", "kis", "mavi"] },
-  { id: "ap_sahil", ad: "Altın Kum Gün Batımı", emoji: "🌅",
-    svg: S(`<rect width="600" height="800" fill="#ffb703"/><circle cx="300" cy="340" r="70" fill="#ffd166"/><path d="M0 500 Q300 460 600 500 V800 H0 Z" fill="#0077b6"/><rect y="640" width="600" height="160" fill="#fcd0a1"/>`), etiketler: ["sahil", "yaz", "deniz"] },
-  { id: "ap_gece", ad: "Yıldızlı Gece Gökyüzü", emoji: "🌙",
-    svg: S(`<rect width="600" height="800" fill="#10002b"/><circle cx="460" cy="140" r="30" fill="#fefae0"/><path d="M0 640 Q300 600 600 640 V800 H0 Z" fill="#240046"/>`), etiketler: ["gece", "yildiz", "mor"] },
-  { id: "ap_defile", ad: "Podyum Işıkları", emoji: "🎀",
-    svg: S(`<rect width="600" height="800" fill="#ff758f"/><path d="M300 0 L100 600 H500 Z" fill="#ffffff" opacity="0.15"/><path d="M160 600 L440 600 L540 800 L60 800 Z" fill="#ff007f"/>`), etiketler: ["defile", "sahne", "pembe"] },
-  
-  // Yeni 6 Arka Plan (Toplam 12)
-  { id: "ap_sehir", ad: "Şehir Sokakları", emoji: "🌆",
-    svg: S(`<rect width="600" height="800" fill="#312e81"/><rect y="500" width="600" height="300" fill="#1e1b4b"/><rect x="80" y="200" width="120" height="300" fill="#475569"/><rect x="380" y="150" width="140" height="350" fill="#334155"/>`), etiketler: ["modern", "gece"] },
-  { id: "ap_kafe", ad: "Sıcak Kafe", emoji: "☕",
-    svg: S(`<rect width="600" height="800" fill="#78350f"/><rect y="550" width="600" height="250" fill="#451a03"/><rect x="100" y="300" width="150" height="120" rx="10" fill="#d97706"/><rect x="350" y="280" width="180" height="150" rx="10" fill="#b45309"/>`), etiketler: ["modern", "gunluk"] },
-  { id: "ap_havuz", ad: "Yazlık Havuz", emoji: "🏊‍♀️",
-    svg: S(`<rect width="600" height="800" fill="#38bdf8"/><path d="M0 450 Q300 400 600 450 V800 H0 Z" fill="#0284c7"/><rect y="680" width="600" height="120" fill="#e2e8f0"/>`), etiketler: ["yaz", "sahil"] },
-  { id: "ap_uzay", ad: "Kozmik Uzay Rüyası", emoji: "🌌",
-    svg: S(`<rect width="600" height="800" fill="#0f172a"/><circle cx="150" cy="200" r="80" fill="#ec4899" opacity="0.15"/><circle cx="450" cy="500" r="100" fill="#3b82f6" opacity="0.15"/>`), etiketler: ["sihir", "gece"] },
-  { id: "ap_sinif", ad: "Okul Sınıfı", emoji: "🏫",
-    svg: S(`<rect width="600" height="800" fill="#cbd5e1"/><rect y="550" width="600" height="250" fill="#64748b"/><rect x="100" y="200" width="400" height="250" fill="#475569"/><rect x="120" y="220" width="360" height="210" fill="#0f172a"/>`), etiketler: ["modern"] },
-  { id: "ap_kutuphane", ad: "Antik Kütüphane", emoji: "📚",
-    svg: S(`<rect width="600" height="800" fill="#451a03"/><rect x="50" y="50" width="150" height="700" fill="#78350f"/><rect x="400" y="50" width="150" height="700" fill="#78350f"/><rect y="600" width="600" height="200" fill="#3a1300"/>`), etiketler: ["gece", "saray"] }
+    svg: S(FON_ORTAK +
+      '<rect width="600" height="800" fill="#6d5334"/>' +
+      '<linearGradient id="bl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a6c46"/><stop offset="1" stop-color="#4a3722"/></linearGradient>' +
+      '<rect width="600" height="800" fill="url(#bl)"/>' +
+      fonZemin("#7a5c39", "#3d2c1b", "0.14") +
+      '<rect width="600" height="800" fill="url(#tepeIsik)"/><rect width="600" height="800" fill="url(#vinyet)"/>'),
+    etiketler: ["saray", "balo"] },
+  { id: "ap_bahce", ad: "Büyülü Çiçek Bahçesi", emoji: "🌷",
+    svg: S(FON_ORTAK +
+      '<linearGradient id="bh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fc6a2"/><stop offset="1" stop-color="#3f6b52"/></linearGradient>' +
+      '<rect width="600" height="800" fill="url(#bh)"/>' +
+      fonBokeh(["#eaf7d6", "#ffe9a8"], 0.5) +
+      fonZemin("#5b8262", "#2c4636", "0.12") +
+      '<rect width="600" height="800" fill="url(#tepeIsik)"/><rect width="600" height="800" fill="url(#vinyet)"/>'),
+    etiketler: ["bahce", "yaz", "peri"] },
+
+  // Atmosferik stüdyo fonları — PNG gerektirmez, fotogerçekçi modelle uyumludur
+  { id: "ap_stud_fildisi", ad: "Fildişi Stüdyo", emoji: "🕯️", vektorOk: true,
+    svg: S(FON_ORTAK +
+      '<linearGradient id="sf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4ece2"/><stop offset="0.7" stop-color="#e2d5c7"/><stop offset="1" stop-color="#cdbcab"/></linearGradient>' +
+      '<rect width="600" height="800" fill="url(#sf)"/>' +
+      fonZemin("#d8cabb", "#b7a493", "0.2") +
+      '<rect width="600" height="800" fill="url(#tepeIsik)"/><rect width="600" height="800" fill="url(#vinyet)"/>'),
+    etiketler: ["defile", "sahne", "modern", "beyaz"] },
+  { id: "ap_stud_gece", ad: "Gece Mavisi Stüdyo", emoji: "🌑", vektorOk: true,
+    svg: S(FON_ORTAK +
+      '<linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c3a52"/><stop offset="0.68" stop-color="#161e2c"/><stop offset="1" stop-color="#0c1018"/></linearGradient>' +
+      '<rect width="600" height="800" fill="url(#sg)"/>' +
+      '<ellipse cx="300" cy="200" rx="230" ry="200" fill="#7f9ec9" opacity="0.2" filter="url(#yumusat)"/>' +
+      fonZemin("#1a2330", "#080b11", "0.09") +
+      '<rect width="600" height="800" fill="url(#vinyet)"/>'),
+    etiketler: ["gece", "modern", "mavi", "sahne"] },
+  { id: "ap_stud_gul", ad: "Gül Kurusu Stüdyo", emoji: "🌹", vektorOk: true,
+    svg: S(FON_ORTAK +
+      '<linearGradient id="sr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dfa8ae"/><stop offset="0.68" stop-color="#a8656f"/><stop offset="1" stop-color="#6d3c46"/></linearGradient>' +
+      '<rect width="600" height="800" fill="url(#sr)"/>' +
+      fonZemin("#9c5c66", "#59303a", "0.14") +
+      '<rect width="600" height="800" fill="url(#tepeIsik)"/><rect width="600" height="800" fill="url(#vinyet)"/>'),
+    etiketler: ["pembe", "defile", "sahne"] },
+  { id: "ap_zumrut_kadife", ad: "Zümrüt Kadife", emoji: "💚", vektorOk: true,
+    svg: S(FON_ORTAK +
+      '<linearGradient id="zk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f6b55"/><stop offset="0.7" stop-color="#17402f"/><stop offset="1" stop-color="#0c2419"/></linearGradient>' +
+      '<rect width="600" height="800" fill="url(#zk)"/>' +
+      '<ellipse cx="300" cy="230" rx="250" ry="210" fill="#6fd0a6" opacity="0.16" filter="url(#yumusat)"/>' +
+      fonZemin("#1c4c38", "#0a1d15", "0.1") +
+      '<rect width="600" height="800" fill="url(#vinyet)"/>'),
+    etiketler: ["yesil", "saray", "gece"] },
+  { id: "ap_altin_bokeh", ad: "Altın Işık Bokehi", emoji: "🥂", vektorOk: true,
+    svg: S(FON_ORTAK +
+      '<linearGradient id="ab" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a3418"/><stop offset="0.72" stop-color="#241809"/><stop offset="1" stop-color="#120b04"/></linearGradient>' +
+      '<rect width="600" height="800" fill="url(#ab)"/>' +
+      fonBokeh(["#ffd88a", "#ffb84d", "#fff0c4"], 0.75) +
+      fonZemin("#2b1d0c", "#100a04", "0.12") +
+      '<rect width="600" height="800" fill="url(#vinyet)"/>'),
+    etiketler: ["altin", "balo", "gece", "saray"] },
+  { id: "ap_sehir_bokeh", ad: "Şehir Işıkları", emoji: "🌃", vektorOk: true,
+    svg: S(FON_ORTAK +
+      '<linearGradient id="sb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2647"/><stop offset="0.7" stop-color="#131228"/><stop offset="1" stop-color="#08070f"/></linearGradient>' +
+      '<rect width="600" height="800" fill="url(#sb)"/>' +
+      fonBokeh(["#9fc4ff", "#ffc9e6", "#fff2c0"], 0.62) +
+      fonZemin("#16152b", "#07060d", "0.14") +
+      '<rect width="600" height="800" fill="url(#vinyet)"/>'),
+    etiketler: ["gece", "modern", "mor"] },
+  { id: "ap_gun_batimi", ad: "Gün Batımı Terası", emoji: "🌇", vektorOk: true,
+    svg: S(FON_ORTAK +
+      '<linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7c26b"/><stop offset="0.4" stop-color="#ef8f6a"/><stop offset="0.72" stop-color="#a85a6a"/><stop offset="1" stop-color="#5b3450"/></linearGradient>' +
+      '<rect width="600" height="800" fill="url(#gb)"/>' +
+      '<circle cx="300" cy="330" r="120" fill="#ffe6ac" opacity="0.5" filter="url(#yumusat)"/>' +
+      fonZemin("#8b4f5e", "#3d2338", "0.16") +
+      '<rect width="600" height="800" fill="url(#vinyet)"/>'),
+    etiketler: ["yaz", "sahil", "turuncu"] },
+  { id: "ap_kar_isilti", ad: "Kar Işıltısı", emoji: "❄️", vektorOk: true,
+    svg: S(FON_ORTAK +
+      '<linearGradient id="ki" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9f3fb"/><stop offset="0.66" stop-color="#bcd3e8"/><stop offset="1" stop-color="#8fadc9"/></linearGradient>' +
+      '<rect width="600" height="800" fill="url(#ki)"/>' +
+      fonBokeh(["#ffffff", "#dcecff"], 0.42) +
+      fonZemin("#cadcec", "#93b0cb", "0.24") +
+      '<rect width="600" height="800" fill="url(#tepeIsik)"/><rect width="600" height="800" fill="url(#vinyet)"/>'),
+    etiketler: ["kis", "kar", "buz", "mavi"] },
+  { id: "ap_podyum", ad: "Podyum Işıkları", emoji: "🎀", vektorOk: true,
+    svg: S(FON_ORTAK +
+      '<linearGradient id="pd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2233"/><stop offset="0.7" stop-color="#1c1019"/><stop offset="1" stop-color="#0c070c"/></linearGradient>' +
+      '<rect width="600" height="800" fill="url(#pd)"/>' +
+      '<path d="M300 0 L96 620 H504 Z" fill="#ffd9ec" opacity="0.14" filter="url(#hafifYumusat)"/>' +
+      '<ellipse cx="300" cy="150" rx="200" ry="150" fill="#ff9ec9" opacity="0.16" filter="url(#yumusat)"/>' +
+      fonZemin("#241521", "#0b0710", "0.18") +
+      '<rect width="600" height="800" fill="url(#vinyet)"/>'),
+    etiketler: ["defile", "sahne", "pembe", "gece"] }
 ];
 
-/* ================================ GÖREVLER ================================= */
+/* ================================ STİL BRİEFLERİ ================================= */
+/* Her brief en az iki farklı slota bağlı koşul içerir; koşullar fotogerçekçi
+   gardıropta bulunan etiketlerle eşleşecek şekilde seçilmiştir. */
 const GOREVLER = [
-  { id: "g_dogumgunu", ad: "Doğum Günü Partisi Rüyası", emoji: "🎂",
-    aciklama: "Göz alıcı pembe veya altın elbise ile partinin en şık mankeni ol!", gerek: ["dogumgunu"], yildiz: 2 },
-  { id: "g_kar", ad: "Kar Kraliçesi Masalı", emoji: "❄️",
-    aciklama: "Buz mavisi elbise + buz kristali tacı ile kış büyücüsünü tamamla!", gerek: ["buz", "kar"], yildiz: 3 },
-  { id: "g_bahce", ad: "Bahçe Defilesi Şıklığı", emoji: "🌷",
-    aciklama: "Çiçek tacı veya çiçekli desenler içeren taze bir kır stili yarat.", gerek: ["bahce"], yildiz: 2 },
-  { id: "g_peri", ad: "Büyülü Orman Perisi", emoji: "🧚",
-    aciklama: "Peri kanadı takıp eline de sihirli asayı alarak ormanı aydınlat!", gerek: ["peri"], yildiz: 3 },
-  { id: "g_balo", ad: "Kraliyet Dans Gecesi", emoji: "👑",
-    aciklama: "Kemerli balo elbisesi giy, başına altın bir taç tak ve podyuma çık!", gerek: ["balo", "tac"], yildiz: 3 },
-  { id: "g_gece", ad: "Gece Büyüsü Asaleti", emoji: "🌙",
-    aciklama: "Gece temalı şık ve asil bir kombini tamamlayarak gökyüzünü izle.", gerek: ["gece"], yildiz: 2 },
+  { id: "g_balo", ad: "Kraliyet Dans Gecesi", emoji: "👑", yildiz: 3,
+    aciklama: "Balo elbisesini kraliyet tacı ve saray sahnesiyle tamamla.",
+    gerek: ["balo"],
+    kosullar: [
+      { slot: "elbiseler", etiketler: ["balo"], ad: "Balo elbisesi" },
+      { slot: "taclar", etiketler: ["tac", "saray"], ad: "Kraliyet tacı" },
+      { slot: "arkaplanlar", etiketler: ["balo", "saray"], ad: "Saray sahnesi" },
+    ] },
+  { id: "g_kirmizi_hali", ad: "Kırmızı Halı", emoji: "❤️", yildiz: 3,
+    aciklama: "Kırmızı bir görünümü gece ayakkabısı ve şık bir kolyeyle taçlandır.",
+    gerek: ["kirmizi"],
+    kosullar: [
+      { slot: "elbiseler", etiketler: ["kirmizi"], ad: "Kırmızı elbise" },
+      { slot: "ayakkabilar", etiketler: ["gece", "balo"], ad: "Gece ayakkabısı" },
+      { slot: "takilar", etiketler: ["balo", "gece", "altin"], ad: "Şık kolye" },
+    ] },
+  { id: "g_kar", ad: "Kar Kraliçesi Masalı", emoji: "❄️", yildiz: 3,
+    aciklama: "Buz tonlarında bir görünümü kar tacı ve kışlık ayakkabıyla birleştir.",
+    gerek: ["kis"],
+    kosullar: [
+      { slot: "taclar", etiketler: ["kar", "buz", "kis"], ad: "Buz tacı" },
+      { slot: "ayakkabilar", etiketler: ["kis", "kar"], ad: "Kışlık ayakkabı" },
+      { slot: "arkaplanlar", etiketler: ["kis", "kar", "buz"], ad: "Kış sahnesi" },
+    ] },
+  { id: "g_bahce", ad: "Bahçe Defilesi", emoji: "🌷", yildiz: 2,
+    aciklama: "Taze bir yaz görünümünü yeşil bir sahneyle eşleştir.",
+    gerek: ["bahce"],
+    kosullar: [
+      { slot: "elbiseler", etiketler: ["yaz", "bahce", "yesil", "beyaz"], ad: "Yazlık görünüm" },
+      { slot: "arkaplanlar", etiketler: ["bahce", "yesil"], ad: "Bahçe sahnesi" },
+    ] },
+  { id: "g_peri", ad: "Orman Perisi", emoji: "🧚", yildiz: 3,
+    aciklama: "Peri kanadı, ametist kolye ve büyülü bir sahne.",
+    gerek: ["peri"],
+    kosullar: [
+      { slot: "kanatlar", etiketler: ["peri", "kelebek"], ad: "Peri kanadı" },
+      { slot: "takilar", etiketler: ["peri", "bahce", "mor"], ad: "Büyülü kolye" },
+      { slot: "arkaplanlar", etiketler: ["peri", "bahce"], ad: "Büyülü sahne" },
+    ] },
+  { id: "g_gece", ad: "Gece Zarafeti", emoji: "🌙", yildiz: 2,
+    aciklama: "Gece görünümünü karanlık bir sahnede sergile.",
+    gerek: ["gece"],
+    kosullar: [
+      { slot: "elbiseler", etiketler: ["gece"], ad: "Gece elbisesi" },
+      { slot: "arkaplanlar", etiketler: ["gece"], ad: "Gece sahnesi" },
+    ] },
+  { id: "g_altin", ad: "Altın Saat", emoji: "🥂", yildiz: 3,
+    aciklama: "Baştan aşağı altın: elbise, kolye ve altın ışıklı bir sahne.",
+    gerek: ["altin"],
+    kosullar: [
+      { slot: "elbiseler", etiketler: ["altin", "sari", "gumus"], ad: "Işıltılı elbise" },
+      { slot: "takilar", etiketler: ["altin"], ad: "Altın kolye" },
+      { slot: "arkaplanlar", etiketler: ["altin"], ad: "Altın sahne" },
+    ] },
+  { id: "g_monokrom", ad: "Monokrom Güç", emoji: "🖤", yildiz: 3,
+    aciklama: "Tam siyah bir görünüm kur: elbise, kolye ve ayakkabı.",
+    gerek: ["siyah"],
+    kosullar: [
+      { slot: "elbiseler", etiketler: ["siyah"], ad: "Siyah elbise" },
+      { slot: "takilar", etiketler: ["siyah", "modern"], ad: "Modern kolye" },
+      { slot: "ayakkabilar", etiketler: ["siyah", "modern", "gece"], ad: "Siyah ayakkabı" },
+    ] },
+  { id: "g_sahil", ad: "Sahil Esintisi", emoji: "🌊", yildiz: 3,
+    aciklama: "Yazlık elbise, hasır şapka ve sandalet üçlüsünü tamamla.",
+    gerek: ["yaz"],
+    kosullar: [
+      { slot: "elbiseler", etiketler: ["yaz", "sahil", "mavi"], ad: "Yazlık elbise" },
+      { slot: "taclar", etiketler: ["yaz", "sahil"], ad: "Güneş şapkası" },
+      { slot: "ayakkabilar", etiketler: ["yaz", "sahil"], ad: "Sandalet" },
+    ] },
+  { id: "g_sokak", ad: "Sokak Stili", emoji: "🧢", yildiz: 2,
+    aciklama: "Günlük bir kombini spor ayakkabı ve modern bir şapkayla tamamla.",
+    gerek: ["gunluk"],
+    kosullar: [
+      { slot: "elbiseler", etiketler: ["gunluk", "spor"], ad: "Günlük kıyafet" },
+      { slot: "ayakkabilar", etiketler: ["spor", "gunluk"], ad: "Spor ayakkabı" },
+      { slot: "taclar", etiketler: ["modern", "spor"], ad: "Modern şapka" },
+    ] },
+  { id: "g_karanlik", ad: "Karanlık Masal", emoji: "🦇", yildiz: 3,
+    aciklama: "Karanlık kanat, siyah bir görünüm ve sihirli bir şapka.",
+    gerek: ["gece"],
+    kosullar: [
+      { slot: "kanatlar", etiketler: ["siyah", "gece", "mor"], ad: "Karanlık kanat" },
+      { slot: "elbiseler", etiketler: ["siyah", "gece"], ad: "Karanlık görünüm" },
+      { slot: "taclar", etiketler: ["sihir", "siyah", "mor"], ad: "Sihirli şapka" },
+    ] },
+  { id: "g_podyum", ad: "Podyum Yıldızı", emoji: "✨", yildiz: 3,
+    aciklama: "Modern bir kesimi podyum sahnesinde, modern ayakkabıyla sergile.",
+    gerek: ["modern"],
+    kosullar: [
+      { slot: "elbiseler", etiketler: ["modern"], ad: "Modern kesim" },
+      { slot: "ayakkabilar", etiketler: ["modern"], ad: "Modern ayakkabı" },
+      { slot: "arkaplanlar", etiketler: ["defile", "sahne"], ad: "Podyum sahnesi" },
+    ] },
 ];
 
 const OZEL = [];
@@ -537,15 +734,15 @@ const DOLAP = {
   allikRenkleri: ALLIK_RENKLERI,
   
   slotlar: [
-    { id: "arkaplanlar", ad: "Sahne Seç", emoji: "🏰", liste: ARKAPLANLAR, zorunlu: true },
-    { id: "kanatlar", ad: "Kanatlar", emoji: "🦋", liste: KANATLAR },
+    { id: "arkaplanlar", ad: "Sahne", emoji: "🏰", liste: ARKAPLANLAR, zorunlu: true },
+    { id: "kanatlar", ad: "Kanat", emoji: "🦋", liste: KANATLAR },
     { id: "elbiseler", ad: "Elbise", emoji: "👗", liste: ELBISELER },
     { id: "ozel", ad: "Özel", emoji: "🖤", liste: OZEL },
     { id: "ayakkabilar", ad: "Ayakkabı", emoji: "👠", liste: AYAKKABILAR },
-    { id: "takilar", ad: "Kolyeler", emoji: "💎", liste: TAKILAR },
-    { id: "saclar", ad: "Saç Stili", emoji: "💇", liste: SACLAR, zorunlu: true },
-    { id: "taclar", ad: "Taç & Şapka", emoji: "👑", liste: TACLAR },
-    { id: "asalar", ad: "Sihirli Asa", emoji: "✨", liste: ASALAR },
+    { id: "takilar", ad: "Kolye", emoji: "💎", liste: TAKILAR },
+    { id: "saclar", ad: "Saç", emoji: "💇", liste: SACLAR, zorunlu: true },
+    { id: "taclar", ad: "Şapka", emoji: "👑", liste: TACLAR },
+    { id: "asalar", ad: "Asa", emoji: "✨", liste: ASALAR },
   ],
   gorevler: GOREVLER,
 };

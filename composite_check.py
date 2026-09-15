@@ -18,6 +18,18 @@ from PIL import Image
 ROOT = Path("/opt/lara")
 ASSETS = ROOT / "public" / "assets"
 CANVAS = (1024, 1365)
+LAYER_ORDER = {
+    "arkaplanlar": 0,
+    "kanatlar": 2,
+    "modeller": 3,
+    "ayakkabilar": 4,
+    "elbiseler": 5,
+    "ozel": 6,
+    "takilar": 7,
+    "saclar": 8,
+    "taclar": 9,
+    "asalar": 10,
+}
 
 
 @dataclass
@@ -84,7 +96,9 @@ def layer_path(manifest: dict, slot: str, item_id: str) -> Path | None:
 def compose(combo: dict, manifest: dict) -> tuple[Image.Image | None, list[Finding]]:
     findings: list[Finding] = []
     canvas = Image.new("RGBA", CANVAS, (0, 0, 0, 0))
-    for slot, item_id in combo["layers"]:
+    # Preview exactly the same z-order as the browser runtime, regardless of
+    # how a smoke-test combo happens to list its ingredients.
+    for slot, item_id in sorted(combo["layers"], key=lambda layer: LAYER_ORDER.get(layer[0], 99)):
         path = layer_path(manifest, slot, item_id)
         if not path or not path.exists():
             findings.append(Finding("error", combo["name"], f"missing layer {slot}/{item_id}"))

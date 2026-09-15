@@ -7,20 +7,26 @@ const path = require("path");
 
 const ASSETS = path.join(__dirname, "public", "assets");
 const GORSEL_SLOTLAR = ["modeller", "arkaplanlar", "kanatlar", "elbiseler", "ayakkabilar", "takilar", "saclar", "taclar", "asalar", "ozel"];
-const UZANTI = [".png", ".webp", ".jpg", ".jpeg"];
+const UZANTI_ONCELIGI = { ".png": 0, ".webp": 1, ".jpg": 2, ".jpeg": 3 };
 
 function slotTara(kok, slot) {
   const harita = {};
   try {
-    for (const f of fs.readdirSync(path.join(kok, slot))) {
-      if (!UZANTI.includes(path.extname(f).toLowerCase())) continue;
+    const secilen = new Map();
+    for (const f of fs.readdirSync(path.join(kok, slot)).sort()) {
+      const ext = path.extname(f).toLowerCase();
+      if (!(ext in UZANTI_ONCELIGI)) continue;
+      const id = path.parse(f).name;
+      const onceki = secilen.get(id);
+      if (onceki && onceki.oncelik <= UZANTI_ONCELIGI[ext]) continue;
       const rel = path
         .relative(ASSETS, path.join(kok, slot, f))
         .split(path.sep)
         .map(encodeURIComponent)
         .join("/");
-      harita[path.parse(f).name] = "/assets/" + rel;
+      secilen.set(id, { oncelik: UZANTI_ONCELIGI[ext], url: "/assets/" + rel });
     }
+    for (const id of [...secilen.keys()].sort()) harita[id] = secilen.get(id).url;
   } catch (e) {}
   return harita;
 }

@@ -2,168 +2,421 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#ff5c8a" />
-  <title>✨ Leyla Stil Stüdyosu</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#17141a" />
+  <meta name="color-scheme" content="light" />
+  <meta name="description" content="Leyla Stil Stüdyosu — fotogerçekçi katmanlarla çalışan çevrimdışı giydirme ve stil oyunu." />
+  <title>Leyla Stil Stüdyosu</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23241f26'/%3E%3Cpath d='M32 13l4.6 10.7L48 26.5l-8.4 8 2.1 11.9L32 40.7 22.3 46.4l2.1-11.9-8.4-8 11.4-2.8z' fill='%23d9b063'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- ============================ İKON SETİ ============================
+       Tek çizgi ağırlığı, tek grid: arayüzdeki tüm ikonlar buradan gelir.
+       Emoji yalnız içerik (parça/brief) tarafında kalır.
+  ==================================================================== -->
+  <svg class="ikon-deposu" aria-hidden="true" focusable="false" width="0" height="0">
+    <defs>
+      <symbol id="i-geri" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a5.5 5.5 0 0 1 0 11h-3.6"/></symbol>
+      <symbol id="i-ileri" viewBox="0 0 24 24"><path d="M15 14l5-5-5-5"/><path d="M20 9H10a5.5 5.5 0 0 0 0 11h3.6"/></symbol>
+      <symbol id="i-ses" viewBox="0 0 24 24"><path d="M11.2 4.8 6.6 8.8H3.4v6.4h3.2l4.6 4z"/><path d="M15.4 9.2a4 4 0 0 1 0 5.6"/><path d="M18.2 6.4a8 8 0 0 1 0 11.2"/></symbol>
+      <symbol id="i-sessiz" viewBox="0 0 24 24"><path d="M11.2 4.8 6.6 8.8H3.4v6.4h3.2l4.6 4z"/><path d="m15.6 9.6 5 4.8M20.6 9.6l-5 4.8"/></symbol>
+      <symbol id="i-muzik" viewBox="0 0 24 24"><path d="M9.4 17.4V6.1l9.6-2.1v11.2"/><circle cx="6.9" cy="17.4" r="2.6"/><circle cx="16.5" cy="15.2" r="2.6"/></symbol>
+      <symbol id="i-muzik-kapali" viewBox="0 0 24 24"><path d="M9.4 17.4V6.1l9.6-2.1v3.6"/><circle cx="6.9" cy="17.4" r="2.6"/><path d="M4.2 4.2 19.8 19.8"/></symbol>
+      <symbol id="i-yardim" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.8"/><path d="M9.5 9.4a2.6 2.6 0 0 1 5.1.8c0 1.7-2.5 2.2-2.5 3.9"/><path d="M12 17.3h.01"/></symbol>
+      <symbol id="i-ayar" viewBox="0 0 24 24"><path d="M4 6.6h7.6M16.8 6.6H20M4 12h3.2M12.4 12H20M4 17.4h7.6M16.8 17.4H20"/><circle cx="14.2" cy="6.6" r="2.3"/><circle cx="9.8" cy="12" r="2.3"/><circle cx="14.2" cy="17.4" r="2.3"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><circle cx="12" cy="5.4" r="1.7" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/><circle cx="12" cy="18.6" r="1.7" fill="currentColor" stroke="none"/></symbol>
+      <symbol id="i-yildiz" viewBox="0 0 24 24"><path d="M12 3.2 14.7 8.8l6.1.9-4.4 4.3 1 6.1L12 17.2l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z" fill="currentColor" stroke="none"/></symbol>
+      <symbol id="i-surpriz" viewBox="0 0 24 24"><path d="M16.6 3.9 20 7.3l-3.4 3.4M16.6 13.3 20 16.7l-3.4 3.4"/><path d="M3.6 7.3h3.1c1.9 0 2.9 1 4 2.6l2.5 4.2c1.1 1.6 2.1 2.6 4 2.6H20"/><path d="M3.6 16.7h3.1c1.9 0 2.9-1 4-2.6M20 7.3h-2.3c-1.9 0-2.9 1-4 2.6"/></symbol>
+      <symbol id="i-defile" viewBox="0 0 24 24"><path d="M11 2.9 12.8 7.7 17.6 9.5 12.8 11.3 11 16.1 9.2 11.3 4.4 9.5 9.2 7.7z" fill="currentColor" stroke="none"/><path d="M17.9 14.2l.8 2.1 2.1.8-2.1.8-.8 2.1-.8-2.1-2.1-.8 2.1-.8z" fill="currentColor" stroke="none"/></symbol>
+      <symbol id="i-kamera" viewBox="0 0 24 24"><path d="M3.3 9.1a2.2 2.2 0 0 1 2.2-2.2h1.6l1.3-2.2h7.2l1.3 2.2h1.6a2.2 2.2 0 0 1 2.2 2.2v8.1a2.2 2.2 0 0 1-2.2 2.2H5.5a2.2 2.2 0 0 1-2.2-2.2z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+      <symbol id="i-album" viewBox="0 0 24 24"><rect x="7.4" y="3.5" width="13.1" height="13.1" rx="2.6"/><path d="M16.6 20.5H6.1a2.6 2.6 0 0 1-2.6-2.6V7.4"/><circle cx="11.6" cy="8.3" r="1.4"/><path d="m20.5 13.4-3.7-3.3-6 6.5"/></symbol>
+      <symbol id="i-sifirla" viewBox="0 0 24 24"><path d="M3.6 5.4v5h5"/><path d="M4.2 13.6a8.2 8.2 0 1 0 1.1-6.6"/></symbol>
+      <symbol id="i-ara" viewBox="0 0 24 24"><circle cx="10.9" cy="10.9" r="6.6"/><path d="m20.4 20.4-4.8-4.8"/></symbol>
+      <symbol id="i-kapat" viewBox="0 0 24 24"><path d="m6.2 6.2 11.6 11.6M17.8 6.2 6.2 17.8"/></symbol>
+      <symbol id="i-sag" viewBox="0 0 24 24"><path d="m9.6 4.8 7.2 7.2-7.2 7.2"/></symbol>
+      <symbol id="i-indir" viewBox="0 0 24 24"><path d="M12 3.6v10.8M7.6 10.4 12 14.8l4.4-4.4M4.4 19.6h15.2"/></symbol>
+      <symbol id="i-sil" viewBox="0 0 24 24"><path d="M4.4 6.6h15.2M9.2 6.6V4.4h5.6v2.2M6.6 6.6l.9 12a1.9 1.9 0 0 0 1.9 1.8h5.2a1.9 1.9 0 0 0 1.9-1.8l.9-12"/></symbol>
+      <symbol id="i-yok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M6.1 6.1 17.9 17.9"/></symbol>
+      <symbol id="i-tik" viewBox="0 0 24 24"><path d="m4.8 12.4 4.8 4.8 9.6-10.4"/></symbol>
+      <symbol id="i-kalem" viewBox="0 0 24 24"><path d="M16.4 3.9a2.3 2.3 0 0 1 3.3 3.3L8.2 18.7l-4.3 1 1-4.3z"/></symbol>
+
+      <!-- Kategoriler -->
+      <symbol id="i-model" viewBox="0 0 24 24"><circle cx="12" cy="6.4" r="3.4"/><path d="M5.8 20.6c0-3.5 2.8-6.1 6.2-6.1s6.2 2.6 6.2 6.1"/></symbol>
+      <symbol id="i-elbise" viewBox="0 0 24 24"><path d="M9.2 3.4 12 6.2l2.8-2.8"/><path d="M9.2 3.4h5.6l-.8 3.6 3.1 4.3-2.1 1.6 1.1 8a13.4 13.4 0 0 1-8.2 0l1.1-8-2.1-1.6L10 7z"/></symbol>
+      <symbol id="i-ozel" viewBox="0 0 24 24"><path d="M12 20.4S3.7 15.7 3.7 9.9A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 8.3 2.3c0 5.8-8.3 10.5-8.3 10.5z"/></symbol>
+      <symbol id="i-sac" viewBox="0 0 24 24"><circle cx="6.2" cy="6.4" r="2.6"/><circle cx="6.2" cy="17.6" r="2.6"/><path d="M20 4.4 8.5 15.7M8.5 8.3 20 19.6"/></symbol>
+      <symbol id="i-tac" viewBox="0 0 24 24"><path d="M3.4 7.4 7 11.8l5-7.4 5 7.4 3.6-4.4-1.6 11.4H5z"/><path d="M5 19.2h14"/></symbol>
+      <symbol id="i-kanat" viewBox="0 0 24 24"><path d="M12 5.6v13"/><path d="M12 8.2C10.6 5.4 7.7 3.9 5.7 5s-2.3 5.1-.4 7.7 5 4.4 6.7 4.4"/><path d="M12 8.2c1.4-2.8 4.3-4.3 6.3-3.2s2.3 5.1.4 7.7-5 4.4-6.7 4.4"/></symbol>
+      <symbol id="i-ayakkabi" viewBox="0 0 24 24"><path d="M4 4.4v11c0 .9.7 1.6 1.6 1.6h6.5c1.1 0 2.1.5 2.7 1.4l1.1 1.6H20v-2c0-1-.5-2-1.4-2.5l-4.8-2.8c-1-.6-1.8-1.5-2.2-2.6l-1.1-3.1z"/></symbol>
+      <symbol id="i-taki" viewBox="0 0 24 24"><path d="M7.4 3.8h9.2l3.4 5.1L12 20.2 4 8.9z"/><path d="M4 8.9h16M9.2 8.9 12 20.2l2.8-11.3"/></symbol>
+      <symbol id="i-asa" viewBox="0 0 24 24"><path d="M4.6 19.4 15.6 8.4"/><path d="m18 3 .9 2.3 2.3.9-2.3.9-.9 2.3-.9-2.3-2.3-.9 2.3-.9z" fill="currentColor" stroke="none"/><path d="m6.6 4.2.6 1.5 1.5.6-1.5.6-.6 1.5-.6-1.5-1.5-.6 1.5-.6z" fill="currentColor" stroke="none"/></symbol>
+      <symbol id="i-sahne" viewBox="0 0 24 24"><rect x="3.4" y="4.6" width="17.2" height="14.8" rx="2.6"/><circle cx="8.8" cy="9.8" r="1.7"/><path d="m20.6 15.6-4.7-4.4-8.1 8.2"/></symbol>
+      <symbol id="i-brief" viewBox="0 0 24 24"><path d="M9.2 4.4H7.4a2 2 0 0 0-2 2v12.2a2 2 0 0 0 2 2h9.2a2 2 0 0 0 2-2V6.4a2 2 0 0 0-2-2h-1.8"/><rect x="9.2" y="2.6" width="5.6" height="3.6" rx="1.4"/><path d="M8.8 12.4h6.4M8.8 16h4"/></symbol>
+      <symbol id="i-foto" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3.4"/><path d="M12 8.2v7.6M8.2 12h7.6"/></symbol>
+      <symbol id="i-renk" viewBox="0 0 24 24"><path d="M12 20.6a8.6 8.6 0 1 1 8.6-8.6c0 2-1.7 3-3.4 3h-1.6a2.1 2.1 0 0 0-1.5 3.6c.4.5.1 2-2.1 2z"/><circle cx="8.1" cy="10" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="7.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="15.9" cy="10" r="1.1" fill="currentColor" stroke="none"/></symbol>
+      <symbol id="i-makyaj" viewBox="0 0 24 24"><rect x="9" y="9.6" width="6" height="11" rx="1.1"/><path d="M9.6 9.6V5.2l3-2.4 2.4 1.6v5.2"/></symbol>
+    </defs>
+  </svg>
+
   <!-- ============================ ÜST BAR ============================ -->
   <header class="ust-bar">
     <div class="logo">
-      <span class="logo-tac">✨</span>
-      <span class="logo-yazi">Leyla Stil Stüdyosu</span>
+      <span class="logo-tac" aria-hidden="true">✦</span>
+      <span class="logo-yazi">Leyla <em>Stil Stüdyosu</em></span>
     </div>
+
+    <div class="rutbe" id="rutbeKutu" title="Stil kariyeri">
+      <div class="rutbe-ust">
+        <span class="rutbe-ad" id="rutbeAd">Çırak Stilist</span>
+        <span id="yildizKutu" class="yildiz-kutu" title="Kazandığın yıldızlar">
+          <svg class="ikon-svg" aria-hidden="true" focusable="false"><use href="#i-yildiz" xlink:href="#i-yildiz" /></svg>
+          <span id="yildizSayi">0</span>
+        </span>
+      </div>
+      <div class="rutbe-alt-satir">
+        <span class="rutbe-bar" role="progressbar" aria-labelledby="rutbeAd" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="rutbeBar"><i id="rutbeDolgu"></i></span>
+        <span class="rutbe-alt" id="rutbeAlt">Seviye 1</span>
+      </div>
+    </div>
+
     <div class="ust-sag">
-      <div id="yildizKutu" class="yildiz-kutu">⭐ <span id="yildizSayi">0</span></div>
-      <button id="btnMuzik" class="ust-btn" title="Müzik aç/kapat" aria-label="Müzik">🎵</button>
-      <button id="btnSes" class="ust-btn" title="Ses aç/kapat" aria-label="Ses">🔊</button>
-      <button id="btnYonetim" class="ust-btn" title="Yönetim (görsel ekle)" aria-label="Yönetim">⚙️</button>
+      <button id="btnGeri" class="ust-btn" type="button" title="Geri al (Ctrl+Z)" aria-label="Son değişikliği geri al" disabled>
+        <svg class="ikon-svg" aria-hidden="true" focusable="false"><use href="#i-geri" xlink:href="#i-geri" /></svg>
+      </button>
+      <button id="btnIleri" class="ust-btn" type="button" title="İleri al (Ctrl+Shift+Z)" aria-label="Geri alınan değişikliği yinele" disabled>
+        <svg class="ikon-svg" aria-hidden="true" focusable="false"><use href="#i-ileri" xlink:href="#i-ileri" /></svg>
+      </button>
+
+      <div class="ust-menu-sar">
+        <button id="btnMenu" class="ust-btn" type="button" title="Menü" aria-label="Menü" aria-haspopup="true" aria-expanded="false" aria-controls="ustMenu">
+          <svg class="ikon-svg" aria-hidden="true" focusable="false"><use href="#i-menu" xlink:href="#i-menu" /></svg>
+        </button>
+
+        <div id="ustMenu" class="ust-menu gizli" role="menu" aria-labelledby="btnMenu">
+          <button id="btnSes" class="menu-oge ses-btn" type="button" role="menuitemcheckbox" aria-checked="true" title="Ses aç/kapat">
+            <svg class="ikon-svg mo-ikon ses-acik" aria-hidden="true" focusable="false"><use href="#i-ses" xlink:href="#i-ses" /></svg>
+            <svg class="ikon-svg mo-ikon ses-kapali" aria-hidden="true" focusable="false"><use href="#i-sessiz" xlink:href="#i-sessiz" /></svg>
+            <span class="mo-yazi">Ses efektleri</span>
+            <span class="mo-durum" data-durum>Açık</span>
+          </button>
+          <button id="btnMuzik" class="menu-oge muzik-btn kapali" type="button" role="menuitemcheckbox" aria-checked="false" title="Müzik aç/kapat">
+            <svg class="ikon-svg mo-ikon muzik-acik" aria-hidden="true" focusable="false"><use href="#i-muzik" xlink:href="#i-muzik" /></svg>
+            <svg class="ikon-svg mo-ikon muzik-kapali" aria-hidden="true" focusable="false"><use href="#i-muzik-kapali" xlink:href="#i-muzik-kapali" /></svg>
+            <span class="mo-yazi">Müzik</span>
+            <span class="mo-durum" data-durum>Kapalı</span>
+          </button>
+          <div class="menu-ayrac" role="separator"></div>
+          <button id="btnYardim" class="menu-oge" type="button" role="menuitem" title="Nasıl oynanır?">
+            <svg class="ikon-svg mo-ikon" aria-hidden="true" focusable="false"><use href="#i-yardim" xlink:href="#i-yardim" /></svg>
+            <span class="mo-yazi">Nasıl oynanır?</span>
+            <span class="mo-kisayol"><kbd>?</kbd></span>
+          </button>
+          <button id="btnYonetim" class="menu-oge" type="button" role="menuitem" title="Yönetim (görsel ekle)">
+            <svg class="ikon-svg mo-ikon" aria-hidden="true" focusable="false"><use href="#i-ayar" xlink:href="#i-ayar" /></svg>
+            <span class="mo-yazi">Yönetim</span>
+          </button>
+        </div>
+      </div>
     </div>
   </header>
 
   <!-- ============================ ANA ALAN ============================ -->
   <main class="alan">
-    <!-- Sahne (Sihirli Ayna) -->
+    <!-- Sahne -->
     <section class="sahne-cerceve">
-      <div id="sahne" class="sahne">
-        <div id="katmanlar" class="katmanlar"></div>
-        <div id="stickerKat" class="sticker-kat"></div>
-        <div id="parlamaKat" class="parlama-kat"></div>
-
-        <div class="sahne-araclar">
-          <button id="btnSurpriz" class="arac-btn altin">🎲 <span class="btn-yazi">Sürpriz</span></button>
-          <button id="btnDefile" class="arac-btn vurgu">🌟 <span class="btn-yazi">Defile</span></button>
-          <button id="btnKaydet" class="arac-btn">📸 <span class="btn-yazi">Kaydet</span></button>
-          <button id="btnAlbum" class="arac-btn">🖼️ <span class="btn-yazi">Albüm</span></button>
-          <button id="btnTemizle" class="arac-btn tehlike">🧹 <span class="btn-yazi">Sıfırla</span></button>
+      <div class="sahne-yuva">
+        <div id="sahne" class="sahne">
+          <div id="katmanlar" class="katmanlar"></div>
+          <div id="stickerKat" class="sticker-kat"></div>
+          <div id="parlamaKat" class="parlama-kat"></div>
         </div>
-        <div class="dolgunluk-kutu">
-          <span class="dolgunluk-et">🧍 İnce</span>
-          <input id="dolgunlukSlider" type="range" min="0" max="100" value="0" aria-label="Dolgunluk" />
-          <span class="dolgunluk-et">🧸 Dolgun</span>
+      </div>
+
+      <div class="sahne-alt">
+        <div class="dock">
+          <div class="dolgunluk-kutu">
+            <span class="dolgunluk-et">İnce</span>
+            <input id="dolgunlukSlider" type="range" min="0" max="100" step="20" value="0" aria-label="Beden formu" aria-valuetext="İnce" />
+            <span class="dolgunluk-et">Dolgun</span>
+          </div>
+
+          <div class="dock-ayrac" aria-hidden="true"></div>
+
+          <div class="sahne-araclar">
+            <button id="btnSurpriz" class="arac-btn" type="button" title="Rastgele kombin (R)" aria-label="Sürpriz kombin">
+              <svg class="ikon-svg arac-ikon" aria-hidden="true" focusable="false"><use href="#i-surpriz" xlink:href="#i-surpriz" /></svg>
+              <span class="btn-yazi">Sürpriz</span>
+            </button>
+            <button id="btnDefile" class="arac-btn vurgu" type="button" title="Jüriye çık (D)" aria-label="Defile">
+              <svg class="ikon-svg arac-ikon" aria-hidden="true" focusable="false"><use href="#i-defile" xlink:href="#i-defile" /></svg>
+              <span class="btn-yazi ana">Defile</span>
+            </button>
+            <button id="btnKaydet" class="arac-btn" type="button" title="Albüme kaydet (S)" aria-label="Kombini kaydet">
+              <svg class="ikon-svg arac-ikon" aria-hidden="true" focusable="false"><use href="#i-kamera" xlink:href="#i-kamera" /></svg>
+              <span class="btn-yazi">Kaydet</span>
+            </button>
+            <button id="btnAlbum" class="arac-btn" type="button" title="Albümü aç (A)" aria-label="Albüm">
+              <svg class="ikon-svg arac-ikon" aria-hidden="true" focusable="false"><use href="#i-album" xlink:href="#i-album" /></svg>
+              <span class="btn-yazi">Albüm</span>
+            </button>
+            <button id="btnTemizle" class="arac-btn tehlike" type="button" title="Kombini sıfırla" aria-label="Kombini sıfırla">
+              <svg class="ikon-svg arac-ikon" aria-hidden="true" focusable="false"><use href="#i-sifirla" xlink:href="#i-sifirla" /></svg>
+              <span class="btn-yazi">Sıfırla</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Dolap Paneli -->
-    <aside class="panel">
-      <div class="panel-kulp" id="panelKulp"></div>
-      <nav id="sekmeler" class="sekmeler"></nav>
-      <div class="panel-govde">
-        <div id="urunler" class="urunler"></div>
+    <aside class="panel" id="panel">
+      <button class="panel-kulp" id="panelKulp" type="button" aria-label="Dolap panelini küçült" aria-expanded="true"><span></span></button>
+
+      <div class="panel-duzen">
+        <nav id="sekmeler" class="sekmeler" aria-label="Gardırop kategorileri" role="tablist"></nav>
+
+        <div class="panel-ic">
+          <section id="stilKarti" class="stil-karti" aria-label="Canlı stil analizi" aria-live="polite">
+            <div class="stil-puan" aria-hidden="true"><strong id="stilPuan">0</strong><span>/100</span></div>
+            <div class="stil-metin">
+              <span class="stil-ust">Stil analizi</span>
+              <strong id="stilTema">İlk parçanı seç</strong>
+              <span id="stilIpucu">Uyumlu parçalar seçtikçe analiz burada gelişir.</span>
+            </div>
+            <button id="btnAktifGorev" class="stil-gorev-btn" type="button" title="Brief listesini aç">Briefler</button>
+          </section>
+
+          <div id="kombinOzet" class="kombin-ozet" aria-label="Kombin özeti"></div>
+
+          <div id="panelAramaKutu" class="panel-arama">
+            <div class="arama-satir">
+              <div class="arama-alan">
+                <svg class="ikon-svg arama-ikon" aria-hidden="true" focusable="false"><use href="#i-ara" xlink:href="#i-ara" /></svg>
+                <input id="urunArama" class="urun-arama" type="search" placeholder="Parça ara" autocomplete="off" aria-label="Parça ara" />
+                <span id="panelSayac" class="panel-sayac" aria-live="polite" title="Görünen parça sayısı">0</span>
+                <button id="filtreTemizle" class="panel-icon-btn temizle" type="button" title="Filtreyi temizle" aria-label="Filtreyi temizle">
+                  <svg class="ikon-svg" aria-hidden="true" focusable="false"><use href="#i-kapat" xlink:href="#i-kapat" /></svg>
+                </button>
+              </div>
+              <button id="btnSonraki" class="panel-icon-btn ileri" type="button" title="Sonraki kategori" aria-label="Sonraki kategori">
+                <svg class="ikon-svg" aria-hidden="true" focusable="false"><use href="#i-sag" xlink:href="#i-sag" /></svg>
+              </button>
+            </div>
+            <div id="etiketFiltreleri" class="etiket-filtreleri" aria-label="Etiket filtreleri"></div>
+          </div>
+
+          <div class="panel-govde">
+            <div id="urunler" class="urunler" role="tabpanel"></div>
+          </div>
+        </div>
       </div>
     </aside>
   </main>
 
   <!-- ============================ ALBÜM MODALI ============================ -->
-  <div id="albumModal" class="modal gizli">
+  <div id="albumModal" class="modal gizli" role="dialog" aria-modal="true" aria-labelledby="albumBaslik" tabindex="-1">
     <div class="modal-ic genis">
-      <h2>🖼️ Albümüm</h2>
-      <div id="albumGrid" class="album-grid"></div>
-      <button class="kapat" data-kapat>Kapat</button>
+      <header class="modal-bas">
+        <div>
+          <h2 id="albumBaslik">Albümüm</h2>
+          <p class="modal-alt">Kaydettiğin kombinler yalnızca bu cihazda saklanır.</p>
+        </div>
+        <button class="modal-x" type="button" data-kapat aria-label="Kapat">
+          <svg class="ikon-svg" aria-hidden="true" focusable="false"><use href="#i-kapat" xlink:href="#i-kapat" /></svg>
+        </button>
+      </header>
+      <div class="modal-govde">
+        <div id="albumGrid" class="album-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ NASIL OYNANIR MODALI ============================ -->
+  <div id="yardimModal" class="modal gizli" role="dialog" aria-modal="true" aria-labelledby="yardimBaslik" tabindex="-1">
+    <div class="modal-ic">
+      <header class="modal-bas">
+        <div>
+          <h2 id="yardimBaslik">Nasıl oynanır?</h2>
+          <p class="modal-alt">Beş adımda stüdyoya alış.</p>
+        </div>
+        <button class="modal-x" type="button" data-kapat aria-label="Kapat">
+          <svg class="ikon-svg" aria-hidden="true" focusable="false"><use href="#i-kapat" xlink:href="#i-kapat" /></svg>
+        </button>
+      </header>
+      <div class="modal-govde">
+        <ol class="yardim-liste">
+          <li><b>Model seç.</b> Kategori rayından bir manken seç, beden formunu kaydırıcıyla ayarla.</li>
+          <li><b>Kombini kur.</b> Elbise, ayakkabı, taç, kolye, kanat ve sahneyi seçerek görünümü tamamla.</li>
+          <li><b>Brief al.</b> “Brief” sekmesinden bir stil görevi seç; adımları tamamlayınca ★ kazanırsın.</li>
+          <li><b>Jüriye çık.</b> <b>Defile</b> düğmesi kombini puanlar; yeni ve yüksek puanlı görünümler ★ kazandırır.</li>
+          <li><b>Yıldızlar seviye açar.</b> Çırak Stilist’ten Moda İkonu’na kadar yüksel.</li>
+        </ol>
+        <div class="kisayol-kutu">
+          <span><kbd>R</kbd> Sürpriz</span><span><kbd>D</kbd> Defile</span><span><kbd>S</kbd> Kaydet</span>
+          <span><kbd>A</kbd> Albüm</span><span><kbd>/</kbd> Ara</span><span><kbd>Ctrl</kbd><kbd>Z</kbd> Geri</span>
+        </div>
+      </div>
+      <div class="modal-araclar">
+        <button class="arac-btn vurgu kapat" type="button" data-kapat>Anladım</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ ONAY MODALI ============================ -->
+  <div id="onayModal" class="modal gizli" role="dialog" aria-modal="true" aria-labelledby="onayBaslik" tabindex="-1">
+    <div class="modal-ic dar">
+      <header class="modal-bas">
+        <div>
+          <h2 id="onayBaslik">Emin misin?</h2>
+          <p id="onayMetin" class="modal-alt">Bu işlem geri alınamaz.</p>
+        </div>
+      </header>
+      <div class="modal-araclar">
+        <button id="onayHayir" class="arac-btn cerceveli" type="button">Vazgeç</button>
+        <button id="onayEvet" class="arac-btn vurgu" type="button">Evet</button>
+      </div>
     </div>
   </div>
 
   <!-- ============================ FOTOĞRAF EKLE MODALI ============================ -->
-  <div id="fotoModal" class="modal gizli">
+  <div id="fotoModal" class="modal gizli" role="dialog" aria-modal="true" aria-labelledby="fotoBaslik" tabindex="-1">
     <div class="modal-ic">
-      <h2>📷 Fotoğraf Ekle</h2>
-      <p>Ne eklemek istersin?</p>
-      <div class="secim-grid">
-        <button class="secim" data-kat="karakterler">🧍 Karakter</button>
-        <button class="secim" data-kat="kiyafetler">👗 Kıyafet</button>
-        <button class="secim" data-kat="aksesuarlar">👜 Aksesuar</button>
-        <button class="secim" data-kat="arkaplanlar">🌅 Arka Plan</button>
+      <header class="modal-bas">
+        <div>
+          <h2 id="fotoBaslik">Fotoğraf Ekle</h2>
+          <p class="modal-alt">Ne eklemek istersin?</p>
+        </div>
+        <button class="modal-x" type="button" data-kapat aria-label="Kapat">
+          <svg class="ikon-svg" aria-hidden="true" focusable="false"><use href="#i-kapat" xlink:href="#i-kapat" /></svg>
+        </button>
+      </header>
+      <div class="modal-govde">
+        <p class="gizlilik-notu">Seçtiğin fotoğraf yalnızca bu tarayıcıda saklanır; sunucuya veya internete gönderilmez.</p>
+        <div class="secim-grid">
+          <button class="secim" type="button" data-kat="karakterler"><svg class="ikon-svg secim-ikon" aria-hidden="true" focusable="false"><use href="#i-model" xlink:href="#i-model" /></svg> Karakter</button>
+          <button class="secim" type="button" data-kat="kiyafetler"><svg class="ikon-svg secim-ikon" aria-hidden="true" focusable="false"><use href="#i-elbise" xlink:href="#i-elbise" /></svg> Kıyafet</button>
+          <button class="secim" type="button" data-kat="aksesuarlar"><svg class="ikon-svg secim-ikon" aria-hidden="true" focusable="false"><use href="#i-taki" xlink:href="#i-taki" /></svg> Aksesuar</button>
+          <button class="secim" type="button" data-kat="arkaplanlar"><svg class="ikon-svg secim-ikon" aria-hidden="true" focusable="false"><use href="#i-sahne" xlink:href="#i-sahne" /></svg> Arka Plan</button>
+        </div>
       </div>
-      <button class="kapat" data-kapat>Vazgeç</button>
     </div>
   </div>
 
   <!-- ============================ DEFİLE MODALI ============================ -->
-  <div id="defileModal" class="defile gizli">
+  <div id="defileModal" class="defile gizli" role="dialog" aria-modal="true" aria-label="Defile görünümü" tabindex="-1">
     <div class="defile-spot"></div>
     <div class="defile-sahne">
       <div id="defileGorsel" class="defile-gorsel"></div>
-      <div class="defile-yazi">✨ Muhteşemsin! ✨</div>
+      <div class="defile-skor" id="defileSkor">
+        <div class="defile-skor-ust">
+          <span class="defile-skor-sayi" id="defileSkorSayi">0</span>
+          <span class="defile-skor-max">/100</span>
+        </div>
+        <div class="defile-yildizlar" id="defileYildizlar" aria-hidden="true"></div>
+        <div class="defile-yazi" id="defileYazi">Jüri değerlendiriyor…</div>
+        <div class="defile-odul gizli" id="defileOdul"></div>
+        <div class="defile-notlar" id="defileNotlar"></div>
+      </div>
     </div>
     <div class="defile-araclar">
-      <button id="defileKaydet" class="arac-btn altin">📸 Albüme Kaydet</button>
-      <button id="defileKapat" class="arac-btn">Kapat</button>
+      <button id="defileKaydet" class="arac-btn altin" type="button">
+        <svg class="ikon-svg arac-ikon" aria-hidden="true" focusable="false"><use href="#i-kamera" xlink:href="#i-kamera" /></svg>
+        <span class="btn-yazi ana">Albüme Kaydet</span>
+      </button>
+      <button id="defileKapat" class="arac-btn cerceveli" type="button">Kapat</button>
     </div>
   </div>
 
   <!-- ============================ YÖNETİM (ADMIN) MODALI ============================ -->
-  <div id="yonetimModal" class="modal gizli">
+  <div id="yonetimModal" class="modal gizli" role="dialog" aria-modal="true" aria-labelledby="yonetimBaslik" tabindex="-1">
     <div class="modal-ic genis yon-modal">
-      <h2>⚙️ Yönetim — Görsel Ekle</h2>
+      <header class="modal-bas">
+        <div>
+          <h2 id="yonetimBaslik">Yönetim</h2>
+          <p class="modal-alt">Stüdyoya yeni görsel ekle.</p>
+        </div>
+        <button class="modal-x" type="button" data-kapat aria-label="Kapat">
+          <svg class="ikon-svg" aria-hidden="true" focusable="false"><use href="#i-kapat" xlink:href="#i-kapat" /></svg>
+        </button>
+      </header>
 
-      <!-- Şifre kapısı -->
-      <div id="yonGiris" class="yon-giris">
-        <p>Devam etmek için yönetim şifresini gir.</p>
-        <input id="yonParola" class="yon-input" type="password" placeholder="Yönetim şifresi" autocomplete="current-password" />
-        <div id="yonGirisHata" class="yon-hata gizli"></div>
-        <button id="yonGirisBtn" class="arac-btn vurgu">Giriş</button>
-      </div>
-
-      <!-- Panel -->
-      <div id="yonPanel" class="yon-panel gizli">
-        <div class="yon-bilgi">
-          📐 <b>Kurallar:</b> PNG · <b>1024×1365</b> (3:4) · arka plan <b>şeffaf</b> (sahneler hariç) ·
-          önden, ayakta, A-poz. Hizalamak için <a href="/assets/_referans/sablon.png" target="_blank">şablonu</a>
-          kullan. Parça yalnız kendi pikselini boyasın. Ad/emoji/etiket için <code>assets/metadata.json</code> güncellenir.
+      <div class="modal-govde">
+        <!-- Şifre kapısı -->
+        <div id="yonGiris" class="yon-giris">
+          <p>Devam etmek için yönetim şifresini gir.</p>
+          <input id="yonParola" class="yon-input" type="password" placeholder="Yönetim şifresi" autocomplete="current-password" />
+          <div id="yonGirisHata" class="yon-hata gizli"></div>
+          <button id="yonGirisBtn" class="arac-btn vurgu" type="button">Giriş</button>
         </div>
 
-        <div class="yon-form">
-          <label>Kategori
-            <select id="yonSlot" class="yon-input">
-              <option value="modeller">🧍 Model (gövde)</option>
-              <option value="elbiseler" selected>👗 Elbise</option>
-              <option value="ozel">🖤 Özel</option>
-              <option value="ayakkabilar">👠 Ayakkabı</option>
-              <option value="taclar">👑 Taç / Şapka</option>
-              <option value="takilar">💎 Kolye</option>
-              <option value="kanatlar">🦋 Kanat</option>
-              <option value="asalar">✨ Asa</option>
-              <option value="arkaplanlar">🌅 Arka plan</option>
-            </select>
-          </label>
-          <label>Dosya adı (id)
-            <input id="yonId" class="yon-input" type="text" placeholder="elb_yeni" />
-          </label>
-          <label>Prompt açıklaması
-            <textarea id="yonPromptDesc" class="yon-input yon-textarea" rows="2" placeholder="glossy black sleeveless latex mini dress"></textarea>
-          </label>
-          <div class="yon-prompt-araclar">
-            <button id="yonPromptBtn" class="arac-btn altin" type="button">📝 Prompt üret</button>
-            <button id="yonPromptKopyalaBtn" class="arac-btn" type="button" disabled>📋 Kopyala</button>
+        <!-- Panel -->
+        <div id="yonPanel" class="yon-panel gizli">
+          <div class="yon-bilgi">
+            <b>Kurallar:</b> PNG · <b>1024×1365</b> (3:4) · arka plan <b>şeffaf</b> (sahneler hariç) ·
+            önden, ayakta, A-poz. Hizalamak için <a href="/assets/_referans/sablon.png" target="_blank" rel="noreferrer">şablonu</a>
+            kullan. Parça yalnız kendi pikselini boyasın. Ad/emoji/etiket için <code>assets/metadata.json</code> güncellenir.
           </div>
-          <textarea id="yonPromptCikti" class="yon-input yon-prompt-cikti gizli" readonly></textarea>
-          <label>Görsel (PNG)
-            <input id="yonDosya" class="yon-input" type="file" accept="image/png" />
-          </label>
 
-          <div id="yonKontrol" class="yon-kontrol"></div>
-          <div id="yonOnizleme" class="yon-onizleme gizli"><img id="yonOnizlemeImg" alt="önizleme" /></div>
+          <div class="yon-form">
+            <label>Kategori
+              <select id="yonSlot" class="yon-input">
+                <option value="modeller">Model (gövde)</option>
+                <option value="elbiseler" selected>Elbise</option>
+                <option value="ozel">Özel</option>
+                <option value="ayakkabilar">Ayakkabı</option>
+                <option value="taclar">Taç / Şapka</option>
+                <option value="takilar">Kolye</option>
+                <option value="kanatlar">Kanat</option>
+                <option value="asalar">Asa</option>
+                <option value="arkaplanlar">Arka plan</option>
+              </select>
+            </label>
+            <label>Dosya adı (id)
+              <input id="yonId" class="yon-input" type="text" placeholder="elb_yeni" />
+            </label>
+            <label>Prompt açıklaması
+              <textarea id="yonPromptDesc" class="yon-input yon-textarea" rows="2" placeholder="glossy black sleeveless latex mini dress"></textarea>
+            </label>
+            <div class="yon-prompt-araclar">
+              <button id="yonPromptBtn" class="arac-btn altin" type="button">Prompt üret</button>
+              <button id="yonPromptKopyalaBtn" class="arac-btn cerceveli" type="button" disabled>Kopyala</button>
+            </div>
+            <textarea id="yonPromptCikti" class="yon-input yon-prompt-cikti gizli" readonly></textarea>
+            <label>Görsel (PNG)
+              <input id="yonDosya" class="yon-input" type="file" accept="image/png" />
+            </label>
 
-          <button id="yonYukleBtn" class="arac-btn vurgu" disabled>⬆️ Yükle</button>
-          <div id="yonSonuc" class="yon-sonuc"></div>
+            <div id="yonKontrol" class="yon-kontrol"></div>
+            <div id="yonOnizleme" class="yon-onizleme gizli"><img id="yonOnizlemeImg" alt="önizleme" /></div>
+
+            <button id="yonYukleBtn" class="arac-btn vurgu" type="button" disabled>Yükle</button>
+            <div id="yonSonuc" class="yon-sonuc"></div>
+          </div>
+
+          <div class="yon-liste-baslik">Mevcut görseller</div>
+          <div id="yonListe" class="yon-liste"></div>
         </div>
-
-        <div class="yon-liste-baslik">Mevcut görseller</div>
-        <div id="yonListe" class="yon-liste"></div>
       </div>
-
-      <button class="kapat" data-kapat>Kapat</button>
     </div>
   </div>
 
   <!-- ============================ EFEKTLER ============================ -->
   <canvas id="konfeti" class="konfeti"></canvas>
-  <div id="bildirim" class="bildirim gizli"></div>
+  <div id="bildirim" class="bildirim gizli" role="status" aria-live="polite" aria-atomic="true"></div>
+  <div id="sonKayit" class="son-kayit gizli" aria-live="polite">
+    <img id="sonKayitImg" alt="Son kaydedilen kombin" />
+    <div class="son-kayit-metin">
+      <strong>Son kombin</strong>
+      <span>Albümde</span>
+    </div>
+    <a id="sonKayitIndir" class="son-kayit-btn" href="#" download="leyla-kombin.jpg" title="İndir" aria-label="İndir">
+      <svg class="ikon-svg" aria-hidden="true" focusable="false"><use href="#i-indir" xlink:href="#i-indir" /></svg>
+    </a>
+    <button id="sonKayitAlbum" class="son-kayit-btn" type="button" title="Albüm" aria-label="Albüm">
+      <svg class="ikon-svg" aria-hidden="true" focusable="false"><use href="#i-album" xlink:href="#i-album" /></svg>
+    </button>
+  </div>
   <input type="file" id="dosyaGirisi" accept="image/*" style="display:none" />
 
   <!-- ============================ KODLAR ============================ -->

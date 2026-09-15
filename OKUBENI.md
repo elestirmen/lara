@@ -14,32 +14,68 @@ Terminalde çıkan adreslerden biriyle aç:
 - Bu bilgisayarda: `http://localhost:8080`
 - Aynı ağdaki tablette/telefonda: `http://<bilgisayar-ip>:8080`
 
-Farklı port:
+Farklı port veya yalnız bu bilgisayardan erişim:
 ```bash
 PORT=3000 node /opt/lara/server.js
+LARA_HOST=127.0.0.1 node /opt/lara/server.js
 ```
 
 ## Kullanım
-- Sağdaki sekmelerden model, elbise, özel parça, taç, kanat, ayakkabı, takı, asa ve
-  arka plan seçilir.
-- PNG parça varsa fotogerçekçi görsel kullanılır; yoksa vektör fallback görünür.
+Sağ paneldeki dikey kategori rayından model, elbise, şapka, kanat, ayakkabı, kolye,
+sahne, brief ve kendi fotoğrafların arasında geçilir. Sahnenin altındaki şeritte
+beden formu kaydırıcısı ve Sürpriz / Defile / Kaydet / Albüm / Sıfırla düğmeleri yer alır.
+
+Üst barda solda marka, ortada rütbe + yıldız kapsülü, sağda geri/ileri ve **⋮**
+menüsü bulunur. Ses, müzik, "Nasıl oynanır?" ve Yönetim bu menüdedir.
+
+**Telefon ve tablette (dikey):** dolap alttan açılan bir sayfa olarak çalışır.
+Üstündeki tutamağa dokununca sırayla **küçük → normal → tam** boyuta geçer;
+tutamağı yukarı/aşağı sürükleyerek de ayarlayabilirsin. Sahneye dokunmak dolabı
+toplayıp mankeni tam boy gösterir.
+
+### Oyun döngüsü
+- **Stil analizi:** panelin üstündeki kart, seçili parçaların uyumuna göre 0–100
+  arası canlı bir puan ve baskın temayı gösterir.
+- **Briefler:** 12 stil görevi vardır; her biri farklı slotlara bağlı 2–3 koşul içerir.
+  Koşullar tamamlandığında brief seçili olmasa bile ★ kazanılır. Her gün bir brief
+  "günün briefi" olur ve iki kat ★ verir.
+- **Defile:** kombini jüriye çıkarır. Puan; parça bütünlüğü, tema tekrarı ve sahne
+  uyumundan hesaplanır. 66 puan üstü kombinler ★ kazandırır — aynı kombin yalnızca
+  bir kez ödüllendirilir.
+- **Rütbe:** toplanan ★ üst bardaki kariyer çubuğunu doldurur; Çırak Stilist'ten
+  Moda İkonu'na kadar yedi rütbe vardır.
+
+### Kısayollar
+`R` Sürpriz · `D` Defile · `S` Kaydet · `A` Albüm · `/` Arama · `Ctrl+Z` Geri al ·
+`Ctrl+Shift+Z` İleri al
+
+### Görsel kuralları
+- PNG parça varsa fotogerçekçi görsel kullanılır.
+- Fotogerçekçi bir model seçiliyken düşük çözünürlüklü vektör yedekler gizlenir;
+  çizgi elbise/ayakkabı fotoğraf gövdenin üzerinde bozuk görünürdü. Yalnızca bu iş
+  için tasarlanmış atmosferik stüdyo fonları (`vektorOk: true`) sahnede kalır.
+  Hiç model PNG'si yoksa tüm vektör gardırop yedek olarak devreye girer.
 - Saçlar model PNG'sine bake'li kabul edilir. Ayrı `saclar/*.png` eklenirse saç
   sekmesi görünür.
 - Beden slider'ı hazır `_beden/b20..b100` PNG varyantları arasında geçiş yapar.
-- Kaydet/Albüm seçenekleri kombinleri tarayıcının localStorage alanında saklar.
+- Kaydet/Albüm kombinleri tarayıcının IndexedDB deposunda tutar; kendi eklediğin
+  fotoğraflar da cihazdan çıkmaz.
 
 ## Yönetim Paneli
-Üst bardaki ⚙️ butonu admin panelini açar.
+Üst bardaki **⋮** menüsündeki "Yönetim" satırı admin panelini açar.
 
-Varsayılan şifre:
-```bash
-lara2018
-```
-
-Değiştirmek için:
+Güvenlik gereği varsayılan yönetim şifresi yoktur. `LARA_ADMIN` tanımlı değilse
+yönetim API'leri `503` ile kapalı kalır. Yönetimi açmak için:
 ```bash
 LARA_ADMIN="yeniSifre" node /opt/lara/server.js
 ```
+
+Kullanıcı fotoğrafı yükleme, listeleme ve `/fotograflar/` erişimi de varsayılan
+kapalıdır. Bu yerel özelliğe gerçekten ihtiyaç varsa açıkça etkinleştir:
+```bash
+LARA_UPLOADS=1 node /opt/lara/server.js
+```
+`LARA_PAROLA` kullanılması fotoğraf özelliğini kendiliğinden açmaz.
 
 Yükleme kuralları:
 - PNG
@@ -116,5 +152,6 @@ HTML/JS/CSS/assets değiştiyse restart gerekmez; tarayıcıda Ctrl+Shift+R yete
 
 Dış yayında mutlaka parola kullan:
 ```bash
-LARA_PAROLA="gizliParola" node /opt/lara/server.js
+LARA_PAROLA="gizliParola" LARA_ADMIN="ayriGucluAdminSifresi" node /opt/lara/server.js
 ```
+Kullanıcı fotoğrafı özelliğini dış yayında gerekmiyorsa kapalı bırak.

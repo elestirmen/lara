@@ -15,17 +15,53 @@ gönderilmez.
   statik dosyalarını ve `/api/gorseller`, `/api/upload`, `/api/admin/*` uçlarını sunar.
 - **Frontend:** `public/index.html`, `style.css`, `dolap.js`, `ses.js`, `app.js`,
   `admin.js`. `index.html` bu dosyaları doğrudan yüklemelidir.
+- **Tasarım jetonları:** renk, boşluk (`--sp-*`), tipografi (`--fs-*`), yarıçap,
+  gölge ve hareket yalnız `style.css` `:root` bloğunda tanımlanır. Bileşenler ham
+  değer yazmaz. Dokunma hedefi `--dokun` üzerinden gelir; `pointer: coarse`
+  ekranlarda 44px'e çıkar.
+- **İkon dili:** arayüz ikonları `index.html` içindeki `<symbol id="i-*">`
+  deposundan gelir; JS tarafında `ikon(ad)` (`window.LARA_IKON`) ile `<use>`
+  düğümü üretilir. Tek çizgi ağırlığı (24 grid, stroke 1.7). **Emoji yalnız
+  içerik tarafında** kalır: parça/model/brief `emoji` alanları ve
+  `metadata.json`. Yeni bir arayüz ikonu gerekiyorsa depoya `symbol` eklenir,
+  emoji kullanılmaz.
 - **Slotlar:** `modeller, arkaplanlar, kanatlar, elbiseler, ayakkabilar, takilar,
   saclar, taclar, asalar, ozel`.
 - **PNG öncelik:** `public/assets/<slot>/<id>.png|webp|jpg` varsa ilgili vektörün
   yerine PNG kullanılır. PNG yoksa vektör fallback görünür. Saç istisnası: model PNG
   saç bake'li kabul edilir; `saclar` sekmesi yalnız PNG saç asset'i varsa görünür.
+- **Gerçekçilik filtresi (`ogeKullanilabilir`):** fotogerçekçi bir model seçiliyken
+  (`ovr("modeller", giyim.mankenler)`) PNG'si olmayan vektör parçalar gizlenir.
+  İstisna: `vektorOk: true` işaretli parçalar (atmosferik stüdyo fonları) kalır.
+  Hiç model PNG'si yoksa filtre kapanır ve tüm vektör gardırop yedek olarak çalışır.
+  Bu kural, çizgi film vektörlerin fotoğraf gövdenin üzerinde bozuk görünmesini
+  engeller; vektör fallback sözleşmesini kaldırmaz.
 - **Metadata:** `public/assets/metadata.json`, PNG parçaların görünen ad, emoji ve
   görev etiketlerini taşır. Metadata yoksa ID'den fallback ad üretilir.
 - **Tuval:** tüm katmanlar 1024x1365 (3:4), önden hizalı. Referans:
   `public/assets/_referans/sablon.png`.
 - **Katman sırası:** `arkaplanlar, _golge, kanatlar, _vucut, ayakkabilar, elbiseler,
   ozel, takilar, saclar, taclar, asalar`.
+- **Oyun döngüsü:** `DOLAP.gorevler` içindeki 12 brief her değişiklikte denetlenir
+  (seçili brief şartı yoktur). Günün briefi tarihten türetilir ve ödülü iki katıdır.
+  Defile, kombini jüri puanıyla (`juriDegerlendir`) değerlendirir; aynı kombin
+  imzası (`kombinImzasi`) yalnız bir kez ödüllendirilir. Yıldızlar `RUTBELER`
+  eşiklerine göre rütbe çubuğunu doldurur.
+- **Panel düzeni:** kategoriler dikey ikon rayıdır (`.sekmeler`); dar dikey
+  ekranlarda yatay şeride döner. Sahne `container-type: size` + `cqw/cqh` ile
+  ölçeklenir, 3:4 oranı hiçbir kırılımda bozulmaz.
+- **Alt sayfa (mobil dikey):** `≤980px` + portrait kırılımında dolap paneli üç
+  duraklı bir bottom sheet olur: `mini` (yalnız kategori rayı) · varsayılan
+  `orta` · `tam`. Durum `.panel` üzerindeki `mini`/`tam` sınıflarıyla taşınır,
+  yükseklik `--sheet-h` jetonundan gelir. Kulp hem dokunuşla sırayla gezer hem
+  sürüklenir (`panelKulpKur`); `panelSnapNoktalari()` içindeki değerler CSS'teki
+  `--sheet-h` hesabıyla aynı tutulmalıdır. Ekran yüksekliği 640px altındaysa
+  `tam` durağı sunulmaz — sahne pula dönmesin diye.
+- **Üst bar:** üç bölgeli ızgara (marka · kariyer kapsülü · kontroller). Yıldız
+  sayacı rütbe kapsülünün içindedir. İkincil kontroller (`#btnSes`, `#btnMuzik`,
+  `#btnYardim`, `#btnYonetim`) her kırılımda `#ustMenu` içinde yaşar; üst barda
+  yalnız geri/ileri ve menü düğmesi durur. `sesButonlari()` düğme içeriğini
+  değiştirmez, yalnız `kapali` sınıfı + `[data-durum]` rozetini günceller.
 - **Beden slider:** canlı warp yoktur. `public/assets/_beden/b{20,40,60,80,100}/`
   altındaki ön-render PNG varyantları kullanılır. Sadece `modeller/elbiseler/takilar/ozel`
   varyantlanır.
@@ -54,6 +90,11 @@ Python işleri için her zaman `/opt/lara/.venv` kullanılır.
   çıkaramaz. Kıyafet/ayakkabı/takı/özel parçaları tek başına üret.
 - Yeni PNG eklenince `metadata.json` güncellenmeli, sonra thumbnail + manifest
   tazelenmelidir.
+- `thumbnails.sh` parça slotlarında (`kanatlar, elbiseler, ayakkabilar, takilar,
+  saclar, taclar, asalar, ozel`) thumbnail'i saydam kenarlarından kırpıp karta
+  ortalar; tuvalin tamamı küçültülürse şapka/kolye gibi parçalar kartta görünmez
+  bir lekeye döner. `modeller` ve `arkaplanlar` kırpılmaz (kartlar arası ölçek
+  tutarlılığı ve opak sahne).
 - Yayına almadan önce `quality_gate.py` çalıştırılır. Bu kapı PNG sözleşmesini,
   beden slider oranlarını, kompozitleri, elbise kontakt sayfasını, manifest
   invariantlarını ve admin prompt endpoint'i ile `prompt_build.py` çıktısının

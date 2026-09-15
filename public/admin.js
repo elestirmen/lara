@@ -1,7 +1,7 @@
 "use strict";
 /*
   Yönetim (admin) paneli — gardıroba kolayca gerçekçi PNG ekleme/silme.
-  Şifre ile korunur (sunucudaki LARA_ADMIN, varsayılan "lara2018").
+  Şifre ile korunur. Sunucuda LARA_ADMIN tanımlı değilse yönetim kapalıdır.
   Yükleme Node sunucusu gerektirir; production lara-web konteyneri de aynı API'yi sunar.
 */
 (function () {
@@ -75,10 +75,14 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(govde),
     });
-    if (!r.ok && r.status !== 401 && r.status !== 400) {
-      throw new Error("yok"); // 404 vb → backend yok/eski konteyner
+    let veri = {};
+    try { veri = await r.json(); } catch (e) {}
+    if (!r.ok) {
+      const hata = new Error(veri.hata || `Sunucu hatası (${r.status})`);
+      hata.status = r.status;
+      throw hata;
     }
-    return r.json();
+    return veri;
   }
 
   /* ---------- modal aç/kapat ---------- */
@@ -110,7 +114,7 @@
         hata.classList.remove("gizli");
       }
     } catch (e) {
-      hata.textContent = "Yükleme için Node sunucusu gerekir. Yerelde http://<bilgisayar-ip>:8080, yayında lara-web konteyneri kullanılmalıdır.";
+      hata.textContent = e.message || "Yönetim servisine ulaşılamadı.";
       hata.classList.remove("gizli");
     }
   }
@@ -166,7 +170,7 @@
       sonuc.textContent = "Prompt hazır.";
       sonuc.className = "yon-sonuc iyi";
     } catch (e) {
-      sonuc.textContent = "Prompt endpointine ulaşılamadı.";
+      sonuc.textContent = e.message || "Prompt endpointine ulaşılamadı.";
       sonuc.className = "yon-sonuc kotu";
     }
   }
@@ -247,7 +251,7 @@
     try {
       const r = await api("/api/admin/yukle", { parola, slot, id, dataUrl: seciliDosya.dataUrl });
       if (r.ok) {
-        sonuc.textContent = "✅ Eklendi: " + slot + "/" + r.id;
+        sonuc.textContent = "✅ Eklendi: " + slot + "/" + r.id + (r.uyari ? " — " + r.uyari : "");
         sonuc.className = "yon-sonuc iyi";
         $("#yonDosya").value = ""; seciliDosya = null;
         $("#yonKontrol").innerHTML = ""; $("#yonOnizleme").classList.add("gizli");
@@ -258,7 +262,7 @@
         sonuc.textContent = "Hata: " + (r.hata || "bilinmiyor"); sonuc.className = "yon-sonuc kotu";
       }
     } catch (e) {
-      sonuc.textContent = "Sunucuya ulaşılamadı (yerel sunucu çalışıyor mu?)."; sonuc.className = "yon-sonuc kotu";
+      sonuc.textContent = e.message || "Sunucuya ulaşılamadı."; sonuc.className = "yon-sonuc kotu";
     }
   }
 
@@ -284,7 +288,9 @@
       const im = document.createElement("img");
       im.src = oge[id]; im.alt = id; im.loading = "lazy";
       const ad = document.createElement("div"); ad.className = "yon-oge-ad"; ad.textContent = id;
-      const sil = document.createElement("button"); sil.className = "yon-sil"; sil.textContent = "🗑️"; sil.title = "Sil";
+      const sil = document.createElement("button"); sil.type = "button"; sil.className = "yon-sil"; sil.title = "Sil";
+      sil.setAttribute("aria-label", id + " görselini sil");
+      if (window.LARA_IKON) sil.appendChild(window.LARA_IKON("sil")); else sil.textContent = "×";
       sil.onclick = () => silOge(slot, id);
       d.appendChild(im); d.appendChild(ad); d.appendChild(sil);
       kap.appendChild(d);
@@ -301,6 +307,6 @@
       } else {
         alert("Silinemedi: " + (r.hata || ""));
       }
-    } catch (e) { alert("Sunucuya ulaşılamadı."); }
+    } catch (e) { alert(e.message || "Sunucuya ulaşılamadı."); }
   }
 })();

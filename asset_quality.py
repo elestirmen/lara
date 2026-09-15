@@ -10,9 +10,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
+import numpy as np
 from PIL import Image
 
 
@@ -31,6 +33,9 @@ SLOTS = (
     "asalar",
     "ozel",
 )
+BODY_VARIANT_SLOTS = {"modeller", "elbiseler", "takilar", "ozel"}
+BODY_VARIANT_LEVELS = {"b20", "b40", "b60", "b80", "b100"}
+RASTER_EXTENSIONS = {".png", ".webp"}
 
 LANDMARKS = {
     "shoulder": 420,
@@ -94,7 +99,14 @@ def in_range(value: float, bounds: tuple[float, float]) -> bool:
     return bounds[0] <= value <= bounds[1]
 
 
-def audit_png(path: Path, slot: str, metadata: dict, *, strict_shape: bool = False) -> list[Finding]:
+def audit_png(
+    path: Path,
+    slot: str,
+    metadata: dict,
+    *,
+    strict_shape: bool = False,
+    contract_only: bool = False,
+) -> list[Finding]:
     findings: list[Finding] = []
     rel = str(path.relative_to(ROOT))
     try:
@@ -109,7 +121,6 @@ def audit_png(path: Path, slot: str, metadata: dict, *, strict_shape: bool = Fal
     rgba = img.convert("RGBA")
     alpha = rgba.getchannel("A")
     bbox = alpha.getbbox()
-    vbbox = visible_bbox(alpha)
     if slot == "arkaplanlar":
         corners = [
             alpha.getpixel((0, 0)),
@@ -131,6 +142,14 @@ def audit_png(path: Path, slot: str, metadata: dict, *, strict_shape: bool = Fal
         ]
         if max(corners) > 7:
             findings.append(Finding("error", rel, "non-background layer corners must be transparent"))
+
+    # Pre-rendered body variants only need the shared file/canvas/alpha contract.
+    # Their geometry intentionally differs from the base model and must not be
+    # judged against the base silhouette limits below.
+    if contract_only:
+        return findings
+
+    vbbox = visible_bbox(alpha) if slot != "arkaplanlar" else None
 
     item_id = path.stem
     if slot in {"modeller", "elbiseler", "ozel", "ayakkabilar", "takilar", "taclar"}:
@@ -165,16 +184,65 @@ def audit_png(path: Path, slot: str, metadata: dict, *, strict_shape: bool = Fal
     if slot == "taclar" and vbbox:
         if vbbox[3] > 330:
             findings.append(Finding("error", rel, f"headwear layer contains body/face ghost below y=330: y={vbbox[3]}"))
+        arr = np.asarray(rgba)
+        yy, xx = np.mgrid[0:rgba.height, 0:rgba.width]
+        face_band = (
+            (xx >= 420)
+            & (xx <= 604)
+            & (yy >= 210)
+            & (yy <= 320)
+            & (arr[:, :, 3] > 32)
+            & (arr[:, :, :3].mean(axis=2) < 130)
+        )
+        if int(face_band.sum()) > 500:
+            findings.append(Finding("error", rel, "headwear layer contains dark face/hair residue in face band"))
 
     if slot == "takilar" and vbbox:
         if vbbox[1] < 250 or vbbox[3] > 620:
             findings.append(Finding("error", rel, f"jewelry layer outside neck/chest band: {vbbox}"))
+        if vbbox[1] > 390:
+            findings.append(Finding("error", rel, f"jewelry starts too low for necklace fit: y={vbbox[1]}"))
+
+    if slot == "ayakkabilar" and vbbox and item_id == "ayk_kar_cizme":
+        if vbbox[3] < 1320:
+            findings.append(Finding("error", rel, f"snow boot does not cover foot/toe area: y={vbbox[3]}"))
 
     if slot == "elbiseler" and vbbox:
         torso_rows = [row_width(alpha, y) for y in (420, 512, 645, 708)]
         if vbbox[3] > 900 and sum(1 for w in torso_rows if w > 40) < 2:
             findings.append(Finding("error", rel, "dress is long but missing torso alignment pixels"))
 
+    return findings
+
+
+def audit_body_variants(metadata: dict) -> list[Finding]:
+    root = ASSETS / "_beden"
+    if not root.is_dir():
+        return [Finding("error", str(root.relative_to(ROOT)), "body variant directory is missing")]
+
+    findings: list[Finding] = []
+    for path in sorted(root.rglob("*")):
+        if not path.is_file() or path.name == ".gitkeep":
+            continue
+
+        rel = str(path.relative_to(ROOT))
+        parts = path.relative_to(root).parts
+        if len(parts) != 3:
+            findings.append(Finding("error", rel, "body variant path must be <level>/<slot>/<id>.<ext>"))
+            continue
+
+        level, slot, _filename = parts
+        if level not in BODY_VARIANT_LEVELS or not re.fullmatch(r"b\d{2,3}", level):
+            findings.append(Finding("error", rel, f"unsupported body level: {level}"))
+            continue
+        if slot not in BODY_VARIANT_SLOTS:
+            findings.append(Finding("error", rel, f"slot is not body-variant enabled: {slot}"))
+            continue
+        if path.suffix.lower() not in RASTER_EXTENSIONS:
+            findings.append(Finding("error", rel, "body variant must be PNG or WebP"))
+            continue
+
+        findings.extend(audit_png(path, slot, metadata, contract_only=True))
     return findings
 
 
@@ -185,9 +253,12 @@ def audit_assets(*, strict_shape: bool = False) -> list[Finding]:
         root = ASSETS / slot
         if not root.is_dir():
             continue
-        for ext in ("*.png", "*.webp"):
-            for path in sorted(root.glob(ext)):
+        # Runtime uzantıyı case-insensitive keşfeder. Dizini tek kez dolaşmak,
+        # `parca.JPG` gibi adların kalite denetimini atlamasını engeller.
+        for path in sorted(root.iterdir()):
+            if path.is_file() and path.suffix.lower() in {".png", ".webp", ".jpg", ".jpeg"}:
                 findings.extend(audit_png(path, slot, metadata, strict_shape=strict_shape))
+    findings.extend(audit_body_variants(metadata))
     return findings
 
 

@@ -35,6 +35,7 @@ EXPECTED_SLOTS = [
     "beden",
 ]
 EXPECTED_LEVELS = ["b20", "b40", "b60", "b80", "b100"]
+BODY_VARIANT_SLOTS = ["modeller", "elbiseler", "takilar", "ozel"]
 QUARANTINED_DRESS_IDS = {
     "elb_esofman",
     "elb_kazak",
@@ -49,6 +50,13 @@ QUARANTINED_OZEL_IDS = {
     "oz_catears",
     "oz_harness",
     "oz_latex",
+}
+FORBIDDEN_VECTOR_DRESS_IDS = {
+    "elb_tisort_jean",
+    "elb_cizgili_tisort",
+}
+FORBIDDEN_ACTIVE_HEADWEAR_IDS = {
+    "tac_cicek",
 }
 
 
@@ -82,13 +90,20 @@ def manifest_checks() -> None:
     active_bad_ozel = sorted(QUARANTINED_OZEL_IDS & set(manifest.get("ozel", {})))
     if active_bad_ozel:
         raise SystemExit(f"quarantined ozel PNGs are still active: {active_bad_ozel}")
-
+    active_bad_headwear = sorted(FORBIDDEN_ACTIVE_HEADWEAR_IDS & set(manifest.get("taclar", {})))
+    if active_bad_headwear:
+        raise SystemExit(f"forbidden headwear PNGs are still active: {active_bad_headwear}")
     dolap = (ROOT / "public" / "dolap.js").read_text(encoding="utf-8")
     app_js = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
     if '"ozel"' not in app_js.partition("const SEKME_SIRASI = [")[2].partition("];")[0]:
         raise SystemExit("ozel tab is missing from SEKME_SIRASI")
     if "Özel deaktif" in app_js:
         raise SystemExit("ozel slot is still explicitly disabled in app.js")
+    forbidden_vectors = sorted(item_id for item_id in FORBIDDEN_VECTOR_DRESS_IDS if item_id in dolap)
+    if forbidden_vectors:
+        raise SystemExit(f"forbidden vector dress drawings are present: {forbidden_vectors}")
+    if "function ogeKullanilabilir" not in app_js:
+        raise SystemExit("realistic-mode availability filter is missing")
     missing_vectors = [
         item_id for item_id in manifest.get("elbiseler", {})
         if f'id: "{item_id}"' not in dolap and f"id: '{item_id}'" not in dolap
@@ -96,14 +111,27 @@ def manifest_checks() -> None:
     if missing_vectors:
         raise SystemExit(f"active dress PNGs without vector fallback: {missing_vectors}")
 
-    levels = list(manifest.get("beden", {}))
+    manifest_beden = manifest.get("beden", {})
+    static_beden = load_json(ASSETS / "beden.json")
+    if static_beden != manifest_beden:
+        raise SystemExit("beden.json does not exactly match gorseller.json.beden")
+
+    levels = list(manifest_beden)
     if levels != EXPECTED_LEVELS:
         raise SystemExit(f"beden levels mismatch: {levels}")
-    active_dresses = set(manifest.get("elbiseler", {}))
+
+    active_by_slot = {slot: set(manifest.get(slot, {})) for slot in BODY_VARIANT_SLOTS}
     for level in EXPECTED_LEVELS:
-        level_dresses = set(manifest["beden"].get(level, {}).get("elbiseler", {}))
-        if level_dresses != active_dresses:
-            raise SystemExit(f"{level}/elbiseler mismatch: active={len(active_dresses)} level={len(level_dresses)}")
+        level_data = manifest_beden.get(level, {})
+        unexpected_slots = sorted(set(level_data) - set(BODY_VARIANT_SLOTS))
+        if unexpected_slots:
+            raise SystemExit(f"{level} contains non-body variant slots: {unexpected_slots}")
+        for slot, active_ids in active_by_slot.items():
+            level_ids = set(level_data.get(slot, {}))
+            if level_ids != active_ids:
+                missing = sorted(active_ids - level_ids)
+                extra = sorted(level_ids - active_ids)
+                raise SystemExit(f"{level}/{slot} mismatch: missing={missing} extra={extra}")
 
     print("manifest checks ok")
 
@@ -146,7 +174,7 @@ def prompt_parity_check() -> None:
         cli_text = Path(cli_out.name).read_text(encoding="utf-8")
 
     env = os.environ.copy()
-    env.update({"PORT": str(port), "LARA_ADMIN": admin})
+    env.update({"PORT": str(port), "LARA_HOST": "127.0.0.1", "LARA_ADMIN": admin})
     proc = subprocess.Popen(
         ["node", "server.js"],
         cwd=ROOT,
@@ -198,6 +226,8 @@ def main() -> int:
     run(["node", "--check", "public/app.js"])
     run(["node", "--check", "public/admin.js"])
     run(["node", "--check", "public/dolap.js"])
+    run(["node", "--check", "public/ses.js"])
+    run(["node", "frontend_contract_test.js"])
     run([
         str(PYTHON),
         "-m",
