@@ -1,0 +1,5 @@
+import type {Question} from '@/lib/types';
+/** Tek dokunuşluk seçenekler. Seçim hemen kontrol edilir: yanlış denenen seçenek ✗ ile kapanır (odak kaybolmasın diye aria-disabled), soru bitince doğru seçenek ✓ ile yeşil kalır. */
+export default function Choices({q,picked,wrong=[],disabled,locked=false,letters=false,lang,onPick}:{q:Question;picked:string;wrong?:string[];disabled:boolean;locked?:boolean;letters?:boolean;lang?:string;onPick:(o:string)=>void}){
+ return <div className="options">{q.options?.map((o,i)=>{const tried=wrong.includes(o),state=disabled&&o===q.answer?'is-correct':tried?'is-wrong':picked===o?'selected':'',mark=state==='is-correct'?'✓':state==='is-wrong'?'✗':'';return <button key={o} className={state} lang={lang} disabled={disabled||locked} aria-disabled={tried||undefined} aria-pressed={picked===o} onClick={()=>{if(!tried)onPick(o)}}>{mark?<span className="option-letter" aria-hidden="true">{mark}</span>:letters&&<span className="option-letter">{String.fromCharCode(65+i)}</span>}{o}</button>})}</div>;
+}

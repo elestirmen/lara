@@ -3,14 +3,14 @@ import {useEffect,useMemo,useRef,useState} from 'react';
 import {ArrowRight} from 'lucide-react';
 import {balloonRounds} from '@/lib/games';
 import {newSeed} from '@/lib/random';
-import {tone} from '@/lib/audio';
+import {sfx} from '@/lib/audio';
 import GameFinish from './GameFinish';
 export default function BalloonGame({sound,onFinish}:{sound:boolean;onFinish:(firstTry:number)=>void}){
  const [seed,setSeed]=useState(newSeed),[index,setIndex]=useState(0),[wrong,setWrong]=useState<number[]>([]),[popped,setPopped]=useState(false),[score,setScore]=useState(0),[done,setDone]=useState(false);
  const rounds=useMemo(()=>balloonRounds(seed),[seed]),round=rounds[index],heading=useRef<HTMLHeadingElement>(null);
  useEffect(()=>{if(index>0)heading.current?.focus()},[index]);
- function pick(value:number){if(popped||wrong.includes(value))return;if(value===round.answer){setPopped(true);if(!wrong.length)setScore(s=>s+1);tone(sound,880,.12)}else{setWrong([...wrong,value]);tone(sound,196,.12)}}
- function next(){if(index+1<rounds.length){setIndex(index+1);setWrong([]);setPopped(false)}else{setDone(true);onFinish(score)}}
+ function pick(value:number){if(popped||wrong.includes(value))return;if(value===round.answer){setPopped(true);if(!wrong.length)setScore(s=>s+1);sfx(sound,'burst');sfx(sound,'correct')}else{setWrong([...wrong,value]);sfx(sound,'wrong')}}
+ function next(){if(index+1<rounds.length){setIndex(index+1);setWrong([]);setPopped(false)}else{setDone(true);onFinish(score);sfx(sound,'finish')}}
  function restart(){setSeed(newSeed());setIndex(0);setWrong([]);setPopped(false);setScore(0);setDone(false)}
  if(done)return <GameFinish title="Bütün balonlar patladı!" text={`${rounds.length} turun ${score} tanesini ilk denemede buldun. ${score>=6?'Sayılarla aran çok iyi!':'Her yeni oyunda biraz daha kolaylaşacak.'}`} onAgain={restart}/>;
  return <div className="balloon-game">

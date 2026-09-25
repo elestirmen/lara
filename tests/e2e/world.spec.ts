@@ -7,9 +7,9 @@ test('ana sayfa → matematik → etkinlik → sonuç → kalıcı ilerleme',asy
  for(let i=0;i<8;i++){
    const instruction=await page.locator('.question-instruction').innerText();
    const n=Number(instruction.match(/\d+/)?.[0]);
-   if(i%3===2){await page.locator('.options button').filter({hasText:new RegExp(`^.[ ]*${Math.floor(n/10)}$`)}).click();}
-   else {for(let t=0;t<Math.floor(n/10);t++)await page.getByRole('button',{name:'Bir onluk ekle',exact:true}).click();for(let u=0;u<n%10;u++)await page.getByRole('button',{name:'Bir birlik ekle',exact:true}).click();}
-   await page.getByRole('button',{name:'Kontrol et',exact:true}).click();await expect(page.getByText('Evet, buldun!')).toBeVisible();await page.getByRole('button',{name:i===7?'Keşfimi tamamla':'Devam edelim',exact:true}).click();
+   if(i%3===2){await expect(page.getByRole('button',{name:'Kontrol et',exact:true})).toHaveCount(0);await page.locator('.options button').filter({hasText:new RegExp(`^.[ ]*${Math.floor(n/10)}$`)}).click();}
+   else {for(let t=0;t<Math.floor(n/10);t++)await page.getByRole('button',{name:'Bir onluk ekle',exact:true}).click();for(let u=0;u<n%10;u++)await page.getByRole('button',{name:'Bir birlik ekle',exact:true}).click();await page.getByRole('button',{name:'Kontrol et',exact:true}).click();}
+   await expect(page.getByText('Evet, buldun!')).toBeVisible();await page.getByRole('button',{name:i===7?'Keşfimi tamamla':'Devam edelim',exact:true}).click();
  }
  await expect(page.getByRole('heading',{name:'Emeğine sağlık, Lara!'})).toBeVisible();await page.getByRole('link',{name:'Öğrenme dünyama dön'}).click();await page.reload();await expect(page.locator('.growth-card')).toContainText('1 konu tamamladın');
  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('lara-progress-v1')!));expect(saved.completed['math-blocks']).toBeTruthy();expect(saved.attempts).toHaveLength(8);

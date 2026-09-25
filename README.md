@@ -46,6 +46,10 @@ Oyunlarda süre ve yarış yoktur. Yanlış seçim ipucu verir. Oyun sonuçları
 
 Etkileşim yenilemesi: Saatin akrep ve yelkovanı doğrudan sürüklenir ve birbirine bağlı ilerler. Onluk çubukları on eş hücreden oluşur. Şekiller döndürülür, köşeleri işaretlenir, parçalar bir modele yerleştirilir ve simetri deseni tamamlanır. Türkçe kartları parmakla/klavyeyle yeniden sıralanır; noktalama işaretleri cümleye bırakılır. Sanat alanındaki şekiller sonradan taşınabilir. `tests/e2e/manipulatives.spec.ts` bu araçları fare, dokunma ve klavye ile denetler.
 
+Tek dokunuşluk yanıtlar (seçenekler, trafik sahnesi, ince/kalın ses, tempo, noktalama işareti, dört vuruşluk ritim, tamamlanan şekil modeli, “Yaptım/Anlattım”) dokunulduğu anda kontrol edilir; ayrıca “Kontrol et”e basılmaz. Yanlış denenen seçenek ✗ ile kapanır ve bir daha sayılmaz, doğru olan ✓ ile yeşil kalır; telefonda geri bildirim ve devam düğmesi görünür alana kayar. Sayı kurma, sıralama, saat, para, grafik, kesir ve ayna gibi düzeltilebilen yapımlarda çocuk hazır olunca “Kontrol et”e basar; aynı yanlış cevap değiştirilmeden yeniden gönderilemez.
+
+Sesler cihazda Web Audio ile üretilir, dosya indirilmez: doğru cevapta kısa bir zil, yanlışta yumuşak iki nota, çözüm gösterilince sakin bir ton, ders ve oyun sonunda küçük bir fanfar; blok, kart, şekil parçası, para, sayı doğrusu ve saatte kısa dokunma sesleri, ritimde el çırpma. Ses yeni cihazlarda açık başlar; üst çubuktaki hoparlör düğmesi hepsini kapatır ve tercih cihazda saklanır.
+
 İlk yanıt değerlendirilir; yanlış cevap ipucu verir. Üçüncü denemede açıklama/çözüm gösterilir. Yardımlı doğru ile bağımsız doğru ayrılır. Bir dersin tamamlanması otomatik olarak tüm kazanımın edinildiğini göstermez. Açık uçlu yazı, konuşma, çizim ve hareket öz bildirimdir; yapay bir otomatik not verilmez. Bunlar ebeveyn gözlemiyle desteklenmelidir.
 
 Her beceri için başlangıç puanı 0; bağımsız doğru +12, yardımlı doğru +3, yanlış −8; 0–100 sınırı. İlk yanıt kayıtları tekilleştirilir. 0–39, 40–69, 70–100 aralıklarında üç zorluk seviyesi vardır. Tekrar zamanı zorlanmada 1, başarıda 3, güçlü başarıda 7 gün sonradır. Kaçırılan gün cezası yoktur.
@@ -73,7 +77,7 @@ Yeni ders için `SubjectId`, `content/subjects.ts`, içerik modülü ve `content
 
 Yeni oyun için `content/games.ts` listesine kayıt, `lib/games.ts` içine test edilebilir mantık, `components/games/` altına bileşen ve `GamePlayer.tsx` içine bağlantı eklenir. Oyun bileşeni `onFinish(score)` çağırır; `better` alanı düşük mü yüksek mi skorun iyi olduğunu belirtir.
 
-Yeni etkinlik tipi için `ActivityType` birliği, tipli soru üreticisi ve `Activity.tsx` bileşen kaydı eklenir. Yanıt bileşeni `onAnswer(string)` ile motorla haberleşir. Yanıtı bileşen puanlamaz. Erişilebilir yönerge, düğme/klavye alternatifi, disabled durumu ve gerekirse çözüm gösterimi bulunmalıdır. [Mimari ayrıntıları](docs/ARCHITECTURE.md).
+Yeni etkinlik tipi için `ActivityType` birliği, tipli soru üreticisi ve `Activity.tsx` bileşen kaydı eklenir. Yanıt bileşeni `onAnswer(değer)` ile motorla haberleşir; son dokunuş kararın kendisiyse `onAnswer(değer, true)` çağırır ve tip `Activity.tsx` içindeki `instant` listesine eklenir. Seçenekler için `Choices` bileşeni ✓/✗ durumlarını hazır verir. Yanıtı bileşen puanlamaz. Erişilebilir yönerge, düğme/klavye alternatifi, disabled durumu ve gerekirse çözüm gösterimi bulunmalıdır. [Mimari ayrıntıları](docs/ARCHITECTURE.md).
 
 ## Müfredatı güncelleme
 

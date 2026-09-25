@@ -2,7 +2,7 @@
 import {useEffect,useRef,useState} from 'react';
 import {ArrowRight,Delete,Lightbulb,Play,RotateCcw} from 'lucide-react';
 import {codeLevels,codeMaxSteps,codeSize,runProgram,type Cell,type Step} from '@/lib/games';
-import {tone} from '@/lib/audio';
+import {sfx} from '@/lib/audio';
 import {Piko} from '../Illustration';
 import GameFinish from './GameFinish';
 const arrows:Record<Step,[string,string]>={up:['↑','Yukarı'],down:['↓','Aşağı'],left:['←','Sola'],right:['→','Sağa']};
@@ -14,13 +14,13 @@ export default function CodeGame({sound,onFinish,solved}:{sound:boolean;onFinish
  useEffect(()=>()=>timers.current.forEach(clearTimeout),[]);
  function stop(next=level){timers.current.forEach(clearTimeout);timers.current=[];setRunning(false);setResult('');setPos(codeLevels[next].start)}
  function choose(next:number){setLevel(next);setProgram([]);setHint(false);stop(next)}
- function edit(next:Step[]){setProgram(next);stop()}
+ function edit(next:Step[]){sfx(sound,next.length<program.length?'remove':'place');setProgram(next);stop()}
  function run(){
   const {path,result:r}=runProgram(L,program),delay=matchMedia('(prefers-reduced-motion: reduce)').matches?0:380;
   if(r==='goal'){setBest(b=>Math.max(b,level+1));onFinish(level+1)}
   stop();setRunning(true);
-  path.forEach((cell,i)=>timers.current.push(setTimeout(()=>setPos(cell),i*delay)));
-  timers.current.push(setTimeout(()=>{setRunning(false);setResult(r);tone(sound,r==='goal'?880:220,.15)},path.length*delay));
+  path.forEach((cell,i)=>timers.current.push(setTimeout(()=>{setPos(cell);if(delay&&i)sfx(sound,'hop')},i*delay)));
+  timers.current.push(setTimeout(()=>{setRunning(false);setResult(r);sfx(sound,r!=='goal'?'wrong':last?'finish':'correct')},path.length*delay));
  }
  if(result==='goal'&&last)return <GameFinish title="Bütün bölümleri bitirdin!" text="Piko altı bahçede de evinin yolunu buldu. Yol tarifi yazmak, kodlamanın ilk adımıdır." onAgain={()=>choose(0)}/>;
  return <div className="code-game">

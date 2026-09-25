@@ -6,7 +6,7 @@ Uygulama statik dışa aktarılır. Sunucuda Node süreci veya veri tabanı çal
 
 `Lesson → makeQuestion(seed, index, difficulty) → Activity → LessonPlayer → recordAttempt → localStorage`
 
-İçerik, etkileşim ve değerlendirme birbirinden ayrıdır. `makeQuestion` bir seed ile tekrar üretilebilir; rastgelelik test edilebilir. `Activity` yalnız seçimi bildirir. Motor ilk gönderimi bir kez kaydeder, ipucu/yanlış tekrarlarını başarı diye saymaz. Ders sonunda `completeLesson` ayrı tamamlanma kaydı oluşturur. Soruların `skill` alanı gerçek `learningOutcomeCode` anahtarıdır.
+İçerik, etkileşim ve değerlendirme birbirinden ayrıdır. `makeQuestion` bir seed ile tekrar üretilebilir; rastgelelik test edilebilir. `Activity` yalnız seçimi bildirir; tek dokunuşluk etkinlikler seçimi `check` bayrağıyla bildirir ve motor o anda kontrol eder (`instant` listesi). Yanlış denenen cevaplar motorda tutulur: seçenek ✗ ile kapanır, yapım etkinliğinde aynı cevap değiştirilmeden yeniden gönderilemez. Motor ilk gönderimi bir kez kaydeder, ipucu/yanlış tekrarlarını başarı diye saymaz. Ders sonunda `completeLesson` ayrı tamamlanma kaydı oluşturur. Soruların `skill` alanı gerçek `learningOutcomeCode` anahtarıdır.
 
 Hash gezintisi tek statik belge içinde çalışır. Ders motoru, oyun oynatıcı ve ebeveyn alanı gerektiğinde dinamik yüklenir; ana sayfa bunların JavaScript kodunu ilk açılışta çalıştırmaz. Yeni sayfalar da hash rotası olarak eklenir: ayrı HTML sayfaları için `prepare-production.mjs` yalnız `index.html` script özetlerini CSP'ye koyduğundan, nginx `try_files` `$uri.html` içermediğinden ve Service Worker yalnız `/` sayfasını önbelleğe aldığından üçünün de güncellenmesi gerekir. Service Worker derlemedeki tüm yerel parçaları, yazı tiplerini ve içerik paketlerini önbelleğe alır. Böylece daha önce ziyaret edilmemiş bir ders de kurulum tamamlandıktan sonra çevrim dışı açılır. Yeni büyük medya eklenirse önbellek bütçesi yeniden değerlendirilmelidir.
 
@@ -23,7 +23,7 @@ Saf geometri/sayı dönüşümleri `lib/manipulatives.ts` içinde test edilir. P
 
 Kart taşıma, hedef kartın sol/sağ yarısına göre yerleştirme aralığını hesaplar. Sürükleme sonundaki sentetik tıklama bastırılır; sonraki gerçek dokunuş veya klavye aktivasyonu bastırılmaz. Telefon görünümünde birlikler beş sütunlu onluk çerçeve oluşturur; dokunma düğmeleri en az 44 pikseldir. Şekil ölçeği piksel tabanlıdır ve kapsayıcı genişliğiyle sınırlandırılır; kaydırıcı bütün ekranlarda görünür boyut değiştirir.
 
-Öğren aşamasındaki geometri seçimleri puan kaydetmeden açıklama verir. Saatin serbest keşif görünümünde değerlendirme düğmesi gösterilmez. Öz bildirim sonuçları otomatik ölçülmüş becerilerden ayrı sunulur; gözlem görevinin puan üretmemesi çocuğa başarısızlık geri bildirimi olarak yansıtılmaz.
+Öğren aşamasındaki geometri seçimleri puan kaydetmeden açıklama verir. Saat soru görünümünde başlangıç saatini de bildirir; ayrı “Bu saati seç” onayı yoktur, çocuk kolları ayarlayıp “Kontrol et”e basar. Öz bildirim sonuçları otomatik ölçülmüş becerilerden ayrı sunulur; gözlem görevinin puan üretmemesi çocuğa başarısızlık geri bildirimi olarak yansıtılmaz.
 
 ## Oyun molası
 
@@ -45,7 +45,7 @@ Her konu bağımsız beceri kanıtı sunmaz; kaynak ekranı etkinlik bulunmayan 
 
 ## Erişilebilirlik ve ses
 
-HTML düğmeleri, görünen odak halkaları, semantik başlıklar, canlı geri bildirim, large touch targets ve reduced-motion vardır. Sürükleme eylemlerinin dokunma/klavye alternatifi bulunur. Çizim yüzeyinde klavyeden eklenebilir şekiller vardır. Yönerge sesleri sadece kullanıcı isteğiyle oynatılır. Yerel ses yoksa metin alternatifi korunur. Web Audio sesleri cihazda sentezlenir.
+HTML düğmeleri, görünen odak halkaları, semantik başlıklar, canlı geri bildirim, large touch targets ve reduced-motion vardır. Sürükleme eylemlerinin dokunma/klavye alternatifi bulunur. Çizim yüzeyinde klavyeden eklenebilir şekiller vardır. Yönerge sesleri sadece kullanıcı isteğiyle oynatılır. Yerel ses yoksa metin alternatifi korunur. Web Audio sesleri cihazda sentezlenir: `lib/audio.ts` içindeki `sfx(açık, ad)` doğru/yanlış/çözüm/bitiş ve dokunma seslerini, `tone` etkinlik içeriğindeki ince/kalın ve tempo seslerini üretir. İçerik sesleri harmonikli dalgayla çalınır; böylece kalın ses telefon hoparlöründe de duyulur ve iki ses aynı güçte kalır. Sesler yalnız dokunuşa yanıt olarak çalar, çakıştıklarında tepe seviyesi 0,6'yı geçmez. Soru çözülünce odak “Devam edelim” düğmesine geçer; yanlış denenen seçenek `aria-disabled` olur, böylece klavyedeki odak kaybolmaz.
 
 ## Güvenlik
 

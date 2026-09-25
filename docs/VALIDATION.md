@@ -1,5 +1,21 @@
 # Doğrulama
 
+## 25 Eylül 2026 — Anında kontrol ve sesli geri bildirim
+
+Tek dokunuşluk yanıtlarda (seçenekler, trafik sahnesi, ince/kalın ses, tempo, noktalama, dört vuruşluk ritim, tamamlanan şekil modeli, “Yaptım/Anlattım”) ayrı “Kontrol et” adımı kaldırıldı; seçim o anda kontrol edilir. Yanlış denenen seçenek ✗ ile kapanır ve ikinci kez sayılmaz, doğru seçenek ✓ ile yeşil kalır. Telefonda geri bildirim ve “Devam edelim” düğmesi alt menünün üstüne kayar (önceden ekranın altında, menünün arkasında kalıyordu); soru çözülünce odak bu düğmeye geçer. Düzeltilebilen yapımlarda “Kontrol et” kalır, aynı yanlış cevap değiştirilmeden yeniden gönderilemez. Saatte ayrı “Bu saati seç” onayı kaldırıldı.
+
+Ses artık yeni cihazlarda açık başlar (önceden kapalıydı ve açıkken yalnız doğru cevapta 0,13 saniyelik kısık bir bip vardı). Doğru, yanlış, çözüm ve bitiş sesleri ile araçlardaki dokunma sesleri cihazda sentezlenir. Sesler OfflineAudioContext ile işlenip ölçüldü: doğru cevap tepe 0,27 / RMS 0,055; yanlış daha yumuşak (0,20 / 0,036); dokunma sesleri 0,06–0,12 saniye ve daha kısık; içerik tonları 220 ve 660 Hz'de eşit güçte (RMS 0,06). En büyük çakışma (balon patlaması + doğru zili) tepe 0,6'nın altında kalır.
+
+| Kontrol | Sonuç |
+| --- | --- |
+| TypeScript ve production build | Başarılı |
+| Birim testleri (anında kontrol edilen her sorunun tek dokunuşla cevaplanabildiği dahil) | 31 / 31 |
+| Production paketindeki Playwright testleri (5 yeni geri bildirim testi dahil) | 50 / 50 |
+| Cevaplanmış ekranlarda (yanlış, doğru, çözüm) Axe WCAG A/AA taraması | İhlal yok |
+| Yeni geri bildirim testleri önceki yayın imajında | 5 / 5 başarısız (beklenen) |
+
+Seçenek, trafik, İngilizce eşleştirme, geometri, ince/kalın ses, tempo, noktalama, ritim, hareket görevi, şekil modeli ve saat ekranları 390 piksel telefonda ve 1280 piksel masaüstünde yanlış, doğru ve çözüm gösterilen durumlarda görsel olarak incelendi.
+
 ## 25 Eylül 2026 — Etkinliklerde anlaşılırlık düzeltmeleri
 
 Güvenli yolculuk sahnesi yeniden çizildi: ışık “Yaya ışığı” olarak etiketlidir ve duran/yürüyen insan simgesi taşır; araç gittiği yöne bakar, kırmızıda bir kez geçer ve yeniden oynatılabilir, yeşilde durma çizgisinde bekler; çocuk yalnız doğru cevap onaylanınca karşıya geçer. Yön bulma dersinde yol haritası gösterilir ve adım kartları numarasızdır (önceden harita görünmüyor, numaralar cevabı veriyordu). Örüntü soruları kuralı bulmayı ölçer; tempo dersi iki örneğin hızını karşılaştırır. Çarpma ve bölme görselleri tabaklarla çizilir; bölmede sonuç önceden gösterilmez. Kiraz tahmini beşerli gruplu, cetveldeki kalem çizimi nettir. Hayat Bilgisi durumları soru cümlesiyle biter. Tekrar önerisi en düşük puanlı beceriyi seçer. “Tüm ders rotaları” testi 81 konunun tamamını açtığını doğrular; önceden sayfa yüklenirken yapılan hızlı gezinme matematik konularını atlatabiliyordu.

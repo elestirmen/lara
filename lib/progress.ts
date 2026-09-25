@@ -1,6 +1,6 @@
 import type {Attempt,Progress,SkillState} from './types';
 export const STORAGE_KEY='lara-progress-v1';
-export const emptyProgress=():Progress=>({version:1,skills:{},completed:{},attempts:[],stars:0,sound:false});
+export const emptyProgress=():Progress=>({version:1,skills:{},completed:{},attempts:[],stars:0,sound:true});
 export function difficulty(s?:SkillState):1|2|3{return !s||s.score<40?1:s.score<70?2:3}
 export function level(score:number){return score<40?'Başlangıç':score<70?'Gelişiyor':score<90?'İyi':'Çok iyi'}
 export function recordAttempt(p:Progress,a:Attempt):Progress{

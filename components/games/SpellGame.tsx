@@ -3,7 +3,7 @@ import {useEffect,useMemo,useRef,useState} from 'react';
 import {ArrowRight,Lightbulb,RotateCcw,Volume2} from 'lucide-react';
 import {spellHint,spellRounds} from '@/lib/games';
 import {newSeed} from '@/lib/random';
-import {speak,stopSpeech,tone} from '@/lib/audio';
+import {sfx,speak,stopSpeech} from '@/lib/audio';
 import GameFinish from './GameFinish';
 export default function SpellGame({sound,onFinish}:{sound:boolean;onFinish:(firstTry:number)=>void}){
  const [seed,setSeed]=useState(newSeed),[index,setIndex]=useState(0),[built,setBuilt]=useState<number[]>([]),[helped,setHelped]=useState(false),[score,setScore]=useState(0),[done,setDone]=useState(false),[voice,setVoice]=useState('');
@@ -11,9 +11,9 @@ export default function SpellGame({sound,onFinish}:{sound:boolean;onFinish:(firs
  const letter=(id:number)=>round.letters.find(l=>l.id===id)!.ch,chars=built.map(letter),full=built.length===round.letters.length,correct=full&&chars.join('')===round.word;
  useEffect(()=>()=>stopSpeech(),[]);
  useEffect(()=>{if(index>0)heading.current?.focus()},[index]);
- function change(next:number[]){setBuilt(next);if(next.length<round.letters.length)return;if(next.map(letter).join('')===round.word)tone(sound,880,.12);else{setHelped(true);tone(sound,220,.1)}}
+ function change(next:number[]){setBuilt(next);if(next.length<round.letters.length){sfx(sound,next.length<built.length?'remove':'place');return}if(next.map(letter).join('')===round.word)sfx(sound,'correct');else{setHelped(true);sfx(sound,'wrong')}}
  function hint(){setHelped(true);change(spellHint(round,built))}
- function next(){const total=score+(helped?0:1);setScore(total);if(index+1<rounds.length){setIndex(index+1);setBuilt([]);setHelped(false);setVoice('')}else{setDone(true);onFinish(total)}}
+ function next(){const total=score+(helped?0:1);setScore(total);if(index+1<rounds.length){setIndex(index+1);setBuilt([]);setHelped(false);setVoice('')}else{setDone(true);onFinish(total);sfx(sound,'finish')}}
  function listen(){if(!speak(round.word))setVoice('Bu cihazda çevrim dışı Türkçe ses yok. Resme bakarak devam edebilirsin.')}
  function restart(){setSeed(newSeed());setIndex(0);setBuilt([]);setHelped(false);setScore(0);setDone(false);setVoice('')}
  if(done)return <GameFinish title="Tren istasyona vardı! 🚉" text={`${rounds.length} kelimenin ${score} tanesini ilk denemede kurdun.`} onAgain={restart}/>;
