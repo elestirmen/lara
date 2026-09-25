@@ -1,6 +1,6 @@
 # Production kurulumu
 
-24 Eylül ikinci kontrol yayınının hemen önceki imajı `laranin-dersleri:before-review-20260924` etiketiyle korunur. İlk etkileşim yenilemesinden önceki imaj ayrıca `laranin-dersleri:before-interactions-20260924` etiketiyle tutulur. Geri dönüş gerekirse istenen imaj `laranin-dersleri:1.0.0` olarak etiketlenip `docker compose up -d --no-build` çalıştırılır. Bu işlem tarayıcıdaki ilerlemeyi silmez. Son kontrol raporu: [VALIDATION.md](VALIDATION.md).
+25 Eylül “Lara’nın Dünyası” (oyun molası) yayınından hemen önceki imaj `laranin-dersleri:before-games-20260925` etiketiyle korunur. 24 Eylül ikinci kontrol yayınının hemen önceki imajı `laranin-dersleri:before-review-20260924` etiketiyle korunur. İlk etkileşim yenilemesinden önceki imaj ayrıca `laranin-dersleri:before-interactions-20260924` etiketiyle tutulur. Geri dönüş gerekirse istenen imaj `laranin-dersleri:1.0.0` olarak etiketlenip `docker compose up -d --no-build` çalıştırılır. Bu işlem tarayıcıdaki ilerlemeyi silmez. Son kontrol raporu: [VALIDATION.md](VALIDATION.md).
 
 Adres: https://lara.perinet.org. İlk yayın adresi `laranindersleri.perinet.org` kalıcı olarak (301) bu adrese yönlenir.
 

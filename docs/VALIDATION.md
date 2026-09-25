@@ -1,6 +1,6 @@
 # Doğrulama
 
-## 25 Eylül 2026 — Lara’nın Dünyası: tanıtım, dersler ve oyun molası (yerel QA paketi)
+## 25 Eylül 2026 — Lara’nın Dünyası: tanıtım, dersler ve oyun molası
 
 Tanıtım kartı, derslerin öne alındığı ana sayfa, kenardaki oyun molası bölümü, dört oyun ve ders içeriği düzeltmeleri production paketiyle ayrı bir yerel test container'ında (`127.0.0.1:18743`) sınandı. Ana sayfa testi derslerin oyun kartından önce geldiğini ve menü sırasını da denetler.
 
@@ -9,6 +9,11 @@ Tanıtım kartı, derslerin öne alındığı ana sayfa, kenardaki oyun molası 
 | TypeScript ve production build | Başarılı |
 | Birim testleri | 25 / 25 |
 | Production paketindeki Playwright testleri (12 yeni oyun testi dahil) | 45 / 45 |
+| Yayından sonra production container'ında Playwright testleri | 45 / 45 |
+| Canlı HTTPS adresinde eski sürümden yeni sürüme geçiş (`verify-live-upgrade.mjs`) | Geçti |
+| HTTPS / HTTP / eski adres | 200 / 301 → HTTPS / 301 → `lara.perinet.org` |
+
+Yayınlanan imajın dosyaları, testten geçen yerel QA imajıyla birebir aynıdır (dosya özetleri karşılaştırıldı). Canlı geçiş testinde eski Service Worker açıkken yeni paket kuruldu, güncelle düğmesiyle etkinleştirildi; örnek ilerleme korundu ve saat dersi internet kapalıyken yeniden açıldı. Geri dönüş imajı: `laranin-dersleri:before-games-20260925`.
 
 Oyun ekranları 360, 390, 768 ve 1280 piksel genişlikte taşma ve Axe WCAG A/AA kontrollerinden geçti. İlk koşuda sürekli süzülen balonlar tıklama kararlılık kontrolünü geçemedi; sürekli hareket eden hedef çocuklar için de zor olduğundan balonlar tur başında bir kez yükselip duracak şekilde değiştirildi. Oyun molası kartındaki küçük yazının kontrastı (4,41:1) Axe ile yakalanıp 4,5:1 üstüne çıkarıldı.
 
