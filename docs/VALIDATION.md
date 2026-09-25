@@ -14,6 +14,12 @@ Testlerde bulunup düzeltilenler: dar ekranda logo bağlantısının erişilebil
 | 360–1920 piksel ekranlarda Axe WCAG A/AA taraması | İhlal yok |
 | Lighthouse mobil simülasyonu (QA container) | Performance 81, Accessibility 100, Best Practices 100, SEO 100 |
 | Aynı makinede o sıradaki canlı imaj | Performance 84 |
+| Yayından sonra production container'ında Playwright testleri | İlk turda 49 / 50; hafıza testi yarışı düzeltildikten sonra iki hafıza testi 20 / 20 |
+| Canlı HTTPS adresinde eski sürümden yeni sürüme geçiş (`verify-live-upgrade.mjs`) | Geçti |
+| HTTPS / HTTP / eski adres | 200 / 301 → HTTPS / 301 → `lara.perinet.org` |
+| Canlı HTTPS sayfasında görünen görseller | Masaüstü 15 / 15, telefon 13 / 13 yüklendi |
+
+26 Eylül’de yayınlandı. Yayınlanan imajın 103 dosyası, testten geçen QA imajıyla birebir aynıdır (dosya özetleri karşılaştırıldı). Geri dönüş imajı: `laranin-dersleri:before-art-20260926`. Canlı turda kalan tek hata test kaynaklıydı: “eş olmayan kartlar kapanır” testi çiftleri kartlar yüklenmeden okuyordu. Liste boş gelince ilk ve son karta tıklıyor, ikisi eşse (yaklaşık %9) başarısız oluyordu; bu durum önceki sürümde de ölçüldü. Test artık 12 kartı bekliyor; oyun kodu değişmedi. Cloudflare’in sayfaya kendisi eklediği analitik betiği (`static.cloudflareinsights.com`) CSP tarafından engellenir; uygulama analitik kullanmaz.
 
 LCP öğesi artık ana sayfa sahnesidir (önceden bir başlıktı). Kısıtlamasız ölçümde ilk boyama ve LCP iki sürümde de ~1,3 sn’dir. Simülasyondaki fark, erken inen görsel ve yazı tipi baytlarından gelir. Bunun için adalar ve Piko pozları yarım boyutlu kopyalarla `srcset` üzerinden sunulur. Ekran altındaki adalar Chrome’un tembel yükleme eşiği içinde kaldığı için yine erken iner. Çevrim dışı önbellek 33 dosya / ~1,1 MB’tan 79 dosya / ~1,9 MB’a çıktı.
 
