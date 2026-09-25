@@ -42,7 +42,7 @@ Oyunlarda süre ve yarış yoktur. Yanlış seçim ipucu verir. Oyun sonuçları
 
 ## Öğrenme deneyimi
 
-Öğren → birlikte yap → bağımsız dene → mini oyun → beş adımlı değerlendirme → beceri geri bildirimi. Onluk/birlik blokları, grupla/ayır, hareketli sayı doğrusu, kelime kartları, saat, para, parça-bütün, cetvel, grafik, trafik sahnesi, çizim ve renk karışımı, ritim, ses karşılaştırma ve ekran dışı hareket görevleri çalışır. Parmağı kullanmak istemeyen çocuk aynı işlemleri büyük düğmelerle yapabilir. Azaltılmış hareket tercihi desteklenir.
+Öğren → birlikte yap → bağımsız dene → mini oyun → beş adımlı değerlendirme → beceri geri bildirimi. Onluk/birlik blokları, grupla/ayır, hareketli sayı doğrusu, kelime kartları, saat, para, parça-bütün, cetvel, grafik, trafik sahnesi, yol haritası, çizim ve renk karışımı, ritim, tempo ve ses karşılaştırma ve ekran dışı hareket görevleri çalışır. Parmağı kullanmak istemeyen çocuk aynı işlemleri büyük düğmelerle yapabilir. Azaltılmış hareket tercihi desteklenir.
 
 Etkileşim yenilemesi: Saatin akrep ve yelkovanı doğrudan sürüklenir ve birbirine bağlı ilerler. Onluk çubukları on eş hücreden oluşur. Şekiller döndürülür, köşeleri işaretlenir, parçalar bir modele yerleştirilir ve simetri deseni tamamlanır. Türkçe kartları parmakla/klavyeyle yeniden sıralanır; noktalama işaretleri cümleye bırakılır. Sanat alanındaki şekiller sonradan taşınabilir. `tests/e2e/manipulatives.spec.ts` bu araçları fare, dokunma ve klavye ile denetler.
 

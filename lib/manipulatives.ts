@@ -16,3 +16,9 @@ export function exchangeBlocks(tens:number,ones:number,direction:'group'|'split'
  if(direction==='split'&&tens>=1)return {tens:tens-1,ones:ones+10};
  return {tens,ones};
 }
+/** "route:x,y:R2,U1" → the start cell followed by every cell the route passes, [column, row]. */
+export function routeCells(visual:string){
+ const [,start,path]=visual.split(':'),moves:Record<string,[number,number]>={R:[1,0],L:[-1,0],U:[0,-1],D:[0,1]};let [x,y]=start.split(',').map(Number);const cells:[number,number][]=[[x,y]];
+ for(const segment of path.split(',')){const [dx,dy]=moves[segment[0]];for(let i=0;i<Number(segment.slice(1));i++){x+=dx;y+=dy;cells.push([x,y])}}
+ return cells;
+}

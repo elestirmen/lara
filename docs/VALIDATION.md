@@ -1,5 +1,15 @@
 # Doğrulama
 
+## 25 Eylül 2026 — Etkinliklerde anlaşılırlık düzeltmeleri (yerel QA paketi)
+
+Güvenli yolculuk sahnesi yeniden çizildi: ışık “Yaya ışığı” olarak etiketlidir ve duran/yürüyen insan simgesi taşır; araç gittiği yöne bakar, kırmızıda bir kez geçer ve yeniden oynatılabilir, yeşilde durma çizgisinde bekler; çocuk yalnız doğru cevap onaylanınca karşıya geçer. Yön bulma dersinde yol haritası gösterilir ve adım kartları numarasızdır (önceden harita görünmüyor, numaralar cevabı veriyordu). Örüntü soruları kuralı bulmayı ölçer; tempo dersi iki örneğin hızını karşılaştırır. Çarpma ve bölme görselleri tabaklarla çizilir; bölmede sonuç önceden gösterilmez. Kiraz tahmini beşerli gruplu, cetveldeki kalem çizimi nettir. Hayat Bilgisi durumları soru cümlesiyle biter. Tekrar önerisi en düşük puanlı beceriyi seçer. “Tüm ders rotaları” testi 81 konunun tamamını açtığını doğrular; önceden sayfa yüklenirken yapılan hızlı gezinme matematik konularını atlatabiliyordu.
+
+| Kontrol | Sonuç |
+| --- | --- |
+| TypeScript ve production build | Başarılı |
+| Birim testleri | 30 / 30 |
+| Production paketindeki Playwright testleri | 45 / 45 |
+
 ## 25 Eylül 2026 — Lara’nın Dünyası: tanıtım, dersler ve oyun molası
 
 Tanıtım kartı, derslerin öne alındığı ana sayfa, kenardaki oyun molası bölümü, dört oyun ve ders içeriği düzeltmeleri production paketiyle ayrı bir yerel test container'ında (`127.0.0.1:18743`) sınandı. Ana sayfa testi derslerin oyun kartından önce geldiğini ve menü sırasını da denetler.
