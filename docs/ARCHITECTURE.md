@@ -25,7 +25,9 @@ Kart taşıma, hedef kartın sol/sağ yarısına göre yerleştirme aralığın�
 
 Öğren aşamasındaki geometri seçimleri puan kaydetmeden açıklama verir. Saatin serbest keşif görünümünde değerlendirme düğmesi gösterilmez. Öz bildirim sonuçları otomatik ölçülmüş becerilerden ayrı sunulur; gözlem görevinin puan üretmemesi çocuğa başarısızlık geri bildirimi olarak yansıtılmaz.
 
-## Oyun köşesi
+## Oyun molası
+
+Öncelik derslerdir; oyunlar ana sayfanın alt sırasındaki küçük bir kart ve menünün son bağlantısıyla açılan yan bölümdür.
 
 `Game → lib/games.ts (seed ile üretim) → components/games/* → onFinish(score) → recordGame → localStorage`
 

@@ -9,7 +9,7 @@ export const profile={
  possessive:'Lara’nın',
  avatar:'L',
  about:'8 yaşındayım, 2. sınıftayım.',
- intro:'Burası benim oyun ve öğrenme dünyam. Oyunlarımı oyna, derslerimi keşfet!',
+ intro:'Burası benim öğrenme dünyam. Derslerimi keşfet, arada bir de oyun molası ver!',
  favorites:[] as {icon:string;label:string;value:string}[],
  drawings:[] as {src:string;title:string}[]
 };

@@ -1,6 +1,6 @@
-# Lara'nın Dersleri
+# Lara'nın Dünyası
 
-Lara’nın kişisel oyun ve öğrenme sayfası: kısa bir tanıtım, eğitici oyunlar ve MEB 2. sınıf programına bağlı Türkçe dersler. Production: **https://lara.perinet.org**.
+Lara’nın kişisel öğrenme sayfası: kısa bir tanıtım, MEB 2. sınıf programına bağlı Türkçe dersler ve kenarda küçük bir oyun molası köşesi. Production: **https://lara.perinet.org**.
 
 Next.js 16 + React 19 + TypeScript, yerel Nunito yazı tipi, Lucide, SVG çizim yüzeyi ve Web Audio. Ağır oyun motoru, hesap sistemi, reklam ve analitik SDK yok. Stil sistemi düz CSS'tir; animasyonlar CSS/SVG ile yapılır.
 
@@ -27,18 +27,18 @@ node scripts/lighthouse.mjs
 
 Yerel production kontrolü: `http://127.0.0.1:18742`. Compose mevcut `npm-net` Docker ağına bağlanır; başka sunucuda bu ağı oluşturun veya Compose'u o sunucunun proxy ağına uyarlayın. Ayrıntılar: [Deployment](docs/DEPLOYMENT.md).
 
-## Lara’nın sayfası ve oyun köşesi
+## Lara’nın sayfası ve oyun molası
 
-Ana sayfa (`#home`) Lara’nın tanıtım kartıyla açılır; altında oyun köşesi, günün dersi ve öğrenme adaları bulunur. Tanıtım metni `content/profile.ts` dosyasından gelir. Site herkese açıktır: soyadı, okul, adres, telefon veya konum bilgisi eklemeyin. `favorites` alanı sevdiklerini, `drawings` alanı `public/galeri/` altına konan resimleri gösterir; ikisi de boşken görünmez. Fotoğraf eklenecekse konum (EXIF) bilgisini önce silin.
+Öncelik derslerdir. Ana sayfa (`#home`) Lara’nın tanıtım kartıyla açılır; hemen ardından günün dersi ve öğrenme adaları gelir. Oyunlar kenarda kalır: ana sayfanın alt sırasındaki küçük “Oyun molası” kartı ve menünün son sırasındaki bağlantıyla açılır. Yalnız oyun oynamaya gelen biri de oraya doğrudan ulaşabilir. Tanıtım metni `content/profile.ts` dosyasından gelir. Site herkese açıktır: soyadı, okul, adres, telefon veya konum bilgisi eklemeyin. `favorites` alanı sevdiklerini, `drawings` alanı `public/galeri/` altına konan resimleri gösterir; ikisi de boşken görünmez. Fotoğraf eklenecekse konum (EXIF) bilgisini önce silin.
 
-Oyun köşesi (`#games`, `#game/<id>`) dört eğitici oyun içerir:
+Oyun molası (`#games`, `#game/<id>`) dört eğitici oyun içerir:
 
 - **Eşini bul:** İngilizce kelime–resim, onluk-birlik–sayı ve toplama–sonuç desteleriyle hafıza oyunu.
 - **Balon patlat:** toplama, çıkarma, onluk-birlik, ritmik sayma ve karşılaştırma turları.
 - **Piko’yu eve götür:** ok kartlarıyla yol tarifi yazılan altı bölümlük kodlama oyunu.
 - **Harf treni:** resimdeki kelimeyi Türkçe harf vagonlarıyla kurma.
 
-Oyunlarda süre ve yarış yoktur. Yanlış seçim ipucu verir. Oyun sonuçları (`progress.games`: oynama sayısı, en iyi sonuç, son tarih) yıldızlara ve müfredat puanına karışmaz; yedeğe dahildir. Başarı bahçesindeki “Oyun kâşifi” rozeti her oyundan bir tur bitirilince açılır.
+Oyunlarda süre ve yarış yoktur. Yanlış seçim ipucu verir. Oyun sonuçları (`progress.games`: oynama sayısı, en iyi sonuç, son tarih) yıldızlara ve müfredat puanına karışmaz; yedeğe dahildir. Başarı bahçesindeki “Oyun kâşifi” rozeti her oyundan bir tur bitirilince açılır. Teknik adlar (`laranin-dersleri` imajı, `lara-dersleri` container'ı, `lara-*` depolama anahtarları) geriye dönük uyum için değişmemiştir.
 
 ## Öğrenme deneyimi
 
