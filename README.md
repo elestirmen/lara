@@ -1,6 +1,6 @@
 # Lara'nın Dersleri
 
-Lara için MEB 2. sınıf programına bağlı, Türkçe bir öğrenme dünyası. Production: **https://lara.perinet.org**.
+Lara’nın kişisel oyun ve öğrenme sayfası: kısa bir tanıtım, eğitici oyunlar ve MEB 2. sınıf programına bağlı Türkçe dersler. Production: **https://lara.perinet.org**.
 
 Next.js 16 + React 19 + TypeScript, yerel Nunito yazı tipi, Lucide, SVG çizim yüzeyi ve Web Audio. Ağır oyun motoru, hesap sistemi, reklam ve analitik SDK yok. Stil sistemi düz CSS'tir; animasyonlar CSS/SVG ile yapılır.
 
@@ -27,6 +27,19 @@ node scripts/lighthouse.mjs
 
 Yerel production kontrolü: `http://127.0.0.1:18742`. Compose mevcut `npm-net` Docker ağına bağlanır; başka sunucuda bu ağı oluşturun veya Compose'u o sunucunun proxy ağına uyarlayın. Ayrıntılar: [Deployment](docs/DEPLOYMENT.md).
 
+## Lara’nın sayfası ve oyun köşesi
+
+Ana sayfa (`#home`) Lara’nın tanıtım kartıyla açılır; altında oyun köşesi, günün dersi ve öğrenme adaları bulunur. Tanıtım metni `content/profile.ts` dosyasından gelir. Site herkese açıktır: soyadı, okul, adres, telefon veya konum bilgisi eklemeyin. `favorites` alanı sevdiklerini, `drawings` alanı `public/galeri/` altına konan resimleri gösterir; ikisi de boşken görünmez. Fotoğraf eklenecekse konum (EXIF) bilgisini önce silin.
+
+Oyun köşesi (`#games`, `#game/<id>`) dört eğitici oyun içerir:
+
+- **Eşini bul:** İngilizce kelime–resim, onluk-birlik–sayı ve toplama–sonuç desteleriyle hafıza oyunu.
+- **Balon patlat:** toplama, çıkarma, onluk-birlik, ritmik sayma ve karşılaştırma turları.
+- **Piko’yu eve götür:** ok kartlarıyla yol tarifi yazılan altı bölümlük kodlama oyunu.
+- **Harf treni:** resimdeki kelimeyi Türkçe harf vagonlarıyla kurma.
+
+Oyunlarda süre ve yarış yoktur. Yanlış seçim ipucu verir. Oyun sonuçları (`progress.games`: oynama sayısı, en iyi sonuç, son tarih) yıldızlara ve müfredat puanına karışmaz; yedeğe dahildir. Başarı bahçesindeki “Oyun kâşifi” rozeti her oyundan bir tur bitirilince açılır.
+
 ## Öğrenme deneyimi
 
 Öğren → birlikte yap → bağımsız dene → mini oyun → beş adımlı değerlendirme → beceri geri bildirimi. Onluk/birlik blokları, grupla/ayır, hareketli sayı doğrusu, kelime kartları, saat, para, parça-bütün, cetvel, grafik, trafik sahnesi, çizim ve renk karışımı, ritim, ses karşılaştırma ve ekran dışı hareket görevleri çalışır. Parmağı kullanmak istemeyen çocuk aynı işlemleri büyük düğmelerle yapabilir. Azaltılmış hareket tercihi desteklenir.
@@ -42,10 +55,14 @@ Her beceri için başlangıç puanı 0; bağımsız doğru +12, yardımlı doğr
 - `app/`: statik Next.js kabuğu, metadata ve responsive stil.
 - `components/World.tsx`: ana ekran, adalar, başarı bahçesi, PWA ve cihaz kaydı.
 - `components/LessonPlayer.tsx`: altı aşamalı ders motoru.
+- `components/GamePlayer.tsx`, `components/games/`: oyun sayfası ve dört oyun; stilleri `app/games.css`.
 - `components/activities/`: yeniden kullanılabilir öğrenme araçları.
 - `content/{math,tr,life,english,creative}/`: özgün anlatımlar, hikâyeler, senaryolar.
+- `content/profile.ts`, `content/games.ts`: Lara’nın tanıtımı ve oyun listesi.
 - `lib/questions.ts`: deterministik, yaş ve sayı sınırları olan soru üreticileri.
 - `lib/progress.ts`: cevap değerlendirme, uyarlama, tekrar ve doğrulanmış yedek modeli.
+- `lib/games.ts`: saf ve test edilen oyun mantığı (desteler, balon turları, kod bölümleri, harf treni).
+- `lib/turkish.ts`: rakamla yazılan sayılara doğru Türkçe ek (5’ten, 2’şer, 6’ya).
 - `curriculum/grade-2.json`: kaynağı izlenebilen 241 farklı çıktı.
 - `curriculum/source-baseline.json`: 39 resmî tema sayfasının kod listeleri ve SHA-256 özetleri.
 - `scripts/`: müfredat kontrolü, production paketleme, sertifika yenileme, canlı güncelleme testi ve Lighthouse.
@@ -53,6 +70,8 @@ Her beceri için başlangıç puanı 0; bağımsız doğru +12, yardımlı doğr
 Yeni konu için ilgili `content/` dosyasına `Lesson` ekleyin. `id` kalıcı ve benzersiz olmalı; değiştirmek eski ilerlemeyi yeni konuya otomatik taşımaz. `outcomes` yalnızca doğrulanmış kayıtlardaki kodlardan oluşmalıdır. `learn` kısa anlatım adımlarını, `questions` özgün soru havuzunu veya `generator` üretici seçimini içerir. Her soru ipucu ve açıklama içerir.
 
 Yeni ders için `SubjectId`, `content/subjects.ts`, içerik modülü ve `content/index.ts` güncellenir. Önce resmî kaynak kaydı eklenir. Yeni sınıf için ayrı `curriculum/grade-N.json` ve sınıf seçimi eklenebilir; grade ve academicYear veri modelindedir, 2. sınıf verileri üzerine yazılmaz.
+
+Yeni oyun için `content/games.ts` listesine kayıt, `lib/games.ts` içine test edilebilir mantık, `components/games/` altına bileşen ve `GamePlayer.tsx` içine bağlantı eklenir. Oyun bileşeni `onFinish(score)` çağırır; `better` alanı düşük mü yüksek mi skorun iyi olduğunu belirtir.
 
 Yeni etkinlik tipi için `ActivityType` birliği, tipli soru üreticisi ve `Activity.tsx` bileşen kaydı eklenir. Yanıt bileşeni `onAnswer(string)` ile motorla haberleşir. Yanıtı bileşen puanlamaz. Erişilebilir yönerge, düğme/klavye alternatifi, disabled durumu ve gerekirse çözüm gösterimi bulunmalıdır. [Mimari ayrıntıları](docs/ARCHITECTURE.md).
 
@@ -80,4 +99,4 @@ Sesli okuma cihazda uygun **yerel** Türkçe/İngilizce ses varsa kullanılabili
 
 Son yayın ve etkileşim test sonuçları: [docs/VALIDATION.md](docs/VALIDATION.md).
 
-Unit testler: yanıt, puan, tekrar, uyarlama, tamamlama, yedek doğrulama, soru üretici sınırları ve müfredat ilişkileri. E2E: tam matematik akışı, kalıcı ilerleme, ebeveyn kilidi/yedek, ders rotaları, offline açılış ve 360×800, 390×844, 768×1024, 1024×768, 1280×720, 1920×1080 ekranlarında Axe taraması. Lighthouse raporları `artifacts/` altında oluşturulur. Tarayıcı testleri gerçek cihaz ergonomisi veya öğretmen değerlendirmesinin yerine geçmez.
+Unit testler: yanıt, puan, tekrar, uyarlama, tamamlama, yedek doğrulama, soru üretici sınırları, Türkçe sayı ekleri, oyun mantığı ve müfredat ilişkileri. E2E: dört oyunun baştan sona oynanışı, tam matematik akışı, kalıcı ilerleme, ebeveyn kilidi/yedek, ders rotaları, offline açılış ve 360×800, 390×844, 768×1024, 1024×768, 1280×720, 1920×1080 ekranlarında Axe taraması. Lighthouse raporları `artifacts/` altında oluşturulur. Tarayıcı testleri gerçek cihaz ergonomisi veya öğretmen değerlendirmesinin yerine geçmez.

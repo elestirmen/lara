@@ -12,6 +12,8 @@ export function recordAttempt(p:Progress,a:Attempt):Progress{
  return {...p,skills:{...p.skills,[a.skill]:next},attempts:[...p.attempts.slice(-4999),a],stars:p.stars+(success&&!a.selfReport?1:0),lastLesson:a.lessonId};
 }
 export function completeLesson(p:Progress,id:string,correct:number,total:number,at=new Date().toISOString()):Progress{return {...p,completed:{...p.completed,[id]:{at,correct,total}},lastLesson:id}}
+/** Oyun sonucu müfredat puanına karışmaz; yalnız oynama sayısı ve en iyi sonuç tutulur. */
+export function recordGame(p:Progress,id:string,score:number,better:'low'|'high',at=new Date().toISOString()):Progress{const old=p.games?.[id],best=!old?score:better==='low'?Math.min(old.best,score):Math.max(old.best,score);return {...p,games:{...p.games,[id]:{plays:(old?.plays??0)+1,best,last:at}}}}
 export function dueSkills(p:Progress,now=Date.now()){return Object.entries(p.skills).filter(([,s])=>s.attempts>0&&new Date(s.due).getTime()<=now).sort((a,b)=>a[1].score-b[1].score).map(([code])=>code)}
 export function checkAnswer(answer:string,expected:string,alternatives:string[]=[]){const normalized=answer.trim().normalize('NFC');return [expected,...alternatives].some(value=>normalized===value.trim().normalize('NFC'))}
 const record=(v:unknown):v is Record<string,unknown>=>!!v&&typeof v==='object'&&!Array.isArray(v)&&Object.getPrototypeOf(v)===Object.prototype;
@@ -25,6 +27,7 @@ export function parseBackup(raw:string):Progress{
  for(const [k,c] of Object.entries(x.completed)){if(!safeKey(k)||!record(c)||!date(c.at)||!finite(c.total,1,100)||!finite(c.correct,0,Number(c.total)))throw new Error('Ders kaydı geçersiz.');}
  for(const a of x.attempts){if(!record(a)||typeof a.id!=='string'||a.id.length>150||typeof a.lessonId!=='string'||!safeKey(a.lessonId)||typeof a.skill!=='string'||!safeKey(a.skill)||!date(a.at)||typeof a.correct!=='boolean'||typeof a.assisted!=='boolean'||typeof a.selfReport!=='boolean')throw new Error('Etkinlik kaydı geçersiz.');}
  if(x.lastLesson!==undefined&&(typeof x.lastLesson!=='string'||!safeKey(x.lastLesson)))throw new Error('Son ders geçersiz.');
- return {version:1,skills:x.skills as unknown as Progress['skills'],completed:x.completed as unknown as Progress['completed'],attempts:x.attempts as Attempt[],stars:x.stars as number,sound:x.sound as boolean,lastLesson:x.lastLesson as string|undefined};
+ if(x.games!==undefined){if(!record(x.games))throw new Error('Oyun kaydı geçersiz.');for(const [k,g] of Object.entries(x.games)){if(!safeKey(k)||!record(g)||!finite(g.plays)||!finite(g.best)||!date(g.last))throw new Error('Oyun kaydı geçersiz.');}}
+ return {version:1,skills:x.skills as unknown as Progress['skills'],completed:x.completed as unknown as Progress['completed'],attempts:x.attempts as Attempt[],stars:x.stars as number,sound:x.sound as boolean,lastLesson:x.lastLesson as string|undefined,...(x.games?{games:x.games as unknown as Progress['games']}:{})};
 }
 export function exportProgress(p:Progress){return JSON.stringify(p,null,2)}

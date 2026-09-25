@@ -1,4 +1,18 @@
-# Doğrulama — 24 Eylül 2026
+# Doğrulama
+
+## 25 Eylül 2026 — Lara’nın sayfası ve oyun köşesi (yerel QA paketi)
+
+Tanıtım kartı, oyun köşesi, dört oyun ve ders içeriği düzeltmeleri production paketiyle ayrı bir yerel test container'ında (`127.0.0.1:18743`) sınandı.
+
+| Kontrol | Sonuç |
+| --- | --- |
+| TypeScript ve production build | Başarılı |
+| Birim testleri | 25 / 25 |
+| Production paketindeki Playwright testleri (12 yeni oyun testi dahil) | 45 / 45 |
+
+Oyun ekranları 360, 390, 768 ve 1280 piksel genişlikte taşma ve Axe WCAG A/AA kontrollerinden geçti. İlk koşuda sürekli süzülen balonlar tıklama kararlılık kontrolünü geçemedi; sürekli hareket eden hedef çocuklar için de zor olduğundan balonlar tur başında bir kez yükselip duracak şekilde değiştirildi.
+
+## 24 Eylül 2026
 
 Yayın: https://laranindersleri.perinet.org (bu kontrol tarihindeki adres; artık https://lara.perinet.org adresine yönlenir)
 

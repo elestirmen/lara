@@ -8,7 +8,7 @@ Uygulama statik dışa aktarılır. Sunucuda Node süreci veya veri tabanı çal
 
 İçerik, etkileşim ve değerlendirme birbirinden ayrıdır. `makeQuestion` bir seed ile tekrar üretilebilir; rastgelelik test edilebilir. `Activity` yalnız seçimi bildirir. Motor ilk gönderimi bir kez kaydeder, ipucu/yanlış tekrarlarını başarı diye saymaz. Ders sonunda `completeLesson` ayrı tamamlanma kaydı oluşturur. Soruların `skill` alanı gerçek `learningOutcomeCode` anahtarıdır.
 
-Hash gezintisi tek statik belge içinde çalışır. Ders motoru ve ebeveyn alanı gerektiğinde dinamik yüklenir; ana sayfa bunların JavaScript kodunu ilk açılışta çalıştırmaz. Service Worker derlemedeki tüm yerel parçaları, yazı tiplerini ve içerik paketlerini önbelleğe alır. Böylece daha önce ziyaret edilmemiş bir ders de kurulum tamamlandıktan sonra çevrim dışı açılır. Yeni büyük medya eklenirse önbellek bütçesi yeniden değerlendirilmelidir.
+Hash gezintisi tek statik belge içinde çalışır. Ders motoru, oyun oynatıcı ve ebeveyn alanı gerektiğinde dinamik yüklenir; ana sayfa bunların JavaScript kodunu ilk açılışta çalıştırmaz. Yeni sayfalar da hash rotası olarak eklenir: ayrı HTML sayfaları için `prepare-production.mjs` yalnız `index.html` script özetlerini CSP'ye koyduğundan, nginx `try_files` `$uri.html` içermediğinden ve Service Worker yalnız `/` sayfasını önbelleğe aldığından üçünün de güncellenmesi gerekir. Service Worker derlemedeki tüm yerel parçaları, yazı tiplerini ve içerik paketlerini önbelleğe alır. Böylece daha önce ziyaret edilmemiş bir ders de kurulum tamamlandıktan sonra çevrim dışı açılır. Yeni büyük medya eklenirse önbellek bütçesi yeniden değerlendirilmelidir.
 
 ## Somut öğrenme araçları
 
@@ -24,6 +24,12 @@ Saf geometri/sayı dönüşümleri `lib/manipulatives.ts` içinde test edilir. P
 Kart taşıma, hedef kartın sol/sağ yarısına göre yerleştirme aralığını hesaplar. Sürükleme sonundaki sentetik tıklama bastırılır; sonraki gerçek dokunuş veya klavye aktivasyonu bastırılmaz. Telefon görünümünde birlikler beş sütunlu onluk çerçeve oluşturur; dokunma düğmeleri en az 44 pikseldir. Şekil ölçeği piksel tabanlıdır ve kapsayıcı genişliğiyle sınırlandırılır; kaydırıcı bütün ekranlarda görünür boyut değiştirir.
 
 Öğren aşamasındaki geometri seçimleri puan kaydetmeden açıklama verir. Saatin serbest keşif görünümünde değerlendirme düğmesi gösterilmez. Öz bildirim sonuçları otomatik ölçülmüş becerilerden ayrı sunulur; gözlem görevinin puan üretmemesi çocuğa başarısızlık geri bildirimi olarak yansıtılmaz.
+
+## Oyun köşesi
+
+`Game → lib/games.ts (seed ile üretim) → components/games/* → onFinish(score) → recordGame → localStorage`
+
+Oyun mantığı saf fonksiyonlardadır ve birim testleriyle doğrulanır: her destede her eş tam iki kez bulunur, her balon turunda doğru cevap tek ve seçenekler arasındadır, her kod bölümünün kayıtlı çözümü eve ulaşır, harf treninde ipucu doğru başlangıcı korur. Oyunlar süre tutmaz ve sürekli hareket eden hedef kullanmaz; balonlar tur başında bir kez yükselip durur. Oyun kaydı yalnız oynama sayısı ve en iyi sonuçtur; müfredat becerisi, yıldız veya tekrar zamanı üretmez.
 
 ## İlerleme doğruluğu
 

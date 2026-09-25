@@ -5,4 +5,5 @@ export interface Question {id:string;type:ActivityType;instruction:string;answer
 export interface Lesson {id:string;subject:SubjectId;theme:string;title:string;subtitle:string;icon:string;minutes:number;outcomes:string[];learn:string[];kind:ActivityType;generator?:string;story?:string;words?:string[];questions?:Question[];task?:string;vocabulary?:{word:string;picture:string;meaning:string}[]}
 export interface SkillState {score:number;attempts:number;correct:number;streak:number;due:string;lastSeen:string}
 export interface Attempt {id:string;lessonId:string;skill:string;correct:boolean;assisted:boolean;selfReport:boolean;at:string}
-export interface Progress {version:1;skills:Record<string,SkillState>;completed:Record<string,{at:string;correct:number;total:number}>;attempts:Attempt[];stars:number;lastLesson?:string;sound:boolean}
+export interface GameRecord {plays:number;best:number;last:string}
+export interface Progress {version:1;skills:Record<string,SkillState>;completed:Record<string,{at:string;correct:number;total:number}>;attempts:Attempt[];stars:number;lastLesson?:string;sound:boolean;games?:Record<string,GameRecord>}
