@@ -1,5 +1,24 @@
 # Doğrulama
 
+## 25 Eylül 2026 — Premium görsel dil
+
+Arayüz yeniden tasarlandı. Codex `imagegen` ile aynı stil yönergesinden üretilen 3B kil görseller eklendi: Piko’nun beş pozu, yedi öğrenme adası, dört oyun, dört çiçek, yedi rozet, ana sayfa ve başarı bahçesi sahneleri. Görsellerde insan yoktur. Başlıklar Fredoka ile yazılır. Kartlar katmanlı gölgeli, düğmeler basılınca çöker; masaüstünde kenar çubuğu, telefonda alt menü yüzer. Ana sayfada tanıtım ile ada sahnesi tek bölümde, günün macerası ise dersin adasıyla birlikte gösterilir. Ada kartları ilerleme çubuğu taşır. Ders adımları dolan bir çizgiyle ilerler. Piko öğrenme adımında konuşma balonuyla anlatır, doğru cevapta sevinir, çözümde düşünür. Ders sonunda konfeti atılır. Başarı bahçesinde her tamamlanan konu toprağa bir çiçek eker; rozetler kazanılana kadar gri kalır.
+
+Testlerde bulunup düzeltilenler: dar ekranda logo bağlantısının erişilebilir adı yoktu (`aria-label` eklendi). Sayfa geçişindeki saydamlık animasyonu, Axe taramasında metin karşıtlığını geçici olarak düşürüyordu; geçiş yalnız kaydırmaya çevrildi. Düğmelerdeki hızlı ve taşan geçiş eğrisi, Playwright’ın sabitlik denetimini bozup sayfayı yapışkan üst çubuğun altına kaydırıyordu; yay eğrisine dönüldü ve tıklama süresi ~2 sn’den ~60 ms’ye indi.
+
+| Kontrol | Sonuç |
+| --- | --- |
+| TypeScript ve production build | Başarılı |
+| Birim testleri | 31 / 31 |
+| Production paketindeki Playwright testleri (QA container, nginx + CSP) | 50 / 50 |
+| 360–1920 piksel ekranlarda Axe WCAG A/AA taraması | İhlal yok |
+| Lighthouse mobil simülasyonu (QA container) | Performance 81, Accessibility 100, Best Practices 100, SEO 100 |
+| Aynı makinede o sıradaki canlı imaj | Performance 84 |
+
+LCP öğesi artık ana sayfa sahnesidir (önceden bir başlıktı). Kısıtlamasız ölçümde ilk boyama ve LCP iki sürümde de ~1,3 sn’dir. Simülasyondaki fark, erken inen görsel ve yazı tipi baytlarından gelir. Bunun için adalar ve Piko pozları yarım boyutlu kopyalarla `srcset` üzerinden sunulur. Ekran altındaki adalar Chrome’un tembel yükleme eşiği içinde kaldığı için yine erken iner. Çevrim dışı önbellek 33 dosya / ~1,1 MB’tan 79 dosya / ~1,9 MB’a çıktı.
+
+Ana sayfa, dersler, konu sayfası, ders akışı (öğren, yanlış, doğru, sonuç), başarı bahçesi (boş ve çiçekli), oyunlar, oyun ekranları, ebeveyn alanı ve 404 ekranı 360, 390, 768, 1024, 1280 ve 1440 piksel genişliklerde görsel olarak incelendi.
+
 ## 25 Eylül 2026 — Anında kontrol ve sesli geri bildirim
 
 Tek dokunuşluk yanıtlarda (seçenekler, trafik sahnesi, ince/kalın ses, tempo, noktalama, dört vuruşluk ritim, tamamlanan şekil modeli, “Yaptım/Anlattım”) ayrı “Kontrol et” adımı kaldırıldı; seçim o anda kontrol edilir. Yanlış denenen seçenek ✗ ile kapanır ve ikinci kez sayılmaz, doğru seçenek ✓ ile yeşil kalır. Telefonda geri bildirim ve “Devam edelim” düğmesi alt menünün üstüne kayar (önceden ekranın altında, menünün arkasında kalıyordu); soru çözülünce odak bu düğmeye geçer. Düzeltilebilen yapımlarda “Kontrol et” kalır, aynı yanlış cevap değiştirilmeden yeniden gönderilemez. Saatte ayrı “Bu saati seç” onayı kaldırıldı.

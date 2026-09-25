@@ -3,7 +3,7 @@ import {useEffect,useRef,useState} from 'react';
 import {ArrowRight,Delete,Lightbulb,Play,RotateCcw} from 'lucide-react';
 import {codeLevels,codeMaxSteps,codeSize,runProgram,type Cell,type Step} from '@/lib/games';
 import {sfx} from '@/lib/audio';
-import {Piko} from '../Illustration';
+import {Art} from '../Illustration';
 import GameFinish from './GameFinish';
 const arrows:Record<Step,[string,string]>={up:['↑','Yukarı'],down:['↓','Aşağı'],left:['←','Sola'],right:['→','Sağa']};
 const results={goal:'Piko evine ulaştı! Harika bir yol tarifi.',edge:'Piko bahçenin dışına çıkamaz. Adımlarını kontrol et.',rock:'Önünde bir taş var. Başka bir yol dene.',short:'Piko henüz evde değil. Birkaç adım daha ekle.'};
@@ -28,7 +28,7 @@ export default function CodeGame({sound,onFinish,solved}:{sound:boolean;onFinish
   <div className="code-layout">
    <div className="code-garden" role="img" aria-label={`Bahçe haritası, ${codeSize} sütun ve ${codeSize} satır. Piko ${place(pos)}, ev ${place(L.goal)}.${L.rocks.length?` Taşlar: ${L.rocks.map(place).join(', ')}.`:''}`}>
     {Array.from({length:codeSize*codeSize},(_,i)=>{const x=i%codeSize,y=Math.floor(i/codeSize),rock=L.rocks.some(([rx,ry])=>rx===x&&ry===y),home=L.goal[0]===x&&L.goal[1]===y;return <span key={i} className={`code-cell ${rock?'is-rock':''} ${home?'is-home':''}`}>{rock?'🪨':home?'🏡':''}</span>})}
-    <span className="code-piko" style={{transform:`translate(${pos[0]*100}%,${pos[1]*100}%)`}}><Piko size={44}/></span>
+    <span className="code-piko" style={{transform:`translate(${pos[0]*100}%,${pos[1]*100}%)`}}><Art name="piko-wave" size={56}/></span>
    </div>
    <div className="code-panel">
     <p className="tool-help">Piko’ya adım adım yol tarifi yaz. Her ok bir kare ilerletir.</p>

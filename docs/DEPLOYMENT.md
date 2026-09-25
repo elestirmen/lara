@@ -18,7 +18,7 @@ docker compose up -d --build
 npm run test:e2e
 ```
 
-`out/` içinde üretilen statik dosyalar image'e alınır. `prepare-production.mjs` atlanmamalıdır: ikon, Service Worker ve CSP script hash'leri derlemeyle birlikte yenilenir. `deploy/nginx.conf` ve `deploy/security-headers.conf` bu script tarafından her çalıştırmada yeniden yazılır; değişiklikleri script'te yapın. `docker compose up` yalnız bu Compose projesinin container'ını yeniler. Loopback bağlantısı: `127.0.0.1:18742:8080`. Proxy upstream: `http://lara-dersleri:8080`, ortak external network: `npm-net`. Restart politikası `unless-stopped`; healthcheck `/`; salt okunur dosya sistemi ve geçici tmpfs alanları.
+`out/` içinde üretilen statik dosyalar image'e alınır. `prepare-production.mjs` atlanmamalıdır: ikon (ana ekran ikonları `deploy/app-icon.png` kaynağından), Service Worker ve CSP script hash'leri derlemeyle birlikte yenilenir. `deploy/nginx.conf` ve `deploy/security-headers.conf` bu script tarafından her çalıştırmada yeniden yazılır; değişiklikleri script'te yapın. `docker compose up` yalnız bu Compose projesinin container'ını yeniler. Loopback bağlantısı: `127.0.0.1:18742:8080`. Proxy upstream: `http://lara-dersleri:8080`, ortak external network: `npm-net`. Restart politikası `unless-stopped`; healthcheck `/`; salt okunur dosya sistemi ve geçici tmpfs alanları.
 
 ## DNS
 

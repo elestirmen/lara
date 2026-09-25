@@ -2,7 +2,7 @@
 
 Lara’nın kişisel öğrenme sayfası: kısa bir tanıtım, MEB 2. sınıf programına bağlı Türkçe dersler ve kenarda küçük bir oyun molası köşesi. Production: **https://lara.perinet.org**.
 
-Next.js 16 + React 19 + TypeScript, yerel Nunito yazı tipi, Lucide, SVG çizim yüzeyi ve Web Audio. Ağır oyun motoru, hesap sistemi, reklam ve analitik SDK yok. Stil sistemi düz CSS'tir; animasyonlar CSS/SVG ile yapılır.
+Next.js 16 + React 19 + TypeScript, yerel Nunito (metin) ve Fredoka (başlık) yazı tipleri, Lucide, `public/art/` altındaki kil görünümlü WebP illüstrasyonlar, SVG çizim yüzeyi ve Web Audio. Ağır oyun motoru, hesap sistemi, reklam ve analitik SDK yok. Stil sistemi düz CSS'tir; animasyonlar CSS/SVG ile yapılır.
 
 ## Kurulum
 
@@ -54,10 +54,17 @@ Sesler cihazda Web Audio ile üretilir, dosya indirilmez: doğru cevapta kısa b
 
 Her beceri için başlangıç puanı 0; bağımsız doğru +12, yardımlı doğru +3, yanlış −8; 0–100 sınırı. İlk yanıt kayıtları tekilleştirilir. 0–39, 40–69, 70–100 aralıklarında üç zorluk seviyesi vardır. Tekrar zamanı zorlanmada 1, başarıda 3, güçlü başarıda 7 gün sonradır. Kaçırılan gün cezası yoktur.
 
+## Görsel dil
+
+Arayüz sıcak krem bir zemin, yumuşak katmanlı gölgeler, yuvarlak kartlar ve basıldığında çöken “tombul” düğmelerle kuruludur. Başlıklar Fredoka, metinler Nunito ile yazılır. Maskot Piko (el sallayan, sevinen, düşünen, kitap okuyan ve baş), yedi öğrenme adası, dört oyun, dört çiçek, yedi rozet ile ana sayfa ve başarı bahçesi sahneleri Codex `imagegen` ile aynı stil yönergesiyle üretilmiş 3B kil görsellerdir. Dosyalar `public/art/*.webp` altındadır ve `components/Illustration.tsx` içindeki `Art` bileşeniyle kullanılır; metni tamamlayan görseller `alt=""` ile ekran okuyucudan gizlenir. Görsellerde insan yoktur; Lara’yı temsil eden bir çizim bulunmaz. Harita içindeki küçük Piko (`RouteMap`) SVG olarak kalır.
+
+Adlandırma kuralı: ders adası `island-<ders id>`, oyun `game-<oyun id>`, rozet `badge-*`, çiçek `flower-*`. Yeni ders veya oyun eklenirse aynı adla bir görsel de eklenmelidir. Ana ekran ikonları `deploy/app-icon.png` kaynağından, sekme ikonu `public/icon.svg`’den üretilir. Adaların ve Piko pozlarının yarım boyutlu `-sm` kopyaları da vardır; tarayıcı ekran yoğunluğuna göre seçer. Görseller iki boyutuyla birlikte Service Worker önbelleğine girer (yaklaşık 790 KB). Hareketler (sayfa geçişi, Piko’nun süzülmesi, ders sonu konfetisi) azaltılmış hareket tercihinde kapanır; sayfa geçişi saydamlık kullanmaz, böylece metin karşıtlığı hiçbir karede düşmez.
+
 ## Mimari ve içerik ekleme
 
 - `app/`: statik Next.js kabuğu, metadata ve responsive stil.
 - `components/World.tsx`: ana ekran, adalar, başarı bahçesi, PWA ve cihaz kaydı.
+- `components/Illustration.tsx`: `Art` görsel bileşeni ve SVG Piko.
 - `components/LessonPlayer.tsx`: altı aşamalı ders motoru.
 - `components/GamePlayer.tsx`, `components/games/`: oyun sayfası ve dört oyun; stilleri `app/games.css`.
 - `components/activities/`: yeniden kullanılabilir öğrenme araçları.
@@ -69,13 +76,13 @@ Her beceri için başlangıç puanı 0; bağımsız doğru +12, yardımlı doğr
 - `lib/turkish.ts`: rakamla yazılan sayılara doğru Türkçe ek (5’ten, 2’şer, 6’ya).
 - `curriculum/grade-2.json`: kaynağı izlenebilen 241 farklı çıktı.
 - `curriculum/source-baseline.json`: 39 resmî tema sayfasının kod listeleri ve SHA-256 özetleri.
-- `scripts/`: müfredat kontrolü, production paketleme, sertifika yenileme, canlı güncelleme testi ve Lighthouse.
+- `scripts/`: müfredat kontrolü, production paketleme, sertifika yenileme, canlı güncelleme testi, Lighthouse ve görsel dışa aktarma ([Görseller](docs/ART.md)).
 
 Yeni konu için ilgili `content/` dosyasına `Lesson` ekleyin. `id` kalıcı ve benzersiz olmalı; değiştirmek eski ilerlemeyi yeni konuya otomatik taşımaz. `outcomes` yalnızca doğrulanmış kayıtlardaki kodlardan oluşmalıdır. `learn` kısa anlatım adımlarını, `questions` özgün soru havuzunu veya `generator` üretici seçimini içerir. Her soru ipucu ve açıklama içerir.
 
-Yeni ders için `SubjectId`, `content/subjects.ts`, içerik modülü ve `content/index.ts` güncellenir. Önce resmî kaynak kaydı eklenir. Yeni sınıf için ayrı `curriculum/grade-N.json` ve sınıf seçimi eklenebilir; grade ve academicYear veri modelindedir, 2. sınıf verileri üzerine yazılmaz.
+Yeni ders için `SubjectId`, `content/subjects.ts`, içerik modülü, `content/index.ts` ve `public/art/island-<id>.webp` güncellenir. Önce resmî kaynak kaydı eklenir. Yeni sınıf için ayrı `curriculum/grade-N.json` ve sınıf seçimi eklenebilir; grade ve academicYear veri modelindedir, 2. sınıf verileri üzerine yazılmaz.
 
-Yeni oyun için `content/games.ts` listesine kayıt, `lib/games.ts` içine test edilebilir mantık, `components/games/` altına bileşen ve `GamePlayer.tsx` içine bağlantı eklenir. Oyun bileşeni `onFinish(score)` çağırır; `better` alanı düşük mü yüksek mi skorun iyi olduğunu belirtir.
+Yeni oyun için `content/games.ts` listesine kayıt, `lib/games.ts` içine test edilebilir mantık, `components/games/` altına bileşen, `GamePlayer.tsx` içine bağlantı ve `public/art/game-<id>.webp` görseli eklenir. Oyun bileşeni `onFinish(score)` çağırır; `better` alanı düşük mü yüksek mi skorun iyi olduğunu belirtir.
 
 Yeni etkinlik tipi için `ActivityType` birliği, tipli soru üreticisi ve `Activity.tsx` bileşen kaydı eklenir. Yanıt bileşeni `onAnswer(değer)` ile motorla haberleşir; son dokunuş kararın kendisiyse `onAnswer(değer, true)` çağırır ve tip `Activity.tsx` içindeki `instant` listesine eklenir. Seçenekler için `Choices` bileşeni ✓/✗ durumlarını hazır verir. Yanıtı bileşen puanlamaz. Erişilebilir yönerge, düğme/klavye alternatifi, disabled durumu ve gerekirse çözüm gösterimi bulunmalıdır. [Mimari ayrıntıları](docs/ARCHITECTURE.md).
 

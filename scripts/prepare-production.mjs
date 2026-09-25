@@ -2,14 +2,15 @@ import {readFile,writeFile,readdir,mkdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import sharp from 'sharp';
 const files=[];
-async function walk(dir){for(const e of await readdir(dir,{withFileTypes:true})){const path=`${dir}/${e.name}`;if(e.isDirectory())await walk(path);else if(e.name!=='sw.js'&&/\.(js|css|woff2|png|svg|webmanifest)$/.test(e.name))files.push(path.slice(3))}}
+async function walk(dir){for(const e of await readdir(dir,{withFileTypes:true})){const path=`${dir}/${e.name}`;if(e.isDirectory())await walk(path);else if(e.name!=='sw.js'&&/\.(js|css|woff2|png|webp|svg|webmanifest)$/.test(e.name))files.push(path.slice(3))}}
 await mkdir('out',{recursive:true});
-for(const size of [192,512])await sharp('public/icon.svg').resize(size,size).png().toFile(`out/icon-${size}.png`);
+// Home-screen icons come from the 3D Piko render (deploy/app-icon.png: full-bleed square, maskable safe zone); the tab icon stays public/icon.svg.
+for(const size of [192,512])await sharp('deploy/app-icon.png').resize(size,size).png({palette:true,quality:90,effort:10,dither:1}).toFile(`out/icon-${size}.png`);
 await walk('out');
 let html=await readFile('out/index.html','utf8');
-// The two headline subsets (Turkish + Latin) start loading alongside CSS.
+// The first headings (hero h1 in Fredoka 700, section titles in 600) start loading alongside CSS.
 // This avoids a late font replacement shifting the child's reading target.
-const headlineFonts=files.filter(path=>/nunito-latin(?:-ext)?-800-normal.*\.woff2$/.test(path)&&!html.includes(`href="${path}" as="font"`));
+const headlineFonts=files.filter(path=>/fredoka-latin-(?:600|700)-normal.*\.woff2$/.test(path)&&!html.includes(`href="${path}" as="font"`));
 html=html.replace('</head>',`${headlineFonts.map(path=>`<link rel="preload" href="${path}" as="font" type="font/woff2" crossorigin="anonymous">`).join('')}</head>`);
 await writeFile('out/index.html',html);
 const version=createHash('sha256').update(html+JSON.stringify(files)).digest('hex').slice(0,14);
