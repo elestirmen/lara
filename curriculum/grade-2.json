@@ -1,0 +1,3617 @@
+[
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Sayılar ve Nicelikler (1)",
+    "learningOutcome": "100’e kadar sayıları okuma ve gösterme",
+    "learningOutcomeCode": "MAT.2.1.1",
+    "skills": [
+      "100’e kadar sayıları okuma ve gösterme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/116",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Sayılar ve Nicelikler (1)",
+    "learningOutcome": "Onluk ve birliklerle sayı çözümleme",
+    "learningOutcomeCode": "MAT.2.1.2",
+    "skills": [
+      "Onluk ve birliklerle sayı çözümleme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/116",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Sayılar ve Nicelikler (1)",
+    "learningOutcome": "Sayıları sıralama",
+    "learningOutcomeCode": "MAT.2.1.3",
+    "skills": [
+      "Sayıları sıralama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/116",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Sayılar ve Nicelikler (1)",
+    "learningOutcome": "İleri ve geri ritmik sayma",
+    "learningOutcomeCode": "MAT.2.1.4",
+    "skills": [
+      "İleri ve geri ritmik sayma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/116",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Sayılar ve Nicelikler (1)",
+    "learningOutcome": "Sayı ve şekil örüntüsünü sürdürme",
+    "learningOutcomeCode": "MAT.2.1.5",
+    "skills": [
+      "Sayı ve şekil örüntüsünü sürdürme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/116",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Sayılar ve Nicelikler (1)",
+    "learningOutcome": "50’ye kadar nesne sayısını tahmin etme",
+    "learningOutcomeCode": "MAT.2.1.6",
+    "skills": [
+      "50’ye kadar nesne sayısını tahmin etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/116",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Sayılar ve Nicelikler (2)",
+    "learningOutcome": "Bütün, yarım, çeyrek ilişkisini keşfetme",
+    "learningOutcomeCode": "MAT.2.1.7",
+    "skills": [
+      "Bütün, yarım, çeyrek ilişkisini keşfetme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/125",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Sayılar ve Nicelikler (2)",
+    "learningOutcome": "Paraları değerleriyle ilişkilendirme",
+    "learningOutcomeCode": "MAT.2.1.8",
+    "skills": [
+      "Paraları değerleriyle ilişkilendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/125",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Sayılar ve Nicelikler (2)",
+    "learningOutcome": "Saat ve takvim birimlerini kullanma",
+    "learningOutcomeCode": "MAT.2.1.9",
+    "skills": [
+      "Saat ve takvim birimlerini kullanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/125",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Sayılar ve Nicelikler (2)",
+    "learningOutcome": "Ortak ölçü birimlerinin gerekliliğini açıklama",
+    "learningOutcomeCode": "MAT.2.1.10",
+    "skills": [
+      "Ortak ölçü birimlerinin gerekliliğini açıklama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/125",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Sayılar ve Nicelikler (2)",
+    "learningOutcome": "Uzunluk ve kütle tahminini ölçümle karşılaştırma",
+    "learningOutcomeCode": "MAT.2.1.11",
+    "skills": [
+      "Uzunluk ve kütle tahminini ölçümle karşılaştırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/125",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "İşlemlerden Cebirsel Düşünmeye",
+    "learningOutcome": "Toplama ve çıkarmayla günlük problemleri çözme",
+    "learningOutcomeCode": "MAT.2.2.1",
+    "skills": [
+      "Toplama ve çıkarmayla günlük problemleri çözme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/164",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "İşlemlerden Cebirsel Düşünmeye",
+    "learningOutcome": "Toplama ve çıkarmada tahmin ve zihinden işlem",
+    "learningOutcomeCode": "MAT.2.2.2",
+    "skills": [
+      "Toplama ve çıkarmada tahmin ve zihinden işlem"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/164",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "İşlemlerden Cebirsel Düşünmeye",
+    "learningOutcome": "Toplama ve çıkarma arasındaki bağı kurma",
+    "learningOutcomeCode": "MAT.2.2.3",
+    "skills": [
+      "Toplama ve çıkarma arasındaki bağı kurma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/164",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "İşlemlerden Cebirsel Düşünmeye",
+    "learningOutcome": "Çarpma ve bölmeyi eş gruplarla açıklama",
+    "learningOutcomeCode": "MAT.2.2.4",
+    "skills": [
+      "Çarpma ve bölmeyi eş gruplarla açıklama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/164",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "İşlemlerden Cebirsel Düşünmeye",
+    "learningOutcome": "Çarpma ve bölme sonucunu akıl yürüterek bulma",
+    "learningOutcomeCode": "MAT.2.2.5",
+    "skills": [
+      "Çarpma ve bölme sonucunu akıl yürüterek bulma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/164",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "İşlemlerden Cebirsel Düşünmeye",
+    "learningOutcome": "İşlemlerde eşitliği anlama",
+    "learningOutcomeCode": "MAT.2.2.6",
+    "skills": [
+      "İşlemlerde eşitliği anlama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/164",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Nesnelerin Geometrisi (1)",
+    "learningOutcome": "Nesneleri geometrik cisimlere göre gruplama",
+    "learningOutcomeCode": "MAT.2.3.1",
+    "skills": [
+      "Nesneleri geometrik cisimlere göre gruplama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/165",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Nesnelerin Geometrisi (1)",
+    "learningOutcome": "Cisim modelleriyle yeni yapılar kurma",
+    "learningOutcomeCode": "MAT.2.3.2",
+    "skills": [
+      "Cisim modelleriyle yeni yapılar kurma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/165",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Nesnelerin Geometrisi (1)",
+    "learningOutcome": "Şekillerden model oluşturma",
+    "learningOutcomeCode": "MAT.2.3.3",
+    "skills": [
+      "Şekillerden model oluşturma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/165",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Nesnelerin Geometrisi (1)",
+    "learningOutcome": "Yön ve boyut değişince şeklin özelliklerini tanıma",
+    "learningOutcomeCode": "MAT.2.3.4",
+    "skills": [
+      "Yön ve boyut değişince şeklin özelliklerini tanıma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/165",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Nesnelerin Geometrisi (1)",
+    "learningOutcome": "Sıvı miktarını bardak gibi araçlarla tahmin etme",
+    "learningOutcomeCode": "MAT.2.3.5",
+    "skills": [
+      "Sıvı miktarını bardak gibi araçlarla tahmin etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/165",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Nesnelerin Geometrisi (2)",
+    "learningOutcome": "Yön ve mesafeyi kullanarak yol bulma",
+    "learningOutcomeCode": "MAT.2.3.6",
+    "skills": [
+      "Yön ve mesafeyi kullanarak yol bulma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/166",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Nesnelerin Geometrisi (2)",
+    "learningOutcome": "Simetrik şekilleri ayırt etme",
+    "learningOutcomeCode": "MAT.2.3.7",
+    "skills": [
+      "Simetrik şekilleri ayırt etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/166",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "math",
+    "theme": "Veriye Dayalı Araştırma",
+    "learningOutcome": "En çok iki veri grubunu toplama, gösterme ve yorumlama",
+    "learningOutcomeCode": "MAT.2.4.1",
+    "skills": [
+      "En çok iki veri grubunu toplama, gösterme ve yorumlama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-matematik-dersi/unite/240",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Dinlemeye hazırlanma ve dinleme kuralları",
+    "learningOutcomeCode": "T.D.2.1",
+    "skills": [
+      "Dinlemeye hazırlanma ve dinleme kuralları"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/353",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Dinlediklerinden anlam çıkarma",
+    "learningOutcomeCode": "T.D.2.2",
+    "skills": [
+      "Dinlediklerinden anlam çıkarma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/353",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Dinlenen olay ve konuyu belirleme",
+    "learningOutcomeCode": "T.D.2.3",
+    "skills": [
+      "Dinlenen olay ve konuyu belirleme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/353",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Dinlemeyi etkileyen koşulları fark etme",
+    "learningOutcomeCode": "T.D.2.4",
+    "skills": [
+      "Dinlemeyi etkileyen koşulları fark etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/374",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Kendi dinlemesini değerlendirme",
+    "learningOutcomeCode": "T.D.2.5",
+    "skills": [
+      "Kendi dinlemesini değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/374",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Konuşmayı planlama ve söz alma",
+    "learningOutcomeCode": "T.K.2.1",
+    "skills": [
+      "Konuşmayı planlama ve söz alma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/353",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Düşünceleri sözlü ifade etme",
+    "learningOutcomeCode": "T.K.2.2",
+    "skills": [
+      "Düşünceleri sözlü ifade etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/353",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Anlamlı cümleler ve uygun tonlama",
+    "learningOutcomeCode": "T.K.2.3",
+    "skills": [
+      "Anlamlı cümleler ve uygun tonlama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/353",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Konuşmayı etkileyen koşulları fark etme",
+    "learningOutcomeCode": "T.K.2.4",
+    "skills": [
+      "Konuşmayı etkileyen koşulları fark etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/380",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Kendi konuşmasını değerlendirme",
+    "learningOutcomeCode": "T.K.2.5",
+    "skills": [
+      "Kendi konuşmasını değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/373",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Başlık, görsel ve noktalama ile okuma",
+    "learningOutcomeCode": "T.O.2.1",
+    "skills": [
+      "Başlık, görsel ve noktalama ile okuma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/353",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Okunan metinden anlam çıkarma",
+    "learningOutcomeCode": "T.O.2.2",
+    "skills": [
+      "Okunan metinden anlam çıkarma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/353",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Karakter, olay ve konuyu belirleme",
+    "learningOutcomeCode": "T.O.2.3",
+    "skills": [
+      "Karakter, olay ve konuyu belirleme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/353",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Okumayı etkileyen koşulları fark etme",
+    "learningOutcomeCode": "T.O.2.4",
+    "skills": [
+      "Okumayı etkileyen koşulları fark etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/374",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Kendi okumasını değerlendirme",
+    "learningOutcomeCode": "T.O.2.5",
+    "skills": [
+      "Kendi okumasını değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/385",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Yazmaya hazırlanma",
+    "learningOutcomeCode": "T.Y.2.1",
+    "skills": [
+      "Yazmaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/353",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Sözcük ve olaylardan yazılı anlatım oluşturma",
+    "learningOutcomeCode": "T.Y.2.2",
+    "skills": [
+      "Sözcük ve olaylardan yazılı anlatım oluşturma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/353",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Yazım ve noktalama kurallarını uygulama",
+    "learningOutcomeCode": "T.Y.2.3",
+    "skills": [
+      "Yazım ve noktalama kurallarını uygulama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/353",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Yazmayı etkileyen koşulları fark etme",
+    "learningOutcomeCode": "T.Y.2.4",
+    "skills": [
+      "Yazmayı etkileyen koşulları fark etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/378",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "tr",
+    "theme": "Beceriler · temalar boyunca",
+    "learningOutcome": "Kendi yazısını değerlendirme",
+    "learningOutcomeCode": "T.Y.2.5",
+    "skills": [
+      "Kendi yazısını değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ilkokul-turkce-dersi/unite/374",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Ben ve Okulum",
+    "learningOutcome": "Plan yapmanın günlük yaşama katkısı",
+    "learningOutcomeCode": "HB.2.1.1",
+    "skills": [
+      "Plan yapmanın günlük yaşama katkısı"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/238",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Ben ve Okulum",
+    "learningOutcome": "Etkili iletişim",
+    "learningOutcomeCode": "HB.2.1.2",
+    "skills": [
+      "Etkili iletişim"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/238",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Ben ve Okulum",
+    "learningOutcome": "Arkadaşlık ilişkileri",
+    "learningOutcomeCode": "HB.2.1.3",
+    "skills": [
+      "Arkadaşlık ilişkileri"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/238",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Ben ve Okulum",
+    "learningOutcome": "Birlikte karar verme",
+    "learningOutcomeCode": "HB.2.1.4",
+    "skills": [
+      "Birlikte karar verme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/238",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Sağlığım ve Güvenliğim",
+    "learningOutcome": "Sağlıklı alışkanlıklar",
+    "learningOutcomeCode": "HB.2.2.1",
+    "skills": [
+      "Sağlıklı alışkanlıklar"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/239",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Sağlığım ve Güvenliğim",
+    "learningOutcome": "Çevrim içi kişisel güvenlik",
+    "learningOutcomeCode": "HB.2.2.2",
+    "skills": [
+      "Çevrim içi kişisel güvenlik"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/239",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Sağlığım ve Güvenliğim",
+    "learningOutcome": "Trafik levhaları ve ışıkları",
+    "learningOutcomeCode": "HB.2.2.3",
+    "skills": [
+      "Trafik levhaları ve ışıkları"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/239",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Sağlığım ve Güvenliğim",
+    "learningOutcome": "Acil durumda etkili iletişim",
+    "learningOutcomeCode": "HB.2.2.4",
+    "skills": [
+      "Acil durumda etkili iletişim"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/239",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Ailem ve Toplum",
+    "learningOutcome": "Ailenin önemi",
+    "learningOutcomeCode": "HB.2.3.1",
+    "skills": [
+      "Ailenin önemi"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/241",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Ailem ve Toplum",
+    "learningOutcome": "Nezaket ve görgü",
+    "learningOutcomeCode": "HB.2.3.2",
+    "skills": [
+      "Nezaket ve görgü"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/241",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Ailem ve Toplum",
+    "learningOutcome": "Görev ve sorumluluklar",
+    "learningOutcomeCode": "HB.2.3.3",
+    "skills": [
+      "Görev ve sorumluluklar"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/241",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Yaşadığım Yer ve Ülkem",
+    "learningOutcome": "Tarihî yerler ve doğal güzellikler",
+    "learningOutcomeCode": "HB.2.4.1",
+    "skills": [
+      "Tarihî yerler ve doğal güzellikler"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/245",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Yaşadığım Yer ve Ülkem",
+    "learningOutcome": "Yerel yönetimleri araştırma",
+    "learningOutcomeCode": "HB.2.4.2",
+    "skills": [
+      "Yerel yönetimleri araştırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/245",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Yaşadığım Yer ve Ülkem",
+    "learningOutcome": "Atatürk’ün öğrenciliği",
+    "learningOutcomeCode": "HB.2.4.3",
+    "skills": [
+      "Atatürk’ün öğrenciliği"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/245",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Yaşadığım Yer ve Ülkem",
+    "learningOutcome": "Millî bayramların anlamı",
+    "learningOutcomeCode": "HB.2.4.4",
+    "skills": [
+      "Millî bayramların anlamı"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/245",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Yaşadığım Yer ve Ülkem",
+    "learningOutcome": "Dinî bayramlarda paylaşma",
+    "learningOutcomeCode": "HB.2.4.5",
+    "skills": [
+      "Dinî bayramlarda paylaşma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/245",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Doğa ve Çevre",
+    "learningOutcome": "Mevsimler ve hava",
+    "learningOutcomeCode": "HB.2.5.1",
+    "skills": [
+      "Mevsimler ve hava"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/246",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Doğa ve Çevre",
+    "learningOutcome": "Doğada yön bulma",
+    "learningOutcomeCode": "HB.2.5.2",
+    "skills": [
+      "Doğada yön bulma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/246",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Doğa ve Çevre",
+    "learningOutcome": "Afetlere hazırlık",
+    "learningOutcomeCode": "HB.2.5.3",
+    "skills": [
+      "Afetlere hazırlık"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/246",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Doğa ve Çevre",
+    "learningOutcome": "Kaynakları tasarruflu kullanma",
+    "learningOutcomeCode": "HB.2.5.4",
+    "skills": [
+      "Kaynakları tasarruflu kullanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/246",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Bilim, Teknoloji ve Sanat",
+    "learningOutcome": "Bilim insanlarının katkılarını araştırma",
+    "learningOutcomeCode": "HB.2.6.1",
+    "skills": [
+      "Bilim insanlarının katkılarını araştırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/308",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Bilim, Teknoloji ve Sanat",
+    "learningOutcome": "Teknolojik ürünlerin değişimi",
+    "learningOutcomeCode": "HB.2.6.2",
+    "skills": [
+      "Teknolojik ürünlerin değişimi"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/308",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "life",
+    "theme": "Bilim, Teknoloji ve Sanat",
+    "learningOutcome": "Günlük hayatta sanat",
+    "learningOutcomeCode": "HB.2.6.3",
+    "skills": [
+      "Günlük hayatta sanat"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/hayat-bilgisi-dersi/unite/308",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Okul yaşamıyla ilgili dinlediklerini anlama",
+    "learningOutcomeCode": "ENG.2.1.L3",
+    "skills": [
+      "Okul yaşamıyla ilgili dinlediklerini anlama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Okul yaşamı sözcüklerini bağlamda kullanma",
+    "learningOutcomeCode": "ENG.2.1.V1",
+    "skills": [
+      "Okul yaşamı sözcüklerini bağlamda kullanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Okul yaşamıyla ilgili okuduğunu anlama",
+    "learningOutcomeCode": "ENG.2.1.R3",
+    "skills": [
+      "Okul yaşamıyla ilgili okuduğunu anlama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Selamlaşma modelini sesli tekrar etme",
+    "learningOutcomeCode": "ENG.2.1.S2",
+    "skills": [
+      "Selamlaşma modelini sesli tekrar etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "art",
+    "theme": "Renk ve Estetik",
+    "learningOutcome": "Renk ve çizgilerle kent manzarası oluşturma",
+    "learningOutcomeCode": "GS.2.5.1",
+    "skills": [
+      "Renk ve çizgilerle kent manzarası oluşturma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/gorsel-sanatlar-dersi-temel-egitim/unite/833",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "art",
+    "theme": "Sanatçılar ve Eserleri",
+    "learningOutcome": "Türk resminde natürmort eserlerini inceleme",
+    "learningOutcomeCode": "GS.2.3.1",
+    "skills": [
+      "Türk resminde natürmort eserlerini inceleme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/gorsel-sanatlar-dersi-temel-egitim/unite/831",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "art",
+    "theme": "Millî Değerler ve Sanat",
+    "learningOutcome": "Doğa ve vatan sevgisini resimle ifade etme",
+    "learningOutcomeCode": "GS.2.6.1",
+    "skills": [
+      "Doğa ve vatan sevgisini resimle ifade etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/gorsel-sanatlar-dersi-temel-egitim/unite/834",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "move",
+    "theme": "Hareketimi Geliştiriyorum",
+    "learningOutcome": "Temel hareketleri uygulama",
+    "learningOutcomeCode": "BEO.2.1.1",
+    "skills": [
+      "Temel hareketleri uygulama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/beden-egitimi-ve-oyun-dersi/unite/619",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "move",
+    "theme": "Hareketimi Geliştiriyorum",
+    "learningOutcome": "Oyunlarda grupla hareket etme",
+    "learningOutcomeCode": "BEO.2.1.2",
+    "skills": [
+      "Oyunlarda grupla hareket etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/beden-egitimi-ve-oyun-dersi/unite/619",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "move",
+    "theme": "Ritimle Hareket Ediyorum",
+    "learningOutcome": "Müziğin temposuna uygun hareket etme",
+    "learningOutcomeCode": "BEO.2.3.1",
+    "skills": [
+      "Müziğin temposuna uygun hareket etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/beden-egitimi-ve-oyun-dersi/unite/621",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "move",
+    "theme": "Ritimle Hareket Ediyorum",
+    "learningOutcome": "Birlikte ritmik hareket etme",
+    "learningOutcomeCode": "BEO.2.3.2",
+    "skills": [
+      "Birlikte ritmik hareket etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/beden-egitimi-ve-oyun-dersi/unite/621",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Dinlemeye hazırlanma",
+    "learningOutcomeCode": "ENG.2.1.L1",
+    "skills": [
+      "Dinlemeye hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Dinlenen bilgileri birleştirme",
+    "learningOutcomeCode": "ENG.2.1.L2",
+    "skills": [
+      "Dinlenen bilgileri birleştirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Dinlemeyi değerlendirme",
+    "learningOutcomeCode": "ENG.2.1.L4",
+    "skills": [
+      "Dinlemeyi değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Sesleri modelden tekrar etme",
+    "learningOutcomeCode": "ENG.2.1.P1",
+    "skills": [
+      "Sesleri modelden tekrar etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Okumaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.1.R1",
+    "skills": [
+      "Okumaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Görsellere bakarak okumayı keşfetme",
+    "learningOutcomeCode": "ENG.2.1.R2",
+    "skills": [
+      "Görsellere bakarak okumayı keşfetme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Okumayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.1.R4",
+    "skills": [
+      "Okumayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Dil yapılarını bağlamda kullanma",
+    "learningOutcomeCode": "ENG.2.1.G1",
+    "skills": [
+      "Dil yapılarını bağlamda kullanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Yazmaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.1.W1",
+    "skills": [
+      "Yazmaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Modeli örnek alarak yazma",
+    "learningOutcomeCode": "ENG.2.1.W2",
+    "skills": [
+      "Modeli örnek alarak yazma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Yazının içeriğini düzenleme",
+    "learningOutcomeCode": "ENG.2.1.W3",
+    "skills": [
+      "Yazının içeriğini düzenleme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Yazılı içerik oluşturma",
+    "learningOutcomeCode": "ENG.2.1.W4",
+    "skills": [
+      "Yazılı içerik oluşturma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Yeni durumda yazılı iletişim",
+    "learningOutcomeCode": "ENG.2.1.W5",
+    "skills": [
+      "Yeni durumda yazılı iletişim"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Yazmayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.1.W6",
+    "skills": [
+      "Yazmayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Konuşmaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.1.S1",
+    "skills": [
+      "Konuşmaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Basit sözlü içerik hazırlama",
+    "learningOutcomeCode": "ENG.2.1.S3",
+    "skills": [
+      "Basit sözlü içerik hazırlama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Sözlü içerik oluşturma",
+    "learningOutcomeCode": "ENG.2.1.S4",
+    "skills": [
+      "Sözlü içerik oluşturma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Yeni durumda sözlü iletişim",
+    "learningOutcomeCode": "ENG.2.1.S5",
+    "skills": [
+      "Yeni durumda sözlü iletişim"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "School Life",
+    "learningOutcome": "Konuşmayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.1.S6",
+    "skills": [
+      "Konuşmayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/629",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Dinlemeye hazırlanma",
+    "learningOutcomeCode": "ENG.2.2.L1",
+    "skills": [
+      "Dinlemeye hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Dinlenen bilgileri birleştirme",
+    "learningOutcomeCode": "ENG.2.2.L2",
+    "skills": [
+      "Dinlenen bilgileri birleştirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Dinlediğini anlamlandırma",
+    "learningOutcomeCode": "ENG.2.2.L3",
+    "skills": [
+      "Dinlediğini anlamlandırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Dinlemeyi değerlendirme",
+    "learningOutcomeCode": "ENG.2.2.L4",
+    "skills": [
+      "Dinlemeyi değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Sesleri modelden tekrar etme",
+    "learningOutcomeCode": "ENG.2.2.P1",
+    "skills": [
+      "Sesleri modelden tekrar etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Okumaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.2.R1",
+    "skills": [
+      "Okumaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Görsellere bakarak okumayı keşfetme",
+    "learningOutcomeCode": "ENG.2.2.R2",
+    "skills": [
+      "Görsellere bakarak okumayı keşfetme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Okuduğunu anlamlandırma",
+    "learningOutcomeCode": "ENG.2.2.R3",
+    "skills": [
+      "Okuduğunu anlamlandırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Okumayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.2.R4",
+    "skills": [
+      "Okumayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Sözcükleri bağlamda kullanma",
+    "learningOutcomeCode": "ENG.2.2.V1",
+    "skills": [
+      "Sözcükleri bağlamda kullanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Dil yapılarını bağlamda kullanma",
+    "learningOutcomeCode": "ENG.2.2.G1",
+    "skills": [
+      "Dil yapılarını bağlamda kullanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Yazmaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.2.W1",
+    "skills": [
+      "Yazmaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Modeli örnek alarak yazma",
+    "learningOutcomeCode": "ENG.2.2.W2",
+    "skills": [
+      "Modeli örnek alarak yazma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Yazının içeriğini düzenleme",
+    "learningOutcomeCode": "ENG.2.2.W3",
+    "skills": [
+      "Yazının içeriğini düzenleme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Yazılı içerik oluşturma",
+    "learningOutcomeCode": "ENG.2.2.W4",
+    "skills": [
+      "Yazılı içerik oluşturma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Yeni durumda yazılı iletişim",
+    "learningOutcomeCode": "ENG.2.2.W5",
+    "skills": [
+      "Yeni durumda yazılı iletişim"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Yazmayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.2.W6",
+    "skills": [
+      "Yazmayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Konuşmaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.2.S1",
+    "skills": [
+      "Konuşmaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Konuşma modelini tekrar etme",
+    "learningOutcomeCode": "ENG.2.2.S2",
+    "skills": [
+      "Konuşma modelini tekrar etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Basit sözlü içerik hazırlama",
+    "learningOutcomeCode": "ENG.2.2.S3",
+    "skills": [
+      "Basit sözlü içerik hazırlama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Sözlü içerik oluşturma",
+    "learningOutcomeCode": "ENG.2.2.S4",
+    "skills": [
+      "Sözlü içerik oluşturma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Yeni durumda sözlü iletişim",
+    "learningOutcomeCode": "ENG.2.2.S5",
+    "skills": [
+      "Yeni durumda sözlü iletişim"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Classroom Life",
+    "learningOutcome": "Konuşmayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.2.S6",
+    "skills": [
+      "Konuşmayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/634",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Dinlemeye hazırlanma",
+    "learningOutcomeCode": "ENG.2.3.L1",
+    "skills": [
+      "Dinlemeye hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Dinlenen bilgileri birleştirme",
+    "learningOutcomeCode": "ENG.2.3.L2",
+    "skills": [
+      "Dinlenen bilgileri birleştirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Dinlediğini anlamlandırma",
+    "learningOutcomeCode": "ENG.2.3.L3",
+    "skills": [
+      "Dinlediğini anlamlandırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Dinlemeyi değerlendirme",
+    "learningOutcomeCode": "ENG.2.3.L4",
+    "skills": [
+      "Dinlemeyi değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Sesleri modelden tekrar etme",
+    "learningOutcomeCode": "ENG.2.3.P1",
+    "skills": [
+      "Sesleri modelden tekrar etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Okumaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.3.R1",
+    "skills": [
+      "Okumaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Görsellere bakarak okumayı keşfetme",
+    "learningOutcomeCode": "ENG.2.3.R2",
+    "skills": [
+      "Görsellere bakarak okumayı keşfetme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Okuduğunu anlamlandırma",
+    "learningOutcomeCode": "ENG.2.3.R3",
+    "skills": [
+      "Okuduğunu anlamlandırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Okumayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.3.R4",
+    "skills": [
+      "Okumayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Sözcükleri bağlamda kullanma",
+    "learningOutcomeCode": "ENG.2.3.V1",
+    "skills": [
+      "Sözcükleri bağlamda kullanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Dil yapılarını bağlamda kullanma",
+    "learningOutcomeCode": "ENG.2.3.G1",
+    "skills": [
+      "Dil yapılarını bağlamda kullanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Yazmaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.3.W1",
+    "skills": [
+      "Yazmaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Modeli örnek alarak yazma",
+    "learningOutcomeCode": "ENG.2.3.W2",
+    "skills": [
+      "Modeli örnek alarak yazma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Yazının içeriğini düzenleme",
+    "learningOutcomeCode": "ENG.2.3.W3",
+    "skills": [
+      "Yazının içeriğini düzenleme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Yazılı içerik oluşturma",
+    "learningOutcomeCode": "ENG.2.3.W4",
+    "skills": [
+      "Yazılı içerik oluşturma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Yeni durumda yazılı iletişim",
+    "learningOutcomeCode": "ENG.2.3.W5",
+    "skills": [
+      "Yeni durumda yazılı iletişim"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Yazmayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.3.W6",
+    "skills": [
+      "Yazmayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Konuşmaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.3.S1",
+    "skills": [
+      "Konuşmaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Konuşma modelini tekrar etme",
+    "learningOutcomeCode": "ENG.2.3.S2",
+    "skills": [
+      "Konuşma modelini tekrar etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Basit sözlü içerik hazırlama",
+    "learningOutcomeCode": "ENG.2.3.S3",
+    "skills": [
+      "Basit sözlü içerik hazırlama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Sözlü içerik oluşturma",
+    "learningOutcomeCode": "ENG.2.3.S4",
+    "skills": [
+      "Sözlü içerik oluşturma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Yeni durumda sözlü iletişim",
+    "learningOutcomeCode": "ENG.2.3.S5",
+    "skills": [
+      "Yeni durumda sözlü iletişim"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Personal Life",
+    "learningOutcome": "Konuşmayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.3.S6",
+    "skills": [
+      "Konuşmayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/756",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Dinlemeye hazırlanma",
+    "learningOutcomeCode": "ENG.2.4.L1",
+    "skills": [
+      "Dinlemeye hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Dinlenen bilgileri birleştirme",
+    "learningOutcomeCode": "ENG.2.4.L2",
+    "skills": [
+      "Dinlenen bilgileri birleştirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Dinlediğini anlamlandırma",
+    "learningOutcomeCode": "ENG.2.4.L3",
+    "skills": [
+      "Dinlediğini anlamlandırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Dinlemeyi değerlendirme",
+    "learningOutcomeCode": "ENG.2.4.L4",
+    "skills": [
+      "Dinlemeyi değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Sesleri modelden tekrar etme",
+    "learningOutcomeCode": "ENG.2.4.P1",
+    "skills": [
+      "Sesleri modelden tekrar etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Okumaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.4.R1",
+    "skills": [
+      "Okumaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Görsellere bakarak okumayı keşfetme",
+    "learningOutcomeCode": "ENG.2.4.R2",
+    "skills": [
+      "Görsellere bakarak okumayı keşfetme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Okuduğunu anlamlandırma",
+    "learningOutcomeCode": "ENG.2.4.R3",
+    "skills": [
+      "Okuduğunu anlamlandırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Okumayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.4.R4",
+    "skills": [
+      "Okumayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Sözcükleri bağlamda kullanma",
+    "learningOutcomeCode": "ENG.2.4.V1",
+    "skills": [
+      "Sözcükleri bağlamda kullanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Dil yapılarını bağlamda kullanma",
+    "learningOutcomeCode": "ENG.2.4.G1",
+    "skills": [
+      "Dil yapılarını bağlamda kullanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Yazmaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.4.W1",
+    "skills": [
+      "Yazmaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Modeli örnek alarak yazma",
+    "learningOutcomeCode": "ENG.2.4.W2",
+    "skills": [
+      "Modeli örnek alarak yazma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Yazının içeriğini düzenleme",
+    "learningOutcomeCode": "ENG.2.4.W3",
+    "skills": [
+      "Yazının içeriğini düzenleme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Yazılı içerik oluşturma",
+    "learningOutcomeCode": "ENG.2.4.W4",
+    "skills": [
+      "Yazılı içerik oluşturma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Yeni durumda yazılı iletişim",
+    "learningOutcomeCode": "ENG.2.4.W5",
+    "skills": [
+      "Yeni durumda yazılı iletişim"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Yazmayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.4.W6",
+    "skills": [
+      "Yazmayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Konuşmaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.4.S1",
+    "skills": [
+      "Konuşmaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Konuşma modelini tekrar etme",
+    "learningOutcomeCode": "ENG.2.4.S2",
+    "skills": [
+      "Konuşma modelini tekrar etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Basit sözlü içerik hazırlama",
+    "learningOutcomeCode": "ENG.2.4.S3",
+    "skills": [
+      "Basit sözlü içerik hazırlama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Sözlü içerik oluşturma",
+    "learningOutcomeCode": "ENG.2.4.S4",
+    "skills": [
+      "Sözlü içerik oluşturma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Yeni durumda sözlü iletişim",
+    "learningOutcomeCode": "ENG.2.4.S5",
+    "skills": [
+      "Yeni durumda sözlü iletişim"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Family Life",
+    "learningOutcome": "Konuşmayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.4.S6",
+    "skills": [
+      "Konuşmayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/763",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Dinlemeye hazırlanma",
+    "learningOutcomeCode": "ENG.2.5.L1",
+    "skills": [
+      "Dinlemeye hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Dinlenen bilgileri birleştirme",
+    "learningOutcomeCode": "ENG.2.5.L2",
+    "skills": [
+      "Dinlenen bilgileri birleştirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Dinlediğini anlamlandırma",
+    "learningOutcomeCode": "ENG.2.5.L3",
+    "skills": [
+      "Dinlediğini anlamlandırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Dinlemeyi değerlendirme",
+    "learningOutcomeCode": "ENG.2.5.L4",
+    "skills": [
+      "Dinlemeyi değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Sesleri modelden tekrar etme",
+    "learningOutcomeCode": "ENG.2.5.P1",
+    "skills": [
+      "Sesleri modelden tekrar etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Okumaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.5.R1",
+    "skills": [
+      "Okumaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Görsellere bakarak okumayı keşfetme",
+    "learningOutcomeCode": "ENG.2.5.R2",
+    "skills": [
+      "Görsellere bakarak okumayı keşfetme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Okuduğunu anlamlandırma",
+    "learningOutcomeCode": "ENG.2.5.R3",
+    "skills": [
+      "Okuduğunu anlamlandırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Okumayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.5.R4",
+    "skills": [
+      "Okumayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Sözcükleri bağlamda kullanma",
+    "learningOutcomeCode": "ENG.2.5.V1",
+    "skills": [
+      "Sözcükleri bağlamda kullanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Dil yapılarını bağlamda kullanma",
+    "learningOutcomeCode": "ENG.2.5.G1",
+    "skills": [
+      "Dil yapılarını bağlamda kullanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Yazmaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.5.W1",
+    "skills": [
+      "Yazmaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Modeli örnek alarak yazma",
+    "learningOutcomeCode": "ENG.2.5.W2",
+    "skills": [
+      "Modeli örnek alarak yazma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Yazının içeriğini düzenleme",
+    "learningOutcomeCode": "ENG.2.5.W3",
+    "skills": [
+      "Yazının içeriğini düzenleme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Yazılı içerik oluşturma",
+    "learningOutcomeCode": "ENG.2.5.W4",
+    "skills": [
+      "Yazılı içerik oluşturma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Yeni durumda yazılı iletişim",
+    "learningOutcomeCode": "ENG.2.5.W5",
+    "skills": [
+      "Yeni durumda yazılı iletişim"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Yazmayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.5.W6",
+    "skills": [
+      "Yazmayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Konuşmaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.5.S1",
+    "skills": [
+      "Konuşmaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Konuşma modelini tekrar etme",
+    "learningOutcomeCode": "ENG.2.5.S2",
+    "skills": [
+      "Konuşma modelini tekrar etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Basit sözlü içerik hazırlama",
+    "learningOutcomeCode": "ENG.2.5.S3",
+    "skills": [
+      "Basit sözlü içerik hazırlama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Sözlü içerik oluşturma",
+    "learningOutcomeCode": "ENG.2.5.S4",
+    "skills": [
+      "Sözlü içerik oluşturma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Yeni durumda sözlü iletişim",
+    "learningOutcomeCode": "ENG.2.5.S5",
+    "skills": [
+      "Yeni durumda sözlü iletişim"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Homes & Houses & Neighbourhoods",
+    "learningOutcome": "Konuşmayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.5.S6",
+    "skills": [
+      "Konuşmayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/766",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Dinlemeye hazırlanma",
+    "learningOutcomeCode": "ENG.2.6.L1",
+    "skills": [
+      "Dinlemeye hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Dinlenen bilgileri birleştirme",
+    "learningOutcomeCode": "ENG.2.6.L2",
+    "skills": [
+      "Dinlenen bilgileri birleştirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Dinlediğini anlamlandırma",
+    "learningOutcomeCode": "ENG.2.6.L3",
+    "skills": [
+      "Dinlediğini anlamlandırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Dinlemeyi değerlendirme",
+    "learningOutcomeCode": "ENG.2.6.L4",
+    "skills": [
+      "Dinlemeyi değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Sesleri modelden tekrar etme",
+    "learningOutcomeCode": "ENG.2.6.P1",
+    "skills": [
+      "Sesleri modelden tekrar etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Okumaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.6.R1",
+    "skills": [
+      "Okumaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Görsellere bakarak okumayı keşfetme",
+    "learningOutcomeCode": "ENG.2.6.R2",
+    "skills": [
+      "Görsellere bakarak okumayı keşfetme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Okuduğunu anlamlandırma",
+    "learningOutcomeCode": "ENG.2.6.R3",
+    "skills": [
+      "Okuduğunu anlamlandırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Okumayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.6.R4",
+    "skills": [
+      "Okumayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Sözcükleri bağlamda kullanma",
+    "learningOutcomeCode": "ENG.2.6.V1",
+    "skills": [
+      "Sözcükleri bağlamda kullanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Dil yapılarını bağlamda kullanma",
+    "learningOutcomeCode": "ENG.2.6.G1",
+    "skills": [
+      "Dil yapılarını bağlamda kullanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Yazmaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.6.W1",
+    "skills": [
+      "Yazmaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Modeli örnek alarak yazma",
+    "learningOutcomeCode": "ENG.2.6.W2",
+    "skills": [
+      "Modeli örnek alarak yazma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Yazının içeriğini düzenleme",
+    "learningOutcomeCode": "ENG.2.6.W3",
+    "skills": [
+      "Yazının içeriğini düzenleme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Yazılı içerik oluşturma",
+    "learningOutcomeCode": "ENG.2.6.W4",
+    "skills": [
+      "Yazılı içerik oluşturma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Yeni durumda yazılı iletişim",
+    "learningOutcomeCode": "ENG.2.6.W5",
+    "skills": [
+      "Yeni durumda yazılı iletişim"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Yazmayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.6.W6",
+    "skills": [
+      "Yazmayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Konuşmaya hazırlanma",
+    "learningOutcomeCode": "ENG.2.6.S1",
+    "skills": [
+      "Konuşmaya hazırlanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Konuşma modelini tekrar etme",
+    "learningOutcomeCode": "ENG.2.6.S2",
+    "skills": [
+      "Konuşma modelini tekrar etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Basit sözlü içerik hazırlama",
+    "learningOutcomeCode": "ENG.2.6.S3",
+    "skills": [
+      "Basit sözlü içerik hazırlama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Sözlü içerik oluşturma",
+    "learningOutcomeCode": "ENG.2.6.S4",
+    "skills": [
+      "Sözlü içerik oluşturma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Yeni durumda sözlü iletişim",
+    "learningOutcomeCode": "ENG.2.6.S5",
+    "skills": [
+      "Yeni durumda sözlü iletişim"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "english",
+    "theme": "Life In The City & The World",
+    "learningOutcome": "Konuşmayı değerlendirme",
+    "learningOutcomeCode": "ENG.2.6.S6",
+    "skills": [
+      "Konuşmayı değerlendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/ingilizce-dersi-temel-egitim/unite/776",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "art",
+    "theme": "Hayat Ve Sanat",
+    "learningOutcome": "Çevredeki ana ve ara renkleri gözlemleme",
+    "learningOutcomeCode": "GS.2.1.1",
+    "skills": [
+      "Çevredeki ana ve ara renkleri gözlemleme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/gorsel-sanatlar-dersi-temel-egitim/unite/829",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "art",
+    "theme": "Hayat Ve Sanat",
+    "learningOutcome": "Renk ve biçimle çevreyi anlatma",
+    "learningOutcomeCode": "GS.2.1.2",
+    "skills": [
+      "Renk ve biçimle çevreyi anlatma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/gorsel-sanatlar-dersi-temel-egitim/unite/829",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "art",
+    "theme": "Sanatın Görsel Dili",
+    "learningOutcome": "Bayraklardaki görsel mesajları anlama",
+    "learningOutcomeCode": "GS.2.2.1",
+    "skills": [
+      "Bayraklardaki görsel mesajları anlama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/gorsel-sanatlar-dersi-temel-egitim/unite/830",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "art",
+    "theme": "Sanatın Görsel Dili",
+    "learningOutcome": "Kültürel motiflerden desen tasarlama",
+    "learningOutcomeCode": "GS.2.2.2",
+    "skills": [
+      "Kültürel motiflerden desen tasarlama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/gorsel-sanatlar-dersi-temel-egitim/unite/830",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "art",
+    "theme": "Sanatçılar Ve Eserleri",
+    "learningOutcome": "Renk ve biçim zıtlıklarıyla natürmort yapma",
+    "learningOutcomeCode": "GS.2.3.2",
+    "skills": [
+      "Renk ve biçim zıtlıklarıyla natürmort yapma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/gorsel-sanatlar-dersi-temel-egitim/unite/831",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "art",
+    "theme": "Çizim Ve Görsel İfade",
+    "learningOutcome": "Farklı çizgilerle doğa manzarası çizme",
+    "learningOutcomeCode": "GS.2.4.1",
+    "skills": [
+      "Farklı çizgilerle doğa manzarası çizme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/gorsel-sanatlar-dersi-temel-egitim/unite/832",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "art",
+    "theme": "Müze Ve Kültür",
+    "learningOutcome": "Oyuncak müzesi koleksiyonunu gruplama",
+    "learningOutcomeCode": "GS.2.7.1",
+    "skills": [
+      "Oyuncak müzesi koleksiyonunu gruplama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/gorsel-sanatlar-dersi-temel-egitim/unite/835",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "art",
+    "theme": "Müze Ve Kültür",
+    "learningOutcome": "Okulda oyuncak müzesi oluşturma",
+    "learningOutcomeCode": "GS.2.7.2",
+    "skills": [
+      "Okulda oyuncak müzesi oluşturma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/gorsel-sanatlar-dersi-temel-egitim/unite/835",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "music",
+    "theme": "Müzik Dili",
+    "learningOutcome": "İstiklâl Marşı’nın sözcüklerini anlamlandırma",
+    "learningOutcomeCode": "MÜZ.2.1.1",
+    "skills": [
+      "İstiklâl Marşı’nın sözcüklerini anlamlandırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/muzik-dersi-temel-egitim/unite/636",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "music",
+    "theme": "Müzik Dili",
+    "learningOutcome": "İnce ve kalın sesleri karşılaştırma",
+    "learningOutcomeCode": "MÜZ.2.1.2",
+    "skills": [
+      "İnce ve kalın sesleri karşılaştırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/muzik-dersi-temel-egitim/unite/636",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "music",
+    "theme": "Müzik Dili",
+    "learningOutcome": "Farklı müzik türlerini seslendirme",
+    "learningOutcomeCode": "MÜZ.2.1.3",
+    "skills": [
+      "Farklı müzik türlerini seslendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/muzik-dersi-temel-egitim/unite/636",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "music",
+    "theme": "Müzik Dili",
+    "learningOutcome": "Özel günler için eser söyleme",
+    "learningOutcomeCode": "MÜZ.2.1.4",
+    "skills": [
+      "Özel günler için eser söyleme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/muzik-dersi-temel-egitim/unite/636",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "music",
+    "theme": "Müzik Dili",
+    "learningOutcome": "Ortak şarkı dağarcığını seslendirme",
+    "learningOutcomeCode": "MÜZ.2.1.5",
+    "skills": [
+      "Ortak şarkı dağarcığını seslendirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/muzik-dersi-temel-egitim/unite/636",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "music",
+    "theme": "Müzik Dili",
+    "learningOutcome": "Müziğe hareketlerle eşlik etme",
+    "learningOutcomeCode": "MÜZ.2.1.6",
+    "skills": [
+      "Müziğe hareketlerle eşlik etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/muzik-dersi-temel-egitim/unite/636",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "music",
+    "theme": "Müzik Kültürü",
+    "learningOutcome": "İstiklâl Marşı’nın temel ögelerini tanıma",
+    "learningOutcomeCode": "MÜZ.2.2.1",
+    "skills": [
+      "İstiklâl Marşı’nın temel ögelerini tanıma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/muzik-dersi-temel-egitim/unite/638",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "music",
+    "theme": "Müzik Kültürü",
+    "learningOutcome": "Ezgi veren vurmalı çalgıları karşılaştırma",
+    "learningOutcomeCode": "MÜZ.2.2.2",
+    "skills": [
+      "Ezgi veren vurmalı çalgıları karşılaştırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/muzik-dersi-temel-egitim/unite/638",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "automatic"
+  },
+  {
+    "grade": 2,
+    "subject": "music",
+    "theme": "Müzik Kültürü",
+    "learningOutcome": "Farklı türde müzikleri söyleme",
+    "learningOutcomeCode": "MÜZ.2.2.3",
+    "skills": [
+      "Farklı türde müzikleri söyleme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/muzik-dersi-temel-egitim/unite/638",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "music",
+    "theme": "Müzik Kültürü",
+    "learningOutcome": "Özel günlerin eserlerini söyleme",
+    "learningOutcomeCode": "MÜZ.2.2.4",
+    "skills": [
+      "Özel günlerin eserlerini söyleme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/muzik-dersi-temel-egitim/unite/638",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "music",
+    "theme": "Müzik Kültürü",
+    "learningOutcome": "Ortak repertuvardan şarkı söyleme",
+    "learningOutcomeCode": "MÜZ.2.2.5",
+    "skills": [
+      "Ortak repertuvardan şarkı söyleme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/muzik-dersi-temel-egitim/unite/638",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "music",
+    "theme": "Müzik Kültürü",
+    "learningOutcome": "Müzikte ritme hareketle katılma",
+    "learningOutcomeCode": "MÜZ.2.2.6",
+    "skills": [
+      "Müzikte ritme hareketle katılma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/muzik-dersi-temel-egitim/unite/638",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "move",
+    "theme": "Oyunun Kurallarını Uyguluyorum",
+    "learningOutcome": "Hareket kavramlarını oyunda kullanma",
+    "learningOutcomeCode": "BEO.2.2.1",
+    "skills": [
+      "Hareket kavramlarını oyunda kullanma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/beden-egitimi-ve-oyun-dersi/unite/620",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "move",
+    "theme": "Oyunun Kurallarını Uyguluyorum",
+    "learningOutcome": "Oyun kurallarına uyma",
+    "learningOutcomeCode": "BEO.2.2.2",
+    "skills": [
+      "Oyun kurallarına uyma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/beden-egitimi-ve-oyun-dersi/unite/620",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "move",
+    "theme": "Oyunun Kurallarını Uyguluyorum",
+    "learningOutcome": "Oyun stratejisi geliştirme",
+    "learningOutcomeCode": "BEO.2.2.3",
+    "skills": [
+      "Oyun stratejisi geliştirme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/beden-egitimi-ve-oyun-dersi/unite/620",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "move",
+    "theme": "Sağlığım İçin Fiziksel Aktiviteye Katılıyorum",
+    "learningOutcome": "Hareket sonrası bedensel değişimleri fark etme",
+    "learningOutcomeCode": "BEO.2.4.1",
+    "skills": [
+      "Hareket sonrası bedensel değişimleri fark etme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/beden-egitimi-ve-oyun-dersi/unite/623",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "move",
+    "theme": "Sağlığım İçin Fiziksel Aktiviteye Katılıyorum",
+    "learningOutcome": "Hareket alışkanlıklarını karşılaştırma",
+    "learningOutcomeCode": "BEO.2.4.2",
+    "skills": [
+      "Hareket alışkanlıklarını karşılaştırma"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/beden-egitimi-ve-oyun-dersi/unite/623",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "move",
+    "theme": "Sağlığım İçin Fiziksel Aktiviteye Katılıyorum",
+    "learningOutcome": "Kişisel hareket hedefi belirleme",
+    "learningOutcomeCode": "BEO.2.4.3",
+    "skills": [
+      "Kişisel hareket hedefi belirleme"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/beden-egitimi-ve-oyun-dersi/unite/623",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "move",
+    "theme": "Sağlığım İçin Fiziksel Aktiviteye Katılıyorum",
+    "learningOutcome": "Hareketin sağlıkla ilişkisini açıklama",
+    "learningOutcomeCode": "BEO.2.4.4",
+    "skills": [
+      "Hareketin sağlıkla ilişkisini açıklama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/beden-egitimi-ve-oyun-dersi/unite/623",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  },
+  {
+    "grade": 2,
+    "subject": "move",
+    "theme": "Sağlığım İçin Fiziksel Aktiviteye Katılıyorum",
+    "learningOutcome": "Güvenli oyun alanı hazırlama",
+    "learningOutcomeCode": "BEO.2.4.5",
+    "skills": [
+      "Güvenli oyun alanı hazırlama"
+    ],
+    "source": "MEB Türkiye Yüzyılı Maarif Modeli",
+    "sourceUrl": "https://tymm.meb.gov.tr/beden-egitimi-ve-oyun-dersi/unite/623",
+    "academicYear": "2026-2027",
+    "lastVerified": "2026-09-24",
+    "assessment": "observation"
+  }
+]

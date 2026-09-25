@@ -1,0 +1,20 @@
+import {describe,it,expect} from 'vitest';
+import {angleDelta,clockAngle,clockAnswer,snapQuarter,wrapMinutes,exchangeBlocks,blockValue} from '../lib/manipulatives';
+import {makeQuestion} from '../lib/questions';
+import {lessons} from '../content';
+import curriculum from '../curriculum/grade-2.json';
+import baseline from '../curriculum/source-baseline.json';
+import {checkAnswer} from '../lib/progress';
+import {insertOrderedItem} from '../lib/manipulatives';
+describe('somut öğrenme araçları',()=>{
+ it('kartlar sağa, sola ve boş kutuya kayıpsız taşınır',()=>{expect(insertOrderedItem(['a','b','c'],'a',2)).toEqual(['b','a','c']);expect(insertOrderedItem(['a','b','c'],'c',0)).toEqual(['c','a','b']);expect(insertOrderedItem(['a','b'],'c',2)).toEqual(['a','b','c']);expect(insertOrderedItem(['a','b'],'a',0)).toEqual(['a','b']);expect(insertOrderedItem(['a','b'],'b',100)).toEqual(['a','b'])});
+ it('saatin dört ana yönü ve 12 geçişi doğru hesaplanır',()=>{expect(clockAngle(0,-1)).toBe(0);expect(clockAngle(1,0)).toBe(90);expect(clockAngle(0,1)).toBe(180);expect(clockAngle(-1,0)).toBe(270);expect(angleDelta(355,5)).toBe(10);expect(angleDelta(5,355)).toBe(-10);expect(wrapMinutes(-15)).toBe(705);expect(clockAnswer(0)).toBe('720');expect(clockAnswer(735)).toBe('735');expect(clockAnswer(780)).toBe('60')});
+ it('yelkovan en yakın çeyrek saate yerleşir',()=>{expect(snapQuarter(197)).toBe(195);expect(snapQuarter(718)).toBe(0);expect(snapQuarter(-2)).toBe(0)});
+ it('onluk birleştirme ve ayırma miktarı korur',()=>{for(let t=0;t<9;t++)for(let u=0;u<20;u++)for(const dir of ['group','split'] as const){const next=exchangeBlocks(t,u,dir);expect(blockValue(next.tens,next.ones)).toBe(blockValue(t,u));expect(next.tens).toBeGreaterThanOrEqual(0);expect(next.ones).toBeGreaterThanOrEqual(0)}expect(exchangeBlocks(2,14,'group')).toEqual({tens:3,ones:4})});
+ it('simetri deseni aynaya olan uzaklığı korur',()=>{const l=lessons.find(l=>l.id==='math-symmetry')!;for(let i=0;i<8;i++){const q=makeQuestion(l,i);expect(q.type).toBe('geometry');expect(q.items!.map(Number).map(n=>Math.floor(n/3)*3+2-n%3).sort((a,b)=>a-b).join('|')).toBe(q.answer)}});
+ it('toplama sorusunun beklenen cevabı gerçekten toplamdır',()=>{const l=lessons.find(l=>l.id==='math-add')!;for(let seed=0;seed<500;seed++){const q=makeQuestion(l,0,3,seed),numbers=q.instruction.match(/\d+/g)!.map(Number);expect(Number(q.answer)).toBe(numbers[0]+numbers[1]);expect(Number(q.answer)).toBeLessThan(100)}});
+ it('geometri çizim değil, doğrulanabilir yerleştirme sorusu üretir',()=>{for(const id of ['math-build','math-shapes']){const q=makeQuestion(lessons.find(l=>l.id===id)!,0);expect(q.type).toBe('geometry');expect(q.selfReport).not.toBe(true);expect(q.answer).toBe('done')}});
+ it('Türkçe noktalama havuzunda üç işaret de çalışır',()=>{const l=lessons.find(l=>l.id==='tr-words-0')!;expect([1,4,7].map(i=>makeQuestion(l,i).answer)).toEqual(['?','.','!']);expect(makeQuestion(l,1).type).toBe('punctuation')});
+ it('Türkçedeki diğer geçerli kelime sırasını da kabul eder',()=>{const q=makeQuestion(lessons.find(l=>l.id==='tr-words-0')!,0);expect(checkAnswer('Lara|arkadaşıyla|şemsiyesini|paylaştı.',q.answer,q.acceptedAnswers)).toBe(true);expect(checkAnswer('paylaştı.|Lara|şemsiyesini|arkadaşıyla',q.answer,q.acceptedAnswers)).toBe(false);for(const l of lessons.filter(l=>l.generator?.startsWith('words')))for(let i=0;i<8;i++){const q=makeQuestion(l,i);for(const a of q.acceptedAnswers??[])expect(a.split('|').sort()).toEqual(q.answer.split('|').sort())}});
+ it('kabul edilen tüm müfredat kodları resmî kaynak anlık görüntüsünde vardır',()=>{const sourceCodes=new Set(baseline.pages.flatMap(p=>p.outcomes.map(o=>o.code)));const stored=new Set(curriculum.map(c=>c.learningOutcomeCode));expect([...stored].sort()).toEqual([...sourceCodes].sort())});
+});
