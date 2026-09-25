@@ -12,6 +12,11 @@ Ses artık yeni cihazlarda açık başlar (önceden kapalıydı ve açıkken yal
 | Birim testleri (anında kontrol edilen her sorunun tek dokunuşla cevaplanabildiği dahil) | 31 / 31 |
 | Production paketindeki Playwright testleri (5 yeni geri bildirim testi dahil) | 50 / 50 |
 | Cevaplanmış ekranlarda (yanlış, doğru, çözüm) Axe WCAG A/AA taraması | İhlal yok |
+| Yayından sonra production container'ında Playwright testleri | 50 / 50 |
+| Canlı HTTPS adresinde eski sürümden yeni sürüme geçiş (`verify-live-upgrade.mjs`) | Geçti |
+| HTTPS / HTTP / eski adres | 200 / 301 → HTTPS / 301 → `lara.perinet.org` |
+
+Yayınlanan imajın 56 dosyası testten geçen QA imajıyla birebir aynıdır (dosya özetleri karşılaştırıldı). Geri dönüş imajı: `laranin-dersleri:before-feedback-20260925`.
 | Yeni geri bildirim testleri önceki yayın imajında | 5 / 5 başarısız (beklenen) |
 
 Seçenek, trafik, İngilizce eşleştirme, geometri, ince/kalın ses, tempo, noktalama, ritim, hareket görevi, şekil modeli ve saat ekranları 390 piksel telefonda ve 1280 piksel masaüstünde yanlış, doğru ve çözüm gösterilen durumlarda görsel olarak incelendi.
