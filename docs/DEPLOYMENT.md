@@ -42,7 +42,7 @@ Yalnız yapılandırma kontrolü başarılıysa reload edin. Container DNS'i Doc
 `lara.perinet.org` sertifikasını (`npm-116`) Nginx Proxy Manager kendisi yeniler. Eski adresin HTTPS yönlendirmesi için `laranindersleri-perinet-org` sertifikası da gereklidir. Bu sertifikanın DNS-01 doğrulaması sunucudaki mevcut Cloudflare kimlik bilgisini kullanır; anahtar uygulama container'ına veya repoya kopyalanmaz. Kullanıcının mevcut crontab'ı korunarak şu işe ek yapılmıştır:
 
 ```cron
-23 5,17 * * * /opt/laraders/scripts/renew-certificate.sh # laranindersleri-cert-renewal
+23 5,17 * * * /opt/lara/scripts/renew-certificate.sh # laranindersleri-cert-renewal
 ```
 
 Yenileme sadece bu sertifikayı hedefler; başarılı yenilemeden sonra Nginx kontrol edilip reload edilir. Kuru çalışma: `docker exec nginx-proxy-manager certbot renew --cert-name laranindersleri-perinet-org --dry-run`.

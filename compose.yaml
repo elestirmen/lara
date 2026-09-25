@@ -1,3 +1,5 @@
+name: lara
+
 services:
   lara-dersleri:
     build:
