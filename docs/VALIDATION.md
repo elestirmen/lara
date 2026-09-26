@@ -1,5 +1,28 @@
 # Doğrulama
 
+## 26 Eylül 2026 — Soru tekrarları
+
+Sorun: Bir ders turunda (üç uygulama sorusu ve beş soruluk mini test) aynı soru yeniden çıkıyordu. Eski kodla her ders için 300 tur ölçüldü. Hayat Bilgisi derslerinin hepsinde mini test, uygulamadaki üç durumu yeniden soruyordu, çünkü her havuzda 5 durum vardı. Matematikte 28 konunun 21'inde turların çoğunda tekrar vardı. Kesirde yalnız 3, yapı kurmada 2 farklı soru vardı. Türkçe kelime ve anlatım, sanat, hareket ve müzik derslerinde de her turda en az bir tekrar vardı.
+
+Yapılanlar:
+
+- Soru motoru: turun tohumuyla karılan deste (`pick`), soru kimlikleri (`questionKeys`) ve çakışmada yeniden üreten `nextQuestion`. `LessonPlayer` turda çıkan soruları ve öğren ekranındaki keşfi hatırlar.
+- İçerik: Hayat Bilgisi'ne 49 yeni durum (her derste 5 → 12), İngilizceye 18 kelime (her derste 5 → 8), Türkçe atölyelere 24 cümle ve 8 ünlem cümlesi, sanat, hareket ve şarkı derslerine 26 uygulama görevi eklendi. Matematikte yeni soru türleri var: sayıların okunuşu, sıralama ve karşılaştırma, geri ritmik sayma ve onar sayma, günlük problemler, 10'a tamamlama ve tahmin, şekil örüntüleri, bütün–yarım–çeyrek, para, ay ve mevsim sıralama, ortak birim ve kütle, nesne–cisim eşleme, resim grafiği okuma. Ayrıca beş yeni cisim modeli, iki yeni şekil modeli ile rastgele harita ve ayna desenleri eklendi.
+- Görsel: resim grafiği (`chart:`), gruplama yığını (`pile:`) ve kalanlı beşli gruplar eklendi. Grafik aracı konuya göre simge ve etiket gösterir. İngilizce kelime kartları 4 sütundur.
+- Düzeltilen içerik hataları: Filiz Şarkısı dersi hikâyeye son yazdırıyordu. “Aklımdaki kısa yol” 10'a tamamlama yerine birer sayma soruyordu. Ölçme ve uzunluk dersleri aynı soruları, “Yüze kadar keşif” ile “Onluk ve birlik” de aynı soruları üretiyordu. Araba modelinde tekerlek yuvası gövde yuvasının ortasını örttüğü için gövde dokunarak yerleştirilemiyordu.
+- Cisim çizimleri sabit renklidir (küre ve daire yeşil), bu yüzden modeller bu renklere uygun seçildi: ağaç, merdiven, kapı, heykel, şapkalı tırtıl.
+
+| Kontrol | Sonuç |
+| --- | --- |
+| TypeScript ve production build | Başarılı |
+| Birim testleri (5 yeni çeşitlilik testi dahil) | 36 / 36 |
+| Çeşitlilik ölçümü: 87 ders × 1.500 tur, 5 farklı zorluk düzeni | Turda tekrar eden soru da, yönerge de yok |
+| Tekrar önleyici kapatılınca yeni testler | Başarısız, yani tekrarı yakalıyor |
+| QA container'ında Playwright (içerik her turda karıştığı için testler ekrandaki soruyu okuyor) | İki tam turda 50 / 50 |
+| Yeni ekranlarda (grafik, resim grafiği, yapı modelleri, örüntü, İngilizce kartlar vb.) Axe WCAG A/AA ve taşma, 390 ve 1280 px | İhlal yok, taşma yok |
+
+Yeni soru ekranları 390 ve 1280 piksel genişlikte görsel olarak incelendi.
+
 ## 25 Eylül 2026 — Premium görsel dil
 
 Arayüz yeniden tasarlandı. Codex `imagegen` ile aynı stil yönergesinden üretilen 3B kil görseller eklendi: Piko’nun beş pozu, yedi öğrenme adası, dört oyun, dört çiçek, yedi rozet, ana sayfa ve başarı bahçesi sahneleri. Görsellerde insan yoktur. Başlıklar Fredoka ile yazılır. Kartlar katmanlı gölgeli, düğmeler basılınca çöker; masaüstünde kenar çubuğu, telefonda alt menü yüzer. Ana sayfada tanıtım ile ada sahnesi tek bölümde, günün macerası ise dersin adasıyla birlikte gösterilir. Ada kartları ilerleme çubuğu taşır. Ders adımları dolan bir çizgiyle ilerler. Piko öğrenme adımında konuşma balonuyla anlatır, doğru cevapta sevinir, çözümde düşünür. Ders sonunda konfeti atılır. Başarı bahçesinde her tamamlanan konu toprağa bir çiçek eker; rozetler kazanılana kadar gri kalır.

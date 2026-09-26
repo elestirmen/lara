@@ -22,12 +22,12 @@ const entries:[string,string,string,string,ActivityType,string[]][]=[
  ['multimental','Grupları aklımda tutarım','2.2.5','🌻','choice',['5 tane 2’yi, ikişer sayarak bulabilirsin.','10’u iki eş gruba ayırınca her grupta 5 olur. İşlemler birbirine yardım eder.']],
  ['balance','Dengeyi bul','2.2.6','⚖️','choice',['Eşittir işareti iki tarafın aynı değerde olduğunu söyler.','4 + 3 = 5 + 2. İki tarafta da toplam 7 var.']],
  ['solids','Şekiller çevremizde','2.3.1','📦','geometry',['Bir top küreye, bir zar küpe benzer.','Cisimlerin yüzlerine bak: yuvarlak mı, düz mü? Bir kutunun yüzlerinde hangi şekiller var?']],
- ['build','Küplerden kent','2.3.2','🏙️','geometry',['Cisimleri üst üste veya yan yana koyarak yapılar oluşturabiliriz.','Küp çizimlerini uygun yerlere taşı, bir yapı kur. Gerçekte de oyuncak bloklarla deneyebilirsin.']],
+ ['build','Küplerden kent','2.3.2','🏙️','geometry',['Cisimleri üst üste veya yan yana koyarak yapılar oluşturabiliriz.','Cisim çizimlerini uygun yerlere taşı, bir yapı kur. Gerçekte de oyuncak bloklarla deneyebilirsin.']],
  ['shapes','Şekillerden bir dünya','2.3.3','🔺','geometry',['Bir kare ile bir üçgen bir evin çizimine dönüşebilir.','Daireleri, üçgenleri ve dörtgenleri yerlerine taşı; parçaları bir modele dönüştür.']],
  ['rotate','Dönen şekiller','2.3.4','🔷','geometry',['Bir kareyi döndürünce yine karedir.','Büyüklüğü ve yönü değişse de dört eş kenarı ve dört köşesi kalır.']],
  ['liquid','Bardak bardak ölçelim','2.3.5','🥛','choice',['Bir sürahiyi kaç bardak su doldurur? Önce tahmin et.','Karşılaştırma yaparken aynı büyüklükte bardaklar kullan.']],
  ['directions','Piko eve dönüyor','2.3.6','🧭','ordering',['Bir yol tarifi hem yönü hem kaç adım gideceğini söyler.','Önce yolu gözünle izle. Sağa iki, yukarı bir adım gibi sırayla anlat.']],
  ['symmetry','Aynadaki şekiller','2.3.7','🦋','geometry',['Bir şekli uygun yerinden katlayınca iki taraf üst üste geliyorsa simetriyi buldun.','Kelebeğin iki kanadını düşün. Bir taraf, diğerinin aynadaki görüntüsü gibidir.']],
- ['graph','Sınıfın meyve sepeti','2.4.1','📊','graph',['Bir soru sor, cevapları topla, sonra bir grafik yap.','Grafikte her meyve resmi bir cevabı gösterir. En çok hangi meyve seçilmiş?']]
+ ['graph','Sınıfın meyve sepeti','2.4.1','📊','graph',['Bir soru sor, cevapları topla, sonra bir grafik yap.','Grafikte her simge bir cevabı gösterir. En çok hangisi seçilmiş?']]
 ];
 export const mathLessons:Lesson[]=entries.map(([id,title,code,icon,kind,learn])=>{const outcome=curriculum.find(x=>x.learningOutcomeCode===`MAT.${code}`)!;return {id:`math-${id}`,subject:'math',theme:outcome.theme,title,subtitle:learn[0],icon,minutes:8,outcomes:[`MAT.${code}`],learn,kind,generator:id}});

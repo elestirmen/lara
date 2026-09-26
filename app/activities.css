@@ -22,3 +22,4 @@
 @media(max-width:560px){.lesson-card .stage-actions{scroll-margin-bottom:96px}}
 .options button[aria-disabled=true],.punctuation-tray button[aria-disabled=true]{cursor:default}
 .punctuation-tray button.is-correct,.punctuation-tray button.is-wrong{position:relative}.punctuation-tray button.is-correct:after,.punctuation-tray button.is-wrong:after{position:absolute;top:6px;right:9px;font-size:15px;font-weight:800}.punctuation-tray button.is-correct:after{content:'✓';color:#1f4a31}.punctuation-tray button.is-wrong:after{content:'✗';color:#8a3f2c}
+.chart-picture{margin-bottom:18px}.chart-picture>p{margin:0 0 4px}

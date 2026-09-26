@@ -1,8 +1,10 @@
-/** Soru görseli: "count:🍒:25" beşli gruplar, "groups:🍓:3x4" dolu tabaklar, "share:🍓:12:3" paylaştırılacak çilekler ve boş tabaklar; diğerleri düz metin. */
+/** Soru görseli: "count:🍒:23" beşli gruplar ve kalanlar, "groups:🍓:3x4" dolu tabaklar, "share:🍓:12:3" paylaştırılacak çilekler ve boş tabaklar, "pile:🍓:12" gruplanacak çilek yığını, "chart:🍎:Elma:4:🍐:Armut:2" iki satırlık resim grafiği; diğerleri düz metin. */
 export default function Picture({visual}:{visual:string}){
  const [kind,item,a,b]=visual.split(':');
- if(kind==='count'){const n=Number(a);return <div className="visual-object picture-set" role="img" aria-label={`${n/5} grup, her grupta 5 ${item}`}>{Array.from({length:n/5},(_,i)=><span className="picture-group" key={i}>{item.repeat(5)}</span>)}</div>}
+ if(kind==='count'){const n=Number(a),full=Math.floor(n/5),rest=n%5;return <div className="visual-object picture-set" role="img" aria-label={`${full} grup, her grupta 5 ${item}${rest?`, ayrıca ${rest} ${item}`:''}`}>{Array.from({length:full},(_,i)=><span className="picture-group" key={i}>{item.repeat(5)}</span>)}{rest>0&&<span className="picture-group">{item.repeat(rest)}</span>}</div>}
+ if(kind==='chart'){const [,,,,eb,lb,nb]=visual.split(':'),rows=[[item,a,b],[eb,lb,nb]];return <div className="graph-tool chart-picture" role="img" aria-label={`Resim grafiği: ${rows.map(([,l,n])=>`${l} ${n} kişi`).join(', ')}. Her simge bir kişi.`}><p>Her simge = 1 kişi</p>{rows.map(([e,l,n])=><div key={l}><b>{l}</b><span>{e.repeat(Number(n))}</span></div>)}</div>}
  if(kind==='groups'){const [plates,each]=a.split('x').map(Number);return <div className="visual-object picture-set" role="img" aria-label={`${plates} tabak, her tabakta ${each} ${item}`}>{Array.from({length:plates},(_,i)=><span className="plate" key={i}>{item.repeat(each)}</span>)}</div>}
+ if(kind==='pile'){const total=Number(a);return <div className="visual-object picture-set" role="img" aria-label={`${total} ${item}`}><span className="picture-pile">{item.repeat(total)}</span></div>}
  if(kind==='share'){const total=Number(a),plates=Number(b);return <div className="visual-object picture-set" role="img" aria-label={`${total} ${item} ve ${plates} boş tabak`}><span className="picture-pile">{item.repeat(total)}</span><span className="share-arrow" aria-hidden="true">→</span>{Array.from({length:plates},(_,i)=><span className="plate is-empty" key={i}>?</span>)}</div>}
  return <div className={`visual-object ${visual.length>20?'objects':''}`} aria-label="Sorunun görseli">{visual}</div>;
 }

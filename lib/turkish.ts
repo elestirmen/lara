@@ -7,3 +7,5 @@ export function withSuffix(n:number,suffix:NumberSuffix){
  const text=suffix==='e'?(endsVowel?'y':'')+(back?'a':'e'):suffix==='i'?(endsVowel?'y':'')+({a:'ı',ı:'ı',o:'u',u:'u',e:'i',i:'i',ö:'ü',ü:'ü'} as Record<string,string>)[vowel]:suffix==='er'?(endsVowel?'ş':'')+(back?'ar':'er'):('fstkçşhp'.includes(end)?'t':'d')+(back?'a':'e')+(suffix==='den'?'n':'');
  return `${n}’${text}`;
 }
+/** 0–100 arası sayının okunuşu: 47 → kırk yedi. */
+export function numberWord(n:number){return n===0?'sıfır':n===100?'yüz':[tens[Math.floor(n/10)],ones[n%10]].filter(Boolean).join(' ')}

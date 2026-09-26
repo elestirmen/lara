@@ -2,8 +2,8 @@
 import {useId,useRef,useState} from 'react';
 import type {Question} from '@/lib/types';
 import {sfx} from '@/lib/audio';
+import {compositionPlans,type ShapeName} from '@/lib/manipulatives';
 import Choices from './Choices';
-export type ShapeName='square'|'triangle'|'circle'|'rectangle'|'cube'|'sphere'|'cylinder'|'prism';
 export const shapeNames:Record<ShapeName,string>={square:'Kare',triangle:'Üçgen',circle:'Daire',rectangle:'Dikdörtgen',cube:'Küp',sphere:'Küre',cylinder:'Silindir',prism:'Dikdörtgenler prizması'};
 export function ShapeGraphic({shape,outline=false}:{shape:ShapeName;outline?:boolean}){
  const id=useId().replaceAll(':','');const fill=outline?'#f0f1e9':'#83b9ce',stroke=outline?'#85937c':'#325d70';
@@ -27,7 +27,7 @@ function ShapeExplorer({q,onAnswer,disabled,sound=false,wrong}:Props){
  {!solid&&<><div className="geometry-controls"><button disabled={disabled} onClick={()=>{setRotation(r=>r-45);sfx(sound,'tick')}}>↶ Sola döndür</button><button disabled={disabled} onClick={()=>{setRotation(r=>r+45);sfx(sound,'tick')}}>↷ Sağa döndür</button><label>Büyüklük<input type="range" min="50" max="90" step="5" value={size} disabled={disabled} onChange={e=>setSize(Number(e.target.value))}/></label></div><p className="counted-corners" aria-live="polite">{corners.length?`${corners.length} köşeyi işaretledin.`:'Şeklin kenarlarını parmağınla takip et.'}</p></>}
  <Choices q={q} picked={selected} wrong={wrong} disabled={disabled} onPick={o=>{setSelected(o);onAnswer(o,true)}}/></div>;
 }
-export function compositionPlan(mode:string,variant=0):{shape:ShapeName;x:number;y:number}[]{return mode==='build'?[{shape:'cube',x:240,y:235},{shape:'cube',x:360,y:235},{shape:'cube',x:300,y:135}]:variant%2===0?[{shape:'square',x:300,y:245},{shape:'triangle',x:300,y:163},{shape:'circle',x:465,y:80}]:[{shape:'rectangle',x:300,y:180},{shape:'circle',x:255,y:240},{shape:'circle',x:345,y:240}]}
+export function compositionPlan(mode:string,variant=0){const plans=compositionPlans[mode==='build'?'build':'compose'];return plans[variant%plans.length].pieces}
 function ShapeComposer({q,onAnswer,disabled,sound=false,reveal}:Props){
  const plan=compositionPlan(q.visual!,q.value),[placed,setPlaced]=useState<Record<number,number>>({}),[selected,setSelected]=useState<number|null>(null),[ghost,setGhost]=useState<{piece:number;x:number;y:number}|null>(null),[notice,setNotice]=useState('');
  const board=useRef<HTMLDivElement>(null),pointer=useRef<{piece:number;x:number;y:number;moved:boolean}|null>(null),suppress=useRef(false);
