@@ -1,0 +1,300 @@
+{
+ "note": "Etkinlik, örüntü, İngilizce kelime ve Piko poz görselleri için Codex imagegen istekleri (docs/ART.md). Stil metni her isteğe aynen eklenir; Piko pozları ilk Piko oturumundan çatallanır. Görsellerde insan, el, vücut parçası, yazı ve rakam yoktur; para değerleri ve saat rakamları HTML/SVG ile basılır.",
+ "items": [
+  {
+   "name": "piko-jump",
+   "prompt": "Piko (same character as piko-wave), full body. joyful jump straight up with both arms raised high, feet off the ground, two tiny cream motion puffs below it.",
+   "via": "fork"
+  },
+  {
+   "name": "piko-balance",
+   "prompt": "Piko (same character as piko-wave), full body. standing on one leg like a flamingo, the other leg lifted and bent, both arms stretched straight out to the sides, calm focused smile.",
+   "via": "fork"
+  },
+  {
+   "name": "piko-clap",
+   "prompt": "Piko (same character as piko-wave), full body. clapping its rounded arm ends together in front of its chest to a rhythm, joyful open smile, two small curved motion marks beside the arms and one small lavender clay music note floating nearby.",
+   "via": "fork"
+  },
+  {
+   "name": "piko-statue",
+   "prompt": "Piko (same character as piko-wave), full body. frozen mid-move like a statue in a playful freeze game: one arm pointing straight up, one leg lifted, eyes squeezed shut, proud grin, three tiny butter-yellow sparkles around it.",
+   "via": "fork"
+  },
+  {
+   "name": "piko-stretch",
+   "prompt": "Piko (same character as piko-wave), full body. stretching both arms high above its leaves, eyes gently closed, relaxed and calm, a small soft pink clay heart floating beside it.",
+   "via": "fork"
+  },
+  {
+   "name": "piko-talk",
+   "prompt": "Piko (same character as piko-wave), full body. talking cheerfully with one arm raised as if explaining, friendly open smile; next to its leaves a rounded cream clay speech bubble that is completely blank (no text, no symbols).",
+   "via": "fork"
+  },
+  {
+   "name": "piko-walk",
+   "prompt": "Piko (same character as piko-wave), full body. walking toward the viewer, mid-step with one foot forward, arms gently swinging, cheerful, seen from the front and slightly from above.",
+   "via": "fork"
+  },
+  {
+   "name": "piko-wait",
+   "prompt": "Piko (same character as piko-wave), full body. standing still and waiting patiently: feet together, both arms down at its sides, calm small smile, looking straight ahead.",
+   "via": "fork"
+  },
+  {
+   "name": "tool/solid-cube",
+   "prompt": "A single geometric cube made of clay in powder blue #83b9ce, 3/4 view from slightly above so the front, right and top faces are all clearly visible, crisp straight edges with only slightly softened corners; the three visible faces in three shades of the same blue (top lightest). No markings."
+  },
+  {
+   "name": "tool/solid-sphere",
+   "prompt": "A single perfectly round geometric sphere (ball) made of clay in soft green #a6c57e, a gentle highlight at the upper left. No markings, no seams."
+  },
+  {
+   "name": "tool/solid-cylinder",
+   "prompt": "A single geometric cylinder made of clay in powder blue #83b9ce standing upright, 3/4 view from slightly above so the flat circular top face is visible as an ellipse, perfectly straight vertical sides. No markings."
+  },
+  {
+   "name": "tool/solid-prism",
+   "prompt": "A single SOLID geometric rectangular prism (cuboid) made of clay in powder blue #83b9ce: a completely closed solid block like a brick or a closed shoebox with its lid on, about twice as long as it is tall; 3/4 view from slightly above showing the flat closed top face, the front face and the right side face. It is NOT hollow, NOT an open box."
+  },
+  {
+   "name": "tool/block-one",
+   "prompt": "A single small clay unit cube in butter yellow #f1ce63 seen straight from the front (orthographic front view: only the front face is visible, as a square), softly rounded edges, a subtle soft clay texture."
+  },
+  {
+   "name": "tool/block-blue",
+   "prompt": "A single small clay unit cube in powder blue #78b6cf seen straight from the front (orthographic front view: only the front face is visible, as a square), softly rounded edges, a subtle soft clay texture."
+  },
+  {
+   "name": "tool/pizza",
+   "prompt": "A whole round pizza seen exactly from above (top-down, perfectly circular, centered): golden crust ring, tomato-red sauce, melted cheese, a few basil leaves and round pepperoni slices spread evenly over all four quarters; cut into exactly four equal quarter slices by two thin straight cut lines crossing at the centre (one perfectly vertical, one perfectly horizontal)."
+  },
+  {
+   "name": "tool/cake",
+   "prompt": "A whole round layer cake seen exactly from above (top-down, perfectly circular, centered): blush-pink frosting, a ring of small cream piped dots around the edge, a few strawberries spread evenly over all four quarters; cut into exactly four equal quarters by two thin straight cut lines crossing at the centre (one vertical, one horizontal). No candles, no text."
+  },
+  {
+   "name": "tool/pie",
+   "prompt": "A whole round fruit pie seen exactly from above (top-down, perfectly circular, centered): golden lattice crust over cherry-red filling spread evenly over all four quarters; cut into exactly four equal quarter slices by two thin straight cut lines crossing at the centre (one vertical, one horizontal)."
+  },
+  {
+   "name": "i/blossom",
+   "prompt": "One single small icon: a pink cherry blossom flower with five rounded petals and a tiny butter-yellow centre, front view."
+  },
+  {
+   "name": "i/clover",
+   "prompt": "One single small icon: a green four-leaf clover with a short stem, front view."
+  },
+  {
+   "name": "i/triangle",
+   "prompt": "One single small icon: a flat equilateral triangle tile pointing up, made of thick coral-red clay (#e0665a), softened edges, front view."
+  },
+  {
+   "name": "i/circle",
+   "prompt": "One single small icon: a flat round disc tile made of thick blue clay (#4f8fd0), softened edges, front view."
+  },
+  {
+   "name": "i/square-green",
+   "prompt": "One single small icon: a flat square tile made of thick green clay (#5fae6a), softened edges, front view."
+  },
+  {
+   "name": "i/square-red",
+   "prompt": "One single small icon: a flat square tile made of thick coral-red clay (#e0665a), softened edges, front view."
+  },
+  {
+   "name": "i/square-yellow",
+   "prompt": "One single small icon: a flat square tile made of thick butter-yellow clay (#f1c84b), softened edges, front view."
+  },
+  {
+   "name": "i/square-blue",
+   "prompt": "One single small icon: a flat square tile made of thick blue clay (#4f8fd0), softened edges, front view."
+  },
+  {
+   "name": "i/bee",
+   "prompt": "One single small icon: a cute round bumblebee with butter-yellow and dark brown stripes and two small translucent wings, 3/4 view."
+  },
+  {
+   "name": "i/moon",
+   "prompt": "One single small icon: a crescent moon in butter yellow, no face, front view."
+  },
+  {
+   "name": "en/bag",
+   "prompt": "A school backpack in powder blue with a front pocket and two straps, 3/4 view."
+  },
+  {
+   "name": "en/bus",
+   "prompt": "A cute rounded yellow school bus, side 3/4 view facing right, empty windows (nobody inside), no text, no numbers."
+  },
+  {
+   "name": "en/school",
+   "prompt": "A small friendly school building: cream walls, coral roof, a round window above a double green door, a small bell on top, a few bushes. No text, no flag, no numbers."
+  },
+  {
+   "name": "en/green",
+   "prompt": "A single soft clay paint splat blob in pure fresh green (#5fae6a), a rounded splash shape. Nothing else."
+  },
+  {
+   "name": "en/yellow",
+   "prompt": "A single soft clay paint splat blob in pure sunny yellow (#f1c84b), a rounded splash shape. Nothing else."
+  },
+  {
+   "name": "en/red",
+   "prompt": "A single soft clay paint splat blob in pure red (#e0564a), a rounded splash shape. Nothing else."
+  },
+  {
+   "name": "en/blue",
+   "prompt": "A single soft clay paint splat blob in pure blue (#4f8fd0), a rounded splash shape. Nothing else."
+  },
+  {
+   "name": "en/ruler",
+   "prompt": "A straight wooden ruler lying horizontally, warm wood colour, evenly spaced small tick marks along one edge but NO numbers and no text, front view."
+  },
+  {
+   "name": "en/book",
+   "prompt": "A single closed hardcover book in green, standing slightly angled, 3/4 view, no text on the cover."
+  },
+  {
+   "name": "en/chair",
+   "prompt": "A small wooden chair with a rounded backrest, 3/4 view."
+  },
+  {
+   "name": "en/shoes",
+   "prompt": "A single children's sneaker in powder blue with cream laces and a cream sole, side 3/4 view."
+  },
+  {
+   "name": "en/shirt",
+   "prompt": "A single short-sleeved t-shirt in coral, laid flat, front view, no print, no text."
+  },
+  {
+   "name": "en/sofa",
+   "prompt": "A small rounded sofa in lavender with two soft cushions, 3/4 view."
+  },
+  {
+   "name": "en/bath",
+   "prompt": "A white clawfoot bathtub filled with soft white foam bubbles, a few bubbles floating above, 3/4 view."
+  },
+  {
+   "name": "en/dog",
+   "prompt": "A cute sitting puppy with a cream and light brown coat and floppy ears, whole body visible, front 3/4 view."
+  },
+  {
+   "name": "en/window",
+   "prompt": "A single wooden window with four panes, cream frame, powder-blue sky visible through the glass, a small flower box below, front view."
+  },
+  {
+   "name": "en/bed",
+   "prompt": "A small cozy bed with a wooden headboard, a pale blue blanket and a white pillow, 3/4 view."
+  },
+  {
+   "name": "en/door",
+   "prompt": "A single rounded-top wooden front door in green with a round brass knob, standing in a cream door frame, front view."
+  },
+  {
+   "name": "en/cat",
+   "prompt": "A cute sitting orange tabby kitten, whole body visible, tail curled around its paws, front 3/4 view."
+  },
+  {
+   "name": "en/house",
+   "prompt": "A small cozy house: cream walls, a rounded coral-red roof, a round green door, two small windows, a tiny chimney, a flowering bush, 3/4 front view. No text, no numbers."
+  },
+  {
+   "name": "en/water",
+   "prompt": "A single big clear blue water drop, glossy but soft clay style, front view."
+  },
+  {
+   "name": "en/cake",
+   "prompt": "A single slice of layered cake on a small plate: cream frosting, a pink strawberry layer and one strawberry on top, 3/4 view."
+  },
+  {
+   "name": "en/banana",
+   "prompt": "A single ripe yellow banana, 3/4 view."
+  },
+  {
+   "name": "en/egg",
+   "prompt": "A single whole white-cream egg standing upright, front view."
+  },
+  {
+   "name": "en/apple",
+   "prompt": "A single shiny red apple with one green leaf on the stem, front 3/4 view."
+  },
+  {
+   "name": "en/bread",
+   "prompt": "A single golden-brown loaf of bread with scored diagonal cuts on top, 3/4 view."
+  },
+  {
+   "name": "en/cheese",
+   "prompt": "A single wedge of yellow cheese with a few round holes, 3/4 view."
+  },
+  {
+   "name": "en/milk",
+   "prompt": "A single glass of white milk, full, 3/4 view."
+  },
+  {
+   "name": "tool/car",
+   "prompt": "A cute rounded clay toy car in powder blue, pure side view facing right, two rounded cream windows that are empty (no driver, nobody inside), chunky dark charcoal rubber wheels with light grey hubs, a small warm yellow headlight at the right front and a small coral tail light at the left rear, no license plate, no text."
+  },
+  {
+   "name": "tool/ped-light",
+   "prompt": "A pedestrian traffic signal, front view: a short rounded dark green pole with a rounded dark charcoal signal box on top that holds two big round lamps stacked vertically (one on top of the other). Both lamps are dark smoky glass, completely blank and switched off: no symbols, no figures, no glow. The box is centered and fully visible."
+  },
+  {
+   "name": "tool/route-tile",
+   "prompt": "A single square clay garden tile seen exactly from above (top-down, orthographic): a soft rounded square slab covered with short fresh green clay grass (#9cc783), a few tiny darker grass blades and two tiny cream pebbles near the edges; flat and even so that many tiles can sit side by side in a grid. The tile fills about 80% of the image, rounded corners, no shadow."
+  },
+  {
+   "name": "tool/house",
+   "prompt": "A small cozy clay cottage, 3/4 front view: cream walls, a rounded coral-red roof, a round green door, one small round window, a tiny chimney, a little flowering bush beside the door. No text, no numbers."
+  },
+  {
+   "name": "tool/piggy",
+   "prompt": "A cute clay piggy bank in blush pink, 3/4 front view, a coin slot on its back, small rounded ears, round snout, standing on four stubby legs."
+  },
+  {
+   "name": "tool/coin-gold",
+   "prompt": "A single thick coin made of clay, seen exactly face-on (front view, perfectly circular), warm brass-gold colour, a raised rounded rim and a smooth, completely blank flat centre: no text, no numbers, no symbols, no portrait."
+  },
+  {
+   "name": "tool/coin-lira",
+   "prompt": "A single thick bimetallic coin made of clay, seen exactly face-on (front view, perfectly circular): a warm brass-gold outer ring and a pale silver centre disc, raised rounded rim, both surfaces smooth and completely blank: no text, no numbers, no symbols, no portrait."
+  },
+  {
+   "name": "tool/clock-frame",
+   "prompt": "A round classroom wall clock frame, seen exactly face-on (front view, perfectly circular): a chunky soft sage-green clay rim with a slightly lighter inner lip, and an empty flat warm-cream clock face. The face is completely blank: NO numbers, NO tick marks, NO hands, NO centre pin, NO text."
+  },
+  {
+   "name": "tool/street",
+   "prompt": "SCENE, NOT an isolated asset: ignore the magenta background rule for this image. Wide landscape 3:2 image. A cheerful clay diorama of a quiet neighbourhood street, seen from the front and slightly above (camera about 30 degrees down). A straight two-lane asphalt road in soft warm grey runs perfectly horizontally across the whole image from the left edge to the right edge, with a dashed cream centre line. A white zebra crosswalk crosses the road a little right of centre: six thick cream bars that run parallel to the road, stacked from the far sidewalk to the near sidewalk. Pale warm stone sidewalks line the far (upper) and near (lower) edges of the road; soft green grass beyond them; a few round clay bushes and two small round trees on the far side only. The street is completely empty: no vehicles, no people, no animals, no traffic lights, no poles, no signs, no text. The road and both sidewalks together fill the middle 70% of the image height. Soft warm daylight, gentle ambient occlusion.",
+   "note": "Sahne; magenta yok. 1536×1024 çıktının y 120–888 bandı kırpılıp 1200×600 yazıldı."
+  },
+  {
+   "name": "tool/block-ten",
+   "derived": "tool/block-blue",
+   "note": "10 mavi küp alt alta dizilerek üretilir; çubuk her zaman tam 10 hücredir."
+  },
+  {
+   "name": "tool/pencil-end",
+   "note": "Kalem silgi, gövde (uzayan dilim) ve uç olarak bölünür; 48 px yükseklik.",
+   "source_prompt": "A single long yellow clay pencil lying perfectly horizontal, pure side view: sharpened tip pointing to the RIGHT (light wood cone with a dark graphite point), a pink rounded eraser with a silver band on the LEFT end. The yellow body is perfectly straight and uniform along its whole length with soft lengthwise facets; no text, no logo. The pencil spans about 85% of the image width."
+  },
+  {
+   "name": "tool/pencil-body",
+   "note": "Kalem silgi, gövde (uzayan dilim) ve uç olarak bölünür; 48 px yükseklik.",
+   "source_prompt": "A single long yellow clay pencil lying perfectly horizontal, pure side view: sharpened tip pointing to the RIGHT (light wood cone with a dark graphite point), a pink rounded eraser with a silver band on the LEFT end. The yellow body is perfectly straight and uniform along its whole length with soft lengthwise facets; no text, no logo. The pencil spans about 85% of the image width."
+  },
+  {
+   "name": "tool/pencil-tip",
+   "note": "Kalem silgi, gövde (uzayan dilim) ve uç olarak bölünür; 48 px yükseklik.",
+   "source_prompt": "A single long yellow clay pencil lying perfectly horizontal, pure side view: sharpened tip pointing to the RIGHT (light wood cone with a dark graphite point), a pink rounded eraser with a silver band on the LEFT end. The yellow body is perfectly straight and uniform along its whole length with soft lengthwise facets; no text, no logo. The pencil spans about 85% of the image width."
+  },
+  {
+   "name": "i/butterfly",
+   "derived": "q/butterfly",
+   "note": "q/ görselinden 96 px."
+  },
+  {
+   "name": "i/orange",
+   "derived": "q/orange",
+   "note": "q/ görselinden 96 px."
+  }
+ ]
+}

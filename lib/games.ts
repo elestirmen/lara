@@ -5,12 +5,12 @@ import {withSuffix} from './turkish';
 /* Eşini bul: her destede 6 eş, 12 kart. */
 export type MemoryDeck='english'|'place'|'add';
 export const memoryDecks:{id:MemoryDeck;title:string;icon:string;help:string}[]=[{id:'english',title:'İngilizce kelimeler',icon:'🔤',help:'Resmi ve İngilizce kelimesini eşleştir.'},{id:'place',title:'Onluk ve birlik',icon:'🧱',help:'Onluk-birlik yazısını sayısıyla eşleştir.'},{id:'add',title:'Toplama',icon:'➕',help:'Toplama işlemini sonucuyla eşleştir.'}];
-export interface MemoryCard {id:number;pair:string;face:string;lang?:string;picture?:boolean}
+export interface MemoryCard {id:number;pair:string;face:string;lang?:string;picture?:boolean;art?:string}
 // Resmi başka bir kelimeyle karışabilecek kartlar (🧒 öğrenci, 🙋 hoşça kal, 🧑‍🤝‍🧑 arkadaş) desteye girmez.
 const unclear=new Set(['student','goodbye','friend']);
 export function memoryDeck(deck:MemoryDeck,seed:number,pairs=6):MemoryCard[]{
  const random=rng(seed),int=(a:number,b:number)=>a+Math.floor(random()*(b-a+1)),sides:Omit<MemoryCard,'id'>[][]=[];
- if(deck==='english')for(const v of shuffle(englishLessons.flatMap(l=>l.vocabulary??[]).filter(v=>!unclear.has(v.word)),random).slice(0,pairs))sides.push([{pair:v.word,face:v.picture,picture:true},{pair:v.word,face:v.word,lang:'en'}]);
+ if(deck==='english')for(const v of shuffle(englishLessons.flatMap(l=>l.vocabulary??[]).filter(v=>!unclear.has(v.word)),random).slice(0,pairs))sides.push([{pair:v.word,face:v.picture,picture:true,...(v.art?{art:v.art}:{})},{pair:v.word,face:v.word,lang:'en'}]);
  else{const used=new Set<number>();while(sides.length<pairs){const a=int(deck==='place'?1:2,9),b=int(deck==='place'?1:2,9),n=deck==='place'?a*10+b:a+b;if(used.has(n))continue;used.add(n);sides.push([{pair:String(n),face:deck==='place'?`${a} onluk ${b} birlik`:`${a} + ${b}`},{pair:String(n),face:String(n)}])}}
  return shuffle(sides.flat(),random).map((card,id)=>({...card,id}));
 }

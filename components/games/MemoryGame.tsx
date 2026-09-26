@@ -4,6 +4,7 @@ import {memoryDeck,memoryDecks,type MemoryDeck} from '@/lib/games';
 import {newSeed} from '@/lib/random';
 import {sfx} from '@/lib/audio';
 import GameFinish from './GameFinish';
+import {Art} from '../Illustration';
 export default function MemoryGame({sound,onFinish}:{sound:boolean;onFinish:(moves:number)=>void}){
  const [deck,setDeck]=useState<MemoryDeck>('english'),[seed,setSeed]=useState(newSeed),[open,setOpen]=useState<number[]>([]),[found,setFound]=useState<string[]>([]),[moves,setMoves]=useState(0),[message,setMessage]=useState(''),[finished,setFinished]=useState(false);
  const cards=useMemo(()=>memoryDeck(deck,seed),[deck,seed]),timer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined),pairs=cards.length/2;
@@ -20,6 +21,6 @@ export default function MemoryGame({sound,onFinish}:{sound:boolean;onFinish:(mov
  return <div className="memory-game">
   <div className="game-options" role="group" aria-label="Kart destesi">{memoryDecks.map(d=><button key={d.id} className={deck===d.id?'selected':''} aria-pressed={deck===d.id} onClick={()=>restart(d.id)}><span aria-hidden="true">{d.icon}</span> {d.title}</button>)}</div>
   <p className="game-status" aria-live="polite"><span>{message||memoryDecks.find(d=>d.id===deck)!.help}</span><b>{moves} hamle · {found.length} / {pairs} eş</b></p>
-  <div className="memory-grid">{cards.map((c,i)=>{const isFound=found.includes(c.pair),shown=isFound||open.includes(i);return <button key={`${seed}-${c.id}`} data-pair={c.pair} lang={shown?c.lang:undefined} className={`memory-card ${shown?'is-open':''} ${isFound?'is-found':''} ${c.picture?'is-picture':''}`} aria-label={shown?`${c.face}${isFound?', eşi bulundu':''}`:`${i+1}. kart, kapalı`} onClick={()=>flip(i)}><span className="memory-back" aria-hidden="true">?</span><span className="memory-face" aria-hidden="true">{c.face}</span></button>})}</div>
+  <div className="memory-grid">{cards.map((c,i)=>{const isFound=found.includes(c.pair),shown=isFound||open.includes(i);return <button key={`${seed}-${c.id}`} data-pair={c.pair} lang={shown?c.lang:undefined} className={`memory-card ${shown?'is-open':''} ${isFound?'is-found':''} ${c.picture?'is-picture':''}`} aria-label={shown?`${c.face}${isFound?', eşi bulundu':''}`:`${i+1}. kart, kapalı`} onClick={()=>flip(i)}><span className="memory-back" aria-hidden="true">?</span><span className="memory-face" aria-hidden="true">{c.art?<Art name={c.art} size={72}/>:c.face}</span></button>})}</div>
  </div>;
 }

@@ -3,7 +3,8 @@ import {useRef,useState} from 'react';
 import type {Question} from '@/lib/types';
 import {blockValue,exchangeBlocks} from '@/lib/manipulatives';
 import {sfx} from '@/lib/audio';
-export function BlockPicture({ten=false}:{ten?:boolean}){return <svg className={ten?'ten-picture':'one-picture'} viewBox={ten?'0 0 24 204':'0 0 24 24'} aria-hidden="true">{Array.from({length:ten?10:1},(_,i)=><g key={i}><rect x="2" y={2+i*20} width="20" height="20" rx="2" fill={ten?'#78b6cf':'#f1ce63'} stroke={ten?'#386e83':'#8a6928'} strokeWidth="1.3"/><path d={`M5 ${7+i*20}v-2h13`} fill="none" stroke="#ffffffa0" strokeWidth="2"/></g>)}</svg>}
+/** Kil birlik küpü ve 10 küpten oluşan onluk çubuğu (public/art/tool/block-*). Çubuk her zaman tam 10 hücre gösterir. */
+export function BlockPicture({ten=false}:{ten?:boolean}){return <img className={ten?'ten-picture':'one-picture'} src={ten?'/art/tool/block-ten.webp':'/art/tool/block-one.webp'} alt="" aria-hidden="true" draggable={false}/>}
 export default function BaseTenBlocks({q,onAnswer,disabled,sound=false,reveal=false}:{q:Question;onAnswer:(s:string)=>void;disabled:boolean;sound?:boolean;reveal?:boolean}){
  const [blocks,setBlocks]=useState({tens:0,ones:0}),[message,setMessage]=useState(''),[ghost,setGhost]=useState<{v:number;x:number;y:number}|null>(null);
  const workspace=useRef<HTMLDivElement>(null),tray=useRef<HTMLDivElement>(null),pointer=useRef<{v:number;remove:boolean;x:number;y:number;moved:boolean}|null>(null),suppress=useRef(false);

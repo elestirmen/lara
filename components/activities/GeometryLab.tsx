@@ -7,6 +7,8 @@ import Choices from './Choices';
 export const shapeNames:Record<ShapeName,string>={square:'Kare',triangle:'Üçgen',circle:'Daire',rectangle:'Dikdörtgen',cube:'Küp',sphere:'Küre',cylinder:'Silindir',prism:'Dikdörtgenler prizması'};
 export function ShapeGraphic({shape,outline=false}:{shape:ShapeName;outline?:boolean}){
  const id=useId().replaceAll(':','');const fill=outline?'#f0f1e9':'#83b9ce',stroke=outline?'#85937c':'#325d70';
+ /* Cisimler kil görseldir (public/art/tool/solid-*); boş model yeri aynı görselin soluk hâlidir. Düzlemsel şekiller köşe işaretleri tam oturduğu için SVG kalır. */
+ if(['cube','sphere','cylinder','prism'].includes(shape))return <img className={`shape-graphic shape-art ${outline?'is-outline':''}`} src={`/art/tool/solid-${shape}.webp`} alt="" aria-hidden="true" draggable={false}/>;
  const style={stroke,strokeWidth:2.5,strokeLinejoin:'round' as const,fill,strokeDasharray:outline?'5 4':undefined};
  return <svg viewBox="0 0 120 120" className="shape-graphic" aria-hidden="true">
   {shape==='square'&&<rect x="20" y="20" width="80" height="80" {...style}/>}

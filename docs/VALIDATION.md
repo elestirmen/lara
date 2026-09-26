@@ -1,5 +1,42 @@
 # Doğrulama
 
+## 26 Eylül 2026 — Etkinlik görselleri
+
+Etkinliklerdeki basit çizimler ve emojiler Codex `imagegen` ile aynı kil stilinde üretilen görsellere çevrildi (65 istek, biri yeniden üretildi; 78 yeni dosya, ~840 KB). Kapsam şöyle:
+
+- Trafik sahnesi: kil sokak, araba, yaya ışığı. Yaya çocuk çizimi yerine Piko bekliyor ve karşıya yürüyor.
+- Yön haritası: çim karoları, ev ve Piko.
+- Sayı ve ölçme araçları: onluk bloklar (çubuk her zaman tam 10 küp), kesirde pizza, pasta ve turta dilimleri, madeni paralar ve kumbara, saat çerçevesi, cetveldeki kalem.
+- Geometri: küp, küre, silindir ve prizma.
+- Hareket ve konuşma görevleri: görevi canlandıran 6 Piko pozu. Ritimdeki 👏 yerine alkışlayan Piko var.
+- Örüntü simgeleri ve 29 İngilizce kelime resmi. Hafıza oyununun İngilizce destesi de bu resimleri kullanıyor.
+
+İstekler `scripts/activity-art.json` dosyasındadır. Doğruluk gerektiren para değeri, saat rakamı, yaya ışığı simgesi ve harita yolu HTML/SVG olarak üstüne çizilir. İngilizcede insan ve vücut kelimeleri (18 kelime) görsel kuralı gereği emoji kaldı. Çevrim dışı önbellek 295 dosyaya çıktı; paket 4,4 MB, görsellerin toplamı 3,1 MB.
+
+| Kontrol | Sonuç |
+| --- | --- |
+| TypeScript ve production build | Başarılı |
+| Birim testleri (İngilizce kelime ve etkinlik görsellerinin varlığı dahil) | 40 / 40 |
+| QA container'ında Playwright (saat testleri yeni görüş alanına göre güncellendi) | 50 / 50 |
+| Cetvel: 7 cm'lik kalemin çizgilere göre uzunluğu, 390 ve 1280 px | 7,17 ve 7,06 cm (önceki çizimle aynı ölçü) |
+
+Trafik sahnesinin kırmızı ve yeşil hâlleri cevaptan önce ve sonra, ayrıca 16 ders ekranı ve blok, kesir, cetvel, örüntü, İngilizce kartı ve hafıza oyunu durumları telefon ve masaüstü genişliğinde görsel olarak incelendi. İnceleme sırasında düzeltilenler: telefonda sahne etiketleri büyütüldü, arabanın çıkarken kenarda kalan hız çizgileri temizlendi, üstü açık tepsi gibi çıkan prizma yeniden üretildi.
+
+## 26 Eylül 2026 — Soru görselleri
+
+Soru kutularındaki emojiler, Codex `imagegen` ile sitenin kil stilinde üretilen görsellere çevrildi: 82 Hayat Bilgisi sahnesi, 28 matematik nesnesi (cisimler, kütle, ölçme, kesir, sıvı, kelebek) ve sayma, gruplama, paylaştırma ve grafik resimlerinde 28 simge. İstekler `scripts/question-art.json` dosyasındadır. Görseller insan içermez ve cevabı göstermez. İlk incelemeden sonra 4 görsel yeniden üretildi: televizyon kapalı görünüyordu, yemek sonrası masa sofra kurma sahnesine benziyordu, kitabın yanındaki ataşlar seçilmiyordu, simit iki parçaya net ayrılmıyordu. Lale simgesinde anahtar rengi temizlenirken pembe griye döndüğü için lale yeniden dışa aktarıldı. İngilizce kelime resimleri ve metin içindeki örüntü simgeleri emoji olarak kaldı.
+
+Hayat Bilgisi sorularında ilk ipucu artık dersin konusuna uygun bir düşünme ipucudur. Önceden dersin ilk öğrenme cümlesiydi; örneğin bisiklet sorusunda “Yaya ışığı kırmızıysa kaldırımda bekle” yazıyordu. Çevrim dışı önbellek 79 dosya ve ~1,9 MB'tan 217 dosya ve ~3,3 MB'a çıktı; soru görselleri ~1,4 MB'tır.
+
+| Kontrol | Sonuç |
+| --- | --- |
+| TypeScript ve production build | Başarılı |
+| Birim testleri (soru görseli ve simge dosyalarının varlığı dahil) | 38 / 38 |
+| QA container'ında Playwright | 50 / 50 |
+| Yeni görselli ekranlarda Axe WCAG A/AA ve taşma, 390 ve 1280 px | İhlal yok, taşma yok |
+
+Görsellerin hepsi özet sayfalarında, 13 soru ekranı da telefon ve masaüstü genişliğinde incelendi.
+
 ## 26 Eylül 2026 — Soru tekrarları
 
 Sorun: Bir ders turunda (üç uygulama sorusu ve beş soruluk mini test) aynı soru yeniden çıkıyordu. Eski kodla her ders için 300 tur ölçüldü. Hayat Bilgisi derslerinin hepsinde mini test, uygulamadaki üç durumu yeniden soruyordu, çünkü her havuzda 5 durum vardı. Matematikte 28 konunun 21'inde turların çoğunda tekrar vardı. Kesirde yalnız 3, yapı kurmada 2 farklı soru vardı. Türkçe kelime ve anlatım, sanat, hareket ve müzik derslerinde de her turda en az bir tekrar vardı.

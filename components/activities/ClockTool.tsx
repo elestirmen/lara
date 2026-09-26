@@ -25,11 +25,11 @@ export default function ClockTool({q,onAnswer,disabled,sound=false,reveal=false,
  };
  return <div className="clock-lab">
   <p className="tool-help">Kolların ucundaki halkaları tut ve çevir. Yelkovanı bıraktığında en yakın çeyrek saate yerleşir.</p>
-  <div className="clock-workspace"><svg ref={svg} className="interactive-clock" viewBox="0 0 320 320" aria-label="Dokunarak ayarlanabilen saat">
-   <circle cx="160" cy="160" r="150" fill="#eef4e9" stroke="#bacbb3" strokeWidth="2"/><circle cx="160" cy="160" r="139" fill="#fffef9" stroke="#d7e1cf" strokeWidth="2"/>
+  <div className="clock-workspace"><svg ref={svg} className="interactive-clock" viewBox="-26 -26 372 372" aria-label="Dokunarak ayarlanabilen saat">
+   <image href="/art/tool/clock-frame.webp" x="-34.3" y="-34.3" width="388.6" height="388.6"/>
    {Array.from({length:60},(_,i)=><line key={i} x1="160" y1={i%5===0?26:31} x2="160" y2={i%5===0?39:36} stroke={i%5===0?'#45684f':'#bdc9b7'} strokeWidth={i%5===0?3:1.5} transform={`rotate(${i*6} 160 160)`}/>)}
    {Array.from({length:12},(_,i)=>{const a=(i+1)*Math.PI/6;return <text key={i} x={160+108*Math.sin(a)} y={160-108*Math.cos(a)} dominantBaseline="central" textAnchor="middle" fontSize="23" fontWeight="800" fill="#344b3d">{i+1}</text>})}
-   {[['00',160,7],['15',309,161],['30',160,314],['45',11,161]].map(([s,x,y])=><text key={s} x={x} y={y} textAnchor="middle" dominantBaseline="central" fontSize="10" fontWeight="800" fill="#774629">{s}</text>)}
+   {[['00',160,-3],['15',323,160],['30',160,323],['45',-3,160]].map(([s,x,y])=><text key={s} x={x} y={y} textAnchor="middle" dominantBaseline="central" className="minute-mark">{s}</text>)}
    {hand('minute',88,6,minute*6,'#a64e2d')}{hand('hour',56,11,total/2,'#315e4a')}
    <circle cx="160" cy="160" r="8" fill="#315e4a" pointerEvents="none"/>
   </svg><div className="clock-readout"><output aria-live="polite" aria-label="Kurduğun saat">{String(hour).padStart(2,'0')}.{String(minute).padStart(2,'0')}</output><p><b>Kısa kol: akrep</b><br/>Saati gösterir.</p><p><b>Uzun kol: yelkovan</b><br/>Dakikayı gösterir.</p><small>Yelkovan dönerken akrep de ilerler.</small></div></div>

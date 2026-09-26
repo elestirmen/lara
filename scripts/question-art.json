@@ -1,0 +1,557 @@
+{
+ "note": "Soru görselleri için Codex imagegen istekleri (docs/ART.md). Stil metni her isteğe aynen eklenir. Görsel cevabı göstermez, yalnız durumu anlatır.",
+ "items": [
+  {
+   "name": "hb/friends-talk",
+   "prompt": "Two soft rounded speech bubbles: a big one in front and a smaller one politely waiting behind it."
+  },
+  {
+   "name": "hb/friends-pencil",
+   "prompt": "A bright yellow pencil lying next to a small open pencil case with a few crayons."
+  },
+  {
+   "name": "hb/friends-sad",
+   "prompt": "A small sad rain cloud with a gentle droopy face, and next to it a warm pink clay heart, as if offering comfort."
+  },
+  {
+   "name": "hb/friends-tower",
+   "prompt": "A toppled tower of colorful toy building blocks lying scattered on a small rug."
+  },
+  {
+   "name": "hb/friends-two-games",
+   "prompt": "A kite and a bouncy ball side by side, two different toys."
+  },
+  {
+   "name": "hb/friends-classroom",
+   "prompt": "A small school desk with an open notebook and a pencil, a little green chalkboard behind it (blank chalkboard)."
+  },
+  {
+   "name": "hb/friends-teddy",
+   "prompt": "A teddy bear sitting alone with a slightly sad face."
+  },
+  {
+   "name": "hb/friends-unclear",
+   "prompt": "A speech bubble with a tangled squiggly scribble line inside it."
+  },
+  {
+   "name": "hb/friends-library",
+   "prompt": "A quiet library corner: a small bookshelf full of books and a warm reading lamp."
+  },
+  {
+   "name": "hb/friends-newcomer",
+   "prompt": "A new small school backpack standing next to an empty classroom chair, a little welcome flower on the chair."
+  },
+  {
+   "name": "hb/friends-drawing",
+   "prompt": "A child's simple crayon drawing of a sun, a house and a tree on paper, clipped to a small wooden easel."
+  },
+  {
+   "name": "hb/friends-overlap",
+   "prompt": "Two speech bubbles bumping into and overlapping each other."
+  },
+  {
+   "name": "hb/traffic-crosswalk",
+   "prompt": "A short piece of asphalt road with a white zebra crossing, seen from a 3/4 elevated view."
+  },
+  {
+   "name": "hb/traffic-bike-sign",
+   "prompt": "A round blue traffic sign with a simple white bicycle symbol, on a short pole."
+  },
+  {
+   "name": "hb/traffic-school",
+   "prompt": "A small school building beside a road with a zebra crossing in front of it."
+  },
+  {
+   "name": "hb/traffic-amber",
+   "prompt": "A vehicle traffic light with three round lamps; only the middle amber lamp is glowing."
+  },
+  {
+   "name": "hb/traffic-blink",
+   "prompt": "A pedestrian traffic light whose green lamp glows with small blinking sparkle marks around it, and a small hourglass beside the pole."
+  },
+  {
+   "name": "hb/traffic-stop",
+   "prompt": "A red octagonal stop sign with a white border on a short pole, no letters on it."
+  },
+  {
+   "name": "hb/traffic-car",
+   "prompt": "A cute small rounded family car, side 3/4 view."
+  },
+  {
+   "name": "hb/traffic-bicycle",
+   "prompt": "A child's bicycle standing on its kickstand. No helmet anywhere."
+  },
+  {
+   "name": "hb/traffic-evening",
+   "prompt": "A tiny evening street scene: a glowing street lamp, a short piece of sidewalk and a crescent moon above, in soft dusk colors."
+  },
+  {
+   "name": "hb/traffic-look",
+   "prompt": "The edge of a sidewalk curb next to a road with a zebra crossing and a small car approaching from the side."
+  },
+  {
+   "name": "hb/privacy-address",
+   "prompt": "A tablet whose screen shows a small house symbol and a chat bubble next to it."
+  },
+  {
+   "name": "hb/privacy-gift-link",
+   "prompt": "A tablet with a shiny gift box with a ribbon popping out of its screen."
+  },
+  {
+   "name": "hb/privacy-upsetting",
+   "prompt": "A tablet whose screen shows a small dark scribbly storm cloud."
+  },
+  {
+   "name": "hb/privacy-password",
+   "prompt": "A chunky clay padlock with a small key beside it."
+  },
+  {
+   "name": "hb/privacy-photo-request",
+   "prompt": "A smartphone with a small camera symbol popping up from its screen."
+  },
+  {
+   "name": "hb/privacy-meet",
+   "prompt": "A game controller with a chat bubble above it containing a map pin symbol."
+  },
+  {
+   "name": "hb/privacy-school",
+   "prompt": "A tablet whose screen shows a small school building symbol and an empty input field."
+  },
+  {
+   "name": "hb/privacy-message",
+   "prompt": "A smartphone with an envelope with a little heart seal popping out of its screen."
+  },
+  {
+   "name": "hb/privacy-screen-time",
+   "prompt": "A tablet standing next to a round alarm clock."
+  },
+  {
+   "name": "hb/privacy-share-photo",
+   "prompt": "A framed landscape photo (hills and a sun) with a curved share arrow above it."
+  },
+  {
+   "name": "hb/privacy-phone-number",
+   "prompt": "A smartphone screen showing a dial keypad of round blank buttons (no numbers on the buttons)."
+  },
+  {
+   "name": "hb/privacy-bullying",
+   "prompt": "A tablet showing a chat bubble with an angry red zigzag scribble inside."
+  },
+  {
+   "name": "hb/family-toys",
+   "prompt": "Toys scattered on a round rug: a teddy bear, a few toy blocks and a ball."
+  },
+  {
+   "name": "hb/family-table-setting",
+   "prompt": "A small dining table with plates and a neat stack of folded napkins, being set for a meal."
+  },
+  {
+   "name": "hb/family-checklist",
+   "prompt": "A small notepad showing a checklist of empty tick boxes with wavy lines (no text), and a pencil."
+  },
+  {
+   "name": "hb/family-thanks",
+   "prompt": "A daisy in a small vase with a pink heart beside it."
+  },
+  {
+   "name": "hb/family-out-of-reach",
+   "prompt": "A tall shelf with a toy box on the very top, far out of reach, and a tiny stool far too short in front of it."
+  },
+  {
+   "name": "hb/family-dry-plant",
+   "prompt": "A potted plant with dry cracked soil and drooping leaves. No watering can."
+  },
+  {
+   "name": "hb/family-backpack",
+   "prompt": "A school backpack standing in front of a house entrance door."
+  },
+  {
+   "name": "hb/family-toy-basket",
+   "prompt": "A woven toy basket with toys spilling out of it onto the floor."
+  },
+  {
+   "name": "hb/family-recycling",
+   "prompt": "Three small recycling bins side by side in blue, yellow and green, with simple lids."
+  },
+  {
+   "name": "hb/family-pet-bowl",
+   "prompt": "An empty pet water bowl next to a sleepy orange cat."
+  },
+  {
+   "name": "hb/family-clothes",
+   "prompt": "A t-shirt and a pair of trousers lying crumpled on the floor."
+  },
+  {
+   "name": "hb/family-after-meal",
+   "prompt": "A tray with a stack of used empty plates, a used bowl with a spoon and a few crumbs, ready to be carried to the kitchen. No table, no chairs."
+  },
+  {
+   "name": "hb/country-balloons",
+   "prompt": "A bunch of red and white balloons with a small string of red Turkish flag bunting (red flags with a white crescent and star)."
+  },
+  {
+   "name": "hb/country-flag",
+   "prompt": "A waving red Turkish flag with a white crescent and star on a short flagpole."
+  },
+  {
+   "name": "hb/country-microphone",
+   "prompt": "A microphone on a stand on a small festive stage with red and white bunting."
+  },
+  {
+   "name": "hb/country-decorations",
+   "prompt": "Festival decorations being prepared: colorful paper chains, a pair of scissors and paper stars."
+  },
+  {
+   "name": "hb/country-school",
+   "prompt": "A small school building decorated with little red Turkish flags."
+  },
+  {
+   "name": "hb/country-sports",
+   "prompt": "A small sports field with a running track, a football and a small red Turkish flag on a pole."
+  },
+  {
+   "name": "hb/country-medal",
+   "prompt": "A round golden medal hanging on a red and white ribbon."
+  },
+  {
+   "name": "hb/country-anthem",
+   "prompt": "Musical notes floating around a red Turkish flag on a flagpole."
+  },
+  {
+   "name": "hb/country-balconies",
+   "prompt": "A small apartment building with several empty balconies. No flags."
+  },
+  {
+   "name": "hb/country-dove",
+   "prompt": "A white dove holding a small olive branch."
+  },
+  {
+   "name": "hb/country-assembly",
+   "prompt": "A historic two-storey stone building from 1920s Ankara with arched windows and a small entrance, simple and dignified. No flag, no text."
+  },
+  {
+   "name": "hb/country-greeting",
+   "prompt": "A front door decorated with a festive wreath, a small wrapped box of sweets on the doormat."
+  },
+  {
+   "name": "hb/nature-tap",
+   "prompt": "A bathroom sink with water running from the tap and a toothbrush in a cup beside it."
+  },
+  {
+   "name": "hb/nature-light",
+   "prompt": "A glowing ceiling lamp above an empty tidy bedroom corner with a small bed."
+  },
+  {
+   "name": "hb/nature-paper",
+   "prompt": "A sheet of paper with a simple crayon drawing on the front, one corner curled to show that the back side is blank."
+  },
+  {
+   "name": "hb/nature-bottle",
+   "prompt": "A reusable metal water bottle (canteen) with a cap."
+  },
+  {
+   "name": "hb/nature-park-litter",
+   "prompt": "A park bench under a small tree with a crumpled piece of litter on the grass."
+  },
+  {
+   "name": "hb/nature-fridge",
+   "prompt": "A refrigerator with its door left open and soft cold mist coming out."
+  },
+  {
+   "name": "hb/nature-full-plate",
+   "prompt": "A plate piled far too high with food: rice, vegetables and meatballs."
+  },
+  {
+   "name": "hb/nature-tv",
+   "prompt": "A television that is switched ON, its screen glowing with a bright colorful cartoon landscape (no text), standing in front of an empty sofa."
+  },
+  {
+   "name": "hb/nature-empty-bottle",
+   "prompt": "An empty plastic water bottle lying on a small table. No bins."
+  },
+  {
+   "name": "hb/nature-short-crayon",
+   "prompt": "A short worn-down crayon lying next to a long new crayon of the same color."
+  },
+  {
+   "name": "hb/nature-bath",
+   "prompt": "A bathtub with soap bubbles and water running from a shower head."
+  },
+  {
+   "name": "hb/nature-old-toys",
+   "prompt": "A cardboard box full of old toys: a teddy bear, a toy car and some blocks."
+  },
+  {
+   "name": "hb/science-phones",
+   "prompt": "An old rotary telephone next to a modern smartphone."
+  },
+  {
+   "name": "hb/science-museum",
+   "prompt": "A museum pedestal with an old telephone under a glass dome and a small blank label card in front."
+  },
+  {
+   "name": "hb/science-corded",
+   "prompt": "A corded telephone with a curly cable next to a cordless handset."
+  },
+  {
+   "name": "hb/science-idea",
+   "prompt": "A glowing light bulb above an open sketchbook with a pencil."
+  },
+  {
+   "name": "hb/science-future-phone",
+   "prompt": "An open sketchbook with a colorful drawing of a futuristic rounded phone, colored pencils beside it."
+  },
+  {
+   "name": "hb/science-old-house",
+   "prompt": "A cozy old wooden village house at night with dark windows and stars above. No lamps or candles."
+  },
+  {
+   "name": "hb/science-far-road",
+   "prompt": "A long winding country road leading to faraway rolling hills. No vehicles or animals."
+  },
+  {
+   "name": "hb/science-old-camera",
+   "prompt": "A vintage film camera next to a roll of film."
+  },
+  {
+   "name": "hb/science-laundry",
+   "prompt": "A woven basket full of laundry: shirts and socks."
+  },
+  {
+   "name": "hb/science-clock",
+   "prompt": "A modern round wall clock with simple hands and tick marks (no numbers)."
+  },
+  {
+   "name": "hb/science-radio-tablet",
+   "prompt": "An old wooden radio with round knobs next to a modern tablet."
+  },
+  {
+   "name": "hb/science-laptop",
+   "prompt": "A modern slim laptop, open."
+  },
+  {
+   "name": "q/apple-halves",
+   "prompt": "A red apple cut into two equal halves, the halves side by side showing the inside."
+  },
+  {
+   "name": "q/pizza-quarters",
+   "prompt": "A round pizza cut into four equal slices, seen from a 3/4 top view."
+  },
+  {
+   "name": "q/simit-unequal",
+   "prompt": "A Turkish simit (round sesame bread ring) broken into two separate pieces lying apart with a clear gap: one big curved piece about three quarters of the ring and one small curved piece about one quarter of the ring."
+  },
+  {
+   "name": "q/table-spans",
+   "prompt": "A small wooden table seen from the side; above its top float two rows of soft clay arcs measuring its length: an upper row of six small arcs and a lower row of four larger arcs."
+  },
+  {
+   "name": "q/book-paperclips",
+   "prompt": "A closed book lying flat, with a neat row of five large colorful paper clips laid end to end along its long edge, and one pencil lying along the other long edge."
+  },
+  {
+   "name": "q/footprints",
+   "prompt": "Two trails of footprints on the floor side by side: one trail of small footprints and one trail of large footprints."
+  },
+  {
+   "name": "q/pencil-ruler",
+   "prompt": "A pencil lying just above a wooden ruler with tick marks only (no numbers)."
+  },
+  {
+   "name": "q/pencil",
+   "prompt": "A single yellow pencil lying diagonally."
+  },
+  {
+   "name": "q/watermelon-apple",
+   "prompt": "A whole watermelon and a small red apple side by side next to an empty balance scale whose two pans are level."
+  },
+  {
+   "name": "q/feather-book",
+   "prompt": "A light feather and a thick book side by side."
+  },
+  {
+   "name": "q/two-boxes",
+   "prompt": "Two identical open cardboard boxes side by side: the left one is full of toys, the right one is empty."
+  },
+  {
+   "name": "q/balloon-stone",
+   "prompt": "A big round balloon on a string and a small grey stone side by side."
+  },
+  {
+   "name": "q/school-bag",
+   "prompt": "A school backpack standing upright."
+  },
+  {
+   "name": "q/football",
+   "prompt": "A classic football (soccer ball)."
+  },
+  {
+   "name": "q/orange",
+   "prompt": "A round orange fruit with a small leaf."
+  },
+  {
+   "name": "q/basketball",
+   "prompt": "An orange basketball with dark seam lines."
+  },
+  {
+   "name": "q/die",
+   "prompt": "A white game die with round pips, 3/4 view showing three faces."
+  },
+  {
+   "name": "q/ice-cube",
+   "prompt": "A clear light-blue ice cube, 3/4 view showing three faces."
+  },
+  {
+   "name": "q/can",
+   "prompt": "A tin can standing upright with a plain colored label (no text)."
+  },
+  {
+   "name": "q/battery",
+   "prompt": "A cylindrical battery lying on its side, plain design (no text or symbols)."
+  },
+  {
+   "name": "q/candle",
+   "prompt": "A simple straight cylindrical candle with a small flame."
+  },
+  {
+   "name": "q/cardboard-box",
+   "prompt": "A closed brown cardboard box (rectangular, longer than tall), 3/4 view."
+  },
+  {
+   "name": "q/brick",
+   "prompt": "A single red clay brick, 3/4 view."
+  },
+  {
+   "name": "q/bucket-teaglass",
+   "prompt": "A metal bucket next to a small Turkish tea glass (tulip-shaped glass)."
+  },
+  {
+   "name": "q/bucket-glass-jug",
+   "prompt": "A metal bucket, a small Turkish tea glass and a water jug side by side."
+  },
+  {
+   "name": "q/spoon-glass",
+   "prompt": "A tablespoon lying next to a glass of water."
+  },
+  {
+   "name": "q/butterfly",
+   "prompt": "A perfectly symmetrical butterfly seen from above with wings open."
+  },
+  {
+   "name": "i/cherry",
+   "prompt": "Icon: a pair of red cherries on a stem."
+  },
+  {
+   "name": "i/strawberry",
+   "prompt": "Icon: one red strawberry."
+  },
+  {
+   "name": "i/daisy",
+   "prompt": "Icon: one white daisy flower head, seen from the front."
+  },
+  {
+   "name": "i/star",
+   "prompt": "Icon: one chunky yellow star."
+  },
+  {
+   "name": "i/ladybug",
+   "prompt": "Icon: one red ladybug seen from above."
+  },
+  {
+   "name": "i/balloon",
+   "prompt": "Icon: one red balloon with a short string."
+  },
+  {
+   "name": "i/fish",
+   "prompt": "Icon: one small orange fish, side view."
+  },
+  {
+   "name": "i/cookie",
+   "prompt": "Icon: one round chocolate chip cookie."
+  },
+  {
+   "name": "i/apple",
+   "prompt": "Icon: one red apple with a leaf."
+  },
+  {
+   "name": "i/tulip",
+   "prompt": "Icon: one pink tulip with a stem."
+  },
+  {
+   "name": "i/crayon",
+   "prompt": "Icon: one blue crayon, diagonal."
+  },
+  {
+   "name": "i/pencil",
+   "prompt": "Icon: one short yellow pencil, diagonal."
+  },
+  {
+   "name": "i/egg",
+   "prompt": "Icon: one cream-colored egg."
+  },
+  {
+   "name": "i/book",
+   "prompt": "Icon: one closed hardcover book, 3/4 view."
+  },
+  {
+   "name": "i/sunflower",
+   "prompt": "Icon: one sunflower head, seen from the front."
+  },
+  {
+   "name": "i/glass",
+   "prompt": "Icon: one glass of water."
+  },
+  {
+   "name": "i/cup",
+   "prompt": "Icon: one coffee cup on a saucer."
+  },
+  {
+   "name": "i/tea-glass",
+   "prompt": "Icon: one Turkish tea glass (tulip-shaped) with tea, on a small saucer."
+  },
+  {
+   "name": "i/pear",
+   "prompt": "Icon: one green pear."
+  },
+  {
+   "name": "i/cat",
+   "prompt": "Icon: a cute cat face."
+  },
+  {
+   "name": "i/dog",
+   "prompt": "Icon: a cute puppy face."
+  },
+  {
+   "name": "i/sun",
+   "prompt": "Icon: a smiling round sun with short rays."
+  },
+  {
+   "name": "i/snowflake",
+   "prompt": "Icon: one light-blue snowflake."
+  },
+  {
+   "name": "i/rose",
+   "prompt": "Icon: one red rose with a stem."
+  },
+  {
+   "name": "i/train",
+   "prompt": "Icon: a small toy train engine, side view."
+  },
+  {
+   "name": "i/plane",
+   "prompt": "Icon: a small toy airplane."
+  },
+  {
+   "name": "i/kite",
+   "prompt": "Icon: one diamond-shaped kite with a tail."
+  },
+  {
+   "name": "q/juice-box",
+   "prompt": "A cardboard juice box with a bent straw and a simple fruit shape on the front (no text)."
+  },
+  {
+   "name": "i/ball",
+   "prompt": "q/football ile aynı ham görsel; 96 px simge olarak dışa aktarıldı."
+  }
+ ]
+}
