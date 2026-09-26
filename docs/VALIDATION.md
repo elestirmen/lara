@@ -19,6 +19,11 @@ Etkinliklerdeki basit çizimler ve emojiler Codex `imagegen` ile aynı kil stili
 | Birim testleri (İngilizce kelime ve etkinlik görsellerinin varlığı dahil) | 40 / 40 |
 | QA container'ında Playwright (saat testleri yeni görüş alanına göre güncellendi) | 50 / 50 |
 | Cetvel: 7 cm'lik kalemin çizgilere göre uzunluğu, 390 ve 1280 px | 7,17 ve 7,06 cm (önceki çizimle aynı ölçü) |
+| Yayından sonra production container'ında Playwright testleri | 50 / 50 |
+| Canlı HTTPS adresinde eski sürümden yeni sürüme geçiş (`verify-live-upgrade.mjs`) | Geçti |
+| HTTPS / HTTP / eski adres | 200 / 301 → HTTPS / 301 → `lara.perinet.org` |
+
+Bu yayın aşağıdaki soru görselleri çalışmasını da içerir. Yayınlanan imajın 322 dosyası testten geçen QA imajıyla birebir aynıdır (dosya özetleri karşılaştırıldı). Geri dönüş imajı: `laranin-dersleri:before-activity-art-20260926`.
 
 Trafik sahnesinin kırmızı ve yeşil hâlleri cevaptan önce ve sonra, ayrıca 16 ders ekranı ve blok, kesir, cetvel, örüntü, İngilizce kartı ve hafıza oyunu durumları telefon ve masaüstü genişliğinde görsel olarak incelendi. İnceleme sırasında düzeltilenler: telefonda sahne etiketleri büyütüldü, arabanın çıkarken kenarda kalan hız çizgileri temizlendi, üstü açık tepsi gibi çıkan prizma yeniden üretildi.
 
