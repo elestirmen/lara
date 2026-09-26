@@ -20,8 +20,13 @@ Yapılanlar:
 | Tekrar önleyici kapatılınca yeni testler | Başarısız, yani tekrarı yakalıyor |
 | QA container'ında Playwright (içerik her turda karıştığı için testler ekrandaki soruyu okuyor) | İki tam turda 50 / 50 |
 | Yeni ekranlarda (grafik, resim grafiği, yapı modelleri, örüntü, İngilizce kartlar vb.) Axe WCAG A/AA ve taşma, 390 ve 1280 px | İhlal yok, taşma yok |
+| Canlı HTTPS adresinde eski sürümden yeni sürüme geçiş (`verify-live-upgrade.mjs`) | Geçti |
+| Yayından sonra production container'ında Playwright testleri | 50 / 50 |
+| HTTPS / HTTP / eski adres | 200 / 301 → HTTPS / 301 → `lara.perinet.org` |
 
 Yeni soru ekranları 390 ve 1280 piksel genişlikte görsel olarak incelendi.
+
+26 Eylül’de yayınlandı. Canlı container’daki 103 dosya derlemeyle birebir aynıdır. QA imajıyla fark yalnız Next’in her derlemede yenilediği derleme kimliği ile buna bağlı sayfa, manifest ve Service Worker dosyalarıdır; 16 JS, CSS ve yazı tipi parçası aynıdır. Geri dönüş imajı: `laranin-dersleri:before-norepeat-20260926`.
 
 ## 25 Eylül 2026 — Premium görsel dil
 
