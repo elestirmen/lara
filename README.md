@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/icon.png" alt="lara simgesi" width="120"></p>
+
 # Lara'nın Dünyası
 
 Lara’nın kişisel öğrenme sayfası: kısa bir tanıtım, MEB 2. sınıf programına bağlı Türkçe dersler ve kenarda küçük bir oyun molası köşesi. Production: **https://lara.perinet.org**.
