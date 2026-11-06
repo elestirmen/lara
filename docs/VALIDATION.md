@@ -10,6 +10,11 @@ Türkçe adasının başına beş derslik bir tema eklendi: Cümle durakları (n
 | Birim testleri (her yerleştirme sorusunun cevabının tepsideki işaretlerle açık boşluklara konarak kurulabildiği dahil) | 45 / 45 |
 | QA container'ında Playwright (3 yeni noktalama testi dahil) | 53 / 53 |
 | Noktalama dedektifinde Axe WCAG A/AA ve taşma, 390 px | İhlal yok, taşma yok |
+| Yayından sonra production container'ında Playwright testleri | 53 / 53 |
+| Canlı HTTPS adresinde eski sürümden yeni sürüme geçiş (`verify-live-upgrade.mjs`) | Geçti |
+| HTTPS / HTTP / eski adres | 200 / 301 → HTTPS / 301 → `lara.perinet.org` |
+
+Yayınlanan 337 dosya derleme çıktısıyla (`out/`) birebir aynıdır. Geri dönüş imajı: `laranin-dersleri:before-punct-20261106`.
 
 Konu sayfası, beş dersin öğren ekranı, ilk soruları ve işaretlerin yerleştirildiği/çözüldüğü hâller telefon genişliğinde incelendi. İnceleme sırasında düzeltilenler: yönergedeki “Kesme işareti işaretini” tekrarı; seçili işarete yeniden dokununca seçimin kalkması; boşlukların büyüyüp küçülen nabzı (hedef kıpırdadığı için dokunmayı zorlaştırıyordu, artık yalnız parlıyor).
 
