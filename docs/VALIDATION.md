@@ -1,5 +1,17 @@
 # Doğrulama
 
+## 6 Kasım 2026 — Noktalama: kolaydan zora
+
+Kullanıcı geri bildirimi: “basitten karmaşığa doğru olsun, örnek sayısı daha çok olsun, hemen zorlar gelmesin.” Noktalama derslerindeki sorular kolay, orta ve zor diye üç havuza ayrıldı. Dersin `ladder` alanı (`[1,1,1,1,2,2,3,3]`) her soru sırasının hangi havuzdan çekileceğini belirler: Birlikte yapalım, Sen dene, Mini oyun ve testin ilk sorusu kolay, sonraki iki soru orta, son iki soru zor. Kolay sorular tek işaretlidir ya da işareti tanıtır (“Bunlardan hangisi virgüldür?”); zor sorularda iki cümle ya da birden çok işaret vardır. Soru sayısı 69'dan 96'ya çıktı (kolay 45, orta 31, zor 20). Öğren ekranında her kurala ikişer üçer örnek cümle eklendi.
+
+| Kontrol | Sonuç |
+| --- | --- |
+| TypeScript ve production build | Başarılı |
+| Birim testleri (beş dersin her birinde 20 turda sıranın kolay → orta → zor gittiği dahil) | 46 / 46 |
+| QA container'ında Playwright (şenlik dersi baştan sona çözülürken basamak sırası dahil) | 53 / 53 |
+
+Virgül molası ve Cümle durakları dersleri telefon genişliğinde baştan sona çözülerek ekran görüntüleriyle incelendi.
+
 ## 6 Kasım 2026 — Noktalama Atölyesi
 
 Türkçe adasının başına beş derslik bir tema eklendi: Cümle durakları (nokta ve soru işareti), Heyecanlı ünlem, Virgül molası, Kesme kardeş ve Noktalama şenliği. Toplam 69 soru ve 16 yeni Codex görseli var: 5 işaret karakteri ve 11 durum resmi. Bunlara bir grup görseli ile yeniden kullanılan görseller eklendi. Yeni “Noktalama dedektifi” aracı virgül ve kesme işaretini cümlenin içine yerleştirtir.
@@ -16,7 +28,7 @@ Türkçe adasının başına beş derslik bir tema eklendi: Cümle durakları (n
 
 Yayınlanan 337 dosya derleme çıktısıyla (`out/`) birebir aynıdır. Geri dönüş imajı: `laranin-dersleri:before-punct-20261106`.
 
-Kullanıcı geri bildirimi üzerine yayından sonra düzeltildi: Noktalama dedektifi her kelimenin arasında boşluk gösterdiği için soru gereksiz zorlaşıyordu. Artık yalnız işaret gereken yerlerde boşluk var; boşluklar cevaptan çıkarılır (`markAnswer`). Virgül ve kesme sorularında cümle sonu da bir boşluk oldu, tepside iki işaret var; böylece her boşlukta yine bir seçim yapılıyor. Birim 45/45, QA'da Playwright 53/53.
+Kullanıcı geri bildirimi üzerine yayından sonra düzeltildi: Noktalama dedektifi her kelimenin arasında boşluk gösterdiği için soru gereksiz zorlaşıyordu. Artık yalnız işaret gereken yerlerde boşluk var; boşluklar cevaptan çıkarılır (`markAnswer`). Virgül ve kesme sorularında cümle sonu da bir boşluk oldu, tepside iki işaret var; böylece her boşlukta yine bir seçim yapılıyor. Birim 45/45, QA'da Playwright 53/53. Kullanıcının isteğiyle aynı gün yayına alındı (3cca313, geri dönüş imajı `laranin-dersleri:before-gapfix-20261106`): yayından sonra production container'ında Playwright 53/53, yayınlanan 337 dosya `out/` ile birebir aynı. Canlı geçiş testi (`verify-live-upgrade.mjs`) container yeniden başlarken gelen kısa bir 502'de `reg.update()` hatasıyla durdu; betik bu hatayı artık yutuyor ve aynı geçiş yerelde yeniden oynatılınca testi geçti.
 
 Konu sayfası, beş dersin öğren ekranı, ilk soruları ve işaretlerin yerleştirildiği/çözüldüğü hâller telefon genişliğinde incelendi. İnceleme sırasında düzeltilenler: yönergedeki “Kesme işareti işaretini” tekrarı; seçili işarete yeniden dokununca seçimin kalkması; boşlukların büyüyüp küçülen nabzı (hedef kıpırdadığı için dokunmayı zorlaştırıyordu, artık yalnız parlıyor).
 

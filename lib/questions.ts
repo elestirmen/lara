@@ -63,7 +63,7 @@ export function makeQuestion(l:Lesson,index:number,difficulty:1|2|3=1,seed=1,att
  const set=(instruction:string,answer:string|number,explanation:string,options?:readonly string[])=>{q.instruction=instruction;q.answer=String(answer);q.explanation=explanation;if(options)q.options=shuffle([...new Set([q.answer,...options])],random);return q};
  const choices=(instruction:string,answer:string|number,explanation:string,options?:readonly string[])=>{q.type='choice';return set(instruction,answer,explanation,options??[String(Number(answer)+1),String(Math.max(0,Number(answer)-1))])};
  const fact=([instruction,answer,wrong,explanation,visual]:Fact)=>{if(visual)q.visual=visual;return choices(instruction,answer,explanation,wrong)};
- if(l.questions){const src=draw(l.questions);return {...src,id:q.id,options:src.options?shuffle(src.options,random):undefined};}
+ if(l.questions){const level=l.ladder?.[index],pool=level?l.questions.filter(x=>x.difficulty===level):l.questions,src=draw(pool.length?pool:l.questions);return {...src,id:q.id,options:src.options?shuffle(src.options,random):undefined};}
  if(l.subject==='math'){
  const a=int(1,difficulty===1?3:difficulty===2?6:9)*10+int(0,9),b=int(1,9),k=l.generator;
  if(k==='blocks'||k==='count'||k==='add'){

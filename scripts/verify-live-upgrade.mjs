@@ -13,7 +13,7 @@ try{
  console.log('OLD_CACHE_READY',JSON.stringify(old));
  // Poll the resolved primitive from Node. A Promise object must never itself
  // satisfy the in-page truthiness check before the worker reaches 'waiting'.
- await expect.poll(()=>page.evaluate(async()=>{const reg=await navigator.serviceWorker.getRegistration();await reg?.update();return reg?.waiting?.state==='installed'}),{intervals:[1000,3000],timeout:240000}).toBe(true);
+ await expect.poll(()=>page.evaluate(async()=>{const reg=await navigator.serviceWorker.getRegistration();try{await reg?.update()}catch{/* yayın sırasında container yeniden başlarken kısa 502 gelebilir */}return reg?.waiting?.state==='installed'}),{intervals:[1000,3000],timeout:240000}).toBe(true);
  console.log('WAITING_WORKER',await page.evaluate(async()=>{const r=await navigator.serviceWorker.getRegistration();return {active:r?.active?.state,waiting:r?.waiting?.state,controller:!!navigator.serviceWorker.controller}}));
  const refreshed=page.waitForEvent('load',{timeout:30000});
  try{await page.getByRole('button',{name:'Uygulamayı güncelle'}).click({timeout:15000});await refreshed}catch(error){await page.screenshot({path:'artifacts/upgrade-failure.png',fullPage:true});console.error('UPDATE_SCREEN',await page.locator('body').innerText());throw error}
