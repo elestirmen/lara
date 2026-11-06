@@ -41,3 +41,8 @@ export const compositionPlans:Record<'build'|'compose',CompositionPlan[]>={
   {instruction:'İki daireyi yan yana koy, öndekinin üstüne üçgen bir şapka tak: şapkalı bir tırtıl!',explanation:'İki daire tırtılın gövdesi, üçgen şapkası oldu. Her parçanın biçimi aynı kaldı.',pieces:[{shape:'circle',x:250,y:242},{shape:'circle',x:336,y:242},{shape:'triangle',x:336,y:157}]}
  ]
 };
+/** Noktalama dedektifi: “+” ile başlayan parça öncekine bitişik ektir. Noktalama ile biten kelimeden sonra boşluk açılmaz. */
+export const markGap=(token:string)=>!/[.,!?]$/.test(token);
+export function markSentence(items:readonly string[],placed:Record<number,string>){return items.map((t,i)=>(i&&!t.startsWith('+')?' ':'')+t.replace(/^\+/,'')+(placed[i]??'')).join('')}
+/** Kelime grupları: bir kelime ve ona bitişik ekler satır sonunda bölünmesin diye birlikte durur. */
+export function markGroups(items:readonly string[]){const groups:number[][]=[];items.forEach((t,i)=>{if(t.startsWith('+')&&groups.length)groups.at(-1)!.push(i);else groups.push([i])});return groups}

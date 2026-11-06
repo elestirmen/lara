@@ -1,5 +1,5 @@
 {
- "note": "Etkinlik, örüntü, İngilizce kelime ve Piko poz görselleri için Codex imagegen istekleri (docs/ART.md). Stil metni her isteğe aynen eklenir; Piko pozları ilk Piko oturumundan çatallanır. Görsellerde insan, el, vücut parçası, yazı ve rakam yoktur; para değerleri ve saat rakamları HTML/SVG ile basılır.",
+ "note": "Etkinlik, örüntü, İngilizce kelime ve Piko poz görselleri için Codex imagegen istekleri (docs/ART.md). Stil metni her isteğe aynen eklenir; Piko pozları ilk Piko oturumundan çatallanır. Görsellerde insan, el, vücut parçası, yazı ve rakam yoktur; para değerleri ve saat rakamları HTML/SVG ile basılır. Noktalama Atölyesi: mark-* karakterleri ve p/ soru resimleri.",
  "items": [
   {
    "name": "piko-jump",
@@ -295,6 +295,80 @@
    "name": "i/orange",
    "derived": "q/orange",
    "note": "q/ görselinden 96 px."
+  },
+  {
+   "name": "mark-question",
+   "prompt": "Mascot character for a punctuation lesson, matching the clay material and friendly face style of Piko in the reference image. Exception to the text rule for this image only: the character's whole body IS a chunky clay QUESTION MARK (?) shape, a symbol and not a letter; nothing else may contain text. The curved hook is its body and the separate round dot below it is its little ball-shaped foot. Powder-blue clay (#7fb3d8). A friendly face on the upper curve: dark dot eyes, peach cheeks, a small curious open smile, one eyebrow raised. Two tiny stubby clay arms; it holds a small wooden magnifying glass. Front view, centered, full figure visible.",
+   "note": "Noktalama Atölyesi karakter ailesinin çapası; Piko referansıyla üretildi."
+  },
+  {
+   "name": "mark-dot",
+   "prompt": "Character: a FULL STOP (period). Its whole body is one plump, perfectly round clay ball (a dot) in deep navy blue (#3f5f9a). Calm, content face with gently closed happy eyes and a tiny smile; its stubby arms are held up in front in a friendly \"stop and rest\" gesture; a tiny cream pillow rests beside it.",
+   "via": "fork mark-question"
+  },
+  {
+   "name": "mark-exclaim",
+   "prompt": "Character: an EXCLAMATION MARK (!). Its body is a tall chunky rounded vertical bar, a little wider at the top and narrower at the bottom, with a separate round ball-shaped dot below it as its foot. Coral red (#e8705c). Excited face on the upper part of the bar: wide open eyes and a big open smile; stubby arms thrown up in joy; three small butter-yellow sparkles around it.",
+   "via": "fork mark-question"
+  },
+  {
+   "name": "mark-comma",
+   "prompt": "Character: a COMMA (,). Its body is a round ball head with a short curved tail curving down and to the left underneath, like a small tadpole. Soft teal (#4fb0a3). Relaxed face with eyes closed, taking a slow calm breath; a small cream swirl of breeze near its mouth; stubby arms resting at its sides.",
+   "via": "fork mark-question"
+  },
+  {
+   "name": "mark-apostrophe",
+   "prompt": "Character: an APOSTROPHE. Its body looks like a small comma floating up high: a round head with a short curved tail curving down and to the left. Lavender purple (#a98fd6). Cheerful grin; it holds a pair of tiny rounded child-safe scissors with butter-yellow handles. Floating below it is a short cream clay ribbon neatly cut into two pieces with a small gap between them.",
+   "via": "fork mark-question"
+  },
+  {
+   "name": "mark-friends",
+   "derived": "mark-*",
+   "note": "Beş karakterin birleştirilmiş grup görseli (Noktalama şenliği öğren ekranı)."
+  },
+  {
+   "name": "p/gift",
+   "prompt": "A closed gift box wrapped in blush-pink paper with a big butter-yellow ribbon bow on top, 3/4 view, a mysterious little surprise."
+  },
+  {
+   "name": "p/rain",
+   "prompt": "A soft grey-blue rain cloud with gentle raindrops falling onto an open butter-yellow umbrella that stands by itself on its handle (nobody holds it), a small puddle below."
+  },
+  {
+   "name": "p/puddle",
+   "prompt": "A shiny spilled-water puddle on a clean cream tiled floor with a tipped-over empty glass beside it and a yellow plastic caution cone standing next to the puddle (the cone has no text, no symbols)."
+  },
+  {
+   "name": "p/fruits",
+   "prompt": "A small wicker basket holding exactly three fruits: one red apple, one green pear and one yellow banana, 3/4 view."
+  },
+  {
+   "name": "p/pencil-case",
+   "prompt": "An open zippered pencil case in powder blue, and lying neatly in front of it a yellow pencil, a pink eraser, a small wooden ruler with tick marks but no numbers, and a green crayon."
+  },
+  {
+   "name": "p/train",
+   "prompt": "A cute toy train on a short curved wooden track: a green locomotive with a little chimney and one coral passenger carriage with empty round windows, side 3/4 view, no text."
+  },
+  {
+   "name": "p/doghouse",
+   "prompt": "A small wooden dog house with a coral roof and a round door, a fluffy white puppy happily peeking out, a small food bowl beside it; no name sign, no text."
+  },
+  {
+   "name": "p/letter",
+   "prompt": "An opened cream envelope with a folded blank letter sticking out (no writing), a small pink heart sticker on the envelope flap and a postage stamp showing a little flower (no text)."
+  },
+  {
+   "name": "p/birthday",
+   "prompt": "A round two-layer birthday cake with blush-pink frosting and strawberries on a cake stand, five small lit candles on top, a few confetti pieces around, 3/4 view."
+  },
+  {
+   "name": "p/rainbow",
+   "prompt": "A bright soft clay rainbow arching over two fluffy white clouds."
+  },
+  {
+   "name": "p/snow",
+   "prompt": "A small cheerful snowman with a carrot nose, coal-dot eyes, a coral knitted scarf and a twig arm on each side, gentle snowflakes falling around it."
   }
  ]
 }

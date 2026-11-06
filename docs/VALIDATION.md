@@ -1,5 +1,18 @@
 # Doğrulama
 
+## 6 Kasım 2026 — Noktalama Atölyesi
+
+Türkçe adasının başına beş derslik bir tema eklendi: Cümle durakları (nokta ve soru işareti), Heyecanlı ünlem, Virgül molası, Kesme kardeş ve Noktalama şenliği. Toplam 69 soru ve 16 yeni Codex görseli var: 5 işaret karakteri ve 11 durum resmi. Bunlara bir grup görseli ile yeniden kullanılan görseller eklendi. Yeni “Noktalama dedektifi” aracı virgül ve kesme işaretini cümlenin içine yerleştirtir.
+
+| Kontrol | Sonuç |
+| --- | --- |
+| TypeScript ve production build | Başarılı |
+| Birim testleri (her yerleştirme sorusunun cevabının tepsideki işaretlerle açık boşluklara konarak kurulabildiği dahil) | 45 / 45 |
+| QA container'ında Playwright (3 yeni noktalama testi dahil) | 53 / 53 |
+| Noktalama dedektifinde Axe WCAG A/AA ve taşma, 390 px | İhlal yok, taşma yok |
+
+Konu sayfası, beş dersin öğren ekranı, ilk soruları ve işaretlerin yerleştirildiği/çözüldüğü hâller telefon genişliğinde incelendi. İnceleme sırasında düzeltilenler: yönergedeki “Kesme işareti işaretini” tekrarı; seçili işarete yeniden dokununca seçimin kalkması; boşlukların büyüyüp küçülen nabzı (hedef kıpırdadığı için dokunmayı zorlaştırıyordu, artık yalnız parlıyor).
+
 ## 26 Eylül 2026 — Etkinlik görselleri
 
 Etkinliklerdeki basit çizimler ve emojiler Codex `imagegen` ile aynı kil stilinde üretilen görsellere çevrildi (65 istek, biri yeniden üretildi; 78 yeni dosya, ~840 KB). Kapsam şöyle:
