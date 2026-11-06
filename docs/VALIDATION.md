@@ -16,6 +16,8 @@ Türkçe adasının başına beş derslik bir tema eklendi: Cümle durakları (n
 
 Yayınlanan 337 dosya derleme çıktısıyla (`out/`) birebir aynıdır. Geri dönüş imajı: `laranin-dersleri:before-punct-20261106`.
 
+Kullanıcı geri bildirimi üzerine yayından sonra düzeltildi: Noktalama dedektifi her kelimenin arasında boşluk gösterdiği için soru gereksiz zorlaşıyordu. Artık yalnız işaret gereken yerlerde boşluk var; boşluklar cevaptan çıkarılır (`markAnswer`). Virgül ve kesme sorularında cümle sonu da bir boşluk oldu, tepside iki işaret var; böylece her boşlukta yine bir seçim yapılıyor. Birim 45/45, QA'da Playwright 53/53.
+
 Konu sayfası, beş dersin öğren ekranı, ilk soruları ve işaretlerin yerleştirildiği/çözüldüğü hâller telefon genişliğinde incelendi. İnceleme sırasında düzeltilenler: yönergedeki “Kesme işareti işaretini” tekrarı; seçili işarete yeniden dokununca seçimin kalkması; boşlukların büyüyüp küçülen nabzı (hedef kıpırdadığı için dokunmayı zorlaştırıyordu, artık yalnız parlıyor).
 
 ## 26 Eylül 2026 — Etkinlik görselleri

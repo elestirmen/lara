@@ -41,8 +41,8 @@ export const compositionPlans:Record<'build'|'compose',CompositionPlan[]>={
   {instruction:'İki daireyi yan yana koy, öndekinin üstüne üçgen bir şapka tak: şapkalı bir tırtıl!',explanation:'İki daire tırtılın gövdesi, üçgen şapkası oldu. Her parçanın biçimi aynı kaldı.',pieces:[{shape:'circle',x:250,y:242},{shape:'circle',x:336,y:242},{shape:'triangle',x:336,y:157}]}
  ]
 };
-/** Noktalama dedektifi: “+” ile başlayan parça öncekine bitişik ektir. Noktalama ile biten kelimeden sonra boşluk açılmaz. */
-export const markGap=(token:string)=>!/[.,!?]$/.test(token);
+/** Noktalama dedektifi: “+” ile başlayan parça öncekine bitişik ektir. Cevaptaki işaretleri kelime sırasına göre okur (kelimeden hemen sonra gelen işaret o boşluğundur); araç yalnız bu boşlukları gösterir. Okunamazsa null. */
+export function markAnswer(items:readonly string[],answer:string,marks:readonly string[]=['.',',','?','!','’']){let pos=0;const placed:Record<number,string>={};for(const [i,t] of items.entries()){const word=(i&&!t.startsWith('+')?' ':'')+t.replace(/^\+/,'');if(!answer.startsWith(word,pos))return null;pos+=word.length;if(marks.includes(answer[pos]??'')){placed[i]=answer[pos];pos++}}return pos===answer.length?placed:null}
 export function markSentence(items:readonly string[],placed:Record<number,string>){return items.map((t,i)=>(i&&!t.startsWith('+')?' ':'')+t.replace(/^\+/,'')+(placed[i]??'')).join('')}
 /** Kelime grupları: bir kelime ve ona bitişik ekler satır sonunda bölünmesin diye birlikte durur. */
 export function markGroups(items:readonly string[]){const groups:number[][]=[];items.forEach((t,i)=>{if(t.startsWith('+')&&groups.length)groups.at(-1)!.push(i);else groups.push([i])});return groups}
