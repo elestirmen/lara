@@ -9,8 +9,11 @@ Kullanıcı geri bildirimi: “basitten karmaşığa doğru olsun, örnek sayıs
 | TypeScript ve production build | Başarılı |
 | Birim testleri (beş dersin her birinde 20 turda sıranın kolay → orta → zor gittiği dahil) | 46 / 46 |
 | QA container'ında Playwright (şenlik dersi baştan sona çözülürken basamak sırası dahil) | 53 / 53 |
+| Yayından sonra production container'ında Playwright testleri | 52 / 53; matematik akışı testi sunucu yükü altında 45 sn süreyi aştı, tek başına 3 kez tekrarlanınca 3 / 3 geçti |
+| Canlı HTTPS adresinde eski sürümden yeni sürüme geçiş (`verify-live-upgrade.mjs`) | Geçti |
+| HTTPS / HTTP / eski adres | 200 / 301 → HTTPS / 301 → `lara.perinet.org` |
 
-Virgül molası ve Cümle durakları dersleri telefon genişliğinde baştan sona çözülerek ekran görüntüleriyle incelendi.
+Virgül molası ve Cümle durakları dersleri telefon genişliğinde baştan sona çözülerek ekran görüntüleriyle incelendi. 7 Kasım'da kullanıcının isteğiyle yayına alındı; yayınlanan 337 dosya `out/` ile birebir aynı. Geri dönüş imajı: `laranin-dersleri:before-ladder-20261107`.
 
 ## 6 Kasım 2026 — Noktalama Atölyesi
 
