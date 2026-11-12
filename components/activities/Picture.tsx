@@ -10,6 +10,7 @@ export function IconText({text}:{text:string}){return <>{text.split(/(\p{Extende
 export default function Picture({visual}:{visual:string}){
  const [kind,item,a,b]=visual.split(':');
  if(kind==='art')return <div className="visual-object picture-art"><Art name={item} size={144}/></div>;
+ if(kind==='abc')return <div className="visual-object abc-strip" role="img" aria-label="Numaralı alfabe şeridi">{[...'abcçdefgğhıijklmnoöprsştuüvyz'].map((c,i)=><span key={c} className={item.includes(c)?'hit':''}><small>{i+1}</small>{c.toLocaleUpperCase('tr-TR')}</span>)}</div>;
  if(kind==='tiles')return <div className="visual-object letter-tiles" role="img" aria-label={`${item} kelimesinin harfleri`}>{[...item].map((c,i)=><span key={i}>{c.toLocaleUpperCase('tr-TR')}</span>)}</div>;
  if(kind==='round'){const n=Number(item),lo=Math.floor(n/10)*10;return <div className="visual-object round-line" role="img" aria-label={`${lo} ile ${lo+10} arasındaki sayı doğrusunda ${n} işaretli`}>{Array.from({length:11},(_,i)=>lo+i).map(x=><span key={x} className={x===n?'mark':x%10===0?'ten':x%10===5?'mid':''}><i/>{(x===n||x%10===0||x%10===5)&&<b>{x}</b>}</span>)}</div>}
  if(kind==='count'){const n=Number(a),full=Math.floor(n/5),rest=n%5;return <div className="visual-object picture-set" role="img" aria-label={`${full} grup, her grupta 5 ${word(item)}${rest?`, ayrıca ${rest} ${word(item)}`:''}`}>{Array.from({length:full},(_,i)=><span className="picture-group" key={i}>{many(item,5)}</span>)}{rest>0&&<span className="picture-group">{many(item,rest)}</span>}</div>}

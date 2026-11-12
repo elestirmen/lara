@@ -16,14 +16,17 @@ import {BundlingDemo} from './activities/BaseTenBlocks';
 import ClockTool from './activities/ClockTool';
 import GeometryLab from './activities/GeometryLab';
 import SkipChart from './activities/SkipChart';
-import {alphabet,syllables,upper,vowels} from '@/lib/turkish';
+import {alphabet,compareWords,syllables,upper,vowels} from '@/lib/turkish';
+/** Alfabetik sıralama dersinin öğren ekranındaki hazır örnekler; sonuncusunda ilk harfler aynıdır. */
+const sortExamples=[['timsah','armut'],['kedi','balık','arı'],['zürafa','elma','masa','çilek'],['kitap','kalem','kedi']];
 import curriculum from '@/curriculum/grade-2.json';
 const stages=['Öğren','Birlikte yapalım','Sen dene','Mini oyun','Mini test','Sonuç'];
 const confetti=Array.from({length:22},(_,i)=><i key={i} style={{'--x':`${(i*37+7)%94+3}%`,'--d':`${(i*53%22)*.06}s`,'--t':`${2.2+(i*29%10)*.13}s`,'--dx':`${(i*41%21-10)*7}px`,'--h':i*47%360} as CSSProperties}/>);
 /** Öğren ekranındaki keşif panosu: alfabe şeridi (dokununca harf okunur), heceleme örnekleri ya da hazır boyalı ritmik sayma tablosu. */
 function LearnBoard({show,read}:{show:string;read:(text:string)=>void}){
- const [kind,a,b]=show.split(':'),[word,setWord]=useState('kelebek');
+ const [kind,a,b]=show.split(':'),[word,setWord]=useState('kelebek'),[example,setExample]=useState(0);
  if(kind==='alphabet')return <div className="learn-board"><p><b>Alfabemiz</b> · sarı harfler ünlü, yeşil harfler ünsüz. Bir harfe dokun, adını dinle.</p><div className="alphabet-strip">{alphabet.map((c,i)=><button key={c} className={vowels.includes(c)?'vowel':''} onClick={()=>read(c==='ğ'?'yumuşak ge':vowels.includes(c)?c:`${c}e`)}><small>{i+1}</small>{upper(c)}</button>)}</div></div>;
+ if(kind==='sorting'){const mixed=sortExamples[example],sorted=[...mixed].sort(compareWords),same=new Set(mixed.map(w=>w[0])).size===1,mark=(w:string)=>same?<>{w[0]}<mark>{w[1]}</mark>{w.slice(2)}</>:<><mark>{w[0]}</mark>{w.slice(1)}</>;return <div className="learn-board"><p><b>Örnekle görelim</b> · {same?'ilk harfler aynı; ikinci harflere bakıyoruz.':'renkli ilk harflere bak.'}</p><div className="sort-demo" aria-live="polite"><div><small>KARIŞIK</small>{mixed.map(w=><span key={w}>{mark(w)}</span>)}</div><i aria-hidden="true">↓</i><div className="sorted"><small>ALFABETİK SIRA</small>{sorted.map((w,i)=><span key={w}><em>{i+1}</em>{mark(w)}</span>)}</div></div><div className="tool-actions"><button onClick={()=>{const next=(example+1)%sortExamples.length;setExample(next);read([...sortExamples[next]].sort(compareWords).join(', '))}}>Başka örnek göster</button></div></div>}
  if(kind==='syllables')return <div className="learn-board"><p><b>Hecele</b> · bir kelime seç, hecelerini gör.</p><div className="syllable-picks">{['kelebek','okul','araba','kitap','top','öğretmen','televizyon'].map(w=><button key={w} aria-pressed={w===word} className={w===word?'selected':''} onClick={()=>{setWord(w);read(syllables(w).join(', '))}}>{w}</button>)}</div><div className="syllable-show" aria-live="polite">{syllables(word).map((s,i)=><span key={i}>{s}</span>)}<b>{syllables(word).length} hece · {[...word].length} harf</b></div></div>;
  const step=Number(a),max=Number(b),answer=Array.from({length:Math.floor(max/step)},(_,i)=>step*(i+1)).join('|');
  return <div className="learn-board"><p><b>{step}’er ritmik sayma tablosu</b> · boyalı kutuları sırayla oku.</p><SkipChart q={{id:'explore',type:'skipChart',instruction:'',answer,step,value:max,hints:[],explanation:'',skill:'',difficulty:1}} onAnswer={()=>{}} disabled={false} explore/></div>;
