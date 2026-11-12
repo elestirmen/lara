@@ -1,10 +1,16 @@
 import type {Lesson,ActivityType} from '@/lib/types';
 import curriculum from '@/curriculum/grade-2.json';
-const entries:[string,string,string,string,ActivityType,string[]][]=[
+/** [üretici, başlık, kazanım, simge, ana araç, öğren metinleri, öğren panosu, yeni mi] */
+const entries:[string,string,string,string,ActivityType,string[],string?,boolean?][]=[
  ['blocks','Onluk ve birlik atölyesi','2.1.2','🧱','baseTenBlocks',['On küçük birlik birleşince bir onluk olur.','24 sayısı, 2 onluk ve 4 birliktir. Blokları alana taşı; sonra birlikte sayalım.']],
  ['count','Yüze kadar keşif','2.1.1','🔎','baseTenBlocks',['Nesneleri onarlı gruplamak saymayı kolaylaştırır.','Önce onlukları, sonra tek kalan birlikleri say.']],
  ['order','Sayıların yolu','2.1.3','🛤️','numberLine',['Sayı doğrusunda sağa gittikçe sayılar büyür.','32, 35’ten önce gelir. 35, 30 ile 40’ın tam ortasındadır.']],
+ ['round','En yakın onluğa yuvarla','2.1.3','🎯','choice',['Yuvarlamak, bir sayıya en yakın onluğu bulmaktır. Onluklar: 10, 20, 30, 40…','37 sayısı 30 ile 40 arasındadır. 40’a 3 adım, 30’a 7 adım uzaktır. 37 en yakın onluğa yuvarlanınca 40 olur.','Kısa yol: Birler basamağına bak. 1, 2, 3, 4 ise aşağıdaki onluğa; 5, 6, 7, 8, 9 ise yukarıdaki onluğa yuvarla.','Tam ortadaki 5 de yukarı yuvarlanır: 35 → 40. Yuvarlamak, yaklaşık hesap yaparken işimizi kolaylaştırır.'],undefined,true],
  ['skip','Zıplayarak sayalım','2.1.4','🐸','numberLine',['Her zıplayış aynı büyüklükte olsun.','İkişer sayarken 2, 4, 6, 8 deriz. Geri giderken sayılar küçülür.']],
+ ['rhythm2','İkişer ve beşer ritmik sayma','2.1.4','✌️','skipChart',['Ritmik saymak, hep aynı sayıyı ekleyerek saymaktır. İkişer sayalım: 2, 4, 6, 8, 10…','İkişer sayarken söylediğimiz sayılar hep 0, 2, 4, 6 ya da 8 ile biter.','Beşer sayalım: 5, 10, 15, 20, 25… Bu sayılar hep 5 ya da 0 ile biter.','Aşağıdaki tabloda renkli kutulara bak. Sonra sen de boyayacaksın!'],'chart:2:30',true],
+ ['rhythm3','Üçer ritmik sayma','2.1.4','☘️','skipChart',['Üçer sayarken her seferinde 3 ekleriz: 3, 6, 9, 12, 15…','İki sayıyı içinden fısılda, üçüncüyü yüksek sesle söyle: bir, iki, ÜÇ; dört, beş, ALTI!','30’a kadar üçer sayalım: 3, 6, 9, 12, 15, 18, 21, 24, 27, 30.','Geriye de sayabiliriz: 30, 27, 24, 21… Her adımda 3 azalır.'],'chart:3:30',true],
+ ['rhythm4','Dörder ritmik sayma','2.1.4','🍀','skipChart',['Dörder sayarken her seferinde 4 ekleriz: 4, 8, 12, 16, 20…','Üç sayıyı içinden fısılda, dördüncüyü yüksek sesle söyle: bir, iki, üç, DÖRT!','40’a kadar dörder sayalım: 4, 8, 12, 16, 20, 24, 28, 32, 36, 40.','İpucu: Dörder saymak, ikişer sayarken bir sayıyı atlamak gibidir: 2, 4, 6, 8 → 4, 8.'],'chart:4:40',true],
+ ['rhythmmix','Ritmik sayma ustası','2.1.4','🥁','skipChart',['İkişer, üçer, dörder, beşer ve onar sayabiliyoruz. Şimdi hepsini karıştıralım!','Bir sayı dizisinde kaçar sayıldığını bulmak için yan yana iki sayının farkına bak: 12, 15, 18… Fark 3; üçer sayılmış.','Onar sayarken birler basamağı hiç değişmez: 10, 20, 30, 40…','Ritmik sayma, çarpım tablosunu öğrenmenin ilk adımıdır.'],'chart:5:50',true],
  ['pattern','Örüntü dedektifi','2.1.5','🔮','ordering',['Örüntüde bir kural tekrar eder.','3, 6, 9… Her adımda 3 eklenir. Sıradaki sayı 12 olur.']],
  ['estimate','Bir bakışta tahmin','2.1.6','🍒','choice',['Tahmin etmek, saymadan önce yaklaşık bir sayı düşünmektir.','Önce küçük bir gruba bak. Kaç böyle grup var? Tahminini sayarak kontrol et.']],
  ['fractions','Paylaşım pikniği','2.1.7','🍕','fractions',['Bir bütünü iki eş parçaya bölersen her parça yarımdır.','Dört eş parçanın her biri çeyrektir. İki çeyrek bir yarım eder.']],
@@ -30,4 +36,4 @@ const entries:[string,string,string,string,ActivityType,string[]][]=[
  ['symmetry','Aynadaki şekiller','2.3.7','🦋','geometry',['Bir şekli uygun yerinden katlayınca iki taraf üst üste geliyorsa simetriyi buldun.','Kelebeğin iki kanadını düşün. Bir taraf, diğerinin aynadaki görüntüsü gibidir.']],
  ['graph','Sınıfın meyve sepeti','2.4.1','📊','graph',['Bir soru sor, cevapları topla, sonra bir grafik yap.','Grafikte her simge bir cevabı gösterir. En çok hangisi seçilmiş?']]
 ];
-export const mathLessons:Lesson[]=entries.map(([id,title,code,icon,kind,learn])=>{const outcome=curriculum.find(x=>x.learningOutcomeCode===`MAT.${code}`)!;return {id:`math-${id}`,subject:'math',theme:outcome.theme,title,subtitle:learn[0],icon,minutes:8,outcomes:[`MAT.${code}`],learn,kind,generator:id}});
+export const mathLessons:Lesson[]=entries.map(([id,title,code,icon,kind,learn,show,fresh])=>{const outcome=curriculum.find(x=>x.learningOutcomeCode===`MAT.${code}`)!;return {id:`math-${id}`,subject:'math',theme:outcome.theme,title,subtitle:learn[0],icon,minutes:8,outcomes:[`MAT.${code}`],learn,kind,generator:id,show,fresh}});

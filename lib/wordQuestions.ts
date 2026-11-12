@@ -1,0 +1,116 @@
+import type {Question} from './types';
+import {shuffle} from './random';
+import {alphabet,compareWords,letterCount,syllables,upper,vowelCount,vowels,wordsOf} from './turkish';
+import {wordBank} from '@/content/tr/wordbank';
+/** makeQuestion’ın bir soru için hazırladığı araçlar. */
+export interface Kit {q:Question;index:number;difficulty:1|2|3;random:()=>number;int:(a:number,b:number)=>number;one:<T>(items:readonly T[])=>T;set:(instruction:string,answer:string|number,explanation:string,options?:readonly string[])=>Question;choices:(instruction:string,answer:string|number,explanation:string,options?:readonly string[])=>Question;deal:(first:readonly (()=>Question)[],all:readonly (()=>Question)[])=>Question}
+type Task=()=>Question;
+const A=alphabet.map(upper),quote=(w:string)=>`“${w}”`,list=(items:readonly string[])=>items.map(quote).join(', ');
+/** Basamağa göre süzülmüş havuzlar bir kez hesaplanır. */
+const cache=new Map<string,unknown>(),memo=<T,>(key:string,make:()=>T)=>{if(!cache.has(key))cache.set(key,make());return cache.get(key) as T};
+/** Harf, Hece, Kelime bölümü: alfabe sırası, sözlük sırası, harf sayısı, hece sayısı ve kelime sayısı soruları. Kelimeler ve cümleler havuzdan rastgele gelir; basamak arttıkça uzar. */
+export function wordQuestion(kind:string,kit:Kit,sentences:readonly string[]):Question{
+ const {q,difficulty,random,int,one,set,choices,deal}=kit,level=(w:string)=>difficulty===1?letterCount(w)<=5:difficulty===2?letterCount(w)<=7:true;
+ const pool=memo(`pool${difficulty}`,()=>wordBank.filter(level)),words=(n:number,from:readonly string[]=pool)=>shuffle(from,random).slice(0,n);
+ /** Verilen ölçüye (harf, hece sayısı…) göre birbirinden farklı n kelime. */
+ const distinct=(n:number,measure:(w:string)=>number|string,from:readonly string[]=pool)=>{const seen=new Set<number|string>(),out:string[]=[];for(const w of shuffle(from,random)){const m=measure(w);if(!seen.has(m)){seen.add(m);out.push(w)}if(out.length===n)break}return out};
+ const near=(n:number,min=1)=>[String(n+1),String(n-1>=min?n-1:n+2)];
+ const fixed=(key:string,task:Task):Task=>()=>{q.key=[key];return task()};
+ const hint=(a:string,b:string)=>{q.hints=[a,b]};
+ const fact=(instruction:string,answer:string,wrong:string[],explanation:string):Task=>()=>choices(instruction,answer,explanation,wrong);
+ // —— Alfabe sırası ——
+ const letterTasks:Task[]=[
+  ()=>{const i=int(0,27);hint('Alfabeyi baştan söyle; bu harfe gelince dur.','Hemen ardından söylediğin harf cevaptır.');return choices(`Alfabede ${A[i]} harfinden hemen sonra hangi harf gelir?`,A[i+1],`Alfabede sıra: ${A.slice(Math.max(0,i-1),i+3).join(', ')}. ${A[i]} harfinden sonra ${A[i+1]} gelir.`,[A[i>0?i-1:i+2],A[i<27?i+2:i-2]])},
+  ()=>{const i=int(1,28);hint('Alfabeyi baştan söyle; bu harfe gelmeden az önce hangi harfi söyledin?','Önce gelen harf, bir adım geridedir.');return choices(`Alfabede ${A[i]} harfinden hemen önce hangi harf gelir?`,A[i-1],`Alfabede sıra: ${A.slice(Math.max(0,i-2),i+2).join(', ')}. ${A[i]} harfinden önce ${A[i-1]} gelir.`,[A[i<28?i+1:i-2],A[i>1?i-2:i+2]])},
+  ()=>{const i=int(0,26);hint('İki harfin arasında yalnız bir harf var.','Alfabeyi ilk harften başlayarak söyle.');return choices(`Alfabede ${A[i]} ile ${A[i+2]} arasında hangi harf vardır?`,A[i+1],`${A[i]}, ${A[i+1]}, ${A[i+2]} diye sıralanır. Arada ${A[i+1]} var.`,[A[(i+3)%29],A[(i+28)%29]])},
+  ()=>{const i=int(0,24),miss=int(1,3),seq=A.slice(i,i+5);hint('Harfleri sırayla oku. Hangi harf atlanmış?','Boşluktan önceki harften sonra alfabede ne gelir?');return choices(`${seq.map((x,j)=>j===miss?'__':x).join(' ')} Boşluğa hangi harf gelmeli?`,seq[miss],`Sıra: ${seq.join(', ')}. Boşluğa ${seq[miss]} gelir.`,[A[(i+5)%29],A[(i+28)%29]])},
+  ()=>{const picks=shuffle(A,random).slice(0,3),sorted=[...picks].sort(compareWords);hint('Alfabeyi baştan söyle. Bu üç harften hangisini ilk söyledin?','A’ya en yakın olan harf en önce gelir.');return choices(`${picks.join(', ')} harflerinden hangisi alfabede en önce gelir?`,sorted[0],`Alfabedeki sıra: ${sorted.join(', ')}. En önce ${sorted[0]} gelir.`,picks)},
+  ()=>{const picks=shuffle(A,random).slice(0,3),sorted=[...picks].sort(compareWords);hint('Alfabeyi baştan söyle. Bu üç harften hangisini en son söyledin?','Z’ye en yakın olan harf en sonda gelir.');return choices(`${picks.join(', ')} harflerinden hangisi alfabede en sonda gelir?`,sorted[2],`Alfabedeki sıra: ${sorted.join(', ')}. En sonda ${sorted[2]} gelir.`,picks)},
+  fixed('order-letters',()=>{const sorted=shuffle(A,random).slice(0,difficulty===1?3:4).sort(compareWords);let items=shuffle(sorted,random);if(items.join()===sorted.join())items=[...items.slice(1),items[0]];q.type='ordering';q.items=items;q.skill='T.O.2.1';hint('Alfabeyi baştan söyle. Kartlardaki harflerden hangisi ilk geldi?','Sırayla devam et: sonra hangisi geliyor?');return set(kit.index%2?'Harf kartlarını alfabedeki sırasına diz.':'Bu harfler karışmış! Alfabe sırasına koy.',sorted.join('|'),sorted.join(' → '))}),
+  ()=>{const v=one([...vowels]),cs=shuffle(alphabet.filter(c=>!vowels.includes(c)),random).slice(0,2),picks=shuffle([v,...cs].map(upper),random);hint('Ünlü harfler: A, E, I, İ, O, Ö, U, Ü.','Ünlüleri söylerken ağzın açık kalır, ses rahatça çıkar.');return choices(`${picks.join(', ')} harflerinden hangisi ünlü (sesli) harftir?`,upper(v),`${upper(v)} ünlü bir harftir. Sekiz ünlümüz var: A, E, I, İ, O, Ö, U, Ü.`,picks)},
+  ()=>{const c=one(alphabet.filter(x=>!vowels.includes(x))),vs=shuffle([...vowels],random).slice(0,2),picks=shuffle([c,...vs].map(upper),random);hint('Ünlü harfler: A, E, I, İ, O, Ö, U, Ü. Bunların dışındakiler ünsüzdür.','Ünsüz harfi tek başına söylemek zordur; yanına bir ünlü ister.');return choices(`${picks.join(', ')} harflerinden hangisi ünsüz (sessiz) harftir?`,upper(c),`${upper(c)} ünsüz bir harftir. Diğer ikisi ünlüdür.`,picks)},
+  ()=>{const w=one(pool);hint('Kelimenin ilk harfine bak.','Sözlükte kelimeler ilk harflerine göre bölümlere ayrılır.');return choices(`${quote(w)} kelimesini sözlükte hangi harfin bölümünde ararız?`,upper([...w][0]),`${quote(w)} kelimesi ${upper([...w][0])} harfiyle başlar; sözlükte ${upper([...w][0])} bölümünde bulunur.`,[upper([...w].at(-1)!),A[(alphabet.indexOf([...w][0])+3)%29],A[(alphabet.indexOf([...w][0])+11)%29]].filter(x=>x!==upper([...w][0])).slice(0,2))},
+  fact('Alfabemizde kaç harf vardır?','29',['26','30'],'Türk alfabesinde 29 harf vardır.'),
+  fact('Alfabemizin ilk harfi hangisidir?','A',['B','Z'],'Alfabemiz A harfiyle başlar.'),
+  fact('Alfabemizin son harfi hangisidir?','Z',['Y','V'],'Alfabemiz Z harfiyle biter.'),
+  fact('Alfabemizde kaç ünlü (sesli) harf vardır?','8',['5','21'],'Sekiz ünlü harfimiz var: A, E, I, İ, O, Ö, U, Ü.'),
+  fact('Alfabemizde kaç ünsüz (sessiz) harf vardır?','21',['8','29'],'29 harfin 8’i ünlü, kalan 21’i ünsüzdür.'),
+  fact('Hangi harf Türk alfabesinde yoktur?','W',['Ç','Ğ'],'W harfi alfabemizde yoktur. Ç ve Ğ ise bizim harflerimizdir.'),
+  fact('Hangi harf Türk alfabesinde vardır?','Ş',['Q','X'],'Ş alfabemizin harfidir. Q ve X alfabemizde yoktur.'),
+  fact('Alfabede C harfinden sonra gelen “çengelli” harf hangisidir?','Ç',['Ş','Ğ'],'C’den hemen sonra Ç gelir: A, B, C, Ç, D…'),
+  fact('Alfabede G harfinden sonra gelen “yumuşak” harf hangisidir?','Ğ',['H','Ç'],'G’den hemen sonra Ğ (yumuşak g) gelir.'),
+  fact('Alfabede hangisi önce gelir: noktasız I mı, noktalı İ mi?','Noktasız I',['Noktalı İ'],'Sıra şöyledir: H, I, İ, J. Önce noktasız I gelir.'),
+  fact('Hangi harfle başlayan Türkçe kelime yoktur?','Ğ',['G','H'],'Türkçede hiçbir kelime Ğ (yumuşak g) ile başlamaz.'),
+ ];
+ // —— Sözlük sırası ——
+ const initial=(w:string)=>[...w][0],sameStart=()=>one(memo(`same${difficulty}`,()=>{const groups=new Map<string,string[]>();for(const w of pool){const g=groups.get(initial(w))??[];g.push(w);groups.set(initial(w),g)}return [...groups.values()].filter(g=>new Set(g.map(w=>[...w][1])).size>=4)}));
+ const dictHint=()=>hint('Kelimelerin ilk harflerine bak. Hangi harf alfabede daha önce?','İlk harfler aynıysa ikinci harflere bak.');
+ const trio=(same:boolean)=>same?distinct(3,w=>[...w][1],sameStart()):distinct(3,initial),explain=(sorted:string[])=>`Sözlük sırası: ${sorted.join(', ')}.`;
+ const orderWords=(same:boolean,instruction:string)=>{const sorted=(same?distinct(difficulty===1?3:4,w=>[...w][1],sameStart()):distinct(difficulty===1?3:4,initial)).sort(compareWords);let items=shuffle(sorted,random);if(items.join()===sorted.join())items=[...items.slice(1),items[0]];q.type='ordering';q.items=items;q.skill='T.O.2.1';dictHint();return set(instruction,sorted.join('|'),sorted.join(' → '))};
+ const dictTasks:Task[]=[
+  fixed('order-words',()=>orderWords(false,kit.index%2?'Kelime kartlarını sözlükteki sırasına diz.':'Kelimeleri ilk harflerine bakarak alfabe sırasına koy.')),
+  fixed('order-same',()=>orderWords(true,'Bu kelimeler aynı harfle başlıyor. İkinci harflerine bakarak sözlük sırasına diz.')),
+  ()=>{const picks=trio(difficulty>1&&random()<.5),sorted=[...picks].sort(compareWords);dictHint();return choices(`Sözlükte hangisi en önce gelir: ${list(picks)}?`,sorted[0],`${explain(sorted)} En önce ${quote(sorted[0])} gelir.`,picks)},
+  ()=>{const picks=trio(difficulty>1&&random()<.5),sorted=[...picks].sort(compareWords);dictHint();return choices(`Sözlükte hangisi en sonda gelir: ${list(picks)}?`,sorted[2],`${explain(sorted)} En sonda ${quote(sorted[2])} gelir.`,picks)},
+  ()=>{const picks=distinct(2,w=>[...w][1],sameStart()),sorted=[...picks].sort(compareWords);hint('İki kelime de aynı harfle başlıyor. İkinci harflerine bak.',`${upper([...picks[0]][1])} ile ${upper([...picks[1]][1])} harflerinden hangisi alfabede önce?`);return choices(`${quote(picks[0])} ve ${quote(picks[1])} aynı harfle başlıyor. Sözlükte hangisi önce gelir?`,sorted[0],`İkinci harflere bakarız: ${upper([...sorted[0]][1])}, ${upper([...sorted[1]][1])} harfinden önce gelir. Önce ${quote(sorted[0])} gelir.`,picks)},
+  ()=>{const five=distinct(5,initial).sort(compareWords),sorted=five.slice(1,4);dictHint();return choices(`Sözlükte ${quote(sorted[0])} ile ${quote(sorted[2])} kelimelerinin arasına hangisi girer?`,sorted[1],`${explain(sorted)} Arada ${quote(sorted[1])} var.`,[five[0],five[4]])},
+  ()=>{const sorted=distinct(3,initial).sort(compareWords);dictHint();return choices(`${quote(sorted[1])} kelimesi sözlükte hangi kelimeden sonra gelir?`,sorted[0],`${explain(sorted)} ${quote(sorted[1])}, ${quote(sorted[0])} kelimesinden sonra gelir.`,[sorted[0],sorted[2]])},
+  ()=>{const sorted=distinct(3,initial).sort(compareWords);dictHint();return choices(`${quote(sorted[1])} kelimesi sözlükte hangi kelimeden önce gelir?`,sorted[2],`${explain(sorted)} ${quote(sorted[1])}, ${quote(sorted[2])} kelimesinden önce gelir.`,[sorted[0],sorted[2]])},
+  letterTasks[9],
+  fact('Sözlükte kelimeler neye göre sıralanır?','Alfabe sırasına göre',['Uzunluklarına göre','Anlamlarına göre'],'Sözlükte kelimeler alfabe sırasıyla dizilir; böylece aradığımızı çabucak buluruz.'),
+  fact('İki kelime aynı harfle başlıyorsa sırayı bulmak için neye bakarız?','İkinci harflerine',['Son harflerine','Harf sayılarına'],'İlk harfler aynıysa ikinci harflere, onlar da aynıysa üçüncü harflere bakarız.'),
+  fact('Sözlük ne işe yarar?','Kelimelerin anlamını ve yazılışını öğrenmeye',['Toplama yapmaya','Resim çizmeye'],'Bilmediğimiz bir kelimenin anlamını ve doğru yazılışını sözlükten buluruz.'),
+  fact('Sınıf listesinde adlar alfabe sırasıyla yazılır. Hangisi listede en üstte olur?','Ali',['Mert','Zeynep'],'A harfi alfabenin ilk harfidir; Ali en üstte yer alır.'),
+ ];
+ // —— Harf sayısı ——
+ const tiles=(w:string)=>{q.visual=`tiles:${w}`},countHint=()=>hint('Her kutuda bir harf var. Parmağınla tek tek dokunarak say.','Aynı harf iki kez geçiyorsa ikisini de say.');
+ const letterCountTasks:Task[]=[
+  ()=>{const w=one(pool),n=letterCount(w);tiles(w);countHint();return choices(`${quote(w)} kelimesinde kaç harf var?`,n,`${[...w].map(upper).join(' - ')}: ${quote(w)} kelimesi ${n} harflidir.`,near(n))},
+  ()=>{const picks=distinct(3,letterCount),w=picks[0],n=letterCount(w);hint('Her kelimenin harflerini tek tek say.','Aradığın sayıyı bulunca dur.');return choices(`Hangi kelime ${n} harflidir: ${list(shuffle(picks,random))}?`,w,`${picks.map(p=>`${quote(p)} ${letterCount(p)} harfli`).join(', ')}.`,picks)},
+  ()=>{const picks=distinct(3,letterCount),sorted=[...picks].sort((a,b)=>letterCount(b)-letterCount(a));hint('Her kelimenin harflerini say.','En büyük sayıyı bulan kelime en uzundur.');return choices(`Hangi kelimenin harf sayısı en çoktur: ${list(picks)}?`,sorted[0],`${picks.map(p=>`${quote(p)} ${letterCount(p)} harfli`).join(', ')}. En uzunu ${quote(sorted[0])}.`,picks)},
+  ()=>{const picks=distinct(3,letterCount),sorted=[...picks].sort((a,b)=>letterCount(a)-letterCount(b));hint('Her kelimenin harflerini say.','En küçük sayıyı bulan kelime en kısadır.');return choices(`Hangi kelimenin harf sayısı en azdır: ${list(picks)}?`,sorted[0],`${picks.map(p=>`${quote(p)} ${letterCount(p)} harfli`).join(', ')}. En kısası ${quote(sorted[0])}.`,picks)},
+  ()=>{const w=one(pool.filter(x=>letterCount(x)>=3)),n=vowelCount(w);tiles(w);hint('Ünlü harfler: A, E, I, İ, O, Ö, U, Ü.','Kelimedeki ünlüleri tek tek işaretle ve say.');return choices(`${quote(w)} kelimesinde kaç ünlü (sesli) harf var?`,n,`Ünlüler: ${[...w].filter(c=>vowels.includes(c)).map(upper).join(', ')}. ${n} ünlü harf var.`,near(n))},
+  ()=>{const w=one(pool.filter(x=>letterCount(x)>=3)),n=letterCount(w)-vowelCount(w);tiles(w);hint('Önce ünlüleri bul: A, E, I, İ, O, Ö, U, Ü. Geriye kalanlar ünsüzdür.','Ünsüz harfleri tek tek say.');return choices(`${quote(w)} kelimesinde kaç ünsüz (sessiz) harf var?`,n,`Ünsüzler: ${[...w].filter(c=>!vowels.includes(c)).map(upper).join(', ')}. ${n} ünsüz harf var.`,near(n,0))},
+  ()=>{const w=one(pool.filter(x=>new Set(x).size>=3)),c=[...w];hint('Kelimeyi soldan okumaya başla.','İlk okuduğun harf kelimenin ilk harfidir.');return choices(`${quote(w)} kelimesinin ilk harfi hangisidir?`,upper(c[0]),`${quote(w)} kelimesi ${upper(c[0])} harfiyle başlar.`,[...new Set(c.slice(1).map(upper))].filter(x=>x!==upper(c[0])).slice(0,2))},
+  ()=>{const w=one(pool.filter(x=>new Set(x).size>=3)),c=[...w],last=upper(c.at(-1)!);hint('Kelimeyi sonuna kadar oku.','En sağdaki harf kelimenin son harfidir.');return choices(`${quote(w)} kelimesinin son harfi hangisidir?`,last,`${quote(w)} kelimesi ${last} harfiyle biter.`,[...new Set(c.slice(0,-1).map(upper))].filter(x=>x!==last).slice(0,2))},
+  ()=>{const w=one(pool.filter(x=>new Set(x).size>=4)),c=[...w],i=int(1,Math.min(c.length-2,3)),ans=upper(c[i]);tiles(w);hint('Kutuları soldan saymaya başla: 1, 2, 3…',`${i+1}. kutuda duran harfi söyle.`);return choices(`${quote(w)} kelimesinin ${i+1}. harfi hangisidir?`,ans,`${c.map(upper).join(' - ')}. ${i+1}. harf ${ans}.`,[...new Set(c.map(upper))].filter(x=>x!==ans).slice(0,2))},
+  ()=>{const same=random()<.5,[a,b]=same?(()=>{const n=one([3,4,5]),g=shuffle(pool.filter(w=>letterCount(w)===n),random);return [g[0],g[1]]})():distinct(2,letterCount);return choices(`${quote(a)} ve ${quote(b)} kelimelerinin harf sayıları eşit mi?`,letterCount(a)===letterCount(b)?'Evet, eşit.':'Hayır, eşit değil.',`${quote(a)} ${letterCount(a)} harfli, ${quote(b)} ${letterCount(b)} harfli.`,['Evet, eşit.','Hayır, eşit değil.'])},
+ ];
+ // —— Hece sayısı ——
+ const syl=(w:string)=>syllables(w),nSyl=(w:string)=>syl(w).length,sylHint=()=>hint('Elini çenenin altına koy ve kelimeyi söyle. Çenen kaç kez aşağı indi?','Her hecede bir ünlü harf vardır. Ünlüleri sayarak da bulabilirsin.');
+ const multi=memo(`multi${difficulty}`,()=>pool.filter(w=>nSyl(w)>=2&&letterCount(w)>=4));
+ const syllableTasks:Task[]=[
+  ()=>{const w=one(pool),n=nSyl(w);sylHint();return choices(`${quote(w)} kelimesi kaç hecelidir?`,n,`${syl(w).join(' - ')}: ${quote(w)} ${n} hecelidir.`,near(n))},
+  ()=>{const w=one(multi),s=syl(w),c=[...w],cuts=s.slice(0,-1).map((_,i)=>[...s.slice(0,i+1).join('')].length),build=(cs:number[])=>cs.reduce((parts,cut,i)=>[...parts,c.slice(cut,cs[i+1]??c.length).join('')],[c.slice(0,cs[0]).join('')]).join('-'),wrong=new Set<string>();for(let i=0;i<cuts.length;i++)for(const d of [1,-1]){const alt=[...cuts];alt[i]+=d;if(alt[i]>0&&alt[i]<c.length&&alt.every((x,j)=>j===0||x>alt[j-1]))wrong.add(build(alt))}hint('Kelimeyi alkışlayarak söyle. Her alkış bir hece.','Her hecede yalnız bir ünlü harf olur.');return choices(`${quote(w)} kelimesi hecelerine nasıl ayrılır?`,s.join('-'),`${quote(w)} kelimesi ${s.join(' - ')} diye hecelenir. Her hecede bir ünlü var.`,shuffle([...wrong],random).slice(0,2))},
+  ()=>{const picks=distinct(3,nSyl),w=picks[0],n=nSyl(w);sylHint();return choices(`Hangi kelime ${n} hecelidir: ${list(shuffle(picks,random))}?`,w,`${picks.map(p=>`${syl(p).join('-')} (${nSyl(p)})`).join(', ')}.`,picks)},
+  ()=>{const picks=distinct(3,nSyl),sorted=[...picks].sort((a,b)=>nSyl(b)-nSyl(a));sylHint();return choices(`Hangi kelimenin hece sayısı en çoktur: ${list(picks)}?`,sorted[0],`${picks.map(p=>`${syl(p).join('-')} (${nSyl(p)})`).join(', ')}.`,picks)},
+  ()=>{const w=one(multi),s=syl(w),c=[...w],n=[...s[0]].length;hint('Kelimeyi yavaşça, alkışlayarak söyle.','İlk alkışta söylediğin parça ilk hecedir.');return choices(`${quote(w)} kelimesinin ilk hecesi hangisidir?`,s[0],`${s.join(' - ')}. İlk hece ${quote(s[0])}.`,[c.slice(0,n+1).join(''),n>1?c.slice(0,n-1).join(''):c.slice(0,n+2).join('')])},
+  ()=>{const w=one(multi),s=syl(w),c=[...w],n=[...s.at(-1)!].length;hint('Kelimeyi yavaşça, alkışlayarak söyle.','Son alkışta söylediğin parça son hecedir.');return choices(`${quote(w)} kelimesinin son hecesi hangisidir?`,s.at(-1)!,`${s.join(' - ')}. Son hece ${quote(s.at(-1)!)}.`,[c.slice(-(n+1)).join(''),n>1?c.slice(-(n-1)).join(''):c.slice(-(n+2)).join('')])},
+  ()=>{const [w,...others]=words(3,multi);hint('Heceleri arka arkaya, durmadan söyle.','Parçaları yan yana yazınca hangi kelime oluşuyor?');return choices(`${syl(w).join(' - ')} heceleri birleşince hangi kelime oluşur?`,w,`${syl(w).join(' + ')} = ${w}.`,others)},
+  ()=>{const w=one(multi),v=vowelCount(w);hint('Her hecede bir ünlü harf bulunur.','Ünlü sayısı kaçsa hece sayısı da odur.');return choices(`${quote(w)} kelimesinde ${v} ünlü harf var. Bu kelime kaç hecelidir?`,v,`Her hecede bir ünlü vardır: ${syl(w).join(' - ')}. ${v} ünlü, ${v} hece.`,near(v))},
+  ()=>{const one1=one(pool.filter(w=>nSyl(w)===1)),others=words(2,multi);sylHint();return choices(`Hangisi tek hecelidir: ${list(shuffle([one1,...others],random))}?`,one1,`${quote(one1)} tek seferde söylenir; tek hecelidir.`,others)},
+  fact('Bir hecede kaç ünlü (sesli) harf bulunur?','1',['2','3'],'Her hecede yalnız bir ünlü harf vardır.'),
+  fact('Bir kelimenin hece sayısını nasıl buluruz?','Ünlü harflerini sayarak',['Ünsüz harflerini sayarak','Kelimenin anlamına bakarak'],'Her hecede bir ünlü vardır; ünlü sayısı hece sayısını verir.'),
+  fact('Satır sonuna sığmayan kelimeyi nereden böleriz?','Hece sonundan',['Herhangi bir harften','Hiç bölmeyiz, yarım bırakırız'],'Kelimeler satır sonunda hecelerinden bölünür ve araya kısa çizgi konur.'),
+ ];
+ // —— Kelime sayısı ——
+ const nWords0=(s:string)=>wordsOf(s).length,lines=memo(`lines${difficulty}`,()=>sentences.filter(s=>{const n=nWords0(s);return n>=2&&n<=(difficulty===1?4:difficulty===2?6:8)})),nWords=(s:string)=>wordsOf(s).length,clean=(w:string)=>w.replace(/[.,!?]/g,''),wordHint=()=>hint('Kelimeler arasında boşluk vardır. Her kelimeye parmağınla dokunarak say.','Noktalama işaretleri kelime sayılmaz.');
+ const long=memo(`long${difficulty}`,()=>lines.filter(s=>nWords(s)>=3&&new Set(wordsOf(s).map(clean)).size===nWords(s)));
+ const sentenceTasks:Task[]=[
+  ()=>{const s=one(lines),n=nWords(s);wordHint();return choices(`${quote(s)} cümlesinde kaç kelime var?`,n,`${wordsOf(s).map(clean).join(' | ')}: ${n} kelime.`,near(n))},
+  ()=>{const picks=distinct(3,nWords,lines),s=picks[0];wordHint();q.key=[`which-sentence`];return choices(`Hangi cümle ${nWords(s)} kelimelidir?`,s,picks.map(p=>`${quote(p)} ${nWords(p)} kelime`).join(', ')+'.',picks)},
+  ()=>{const s=one(long),w=wordsOf(s).map(clean);hint('Cümleyi soldan okumaya başla.','İlk okuduğun kelime, büyük harfle başlayan kelimedir.');return choices(`${quote(s)} cümlesinin ilk kelimesi hangisidir?`,w[0],`Cümle ${quote(w[0])} kelimesiyle başlar. Cümleler büyük harfle başlar.`,w.slice(1,3))},
+  ()=>{const s=one(long),w=wordsOf(s).map(clean);hint('Cümleyi sonuna kadar oku.','Noktadan hemen önceki kelime son kelimedir.');return choices(`${quote(s)} cümlesinin son kelimesi hangisidir?`,w.at(-1)!,`Cümle ${quote(w.at(-1)!)} kelimesiyle biter.`,w.slice(0,2))},
+  ()=>{const s=one(long),w=wordsOf(s).map(clean),i=int(1,Math.min(w.length-1,3));hint('Kelimeleri soldan saymaya başla: 1, 2, 3…','Her boşluk yeni bir kelimenin başladığını gösterir.');return choices(`${quote(s)} cümlesinin ${i+1}. kelimesi hangisidir?`,w[i],`${w.map((x,j)=>`${j+1}. ${x}`).join(', ')}.`,w.filter((_,j)=>j!==i).slice(0,2))},
+  ()=>{const picks=distinct(2,nWords,lines),sorted=[...picks].sort((a,b)=>nWords(b)-nWords(a));wordHint();q.key=['more-words'];return choices('Hangi cümlede daha çok kelime var?',sorted[0],picks.map(p=>`${quote(p)} ${nWords(p)} kelime`).join(', ')+'.',picks)},
+  ()=>{const s=one(long),n=nWords(s);wordHint();return choices(`${quote(s)} cümlesinden bir kelime silersek kaç kelime kalır?`,n-1,`Cümlede ${n} kelime var. Biri silinince ${n-1} kelime kalır.`,[String(n),String(n+1)])},
+  ()=>{const s=one(lines.filter(x=>nWords(x)<=5)),w=one(pool),n=nWords(s);wordHint();return choices(`${quote(s)} cümlesine ${quote(w)} kelimesini de eklersek cümle kaç kelimeli olur?`,n+1,`Cümlede ${n} kelime vardı. Bir kelime eklenince ${n+1} olur.`,[String(n),String(n+2)])},
+  fact('Kelimeler anlamlı bir sırayla bir araya gelince ne oluşur?','Cümle',['Hece','Harf'],'Harfler heceleri, heceler kelimeleri, kelimeler de cümleleri oluşturur.'),
+  fact('Heceler birleşince ne oluşur?','Kelime',['Cümle','Harf'],'Heceler yan yana gelince kelime oluşur: ki + tap = kitap.'),
+  fact('Cümledeki kelimeleri sayarken neye dikkat ederiz?','Kelimelerin arasındaki boşluklara',['Harflerin büyüklüğüne','Cümlenin sonundaki işarete'],'Kelimeler birbirinden boşlukla ayrılır; her boşluk yeni bir kelimeyi gösterir.'),
+  fact('Hangisi en küçüktür?','Harf',['Hece','Kelime'],'En küçüğü harftir. Harfler heceyi, heceler kelimeyi, kelimeler cümleyi oluşturur.'),
+ ];
+ const firsts:Record<string,Task[]>={letters:letterTasks.slice(0,3),dictionary:dictTasks.slice(2,4),'count-letters':letterCountTasks.slice(0,1),'count-syllables':syllableTasks.slice(0,1),'count-words':sentenceTasks.slice(0,1),'count-mix':[letterCountTasks[0],syllableTasks[0],sentenceTasks[0]]};
+ const all:Record<string,Task[]>={letters:letterTasks,dictionary:dictTasks,'count-letters':letterCountTasks,'count-syllables':syllableTasks,'count-words':sentenceTasks,'count-mix':[...letterCountTasks.slice(0,6),...syllableTasks.slice(0,8),...sentenceTasks.slice(0,7)]};
+ q.type='choice';return deal(firsts[kind],all[kind]);
+}

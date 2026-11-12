@@ -117,3 +117,13 @@ Sesli okuma cihazda uygun **yerel** Türkçe/İngilizce ses varsa kullanılabili
 Son yayın ve etkileşim test sonuçları: [docs/VALIDATION.md](docs/VALIDATION.md).
 
 Unit testler: yanıt, puan, tekrar, uyarlama, tamamlama, yedek doğrulama, soru üretici sınırları, bir ders turunda soru tekrarı olmaması, Türkçe sayı ekleri, oyun mantığı ve müfredat ilişkileri. E2E: dört oyunun baştan sona oynanışı, tam matematik akışı, kalıcı ilerleme, ebeveyn kilidi/yedek, ders rotaları, offline açılış ve 360×800, 390×844, 768×1024, 1024×768, 1280×720, 1920×1080 ekranlarında Axe taraması. Lighthouse raporları `artifacts/` altında oluşturulur. Tarayıcı testleri gerçek cihaz ergonomisi veya öğretmen değerlendirmesinin yerine geçmez.
+
+## Soru havuzları (Kasım 2026)
+
+Sorular her turda büyük bir havuzdan rastgele seçilir; bir turda aynı soru iki kez gelmez (`lib/random.ts` → `pick`).
+
+- **Hayat Bilgisi:** 14 ders × 60 durum = 840 (önce 7 ders × 12). Ek durumlar ve yeni kardeş dersler `content/life/pool/` altındadır; havuz durumlarının görseli yoktur.
+- **Türkçe:** tema başına üç hikâye (24 hikâye, hikâye başına 13 soru; `content/tr/pool/stories-*.ts`), 850 cümlelik noktalama bankası (`content/tr/pool/punct.ts`, sorular `bankQuestion` ile üretilir) ve **Harf, Hece, Kelime** bölümü: alfabe sırası, sözlük sırası, harf, hece ve kelime sayısı. Bu bölümün soruları `lib/wordQuestions.ts` içinde `content/tr/wordbank.ts` kelime havuzundan üretilir; heceleme kuralı `lib/turkish.ts` → `syllables`.
+- **Matematik:** 400 bilgi sorusu ve 64 problem kalıbı (`content/math/pool.ts`); bilgi soruları araç görevleriyle sırayla gelir. Yeni dersler: **En yakın onluğa yuvarla** (`round`) ve ritmik sayma (`rhythm2`, `rhythm3`, `rhythm4`, `rhythmmix`; 3’er 30’a, 4’er 40’a kadar). Ritmik sayma tablosu `components/activities/SkipChart.tsx`.
+
+Havuzların tutarlılığını `tests/pool.test.ts` denetler. Yeni dersler `fresh: true` ile konu listesinde “YENİ” etiketi alır.

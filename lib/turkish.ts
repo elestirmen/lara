@@ -9,3 +9,14 @@ export function withSuffix(n:number,suffix:NumberSuffix){
 }
 /** 0–100 arası sayının okunuşu: 47 → kırk yedi. */
 export function numberWord(n:number){return n===0?'sıfır':n===100?'yüz':[tens[Math.floor(n/10)],ones[n%10]].filter(Boolean).join(' ')}
+/** Türk alfabesi (29 harf) ve sözlük sırası. */
+export const alphabet=[...'abcçdefgğhıijklmnoöprsştuüvyz'],vowels='aeıioöuü';
+export const upper=(s:string)=>s.toLocaleUpperCase('tr-TR'),lower=(s:string)=>s.toLocaleLowerCase('tr-TR');
+export const letterCount=(word:string)=>[...lower(word)].filter(c=>alphabet.includes(c)).length;
+export const vowelCount=(word:string)=>[...lower(word)].filter(c=>vowels.includes(c)).length;
+/** Sözlük sırası karşılaştırması: harfler alfabedeki yerine göre, kısa olan önce. */
+export function compareWords(a:string,b:string){const x=[...lower(a)],y=[...lower(b)];for(let i=0;i<Math.min(x.length,y.length);i++){const d=alphabet.indexOf(x[i])-alphabet.indexOf(y[i]);if(d)return d}return x.length-y.length}
+/** Heceleme: her hecede bir ünlü vardır; iki ünlü arasındaki tek ünsüz sonraki heceye, birden çok ünsüzün yalnız sonuncusu sonraki heceye geçer (ke-le-bek, kar-puz, sa-at, Türk-çe). */
+export function syllables(word:string){const chars=[...word],isVowel=(c:string)=>vowels.includes(lower(c)),nuclei=chars.map((c,i)=>isVowel(c)?i:-1).filter(i=>i>=0);if(nuclei.length<2)return [word];const cuts=nuclei.slice(1).map((v,k)=>v-nuclei[k]===1?v:v-1),parts:string[]=[];let from=0;for(const cut of cuts){parts.push(chars.slice(from,cut).join(''));from=cut}parts.push(chars.slice(from).join(''));return parts}
+/** Cümledeki kelimeler; noktalama kelimeye sayılmaz. */
+export const wordsOf=(sentence:string)=>sentence.trim().split(/\s+/).filter(w=>/[\p{L}\d]/u.test(w));
