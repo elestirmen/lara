@@ -1,5 +1,10 @@
 # Doğrulama
 
+## 12 Kasım 2026: soru havuzları ve yeni bölümler
+
+Hayat Bilgisi 14 ders × 60 durum (840), noktalama 946 soru, 24 hikâye; yeni Harf, Hece, Kelime bölümü, En yakın onluğa yuvarla ve ritmik sayma dersleri. İçerik havuzları paralel yardımcı oturumlarla yazıldı; `tests/pool.test.ts` ile denetlendi ve örneklenerek okundu, tamamı satır satır okunmadı. Birim testleri 54/54. Kullanıcının isteğiyle aynı gün yayına alındı: canlı yükseltme testi geçti, canlıda E2E 53/53, yayınlanan 336 dosya `out/` ile birebir aynı. Yayından sonra kullanıcının geri bildirimiyle sayı doğrusunda ritmik sayarken Piko yalnız zıplayışların denk geldiği sayılara konacak şekilde düzeltildi ve yeniden yayınlandı (ilgili 8 E2E testi geçti). Geri dönüş imajı: `laranin-dersleri:before-pools-20261112`.
+
+
 ## 6 Kasım 2026 — Noktalama: kolaydan zora
 
 Kullanıcı geri bildirimi: “basitten karmaşığa doğru olsun, örnek sayısı daha çok olsun, hemen zorlar gelmesin.” Noktalama derslerindeki sorular kolay, orta ve zor diye üç havuza ayrıldı. Dersin `ladder` alanı (`[1,1,1,1,2,2,3,3]`) her soru sırasının hangi havuzdan çekileceğini belirler: Birlikte yapalım, Sen dene, Mini oyun ve testin ilk sorusu kolay, sonraki iki soru orta, son iki soru zor. Kolay sorular tek işaretlidir ya da işareti tanıtır (“Bunlardan hangisi virgüldür?”); zor sorularda iki cümle ya da birden çok işaret vardır. Soru sayısı 69'dan 96'ya çıktı (kolay 45, orta 31, zor 20). Öğren ekranında her kurala ikişer üçer örnek cümle eklendi.

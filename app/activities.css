@@ -49,3 +49,4 @@
 @media(max-width:560px){.skip-chart{gap:4px;padding:8px}.skip-chart button{border-radius:9px}.learn-board{padding:12px}.alphabet-strip{grid-template-columns:repeat(6,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){.syllable-show span{animation:none}.skip-chart button.on{transform:none}}
 .round-line .mark b{white-space:nowrap;left:50%;transform:translateX(-50%)}
+.number-path button.between{opacity:.4;font-size:14px;font-weight:600;cursor:default}.number-path button.between:before{height:7px;top:-4px}
