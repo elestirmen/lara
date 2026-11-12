@@ -127,3 +127,11 @@ Sorular her turda büyük bir havuzdan rastgele seçilir; bir turda aynı soru i
 - **Matematik:** 400 bilgi sorusu ve 64 problem kalıbı (`content/math/pool.ts`); bilgi soruları araç görevleriyle sırayla gelir. Yeni dersler: **En yakın onluğa yuvarla** (`round`) ve ritmik sayma (`rhythm2`, `rhythm3`, `rhythm4`, `rhythmmix`; 3’er 30’a, 4’er 40’a kadar). Ritmik sayma tablosu `components/activities/SkipChart.tsx`.
 
 Havuzların tutarlılığını `tests/pool.test.ts` denetler. Yeni dersler `fresh: true` ile konu listesinde “YENİ” etiketi alır.
+
+### Dokunmalı ve sürüklemeli etkinlikler
+
+Yeni bölümlerde her turun ilk sorusu ve sonraki tek sıralı soruları bir araçtır; seçenekli sorular aralarına girer (`deal(first, tools, quizzes)`).
+
+- `components/activities/DragSlots.tsx` (`slots`): kartlar sürüklenerek ya da dokunarak yuvalara konur. `layout: list` alfabetik sıralama (numaralı yuvalar, üstte numaralı alfabe şeridi), `train` alfabe treni ve ritmik sayma treni, `word` hece ve harf kartlarıyla kelime kurma.
+- `components/activities/WordTools.tsx`: `cut` makasla heceye ya da yapışık kelimelere ayırma, `clap` alkışla hece sayma, `pick` ünlü/ünsüz harflere ya da istenen kelimeye dokunma, `hill` yuvarlama tepesi (top doğru onluğa yuvarlanır), `CountTiles` dokunarak sayma yardımcısı.
+- `tests/e2e/tools.spec.ts` bu araçları fare sürüklemesi, dokunma ve parmak sürüklemesiyle baştan sona çözer; ekran görüntüleri `artifacts/tools/` altına yazılır.
