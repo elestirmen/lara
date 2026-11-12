@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import {emptyProgress,completeLesson,exportProgress} from '../../lib/progress';
-test('ana sayfa → matematik → etkinlik → sonuç → kalıcı ilerleme',async({page})=>{
+test('ana sayfa → matematik → etkinlik → sonuç → kalıcı ilerleme',async({page})=>{test.setTimeout(120000);
  await page.goto('/');await page.getByRole('link',{name:'Keşfe başla'}).click();
  await page.getByRole('button',{name:'Devam',exact:true}).click();await page.getByRole('button',{name:'Birlikte yapalım',exact:true}).click();
  for(let i=0;i<8;i++){

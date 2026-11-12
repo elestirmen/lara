@@ -20,3 +20,6 @@ export function compareWords(a:string,b:string){const x=[...lower(a)],y=[...lowe
 export function syllables(word:string){const chars=[...word],isVowel=(c:string)=>vowels.includes(lower(c)),nuclei=chars.map((c,i)=>isVowel(c)?i:-1).filter(i=>i>=0);if(nuclei.length<2)return [word];const cuts=nuclei.slice(1).map((v,k)=>v-nuclei[k]===1?v:v-1),parts:string[]=[];let from=0;for(const cut of cuts){parts.push(chars.slice(from,cut).join(''));from=cut}parts.push(chars.slice(from).join(''));return parts}
 /** Cümledeki kelimeler; noktalama kelimeye sayılmaz. */
 export const wordsOf=(sentence:string)=>sentence.trim().split(/\s+/).filter(w=>/[\p{L}\d]/u.test(w));
+/** Ritmik sayma sözü, çocuğun okuduğu gibi yazıyla: 3 → “üçer üçer”, 10 → “onar onar”. Cümle başında büyük harfle (cap). */
+const each=['','birer','ikişer','üçer','dörder','beşer','altışar','yedişer','sekizer','dokuzar','onar'];
+export function byEach(n:number,cap=false){const w=`${each[n]} ${each[n]}`;return cap?w[0].toLocaleUpperCase('tr-TR')+w.slice(1):w}

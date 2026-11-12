@@ -1,5 +1,10 @@
 # Doğrulama
 
+## 12 Kasım 2026: dokunmalı etkinlikler
+
+Kullanıcının “yalnız test olmasın, sürükle-bırak olsun” isteğiyle Harf-Hece-Kelime, yuvarlama ve ritmik sayma derslerine sürükle-bırak yuvalar, makasla ayırma, alkışla sayma, harf seçme ve yuvarlama tepesi eklendi (16cad84). `tests/e2e/tools.spec.ts` bu araçları fare sürüklemesi, dokunma ve parmak sürüklemesiyle baştan sona çözer. Kullanıcının onayıyla aynı gün yayına alındı: canlı yükseltme testi geçti, yayınlanan 336 dosya `out/` ile birebir aynı. Canlıda E2E 66/68; kalan iki test (seçenekli soru geri bildirimi, oyun rozeti) yeniden çalıştırılınca üçer kez geçti, ilk turda makinede başka testler de çalışıyordu. Geri dönüş imajı: `laranin-dersleri:before-tools-20261112`.
+
+
 ## 12 Kasım 2026: soru havuzları ve yeni bölümler
 
 Hayat Bilgisi 14 ders × 60 durum (840), noktalama 946 soru, 24 hikâye; yeni Harf, Hece, Kelime bölümü, En yakın onluğa yuvarla ve ritmik sayma dersleri. İçerik havuzları paralel yardımcı oturumlarla yazıldı; `tests/pool.test.ts` ile denetlendi ve örneklenerek okundu, tamamı satır satır okunmadı. Birim testleri 54/54. Kullanıcının isteğiyle aynı gün yayına alındı: canlı yükseltme testi geçti, canlıda E2E 53/53, yayınlanan 336 dosya `out/` ile birebir aynı. Yayından sonra kullanıcının geri bildirimiyle sayı doğrusunda ritmik sayarken Piko yalnız zıplayışların denk geldiği sayılara konacak şekilde düzeltildi ve yeniden yayınlandı (ilgili 8 E2E testi geçti). Geri dönüş imajı: `laranin-dersleri:before-pools-20261112`.

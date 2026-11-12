@@ -16,7 +16,7 @@ import {BundlingDemo} from './activities/BaseTenBlocks';
 import ClockTool from './activities/ClockTool';
 import GeometryLab from './activities/GeometryLab';
 import SkipChart from './activities/SkipChart';
-import {alphabet,compareWords,syllables,upper,vowels} from '@/lib/turkish';
+import {alphabet,byEach,compareWords,syllables,upper,vowels} from '@/lib/turkish';
 /** Alfabetik sıralama dersinin öğren ekranındaki hazır örnekler; sonuncusunda ilk harfler aynıdır. */
 const sortExamples=[['timsah','armut'],['kedi','balık','arı'],['zürafa','elma','masa','çilek'],['kitap','kalem','kedi']];
 import curriculum from '@/curriculum/grade-2.json';
@@ -29,7 +29,7 @@ function LearnBoard({show,read}:{show:string;read:(text:string)=>void}){
  if(kind==='sorting'){const mixed=sortExamples[example],sorted=[...mixed].sort(compareWords),same=new Set(mixed.map(w=>w[0])).size===1,mark=(w:string)=>same?<>{w[0]}<mark>{w[1]}</mark>{w.slice(2)}</>:<><mark>{w[0]}</mark>{w.slice(1)}</>;return <div className="learn-board"><p><b>Örnekle görelim</b> · {same?'ilk harfler aynı; ikinci harflere bakıyoruz.':'renkli ilk harflere bak.'}</p><div className="sort-demo" aria-live="polite"><div><small>KARIŞIK</small>{mixed.map(w=><span key={w}>{mark(w)}</span>)}</div><i aria-hidden="true">↓</i><div className="sorted"><small>ALFABETİK SIRA</small>{sorted.map((w,i)=><span key={w}><em>{i+1}</em>{mark(w)}</span>)}</div></div><div className="tool-actions"><button onClick={()=>{const next=(example+1)%sortExamples.length;setExample(next);read([...sortExamples[next]].sort(compareWords).join(', '))}}>Başka örnek göster</button></div></div>}
  if(kind==='syllables')return <div className="learn-board"><p><b>Hecele</b> · bir kelime seç, hecelerini gör.</p><div className="syllable-picks">{['kelebek','okul','araba','kitap','top','öğretmen','televizyon'].map(w=><button key={w} aria-pressed={w===word} className={w===word?'selected':''} onClick={()=>{setWord(w);read(syllables(w).join(', '))}}>{w}</button>)}</div><div className="syllable-show" aria-live="polite">{syllables(word).map((s,i)=><span key={i}>{s}</span>)}<b>{syllables(word).length} hece · {[...word].length} harf</b></div></div>;
  const step=Number(a),max=Number(b),answer=Array.from({length:Math.floor(max/step)},(_,i)=>step*(i+1)).join('|');
- return <div className="learn-board"><p><b>{step}’er ritmik sayma tablosu</b> · boyalı kutuları sırayla oku.</p><SkipChart q={{id:'explore',type:'skipChart',instruction:'',answer,step,value:max,hints:[],explanation:'',skill:'',difficulty:1}} onAnswer={()=>{}} disabled={false} explore/></div>;
+ return <div className="learn-board"><p><b>{byEach(step,true)} sayma tablosu</b> · boyalı kutuları sırayla oku.</p><SkipChart q={{id:'explore',type:'skipChart',instruction:'',answer,step,value:max,hints:[],explanation:'',skill:'',difficulty:1}} onAnswer={()=>{}} disabled={false} explore/></div>;
 }
 export default function LessonPlayer({lesson,progress,update}:{lesson:Lesson;progress:Progress;update:(p:Progress)=>void}){
  const [previewAnswer,setPreviewAnswer]=useState('');

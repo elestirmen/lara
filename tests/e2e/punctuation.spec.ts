@@ -1,12 +1,17 @@
 import {test,expect,type Page} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import {punctuationLessons} from '../../content/tr/punctuation';
+import {punctBank} from '../../content/tr/pool/punct';
 const marks=['.',',','?','!','’'],names:Record<string,string>={'.':'Nokta',',':'Virgül','?':'Soru işareti','!':'Ünlem işareti','’':'Kesme işareti'};
 const lesson=(id:string)=>punctuationLessons.find(l=>l.id===id)!;
 /** Cevaptaki işaretleri kelime sırasına göre boşluklara dağıtır (tests/punctuation.test.ts ile aynı okuma). */
 function placements(items:string[],answer:string){let pos=0;const out:[number,string][]=[];items.forEach((t,i)=>{pos+=(i&&!t.startsWith('+')?1:0)+t.replace(/^\+/,'').length;while(pos<answer.length&&marks.includes(answer[pos])){out.push([i,answer[pos]]);pos++}});return out}
 async function start(page:Page,id:string){await page.goto('about:blank');await page.goto(`/#lesson/${id}`);await expect(page.locator('.lesson-card')).toBeVisible();while(await page.getByRole('button',{name:'Devam',exact:true}).count())await page.getByRole('button',{name:'Devam',exact:true}).click();await page.getByRole('button',{name:'Birlikte yapalım',exact:true}).click()}
-async function solve(page:Page,id:string){/** Havuz sorularında yönerge ortaktır; soruyu ekrandaki cümlenin kelimeleri ayırır. */
+/** Kutulara ayırma soruları bankadan üretilir: kartın kutusu cümlenin bankadaki son işaretinden (ya da virgül/özel ad kuralından) bulunur. */
+async function solveBins(page:Page,id:string){const cards=await page.locator('.bins-tray .bin-card').allInnerTexts(),bins=await page.locator('.bin h4').allInnerTexts(),title=await page.locator('.stage-title h2').innerText(),index=title.startsWith('Birlikte')?0:title.startsWith('Sen dene')?1:title.startsWith('Mini oyun')?2:Number(title.match(/(\d) \/ 5/)![1])+2;
+ for(const c of cards){const bin=id==='tr-punct-apostrophe'?(/^\p{Lu}/u.test(c)?0:1):id==='tr-punct-comma'?([...punctBank.comma,...punctBank.end].find(([x])=>x.replace(/,/g,'')===c)![0].includes(',')?0:1):bins.findIndex(b=>b.includes(`( ${[...punctBank.end,...punctBank.exclaim].find(([x])=>x.slice(0,-1)===c)![0].at(-1)} )`));await page.locator('.bins-tray .bin-card').filter({hasText:new RegExp(`^${c.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}$`)}).first().click();await page.locator(`[data-bin="${bin}"] h4`).click()}
+ await page.getByRole('button',{name:'Kontrol et',exact:true}).click();await expect(page.getByText('Evet, buldun!')).toBeVisible();return {type:'bins',difficulty:lesson(id).ladder![index]}}
+async function solve(page:Page,id:string){if(await page.locator('.bins-tool').count())return solveBins(page,id);/** Havuz sorularında yönerge ortaktır; soruyu ekrandaki cümlenin kelimeleri ayırır. */
  const text=await page.locator('.question-instruction').innerText(),card=await page.locator('.lesson-card').innerText(),q=lesson(id).questions!.filter(x=>x.instruction===text&&(x.items??[]).every(w=>card.includes(w.replace(/^\+/,'')))).sort((a,b)=>(b.items??[]).join('').length-(a.items??[]).join('').length)[0];expect(q,text).toBeTruthy();
  if(q!.type==='marks'){for(const [i,m] of placements(q!.items!,q!.answer)){const tray=page.getByRole('button',{name:names[m],exact:true});if(await tray.getAttribute('aria-pressed')!=='true')await tray.click();await page.locator(`[data-gap="${i}"]`).click()}await expect(page.locator('.marks-paper')).toContainText(q!.answer);await page.getByRole('button',{name:'Kontrol et',exact:true}).click()}
  else if(q!.type==='punctuation')await page.getByRole('button',{name:names[q!.answer],exact:true}).click();
