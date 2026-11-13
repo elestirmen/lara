@@ -1,0 +1,15 @@
+# Lara'nın Dünyası seslendirme servisi, kadın ses: yazgı-tts-1 (Apache-2.0, https://huggingface.co/erkamk/yazgi-tts-1).
+# Paket ve ağırlıklar denenmiş tek bir sürüme sabitlenir ve imaja gömülür; servis çalışırken internete çıkmaz.
+FROM python:3.12-slim
+ARG YAZGI_REV=87c89ad84556fb3f1c171f7f88a37ddc0f806b04
+RUN pip install --no-cache-dir --extra-index-url https://download.pytorch.org/whl/cpu \
+    "yazgi-tts[hub] @ https://huggingface.co/erkamk/yazgi-tts-1/resolve/${YAZGI_REV}/dist/yazgi_tts-0.1.0-py3-none-any.whl" \
+    torch==2.15.0+cpu numpy==2.5.4 av==19.0.2
+RUN python -c "from huggingface_hub import snapshot_download; snapshot_download('erkamk/yazgi-tts-1', revision='${YAZGI_REV}', allow_patterns=['config.json','model.pt','codec.pt','voices/*'], local_dir='/weights')" \
+ && rm -rf /root/.cache /weights/.cache && chmod -R a+rX /weights && mkdir /cache && chown 65534:65534 /cache
+COPY tts/server.py /app/server.py
+USER 65534:65534
+ENV PYTHONUNBUFFERED=1 SES_ENGINE=yazgi SES_VOICE=female-01 SES_WEIGHTS=/weights HF_HUB_OFFLINE=1 HOME=/tmp
+EXPOSE 8090
+HEALTHCHECK --interval=30s --timeout=4s --start-period=40s --retries=3 CMD python -c "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8090/saglik',timeout=3)" || exit 1
+CMD ["python","/app/server.py"]

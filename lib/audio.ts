@@ -42,14 +42,21 @@ function speakDevice(text:string,lang:string):boolean{if(!('speechSynthesis'in w
 /** Sunucu sesi: Türkçe metin cümle cümle /ses adresinden (tts/server.py, sinirsel ses) çalınır; her cihazda aynı doğal ses duyulur.
  * Tek bir ses öğesi kullanılır (iOS, kullanıcı dokunuşuyla başlayan öğenin sıradaki cümleyi çalmasına izin verir); sıradaki cümle önceden istenir.
  * İnternet yoksa ya da servis yanıt vermezse kalan metin cihazın sesiyle okunur ve bir dakika boyunca sunucu yeniden denenmez. */
-const SERVER_VOICE_VERSION=1;
+const SERVER_VOICE_VERSION=2;
 let player:HTMLAudioElement|undefined,turn=0,serverDownUntil=0;
+/** Seslendirme durumu: ses istenip henüz çalmaya başlamadıysa “loading”. Düğmeler bekleme göstergesi için dinler. */
+export type SpeechState='idle'|'loading'|'playing';
+const listeners=new Set<(state:SpeechState)=>void>();let speechState:SpeechState='idle';
+const emit=(state:SpeechState)=>{if(state===speechState)return;speechState=state;listeners.forEach(l=>l(state))};
+export function onSpeechState(listener:(state:SpeechState)=>void){listeners.add(listener);return ()=>{listeners.delete(listener)}}
+/** Ön hazırlık: metin ekrana gelince sesi sunucuda arka planda üretilir; çocuk hoparlöre bastığında ses hazır olur. Ses indirilmez. Otomatik testler (navigator.webdriver) ses ürettirmez. */
+export function prepareSpeech(text:string,lang='tr-TR'){if(typeof window==='undefined'||lang!=='tr-TR'||!navigator.onLine||Date.now()<serverDownUntil||process.env.NODE_ENV!=='production'||navigator.webdriver)return;for(const part of serverParts(text))fetch(`${voiceUrl(part)}&p=1`).catch(()=>{})}
 export const voiceUrl=(part:string)=>`/ses?v=${SERVER_VOICE_VERSION}&t=${encodeURIComponent(part)}`;
 /** Sunucunun bir istekte kabul ettiği en uzun metin 400 karakterdir; daha uzun cümle virgüllerden bölünür. */
-export function serverParts(text:string){return speechParts(text).flatMap(part=>{if(part.length<=380)return [part];const pieces:string[]=[];let current='';for(const piece of part.split(/(?<=[,;:])\s+/)){if(current&&(current+' '+piece).length>380){pieces.push(current);current=piece}else current=current?`${current} ${piece}`:piece}if(current)pieces.push(current);return pieces.flatMap(x=>x.length<=380?[x]:x.match(/.{1,380}(\s|$)/g)!.map(y=>y.trim()))})}
+export function serverParts(text:string){return speechParts(text).filter(part=>/[\p{L}\d]/u.test(part)).flatMap(part=>{if(part.length<=380)return [part];const pieces:string[]=[];let current='';for(const piece of part.split(/(?<=[,;:])\s+/)){if(current&&(current+' '+piece).length>380){pieces.push(current);current=piece}else current=current?`${current} ${piece}`:piece}if(current)pieces.push(current);return pieces.flatMap(x=>x.length<=380?[x]:x.match(/.{1,380}(\s|$)/g)!.map(y=>y.trim()))})}
 function speakServer(text:string,lang:string){const mine=++turn,parts=serverParts(text);if(!parts.length)return;player??=new Audio();const audio=player;if('speechSynthesis'in window)speechSynthesis.cancel();
- const fallback=(from:number)=>{if(mine!==turn)return;serverDownUntil=Date.now()+60000;audio.onended=audio.onerror=null;speakDevice(parts.slice(from).join(' '),lang)};
- const play=(i:number)=>{if(mine!==turn)return;if(i>=parts.length){audio.onended=audio.onerror=null;return}audio.onended=()=>play(i+1);audio.onerror=()=>fallback(i);audio.src=voiceUrl(parts[i]);audio.play().catch(()=>fallback(i));if(parts[i+1])fetch(voiceUrl(parts[i+1])).catch(()=>{})};
+ const fallback=(from:number)=>{if(mine!==turn)return;serverDownUntil=Date.now()+60000;audio.onended=audio.onerror=audio.onplaying=null;emit('idle');speakDevice(parts.slice(from).join(' '),lang)};
+ const play=(i:number)=>{if(mine!==turn)return;if(i>=parts.length){audio.onended=audio.onerror=audio.onplaying=null;emit('idle');return}audio.onended=()=>play(i+1);audio.onerror=()=>fallback(i);audio.onplaying=()=>{if(mine===turn)emit('playing')};emit('loading');audio.src=voiceUrl(parts[i]);audio.play().catch(()=>fallback(i));if(parts[i+1])fetch(voiceUrl(parts[i+1])).catch(()=>{})};
  play(0)}
-export function speak(text:string,lang='tr-TR'):boolean{if(typeof window==='undefined')return false;if(lang==='tr-TR'&&navigator.onLine&&Date.now()>=serverDownUntil&&typeof Audio!=='undefined'){speakServer(text,lang);return true}turn++;player?.pause();return speakDevice(text,lang)}
-export function stopSpeech(){turn++;if(player){player.onended=player.onerror=null;player.pause()}if(typeof window!=='undefined'&&'speechSynthesis'in window)speechSynthesis.cancel()}
+export function speak(text:string,lang='tr-TR'):boolean{if(typeof window==='undefined')return false;if(lang==='tr-TR'&&navigator.onLine&&Date.now()>=serverDownUntil&&typeof Audio!=='undefined'){speakServer(text,lang);return true}turn++;player?.pause();emit('idle');return speakDevice(text,lang)}
+export function stopSpeech(){turn++;emit('idle');if(player){player.onended=player.onerror=player.onplaying=null;player.pause()}if(typeof window!=='undefined'&&'speechSynthesis'in window)speechSynthesis.cancel()}

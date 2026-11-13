@@ -141,4 +141,4 @@ Yeni bölümlerde her turun ilk sorusu ve sonraki tek sıralı soruları bir ara
 
 ### Seslendirme
 
-Türkçe metinler sunucudaki Piper sesiyle (`tts/`, `/ses` adresi) cümle cümle çalınır; servis yoksa cihazın en doğal sesi seçilir (`lib/audio.ts` → `bestVoice`). Ayrıntı: `docs/DEPLOYMENT.md` → Seslendirme servisi.
+Türkçe metinler sunucudaki kadın sesle (yazgı-tts-1 `female-01`, `tts/`, `/ses` adresi, AAC) cümle cümle çalınır. Sabit metinler önceden üretilir, diğerleri soru ekrana gelince arka planda hazırlanır; servis yoksa cihazın en doğal sesi seçilir (`lib/audio.ts` → `bestVoice`). Ayrıntı: `docs/DEPLOYMENT.md` → Seslendirme servisi.

@@ -66,15 +66,27 @@ Sunucuda çocuk verisi bulunmadığından sunucu veri tabanı yedeği gerekmez. 
 
 ## Seslendirme servisi (lara-ses)
 
-Türkçe “sesli oku” düğmeleri metni cihazın konuşma motoru yerine sunucudaki sinirsel sesle çalar. `tts/server.py` Piper ile (`tr_TR-dfki-medium`, erkek ses) MP3 üretir; `tts/Dockerfile` modeli derleme sırasında Hugging Face’ten indirir. Servis port açmaz ve yalnız `lara-ic` iç ağındadır (internete çıkamaz); `lara-dersleri` nginx’i `GET /ses?t=<metin>` isteğini ona yönlendirir (`scripts/prepare-production.mjs` içindeki nginx şablonu). Metin en çok 400 karakterdir, aynı metin `lara-ses-cache` biriminde saklanır, istekler `limit_req` ile sınırlanır.
+Türkçe “sesli oku” düğmeleri metni cihazın konuşma motoru yerine sunucudaki sinirsel sesle çalar. Asıl ses yazgı-tts-1’in kadın sesi `female-01`’dir (`tts/Dockerfile.yazgi`, Apache-2.0; paket ve ağırlıklar tek bir sürüme sabitlenip imaja gömülür). `tts/server.py` sesi AAC (m4a, 48 kb/sn) olarak üretir ve `lara-ses-cache` biriminde saklar. Servis port açmaz ve yalnız `lara-ic` iç ağındadır (internete çıkamaz); `lara-dersleri` nginx’i `GET /ses?t=<metin>` isteğini ona yönlendirir (nginx şablonu `scripts/prepare-production.mjs` içindedir). Metin en çok 400 karakterdir; istekler `limit_req` ile sınırlanır.
 
-Servis kapalıysa ya da internet yoksa site çalışmaya devam eder; tarayıcı cihazın kendi sesine döner (`lib/audio.ts`). İngilizce kelimeler hep cihaz sesiyle okunur. Ses değişirse `lib/audio.ts` içindeki `SERVER_VOICE_VERSION` artırılır ki tarayıcı önbelleği eski sesi vermesin.
+Bu ses doğal ama bu sunucuda yavaştır (bir cümleyi süresinin yaklaşık 1,4 katında üretir). Bu yüzden:
+
+- **Önceden üretim:** sabit metinler ve en sık çıkan değişken cümleler toplu üretilir.
+  ```bash
+  VOICE_LIST=/var/tmp/lara-tts/liste.json npx vitest run tests/voice-list.test.ts   # okunacak cümleleri çıkarır
+  # liste.json içinden sabit + ilk N değişken cümle tek bir JSON dizisine (warm.json) yazılır
+  docker run -d --name lara-ses-warm --cpus 3 --cpu-shares 256 --memory 2500m --network none --read-only --tmpfs /tmp \
+    -v lara_lara-ses-cache:/cache -v /var/tmp/lara-tts/warm.json:/warm.json:ro laranin-sesi:1.0.0 python /app/server.py --warm /warm.json
+  docker logs -f lara-ses-warm
+  ```
+- **Ön hazırlık:** bir soru ya da anlatım ekrana gelince site `GET /ses?t=…&p=1` ile sesi arka planda ürettirir (yanıt 202; ses indirilmez). Çocuk hoparlöre bastığında ses çoğunlukla hazırdır; değilse düğmede “Ses hazırlanıyor…” görünür.
+
+Servis kapalıysa ya da internet yoksa site çalışmaya devam eder; tarayıcı cihazın en doğal sesine döner (`lib/audio.ts`). İngilizce kelimeler hep cihaz sesiyle okunur. Ses ya da biçim değişirse `lib/audio.ts` içindeki `SERVER_VOICE_VERSION` artırılır ki tarayıcı önbelleği eski sesi vermesin. Yedek hızlı ses: `tts/Dockerfile` (Piper `tr_TR-dfki-medium`, erkek); compose’ta `dockerfile` satırı değiştirilerek seçilir.
 
 QA’da ses servisi de çalışmalıdır (`tests/e2e/voice.spec.ts`):
 
 ```bash
 docker network create lara-qa
-docker build -f tts/Dockerfile -t laranin-sesi:qa .
-docker run -d --name lara-ses-qa --network lara-qa --network-alias lara-ses --read-only --tmpfs /tmp --tmpfs /cache:uid=65534 laranin-sesi:qa
+docker build -f tts/Dockerfile.yazgi -t laranin-sesi:yazgi-qa .
+docker run -d --name lara-ses-qa --network lara-qa --network-alias lara-ses --read-only --tmpfs /tmp --tmpfs /cache:uid=65534 --memory 2500m --cpus 3 laranin-sesi:yazgi-qa
 docker run -d --name lara-pool-qa --network lara-qa -p 127.0.0.1:18743:8080 --read-only --tmpfs /var/cache/nginx --tmpfs /var/run --tmpfs /tmp laranin-dersleri:pool-qa
 ```
