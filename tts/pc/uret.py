@@ -7,6 +7,7 @@ NVIDIA ekran kartı gerekir. Kurulum ve adımlar: OKU.md.
     python uret.py --duygu cheerful --adim 10
 
 Yarıda kesilirse (Ctrl+C, kapanma) aynı komut kaldığı yerden sürer: hazır dosyalar atlanır.
+İlerleme listenin yanındaki uret.log dosyasına da yazılır.
 Çıktı: cikti/<sha256(metin)>.m4a (AAC-LC, 48 kb/sn, mono). Sunucu dosyaları metne göre kendi önbelleğine aktarır.
 
 Ahenk (https://github.com/ozguradmin/ahenk-turkish-tts), CC BY 4.0.
@@ -166,10 +167,20 @@ def clock(seconds: float) -> str:
 
 def main():
     o = options()
+    log_path = Path(o.liste).parent / 'uret.log'
+
+    def log(line: str):
+        print(line, flush=True)
+        try:
+            with open(log_path, 'a', encoding='utf-8') as f:
+                f.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {line}\n")
+        except OSError:
+            pass
+
     data = json.loads(Path(o.liste).read_text(encoding='utf-8'))
     started = time.time()
     say, rate = fake() if o.sahte else ahenk(o.cpu)
-    print(f'Model hazır ({clock(time.time() - started)}).', flush=True)
+    log(f'Model hazır ({clock(time.time() - started)}).')
 
     if o.dene:
         folder = Path(o.liste).parent / 'deneme'
@@ -181,11 +192,11 @@ def main():
                 audio = make(say, rate, text, emotion, steps)
                 spent = time.time() - t0
                 if audio is None:
-                    print(f'{i:02d} {name}: üretilemedi | {text}', flush=True)
+                    log(f'{i:02d} {name}: üretilemedi | {text}')
                     continue
                 write_m4a(audio, rate, folder / f'{i:02d}-{name}.m4a')
-                print(f'{i:02d} {name:11s} {len(audio) / rate:4.1f} sn ses, {spent:5.1f} sn sürdü (hız {spent / (len(audio) / rate):.2f}) | {text}', flush=True)
-        print(f'BİTTİ: {folder}', flush=True)
+                log(f'{i:02d} {name:11s} {len(audio) / rate:4.1f} sn ses, {spent:5.1f} sn sürdü (hız {spent / (len(audio) / rate):.2f}) | {text}')
+        log(f'BİTTİ: {folder}')
         return
 
     folder = Path(o.cikti) if o.cikti else Path(o.liste).parent / 'cikti'
@@ -193,7 +204,7 @@ def main():
     items = data['cumleler']
     todo = [x for x in items if not (folder / f"{x['k']}.m4a").exists()]
     total_letters = sum(len(x['t']) for x in todo)
-    print(f'{len(items)} cümle, {len(items) - len(todo)} hazır, {len(todo)} üretilecek. Çıktı: {folder}', flush=True)
+    log(f'{len(items)} cümle, {len(items) - len(todo)} hazır, {len(todo)} üretilecek. Çıktı: {folder}')
     skipped = open(folder / 'atlanan.txt', 'a', encoding='utf-8')
     t0, done_letters, audio_seconds = time.time(), 0, 0.0
     for i, x in enumerate(todo, 1):
@@ -203,7 +214,7 @@ def main():
             raise
         except Exception as error:  # tek cümlenin hatası bütün işi durdurmasın
             audio = None
-            print(f'HATA {type(error).__name__}: {error} | {x["t"]}', flush=True)
+            log(f'HATA {type(error).__name__}: {error} | {x["t"]}')
         if audio is None:
             skipped.write(x['t'] + '\n')
             skipped.flush()
@@ -214,8 +225,8 @@ def main():
         if i % 20 == 0 or i == len(todo):
             spent = time.time() - t0
             left = spent / done_letters * (total_letters - done_letters)
-            print(f'{i}/{len(todo)} | {audio_seconds / 60:.0f} dk ses, {clock(spent)} geçti, hız {spent / max(audio_seconds, 1):.2f}, kalan ~{clock(left)}', flush=True)
-    print('BİTTİ', flush=True)
+            log(f'{i}/{len(todo)} | {audio_seconds / 60:.0f} dk ses, {clock(spent)} geçti, hız {spent / max(audio_seconds, 1):.2f}, kalan ~{clock(left)}')
+    log('BİTTİ')
 
 
 if __name__ == '__main__':
