@@ -1,5 +1,10 @@
 # Doğrulama
 
+## 13 Kasım 2026: hikâye, noktalama ve Hayat Bilgisi etkinlikleri
+
+Kutulara ayırma (`bins`), cevabın yazdığı cümleyi bulma, durum–davranış eşleştirme ve düşen kelimeyi sürükleme eklendi; ritmik sayma yönergeleri sözle yazılır oldu (6252b0a). Birim testleri 58/58. Kullanıcının onayıyla yayına alındı: canlı yükseltme testi geçti, yayınlanan 336 dosya `out/` ile birebir aynı, canlıda E2E 78/78. Geri dönüş imajı: `laranin-dersleri:before-activities-20261113`.
+
+
 ## 12 Kasım 2026: dokunmalı etkinlikler
 
 Kullanıcının “yalnız test olmasın, sürükle-bırak olsun” isteğiyle Harf-Hece-Kelime, yuvarlama ve ritmik sayma derslerine sürükle-bırak yuvalar, makasla ayırma, alkışla sayma, harf seçme ve yuvarlama tepesi eklendi (16cad84). `tests/e2e/tools.spec.ts` bu araçları fare sürüklemesi, dokunma ve parmak sürüklemesiyle baştan sona çözer. Kullanıcının onayıyla aynı gün yayına alındı: canlı yükseltme testi geçti, yayınlanan 336 dosya `out/` ile birebir aynı. Canlıda E2E 66/68; kalan iki test (seçenekli soru geri bildirimi, oyun rozeti) yeniden çalıştırılınca üçer kez geçti, ilk turda makinede başka testler de çalışıyordu. Geri dönüş imajı: `laranin-dersleri:before-tools-20261112`.

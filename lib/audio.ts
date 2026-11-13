@@ -26,5 +26,16 @@ export function render(c:BaseAudioContext,name:Sound,t=c.currentTime+.01){
 export function sfx(enabled:boolean,name:Sound){if(!enabled)return;try{render(live(),name)}catch{}}
 /** Etkinlik içeriğindeki sesler (ince/kalın, tempo). Harmonikli dalga küçük telefon hoparlöründe kalın sesi de duyulur kılar; iki ses aynı güçtedir. */
 export function tone(enabled:boolean,hz=660,duration=.13){if(!enabled)return;try{const c=live();voice(c,'organ',hz,c.currentTime+.01,duration,.12,undefined,duration*.55)}catch{}}
-export function speak(text:string,lang='tr-TR'):boolean{if(!('speechSynthesis'in window))return false;const voices=speechSynthesis.getVoices();const voice=voices.find(v=>v.lang.startsWith(lang.slice(0,2))&&v.localService);if(!voice)return false;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.voice=voice;u.lang=lang;u.rate=.85;speechSynthesis.speak(u);return true}
+/** Seslendirme cihazın konuşma motoruyla yapılır. Aynı dilde birden çok ses varsa en doğal olanı seçilir: sinirsel/“Natural” sesler (Edge), Google sesleri, Apple’ın geliştirilmiş sesleri; en sona eski robotik sesler kalır. İnternet yokken yalnız cihazdaki sesler kullanılır. */
+type VoiceLike={name:string;lang:string;localService:boolean};
+const voiceScore=(v:VoiceLike)=>(/natural|neural/i.test(v.name)?100:0)+(/google/i.test(v.name)?60:0)+(/premium|enhanced|geliştirilmiş|siri/i.test(v.name)?50:0)+(/emel|yelda|seda/i.test(v.name)?10:0)+(v.localService?5:0)-(/tolga|espeak|pico/i.test(v.name)?30:0);
+export function bestVoice<T extends VoiceLike>(voices:readonly T[],lang:string,online=true):T|undefined{return voices.filter(v=>v.lang.replace('_','-').toLowerCase().startsWith(lang.slice(0,2).toLowerCase())&&(online||v.localService)).sort((a,b)=>voiceScore(b)-voiceScore(a))[0]}
+/** Uzun metin cümle cümle okunur: araya doğal duraklar girer ve bazı tarayıcıların uzun okumayı yarıda kesmesi önlenir. */
+export const speechParts=(text:string)=>text.split(/(?<=[.!?…”])\s+(?=[\p{Lu}“\d])/u).map(x=>x.trim()).filter(Boolean);
+let retried=false;
+export function speak(text:string,lang='tr-TR'):boolean{if(!('speechSynthesis'in window))return false;const voices=speechSynthesis.getVoices();
+ /** Chrome sesleri sonradan yükler: liste boşsa bir kez “sesler hazır” olayı beklenir. */
+ if(!voices.length&&!retried){retried=true;speechSynthesis.addEventListener('voiceschanged',()=>{speak(text,lang)},{once:true});return true}
+ const voice=bestVoice(voices,lang,navigator.onLine);if(!voice)return false;speechSynthesis.cancel();const natural=voiceScore(voice)>=50;
+ for(const part of speechParts(text)){const u=new SpeechSynthesisUtterance(part);u.voice=voice;u.lang=voice.lang;u.rate=natural?.95:.9;u.pitch=natural?1:1.05;speechSynthesis.speak(u)}return true}
 export function stopSpeech(){if(typeof window!=='undefined'&&'speechSynthesis'in window)speechSynthesis.cancel()}
