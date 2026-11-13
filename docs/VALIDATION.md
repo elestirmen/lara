@@ -1,5 +1,23 @@
 # Doğrulama
 
+## 13 Kasım 2026: sunucu sesi (kadın ses, AAC, önceden üretim)
+
+Kullanıcı mekanik cihaz sesinden şikâyet etti; denenen seslerden yazgı-tts-1 `female-01`’i seçti, önceden üretim ve AAC istedi. Türkçe metinler artık `lara-ses` servisinde üretilip (`tts/server.py`, AAC 48 kb/sn) `lara-ses-cache` biriminde saklanıyor; servis kapalıysa site cihaz sesine döner (fb5d5c0, 6335cd4, 7023335).
+
+Önceden üretim 5.548 metin (1.548 sabit + en sık 4.000 değişken cümle) için yaklaşık 6,5 saat sürdü. Üretilen bütün seslerde en uzun sessizlik ölçüldü: model bazı cümlelerde (iki noktadan sonraki kısa listeler, tırnak içindeki sorular, virgülle biten sayı dizileri) 2–7 saniye susup kalmıştı (155 ses 1,2 saniyeyi aşıyordu, 3 ses süre denetiminden geçemeyip atlanmıştı). Servise sessizlik denetimi, sadeleştirilmiş yazımla yeniden deneme ve uzun sessizliği kısaltma eklendi (e99f566 ve bu kayıt); 158 ses yeniden üretildi. Son taramada 5.543 sesin hiçbirinde 1,5 saniyeden uzun sessizlik yok; önbellek 110 MB. Sesler tek tek dinlenmedi; denetim süre ve sessizlik ölçümüne dayanıyor.
+
+| Kontrol | Sonuç |
+| --- | --- |
+| Birim testleri (QA, ses servisiyle) | 61 / 61 (+1 ortam değişkenine bağlı atlanan) |
+| QA container'ında Playwright (`voice.spec.ts` dahil) | 81 / 81 |
+| Canlı HTTPS adresinde eski sürümden yeni sürüme geçiş (`verify-live-upgrade.mjs`) | Geçti |
+| Yayınlanan dosyalar | `out/` ile birebir aynı (nginx’in kendi `50x.html` dosyası dışında) |
+| Canlı `/ses`: önbellekteki ses / yeni cümle / boş metin | 200 `audio/mp4` 0,4 sn / 200, 5,6 sn / 400 |
+| Yayından sonra production container'ında Playwright testleri | 81 / 81 |
+| HTTP | 301 → HTTPS |
+
+Kullanıcının “bitince canlıya al” onayıyla yayına alındı. Geri dönüş imajı: `laranin-dersleri:before-voice-20261113`.
+
 ## 13 Kasım 2026: hikâye, noktalama ve Hayat Bilgisi etkinlikleri
 
 Kutulara ayırma (`bins`), cevabın yazdığı cümleyi bulma, durum–davranış eşleştirme ve düşen kelimeyi sürükleme eklendi; ritmik sayma yönergeleri sözle yazılır oldu (6252b0a). Birim testleri 58/58. Kullanıcının onayıyla yayına alındı: canlı yükseltme testi geçti, yayınlanan 336 dosya `out/` ile birebir aynı, canlıda E2E 78/78. Geri dönüş imajı: `laranin-dersleri:before-activities-20261113`.

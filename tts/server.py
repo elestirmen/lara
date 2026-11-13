@@ -137,9 +137,12 @@ class Piper:
 
 class Yazgi:
     """yazgı-tts-1. Üretim rastgelelik içerir; tohum metinden türetilir ki aynı metin hep aynı sesi versin.
-    Ses süresi metne göre beklenenden çok kısa ya da çok uzunsa ya da içinde uzun bir sessizlik varsa (model takılmış
-    olabilir) başka tohumla yeniden denenir. İki noktadan sonra gelen kısa harf ya da hece listelerinde (“… indi: a, ra, ba.”)
-    model susup kalabiliyor; bu yüzden son denemeler iki nokta yerine virgülle yapılır."""
+    Model bazen cümlenin ortasında saniyelerce susup kalır: iki noktadan sonra gelen kısa listelerde (“… indi: a, ra, ba.”),
+    tırnak içindeki sorularda (“Hangi meyveyi seversin?” anketine…) ve virgülle biten sayı dizilerinde. Bu yüzden içinde
+    PAUSE saniyeden uzun sessizlik olan ses başka tohumla, sonra da sadeleştirilmiş yazımla (iki nokta yerine virgül, tırnaksız)
+    yeniden denenir. Hiçbiri temiz çıkmazsa en kısa duraklamalı deneme seçilir ve uzun sessizlikleri kısaltılır.
+    Süre metne göre beklenenden çok kısa ya da çok uzunsa (kelime atlanmış ya da model takılmış) deneme kullanılmaz."""
+    PAUSE = 1.2
 
     def __init__(self):
         import torch
@@ -152,29 +155,70 @@ class Yazgi:
         import numpy as np
         expected = max(0.6, len(self.spoken(text)) / 11.5)  # bu ses saniyede yaklaşık 11–12 harf okur
         seed = int(hashlib.sha256(text.encode()).hexdigest()[:6], 16)
-        plain = re.sub(r'\s*:(?=\s)', ',', text)
+        plain = plainer(text)
         tries = [(text, seed), (text, seed + 1)] + ([(plain, seed), (plain, seed + 1)] if plain != text else [(text, seed + 2)])
+        best, seconds = None, 0.0
         for words, s in tries:
             audio = np.asarray(self.tts.say(words, voice=VOICE, seed=s), dtype=np.float32)
-            seconds, gap = len(audio) / self.rate, self.silence(audio)
-            if 0.5 * expected - 0.2 <= seconds <= 1.9 * expected + 1.5 and gap <= 3:
-                return (np.clip(audio, -1, 1) * 32767).astype(np.int16), self.rate
-        raise ValueError(f'ses süresi tutarsız: {seconds:.1f} sn (en uzun sessizlik {gap:.1f} sn), beklenen ~{expected:.1f} sn')
+            gap = self.silence(audio)
+            short = self.tighten(audio) if gap > self.PAUSE else audio
+            seconds = len(short) / self.rate
+            if not 0.5 * expected - 0.2 <= seconds <= 1.9 * expected + 1.5:
+                continue
+            if gap <= self.PAUSE:
+                return self.int16(audio), self.rate
+            if best is None or gap < best[0]:
+                best = (gap, short)
+        if best:
+            return self.int16(best[1]), self.rate
+        raise ValueError(f'ses süresi tutarsız: {seconds:.1f} sn, beklenen ~{expected:.1f} sn')
 
-    def silence(self, audio) -> float:
-        """Sesteki en uzun sessiz aralık, saniye (20 ms'lik dilimlerin enerjisine göre)."""
+    @staticmethod
+    def int16(audio):
+        import numpy as np
+        return (np.clip(audio, -1, 1) * 32767).astype(np.int16)
+
+    def quiet(self, audio):
+        """20 ms'lik dilimlerin enerjisine göre sessiz aralıklar: (dilim boyu, [(ilk dilim, son dilim + 1), …])."""
         import numpy as np
         size = int(self.rate * 0.02)
         count = len(audio) // size
         if not count:
-            return 0.0
+            return size, []
         energy = np.sqrt((audio[:count * size].reshape(count, size) ** 2).mean(axis=1))
-        quiet = energy <= max(0.01, float(energy.max()) * 0.04)
-        longest = run = 0
-        for q in quiet:
-            run = run + 1 if q else 0
-            longest = max(longest, run)
-        return longest * 0.02
+        flags = list(energy <= max(0.01, float(energy.max()) * 0.04)) + [False]
+        runs, start = [], None
+        for i, q in enumerate(flags):
+            if q and start is None:
+                start = i
+            elif not q and start is not None:
+                runs.append((start, i))
+                start = None
+        return size, runs
+
+    def silence(self, audio) -> float:
+        """Sesteki en uzun sessiz aralık, saniye."""
+        return max((b - a for a, b in self.quiet(audio)[1]), default=0) * 0.02
+
+    def tighten(self, audio, keep: float = 0.3):
+        """PAUSE saniyeden uzun her sessizliğin yalnız başından ve sonundan keep saniye bırakır (sessizliğin ortası kesilir, çıtırtı olmaz)."""
+        import numpy as np
+        size, runs = self.quiet(audio)
+        k, parts, at = int(keep / 0.02), [], 0
+        for a, b in runs:
+            if (b - a) * 0.02 > self.PAUSE:
+                parts.append(audio[at:(a + k) * size])
+                at = (b - k) * size
+        parts.append(audio[at:])
+        return np.concatenate(parts)
+
+
+def plainer(text: str) -> str:
+    """Modelin takıldığı yazımları sadeleştirir: iki nokta → virgül, tırnaklar atılır, cümle ortasındaki soru işareti → virgül, “53,.” → “53.”."""
+    t = re.sub(r'\s*:(?=\s)', ',', text)
+    t = re.sub(r'[“”"]', '', t)
+    t = re.sub(r'\?(?=\s+[a-zçğıöşü0-9])', ',', t)
+    return re.sub(r',\s*([.!?])', r'\1', t)
 
 
 class Speaker:
