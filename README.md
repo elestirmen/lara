@@ -138,3 +138,7 @@ Yeni bölümlerde her turun ilk sorusu ve sonraki tek sıralı soruları bir ara
 - `components/activities/SortBins.tsx` (`bins`): kartlar adlı kutulara ayrılır. Hikâyede “oldu / olmadı”, noktalamada cümle sonu işareti, “virgül gerekir mi”, “kesme gelir mi”; Hayat Bilgisi’nde her dersin iki kategorisi (`content/life/sort.ts`).
 - Hikâye derslerinde her turda iki “cevabın yazdığı cümleyi bul” (`pick`, satır düzeni), bir oldu–olmadı kutusu ve bir olay sıralama vardır. Kelime derslerinde düşen son kelime boşluğa sürüklenir (`layout: sentence`). Hayat Bilgisi’nde 2. ve 6. sorular kategori kutuları, 4. ve 8. sorular durum–davranış eşleştirmesidir (`layout: match`).
 - Yönergelerde ritmik sayma sözle yazılır (“Üçer üçer sayarak 2 kez ileri zıplat”); `lib/turkish.ts` → `byEach`.
+
+### Seslendirme
+
+Türkçe metinler sunucudaki Piper sesiyle (`tts/`, `/ses` adresi) cümle cümle çalınır; servis yoksa cihazın en doğal sesi seçilir (`lib/audio.ts` → `bestVoice`). Ayrıntı: `docs/DEPLOYMENT.md` → Seslendirme servisi.

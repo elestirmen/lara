@@ -63,3 +63,18 @@ Beklenenler: `lara.perinet.org` için HTTPS 200 ve HTTP 301; eski adres için `h
 Yeni sürüm öncesi mevcut image'i ayrı etiketle koruyun: `docker tag laranin-dersleri:1.0.0 laranin-dersleri:previous`. Geri dönüşte bu image'i Compose'da seçip yalnız uygulamayı yeniden oluşturun. Eski image ile onun ürettiği CSP/SW birlikte döner. Ebeveyn ilerlemesi sunucu image'inden bağımsızdır.
 
 Sunucuda çocuk verisi bulunmadığından sunucu veri tabanı yedeği gerekmez. Ebeveyn arayüzündeki JSON dışa aktarma ve geri yükleme ilerlemenin yedeğidir. Kaynak kod, package-lock ve belgeler GitHub'daki `elestirmen/lara` deposunda tutulur.
+
+## Seslendirme servisi (lara-ses)
+
+Türkçe “sesli oku” düğmeleri metni cihazın konuşma motoru yerine sunucudaki sinirsel sesle çalar. `tts/server.py` Piper ile (`tr_TR-dfki-medium`, erkek ses) MP3 üretir; `tts/Dockerfile` modeli derleme sırasında Hugging Face’ten indirir. Servis port açmaz ve yalnız `lara-ic` iç ağındadır (internete çıkamaz); `lara-dersleri` nginx’i `GET /ses?t=<metin>` isteğini ona yönlendirir (`scripts/prepare-production.mjs` içindeki nginx şablonu). Metin en çok 400 karakterdir, aynı metin `lara-ses-cache` biriminde saklanır, istekler `limit_req` ile sınırlanır.
+
+Servis kapalıysa ya da internet yoksa site çalışmaya devam eder; tarayıcı cihazın kendi sesine döner (`lib/audio.ts`). İngilizce kelimeler hep cihaz sesiyle okunur. Ses değişirse `lib/audio.ts` içindeki `SERVER_VOICE_VERSION` artırılır ki tarayıcı önbelleği eski sesi vermesin.
+
+QA’da ses servisi de çalışmalıdır (`tests/e2e/voice.spec.ts`):
+
+```bash
+docker network create lara-qa
+docker build -f tts/Dockerfile -t laranin-sesi:qa .
+docker run -d --name lara-ses-qa --network lara-qa --network-alias lara-ses --read-only --tmpfs /tmp --tmpfs /cache:uid=65534 laranin-sesi:qa
+docker run -d --name lara-pool-qa --network lara-qa -p 127.0.0.1:18743:8080 --read-only --tmpfs /var/cache/nginx --tmpfs /var/run --tmpfs /tmp laranin-dersleri:pool-qa
+```

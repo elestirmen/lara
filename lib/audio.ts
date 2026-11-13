@@ -33,9 +33,23 @@ export function bestVoice<T extends VoiceLike>(voices:readonly T[],lang:string,o
 /** Uzun metin cümle cümle okunur: araya doğal duraklar girer ve bazı tarayıcıların uzun okumayı yarıda kesmesi önlenir. */
 export const speechParts=(text:string)=>text.split(/(?<=[.!?…”])\s+(?=[\p{Lu}“\d])/u).map(x=>x.trim()).filter(Boolean);
 let retried=false;
-export function speak(text:string,lang='tr-TR'):boolean{if(!('speechSynthesis'in window))return false;const voices=speechSynthesis.getVoices();
+/** Cihazın kendi konuşma motoruyla okur (sunucu sesi yokken ya da İngilizce kelimelerde). */
+function speakDevice(text:string,lang:string):boolean{if(!('speechSynthesis'in window))return false;const voices=speechSynthesis.getVoices();
  /** Chrome sesleri sonradan yükler: liste boşsa bir kez “sesler hazır” olayı beklenir. */
- if(!voices.length&&!retried){retried=true;speechSynthesis.addEventListener('voiceschanged',()=>{speak(text,lang)},{once:true});return true}
+ if(!voices.length&&!retried){retried=true;speechSynthesis.addEventListener('voiceschanged',()=>{speakDevice(text,lang)},{once:true});return true}
  const voice=bestVoice(voices,lang,navigator.onLine);if(!voice)return false;speechSynthesis.cancel();const natural=voiceScore(voice)>=50;
  for(const part of speechParts(text)){const u=new SpeechSynthesisUtterance(part);u.voice=voice;u.lang=voice.lang;u.rate=natural?.95:.9;u.pitch=natural?1:1.05;speechSynthesis.speak(u)}return true}
-export function stopSpeech(){if(typeof window!=='undefined'&&'speechSynthesis'in window)speechSynthesis.cancel()}
+/** Sunucu sesi: Türkçe metin cümle cümle /ses adresinden (tts/server.py, sinirsel ses) çalınır; her cihazda aynı doğal ses duyulur.
+ * Tek bir ses öğesi kullanılır (iOS, kullanıcı dokunuşuyla başlayan öğenin sıradaki cümleyi çalmasına izin verir); sıradaki cümle önceden istenir.
+ * İnternet yoksa ya da servis yanıt vermezse kalan metin cihazın sesiyle okunur ve bir dakika boyunca sunucu yeniden denenmez. */
+const SERVER_VOICE_VERSION=1;
+let player:HTMLAudioElement|undefined,turn=0,serverDownUntil=0;
+export const voiceUrl=(part:string)=>`/ses?v=${SERVER_VOICE_VERSION}&t=${encodeURIComponent(part)}`;
+/** Sunucunun bir istekte kabul ettiği en uzun metin 400 karakterdir; daha uzun cümle virgüllerden bölünür. */
+export function serverParts(text:string){return speechParts(text).flatMap(part=>{if(part.length<=380)return [part];const pieces:string[]=[];let current='';for(const piece of part.split(/(?<=[,;:])\s+/)){if(current&&(current+' '+piece).length>380){pieces.push(current);current=piece}else current=current?`${current} ${piece}`:piece}if(current)pieces.push(current);return pieces.flatMap(x=>x.length<=380?[x]:x.match(/.{1,380}(\s|$)/g)!.map(y=>y.trim()))})}
+function speakServer(text:string,lang:string){const mine=++turn,parts=serverParts(text);if(!parts.length)return;player??=new Audio();const audio=player;if('speechSynthesis'in window)speechSynthesis.cancel();
+ const fallback=(from:number)=>{if(mine!==turn)return;serverDownUntil=Date.now()+60000;audio.onended=audio.onerror=null;speakDevice(parts.slice(from).join(' '),lang)};
+ const play=(i:number)=>{if(mine!==turn)return;if(i>=parts.length){audio.onended=audio.onerror=null;return}audio.onended=()=>play(i+1);audio.onerror=()=>fallback(i);audio.src=voiceUrl(parts[i]);audio.play().catch(()=>fallback(i));if(parts[i+1])fetch(voiceUrl(parts[i+1])).catch(()=>{})};
+ play(0)}
+export function speak(text:string,lang='tr-TR'):boolean{if(typeof window==='undefined')return false;if(lang==='tr-TR'&&navigator.onLine&&Date.now()>=serverDownUntil&&typeof Audio!=='undefined'){speakServer(text,lang);return true}turn++;player?.pause();return speakDevice(text,lang)}
+export function stopSpeech(){turn++;if(player){player.onended=player.onerror=null;player.pause()}if(typeof window!=='undefined'&&'speechSynthesis'in window)speechSynthesis.cancel()}

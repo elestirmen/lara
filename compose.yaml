@@ -12,6 +12,7 @@ services:
       - "127.0.0.1:18742:8080"
     networks:
       - npm-net
+      - lara-ic
     security_opt:
       - no-new-privileges:true
     read_only: true
@@ -21,6 +22,29 @@ services:
       - /tmp
     mem_limit: 128m
     cpus: 1
+  # Seslendirme servisi: Piper (açık kaynak sinirsel ses). Port açmaz ve yalnız iç ağdadır (internete çıkamaz); lara-dersleri nginx'i /ses adresinden yönlendirir.
+  lara-ses:
+    build:
+      context: .
+      dockerfile: tts/Dockerfile
+    image: laranin-sesi:1.0.0
+    container_name: lara-ses
+    restart: unless-stopped
+    networks:
+      - lara-ic
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - lara-ses-cache:/cache
+    mem_limit: 800m
+    cpus: 2
 networks:
   npm-net:
     external: true
+  lara-ic:
+    internal: true
+volumes:
+  lara-ses-cache:

@@ -19,7 +19,7 @@ const sw=`const CACHE='lara-${version}';const ASSETS=${JSON.stringify(urls)};
 self.addEventListener('install',event=>event.waitUntil((async()=>{const cache=await caches.open(CACHE);await cache.addAll(ASSETS)})()));
 self.addEventListener('activate',event=>event.waitUntil((async()=>{for(const key of await caches.keys()){if(key.startsWith('lara-')&&key!==CACHE)await caches.delete(key)}await self.clients.claim()})()));
 self.addEventListener('message',event=>{if(event.data?.type==='ACTIVATE')self.skipWaiting()});
-self.addEventListener('fetch',event=>{const url=new URL(event.request.url);if(event.request.method!=='GET'||url.origin!==self.location.origin)return;if(event.request.mode==='navigate'){event.respondWith(fetch(event.request).catch(()=>caches.match('/index.html')));return}if(url.pathname==='/sw.js')return;event.respondWith((async()=>{const cached=await caches.match(event.request);if(cached)return cached;return fetch(event.request)})())});`;
+self.addEventListener('fetch',event=>{const url=new URL(event.request.url);if(event.request.method!=='GET'||url.origin!==self.location.origin)return;if(event.request.mode==='navigate'){event.respondWith(fetch(event.request).catch(()=>caches.match('/index.html')));return}if(url.pathname==='/sw.js'||url.pathname==='/ses')return;event.respondWith((async()=>{const cached=await caches.match(event.request);if(cached)return cached;return fetch(event.request)})())});`;
 await writeFile('out/sw.js',sw);
 const hashes=[...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)].filter(m=>m[1]).map(m=>`'sha256-${createHash('sha256').update(m[1]).digest('base64')}'`);
 const csp=`default-src 'self'; script-src 'self' ${hashes.join(' ')}; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; media-src 'self' blob:; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests`;
@@ -30,7 +30,9 @@ add_header Referrer-Policy no-referrer always;
 add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()" always;
 add_header Strict-Transport-Security "max-age=31536000" always;`;
 await writeFile('deploy/security-headers.conf',headers);
-await writeFile('deploy/nginx.conf',`server {
+await writeFile('deploy/nginx.conf',`# Seslendirme istekleri sınırlanır: servis işlemciyle ses üretir (bkz. tts/server.py).
+limit_req_zone $binary_remote_addr zone=ses:1m rate=8r/s;
+server {
  listen 8080;
  server_name _;
  root /usr/share/nginx/html;
@@ -45,6 +47,8 @@ await writeFile('deploy/nginx.conf',`server {
  location / { try_files $uri $uri/ =404; add_header Cache-Control "no-cache"; include /etc/nginx/security-headers.conf; }
  location /_next/static/ { expires 1y; add_header Cache-Control "public, immutable"; include /etc/nginx/security-headers.conf; }
  location = /sw.js { add_header Cache-Control "no-store"; include /etc/nginx/security-headers.conf; }
+ # Seslendirme servisi (lara-ses). Ad her istekte Docker DNS'inden çözülür: servis kapalıyken site yine açılır, tarayıcı cihazın kendi sesine döner.
+ location = /ses { limit_req zone=ses burst=40 nodelay; resolver 127.0.0.11 valid=30s ipv6=off; set $ses_upstream http://lara-ses:8090; proxy_pass $ses_upstream; proxy_http_version 1.1; proxy_connect_timeout 2s; proxy_read_timeout 25s; include /etc/nginx/security-headers.conf; }
  location ~ /\\. { deny all; }
 }`);
 console.log(`Production paketi: ${version}, ${urls.length} çevrim dışı dosya, ${hashes.length} CSP özeti.`);
