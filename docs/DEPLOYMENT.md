@@ -66,7 +66,7 @@ Sunucuda çocuk verisi bulunmadığından sunucu veri tabanı yedeği gerekmez. 
 
 ## Seslendirme servisi (lara-ses)
 
-Türkçe “sesli oku” düğmeleri metni cihazın konuşma motoru yerine sunucudaki sinirsel sesle çalar. Asıl ses yazgı-tts-1’in kadın sesi `female-01`’dir (`tts/Dockerfile.yazgi`, Apache-2.0; paket ve ağırlıklar tek bir sürüme sabitlenip imaja gömülür). `tts/server.py` sesi AAC (m4a, 48 kb/sn) olarak üretir ve `lara-ses-cache` biriminde saklar. Servis port açmaz ve yalnız `lara-ic` iç ağındadır (internete çıkamaz); `lara-dersleri` nginx’i `GET /ses?t=<metin>` isteğini ona yönlendirir (nginx şablonu `scripts/prepare-production.mjs` içindedir). Metin en çok 400 karakterdir; istekler `limit_req` ile sınırlanır.
+Türkçe “sesli oku” düğmeleri metni cihazın konuşma motoru yerine sunucudaki sinirsel sesle çalar. 15 Kasım 2026’dan beri asıl ses **Ahenk**’tir (VoxCPM2 2B + Türkçe LoRA, kadın ses, CC BY 4.0; emeği geçenler Ebeveyn Alanı’nda anılır): sitenin okuyacağı 19.842 cümle ekran kartlı proje bilgisayarında toplu üretilir (`tts/pc/`, aşağıda) ve `lara-ses-hazir` biriminde `/hazir` altında salt okunur durur (`SES_HAZIR`). Servis önce oraya bakar; orada olmayan cümleyi yedek sesle üretip önbelleğe yazar. Yedek ses yazgı-tts-1’in kadın sesi `female-01`’dir (`tts/Dockerfile.yazgi`, Apache-2.0; paket ve ağırlıklar tek bir sürüme sabitlenip imaja gömülür). `tts/server.py` sesi AAC (m4a, 48 kb/sn) olarak üretir ve `lara-ses-cache` biriminde saklar. Servis port açmaz ve yalnız `lara-ic` iç ağındadır (internete çıkamaz); `lara-dersleri` nginx’i `GET /ses?t=<metin>` isteğini ona yönlendirir (nginx şablonu `scripts/prepare-production.mjs` içindedir). Metin en çok 400 karakterdir; istekler `limit_req` ile sınırlanır.
 
 Bu ses doğal ama bu sunucuda yavaştır (bir cümleyi süresinin yaklaşık 1,4 katında üretir). Bu yüzden:
 
@@ -79,6 +79,11 @@ Bu ses doğal ama bu sunucuda yavaştır (bir cümleyi süresinin yaklaşık 1,4
   docker logs -f lara-ses-warm
   ```
 - **Takılma denetimi:** model bazen cümle ortasında saniyelerce susar (iki noktadan sonraki kısa listeler, tırnak içindeki sorular, virgülle biten sayı dizileri). `tts/server.py` her seste en uzun sessizliği ölçer; 1,2 saniyeyi aşarsa başka tohumla, sonra sadeleştirilmiş yazımla yeniden dener, hiçbiri temiz değilse en iyisinin uzun sessizliklerini kısaltır. Süresi metne göre çok kısa ya da çok uzun olan deneme kullanılmaz.
+- **Hazır sesleri aktarma:** proje bilgisayarı sesleri Samba paylaşımına (`/mnt/storage/lara-ses/<klasör>/cikti/<sha256>.m4a`) yazar. Birime kopyalamak yeter, servis yeniden başlatılmaz:
+  ```bash
+  docker run --rm --network none -v /mnt/storage/lara-ses/cikti:/src:ro -v lara_lara-ses-hazir:/dst alpine sh -c 'cp /src/*.m4a /dst/ && chmod 444 /dst/*.m4a'
+  ```
+  15 Kasım’daki ilk aktarımda parantezli 705 cümle (Ahenk “(…)” biçimini yönerge sanıp okumuyordu) hariç tutuldu; düzeltilmiş hâlleri `lara-ses/duzelt/cikti/` klasörüne gelince aynı komutla eklenir (`tts/pc/DUZELT.md`). Hazır ses tarayıcıda 30 gün, yedek sesle üretilen 1 gün saklanır. `normalize()` değişirse etkilenen cümlelerin anahtarı değişir; onlar yeniden toplu üretilmelidir.
 - **Güçlü bilgisayarda üretim (Ahenk):** `tts/pc/` daha kaliteli ama ekran kartı isteyen Ahenk (VoxCPM2 2B + Türkçe LoRA, CC BY 4.0) ile bütün cümleleri başka bir bilgisayarda üretmek içindir. `python3 tts/pc/liste.py /var/tmp/lara-tts/liste.json /mnt/storage/lara-ses/liste.json` listeyi Samba paylaşımına (`\\192.168.1.81\medyaDisk\lara-ses`) yazar; bilgisayardaki adımlar `tts/pc/OKU.md` içindedir. Çıktı `cikti/<sha256(metin)>.m4a` dosyalarıdır.
 - **Ön hazırlık:** bir soru ya da anlatım ekrana gelince site `GET /ses?t=…&p=1` ile sesi arka planda ürettirir (yanıt 202; ses indirilmez). Çocuk hoparlöre bastığında ses çoğunlukla hazırdır; değilse düğmede “Ses hazırlanıyor…” görünür.
 

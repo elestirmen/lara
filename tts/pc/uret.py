@@ -16,6 +16,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import sys
 import time
 from pathlib import Path
@@ -33,7 +34,18 @@ def options():
     p.add_argument('--cikti', default=None, help='varsayılan: listenin yanındaki cikti klasörü')
     p.add_argument('--sahte', action='store_true', help='model yüklemeden bip sesiyle dene (betiği sınamak için)')
     p.add_argument('--cpu', action='store_true', help='ekran kartı yoksa yine de dene (çok yavaş)')
+    p.add_argument('--tohum', type=int, default=0, help='aynı cümleyi farklı üretmek için tohum kaydırma (ör. 100)')
     return p.parse_args()
+
+
+def model_text(text: str) -> str:
+    """Modele giden yazım. Ahenk “(…)” biçimini yönerge sanar ve parantez içini (çoğu zaman cümlenin geri kalanıyla) okumaz:
+    “ünlü (sesli) harf” → “ünlü, yani sesli, harf”; yalnız işaret içeren parantez (“Nokta (.).”) atılır.
+    Kesme işareti düz yazılır (trnorm onu tanır); “19,.” gibi virgülle biten diziler noktayla biter."""
+    t = text.replace('’', "'")
+    t = re.sub(r'\s*\(([^()]*)\)', lambda m: f', yani {m.group(1).strip()},' if re.search(r'\w', m.group(1)) else '', t)
+    t = re.sub(r',\s*([,.!?;:])', r'\1', t)
+    return re.sub(r'\s+', ' ', t).strip()
 
 
 def ahenk(cpu: bool):
@@ -57,7 +69,7 @@ def ahenk(cpu: bool):
 
     def say(text: str, emotion: str, seed: int, steps: int):
         torch.manual_seed(seed)
-        plain = text.replace('’', "'").replace(',.', '.')  # trnorm düz kesme işaretini tanır; “19,.” gibi biten diziler noktayla biter
+        plain = model_text(text)
         instruction, spoken, _ = pick(emotion, normalize(plain), 'auto')
         wav = tts.generate(text=compose(instruction, spoken), cfg_value=2.0, inference_timesteps=steps, normalize=False)
         return np.asarray(clean(np.asarray(wav), rate)[0], dtype=np.float32).reshape(-1), len(spoken)
@@ -119,10 +131,10 @@ def tighten(audio, rate, keep: float = 0.3):
     return np.concatenate(parts)
 
 
-def make(say, rate, text: str, emotion: str, steps: int):
+def make(say, rate, text: str, emotion: str, steps: int, shift: int = 0):
     """Üç tohumla dener: süresi metne uygun ve içinde uzun sessizlik olmayan ilk ses alınır;
     hiçbiri temiz değilse en kısa duraklamalısının uzun sessizlikleri kısaltılır. Uygun ses yoksa None."""
-    seed = int(hashlib.sha256(text.encode()).hexdigest()[:6], 16)
+    seed = int(hashlib.sha256(text.encode()).hexdigest()[:6], 16) + shift
     best = None
     for attempt in range(3):
         audio, letters = say(text, emotion, seed + attempt, steps)
@@ -189,7 +201,7 @@ def main():
         for i, text in enumerate(data['deneme'], 1):
             for name, emotion, steps in variants:
                 t0 = time.time()
-                audio = make(say, rate, text, emotion, steps)
+                audio = make(say, rate, text, emotion, steps, o.tohum)
                 spent = time.time() - t0
                 if audio is None:
                     log(f'{i:02d} {name}: üretilemedi | {text}')
@@ -209,7 +221,7 @@ def main():
     t0, done_letters, audio_seconds = time.time(), 0, 0.0
     for i, x in enumerate(todo, 1):
         try:
-            audio = make(say, rate, x['t'], o.duygu, o.adim)
+            audio = make(say, rate, x['t'], o.duygu, o.adim, o.tohum)
         except KeyboardInterrupt:
             raise
         except Exception as error:  # tek cümlenin hatası bütün işi durdurmasın

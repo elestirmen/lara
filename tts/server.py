@@ -6,6 +6,10 @@ GET /ses?t=<metin>        → AAC ses (audio/mp4). Metin en çok 400 karakterdir
 GET /ses?t=<metin>&p=1    → ön hazırlık: ses önbellekte yoksa arka planda sıraya alınır ve 202 döner (ses gönderilmez).
 GET /saglik               → "ok"
 
+Hazır sesler (SES_HAZIR): başka bir bilgisayarda Ahenk ile toplu üretilmiş sesler (tts/pc/) salt okunur bir klasörde
+<sha256(okunacak metin)>.m4a adıyla durur ve her şeyden önce onlar verilir. Orada olmayan metin SES_ENGINE ile üretilir
+ve önbelleğe yazılır. Anahtar, normalize() çıktısıdır; normalize() değişirse etkilenen metinler yeniden üretilmelidir.
+
 python server.py --warm liste.json   → listedeki metinleri sırayla üretip önbelleğe yazar (önceden üretim).
 
 Ses motoru SES_ENGINE ile seçilir:
@@ -24,6 +28,7 @@ VOICE = os.environ.get('SES_VOICE', 'female-01')
 MODEL = os.environ.get('SES_MODEL', '/voices/tr_TR-dfki-medium.onnx')
 WEIGHTS = os.environ.get('SES_WEIGHTS') or None
 CACHE = os.environ.get('SES_CACHE', '/cache')
+READY = os.environ.get('SES_HAZIR', '')
 CACHE_LIMIT = int(os.environ.get('SES_CACHE_MB', '1500')) * 1024 * 1024
 LENGTH_SCALE = float(os.environ.get('SES_LENGTH_SCALE', '1.08'))  # yalnız piper: 1'den büyük = biraz daha yavaş
 THREADS = int(os.environ.get('SES_THREADS', '3'))
@@ -61,6 +66,11 @@ def normalize(text: str, engine: str = ENGINE) -> str:
         t = re.sub(r'[^0-9A-Za-zÇĞİÖŞÜçğıöşüÂÎÛâîû .,;:!?()%’\'“”"-]', ' ', t)
     t = re.sub(r'\s+([.,;:!?])', r'\1', t)
     return re.sub(r'\s+', ' ', t).strip()
+
+
+def ready_path(text: str) -> str:
+    """Toplu üretilmiş hazır sesin yolu (tts/pc/liste.py ile aynı ad: okunacak metnin sha256 özeti)."""
+    return os.path.join(READY, hashlib.sha256(text.encode()).hexdigest() + '.m4a') if READY else ''
 
 
 def cache_path(text: str) -> str:
@@ -233,6 +243,12 @@ class Speaker:
         threading.Thread(target=self.background, daemon=True).start()
 
     def cached(self, text: str):
+        if READY:
+            try:
+                with open(ready_path(text), 'rb') as f:
+                    return f.read()
+            except OSError:
+                pass
         path = cache_path(text)
         try:
             with open(path, 'rb') as f:
@@ -334,7 +350,9 @@ class Handler(BaseHTTPRequestHandler):
         except Exception as error:  # üretim hatası siteyi durdurmaz; tarayıcı kendi sesine döner
             print('HATA', type(error).__name__, error, flush=True)
             return self.reply(500, b'ses uretilemedi', 'text/plain')
-        headers = {'Cache-Control': 'public, max-age=2592000', 'Accept-Ranges': 'bytes'}
+        # Hazır (toplu üretilmiş) ses 30 gün saklanır; yedek sesle üretilen 1 gün, ki hazır hâli gelince tarayıcı yenisini alsın.
+        keep = 2592000 if READY and os.path.exists(ready_path(text)) else 86400
+        headers = {'Cache-Control': f'public, max-age={keep}', 'Accept-Ranges': 'bytes'}
         match = re.fullmatch(r'bytes=(\d*)-(\d*)', self.headers.get('Range', ''))
         if match and (match.group(1) or match.group(2)):  # Safari ses dosyasını parça parça ister
             size = len(data)
@@ -373,7 +391,8 @@ def warm(list_path: str):
 if __name__ == '__main__':
     started = time.time()
     SPEAKER = Speaker()
-    print(f'lara-ses hazır: {ENGINE} ({VOICE if ENGINE == "yazgi" else os.path.basename(MODEL)}), {time.time() - started:.1f} sn', flush=True)
+    ready = len([n for n in os.listdir(READY) if n.endswith('.m4a')]) if READY and os.path.isdir(READY) else 0
+    print(f'lara-ses hazır: {ENGINE} ({VOICE if ENGINE == "yazgi" else os.path.basename(MODEL)}), {ready} hazır ses, {time.time() - started:.1f} sn', flush=True)
     if len(sys.argv) == 3 and sys.argv[1] == '--warm':
         warm(sys.argv[2])
     else:

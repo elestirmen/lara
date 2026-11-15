@@ -42,7 +42,7 @@ function speakDevice(text:string,lang:string):boolean{if(!('speechSynthesis'in w
 /** Sunucu sesi: Türkçe metin cümle cümle /ses adresinden (tts/server.py, sinirsel ses) çalınır; her cihazda aynı doğal ses duyulur.
  * Tek bir ses öğesi kullanılır (iOS, kullanıcı dokunuşuyla başlayan öğenin sıradaki cümleyi çalmasına izin verir); sıradaki cümle önceden istenir.
  * İnternet yoksa ya da servis yanıt vermezse kalan metin cihazın sesiyle okunur ve bir dakika boyunca sunucu yeniden denenmez. */
-const SERVER_VOICE_VERSION=2;
+const SERVER_VOICE_VERSION=3;
 let player:HTMLAudioElement|undefined,turn=0,serverDownUntil=0;
 /** Seslendirme durumu: ses istenip henüz çalmaya başlamadıysa “loading”. Düğmeler bekleme göstergesi için dinler. */
 export type SpeechState='idle'|'loading'|'playing';
