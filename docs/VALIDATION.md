@@ -1,5 +1,24 @@
 # Doğrulama
 
+## 15 Kasım 2026: Ahenk sesi (proje bilgisayarında toplu üretim)
+
+Kullanıcı yazgı sesini yine kötü ve yavaş buldu; daha kaliteli ücretsiz bir modelin ekran kartlı proje bilgisayarında çalıştırılmasını istedi. Seçilen Ahenk (VoxCPM2 2B + Türkçe LoRA, kadın ses, CC BY 4.0) ile sitenin okuyacağı 19.842 cümle o bilgisayardaki Claude Code oturumunca üretildi (`tts/pc/`, düz hâl, 16 adım, RTX 5060 Ti 16 GB'ta iki paralel işle ~19 saat). Kullanıcı deneme seslerini dinleyip hâli seçti; toplu üretilen sesler tek tek dinlenmedi.
+
+Sunucuda bütün dosyalar çözülüp ölçüldü: 19.834 dosya (8 cümle atlanmıştı), hepsi AAC 48 kHz mono, toplam 16,8 saat; hiçbirinde 1 saniyeden uzun sessizlik yok; konuşma hızı ortanca 14,7 harf/sn. İçinde parantez olan 705 cümle anormal kısa çıktı (Ahenk “(…)” biçimini yönerge sanıyor); bunlar aktarılmadı, şimdilik yazgı ile okunuyor; düzeltme proje bilgisayarına verildi (`tts/pc/DUZELT.md`). Kalan 19.137 ses `lara-ses-hazir` birimine kopyalandı. Yeni tohumlarla örneklenen soru cümlelerinin %97,7'si listede (bf08504).
+
+| Kontrol | Sonuç |
+| --- | --- |
+| Birim testleri | 61 / 61 (+1 ortam değişkenine bağlı atlanan) |
+| QA container'ında Playwright (Ahenk birimiyle) | 81 / 81; önbellek başlığı değişikliğinden sonra `voice.spec.ts` 3 / 3 |
+| QA'da sunulan hazır ses | Paylaşımdaki dosyayla bayt bayt aynı |
+| Canlı HTTPS adresinde eski sürümden yeni sürüme geçiş (`verify-live-upgrade.mjs`) | Geçti |
+| Yayınlanan dosyalar | `out/` ile birebir aynı (336 dosya; nginx'in `50x.html` dosyası dışında) |
+| Canlı `/ses`: hazır ses / yedek ses / boş metin | 200, 0,6 sn, 30 gün önbellek / 200, 3,2–3,6 sn, 1 gün önbellek / 400 |
+| Yayından sonra production container'ında Playwright testleri | 81 / 81 |
+| HTTP | 301 → HTTPS |
+
+Kullanıcının “Canlıya al” onayıyla yayına alındı. Geri dönüş imajları: `laranin-dersleri:before-ahenk-20261115`, `laranin-sesi:before-ahenk-20261115` (yazgı servisi; geri dönüşte compose'taki `SES_HAZIR` satırı kaldırılır ya da kalsa da zararsızdır).
+
 ## 13 Kasım 2026: sunucu sesi (kadın ses, AAC, önceden üretim)
 
 Kullanıcı mekanik cihaz sesinden şikâyet etti; denenen seslerden yazgı-tts-1 `female-01`’i seçti, önceden üretim ve AAC istedi. Türkçe metinler artık `lara-ses` servisinde üretilip (`tts/server.py`, AAC 48 kb/sn) `lara-ses-cache` biriminde saklanıyor; servis kapalıysa site cihaz sesine döner (fb5d5c0, 6335cd4, 7023335).
