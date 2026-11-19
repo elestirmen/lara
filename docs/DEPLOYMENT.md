@@ -97,3 +97,34 @@ docker build -f tts/Dockerfile.yazgi -t laranin-sesi:yazgi-qa .
 docker run -d --name lara-ses-qa --network lara-qa --network-alias lara-ses --read-only --tmpfs /tmp --tmpfs /cache:uid=65534 --memory 2500m --cpus 3 laranin-sesi:yazgi-qa
 docker run -d --name lara-pool-qa --network lara-qa -p 127.0.0.1:18743:8080 --read-only --tmpfs /var/cache/nginx --tmpfs /var/run --tmpfs /tmp laranin-dersleri:pool-qa
 ```
+
+## Piko sohbet servisi (lara-piko)
+
+`lara-piko` (`piko/Dockerfile`, imaj `laranin-pikosu:1.0.0`) Claude Haiku'ya bağlandığı için internete çıkabilen `lara-dis` ağında da durur. Port açmaz; site nginx'i `POST /piko` isteklerini ona yönlendirir. Servis kapalıysa site çalışmaya devam eder, sohbet penceresi kibar bir hata gösterir.
+
+Gizli değerler depoda değil, sunucuda `~/.config/anthropic/lara-piko.env` dosyasındadır (`chmod 600`). Compose bu dosyayı `env_file` ile okur; dosya yoksa servis açılır ama sohbet kapalı kalır.
+
+```sh
+ANTHROPIC_API_KEY=…      # console'dan alınan anahtar; değerini hiçbir yere yazdırmayın
+PIKO_AILE_KODU=xxxx-xxxx # Ebeveyn Alanı → Piko sohbeti'nde girilen kod
+# İsteğe bağlı: PIKO_GUNLUK=300 (günlük cevap sınırı), PIKO_EFOR=medium (low|medium|high)
+```
+
+`docker compose config` env dosyasındaki değerleri ekrana açık yazar; bu komutu yalnızca `--quiet` ile çalıştırın. Aile kodu değişirse servis yeniden başlatılır (`docker compose up -d lara-piko`) ve kod cihazlarda yeniden girilir. Anahtar değişirse aynı komut yeterlidir. Harcama sınırı Claude Console'da konur: https://platform.claude.com/settings/spend-limits → Monthly spend limit. Sınır dolunca API hata döner, Piko da "şu an biraz yorgunum" der.
+
+Kontrol (içerik yazdırmaz):
+
+```sh
+docker logs --tail 20 lara-piko          # durum kodu ve token sayıları
+docker exec lara-piko wget -qO- http://127.0.0.1:8091/saglik   # {"ok":true,"anahtar":true,"kod":true}
+curl -s -X POST https://lara.perinet.org/piko -d '{"code":"yanlis","check":true}'   # {"error":"kod"}, 403
+```
+
+QA'da Piko servisi de çalıştırılabilir. Tarayıcı testleri (`tests/e2e/piko.spec.ts`) `/piko` cevaplarını taklit eder, gerçek API'ye gitmez:
+
+```bash
+docker network create lara-piko-qa
+docker build -f piko/Dockerfile -t laranin-pikosu:qa .
+docker run -d --name lara-piko-qa-piko --network lara-piko-qa --network-alias lara-piko --read-only --env-file ~/.config/anthropic/lara-piko.env --memory 192m --cpus 0.5 laranin-pikosu:qa
+```
+

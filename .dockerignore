@@ -6,3 +6,4 @@ artifacts
 test-results
 playwright-report
 curriculum/reviews
+piko/node_modules

@@ -27,11 +27,13 @@ const headers=`add_header Content-Security-Policy "${csp}" always;
 add_header X-Content-Type-Options nosniff always;
 add_header X-Frame-Options DENY always;
 add_header Referrer-Policy no-referrer always;
-add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()" always;
+add_header Permissions-Policy "camera=(), microphone=(self), geolocation=(), payment=()" always;
 add_header Strict-Transport-Security "max-age=31536000" always;`;
 await writeFile('deploy/security-headers.conf',headers);
 await writeFile('deploy/nginx.conf',`# Seslendirme istekleri sınırlanır: servis işlemciyle ses üretir (bkz. tts/server.py).
 limit_req_zone $binary_remote_addr zone=ses:1m rate=8r/s;
+# Piko sohbeti (lara-piko) tüm site için tek sınırla korunur: istekler NPM üzerinden geldiği için istemci IP'si burada görünmez.
+limit_req_zone $server_name zone=piko:1m rate=20r/m;
 server {
  listen 8080;
  server_name _;
@@ -49,6 +51,8 @@ server {
  location = /sw.js { add_header Cache-Control "no-store"; include /etc/nginx/security-headers.conf; }
  # Seslendirme servisi (lara-ses). Ad her istekte Docker DNS'inden çözülür: servis kapalıyken site yine açılır, tarayıcı cihazın kendi sesine döner.
  location = /ses { limit_req zone=ses burst=40 nodelay; resolver 127.0.0.11 valid=30s ipv6=off; set $ses_upstream http://lara-ses:8090; proxy_pass $ses_upstream; proxy_http_version 1.1; proxy_connect_timeout 2s; proxy_read_timeout 60s; include /etc/nginx/security-headers.conf; }
+ # Piko sohbet servisi (lara-piko): yalnızca POST, küçük gövde. Servis kapalıysa sohbet penceresi kibar bir hata gösterir.
+ location = /piko { limit_except POST { deny all; } limit_req zone=piko burst=10 nodelay; limit_req_status 429; client_max_body_size 16k; resolver 127.0.0.11 valid=30s ipv6=off; set $piko_upstream http://lara-piko:8091; proxy_pass $piko_upstream; proxy_http_version 1.1; proxy_connect_timeout 2s; proxy_read_timeout 40s; include /etc/nginx/security-headers.conf; }
  location ~ /\\. { deny all; }
 }`);
 console.log(`Production paketi: ${version}, ${urls.length} çevrim dışı dosya, ${hashes.length} CSP özeti.`);

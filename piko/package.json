@@ -1,0 +1,14 @@
+{
+  "name": "lara-piko",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Lara'nın Dünyası: Piko sohbet servisi (Claude Haiku)",
+  "scripts": {
+    "start": "node --experimental-strip-types --disable-warning=ExperimentalWarning server.ts",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "1.11.0"
+  }
+}

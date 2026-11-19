@@ -44,11 +44,33 @@ services:
       - lara-ses-hazir:/hazir:ro
     mem_limit: 2500m
     cpus: 3
+  # Piko sohbet servisi: Claude Haiku'ya bağlanır, bu yüzden internete çıkabilen lara-dis ağında da durur. Port açmaz;
+  # lara-dersleri nginx'i /piko adresinden yönlendirir. API anahtarı ve aile kodu depo dışındaki env dosyasındadır
+  # (ANTHROPIC_API_KEY, PIKO_AILE_KODU; bkz. docs/DEPLOYMENT.md). Dosya yoksa servis açılır ama sohbet kapalı kalır.
+  lara-piko:
+    build:
+      context: .
+      dockerfile: piko/Dockerfile
+    image: laranin-pikosu:1.0.0
+    container_name: lara-piko
+    restart: unless-stopped
+    networks:
+      - lara-ic
+      - lara-dis
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    env_file:
+      - path: ${HOME}/.config/anthropic/lara-piko.env
+        required: false
+    mem_limit: 192m
+    cpus: 0.5
 networks:
   npm-net:
     external: true
   lara-ic:
     internal: true
+  lara-dis: {}
 volumes:
   lara-ses-cache:
   lara-ses-hazir:
