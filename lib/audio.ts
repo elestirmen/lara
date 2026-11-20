@@ -40,7 +40,7 @@ function speakDevice(text:string,lang:string):boolean{if(!('speechSynthesis'in w
  const voice=bestVoice(voices,lang,navigator.onLine);if(!voice)return false;speechSynthesis.cancel();const natural=voiceScore(voice)>=50;
  for(const part of speechParts(text)){const u=new SpeechSynthesisUtterance(part);u.voice=voice;u.lang=voice.lang;u.rate=natural?.95:.9;u.pitch=natural?1:1.05;speechSynthesis.speak(u)}return true}
 /** Sunucu sesi: Türkçe metin cümle cümle /ses adresinden (tts/server.py, sinirsel ses) çalınır; her cihazda aynı doğal ses duyulur.
- * Tek bir ses öğesi kullanılır (iOS, kullanıcı dokunuşuyla başlayan öğenin sıradaki cümleyi çalmasına izin verir); sıradaki cümle önceden istenir.
+ * Tek bir ses öğesi kullanılır (iOS, kullanıcı dokunuşuyla başlayan öğenin sıradaki cümleyi çalmasına izin verir); sonraki cümleler sırayla önceden istenir.
  * İnternet yoksa ya da servis yanıt vermezse kalan metin cihazın sesiyle okunur ve bir dakika boyunca sunucu yeniden denenmez. */
 const SERVER_VOICE_VERSION=3;
 let player:HTMLAudioElement|undefined,turn=0,serverDownUntil=0;
@@ -56,7 +56,9 @@ export const voiceUrl=(part:string)=>`/ses?v=${SERVER_VOICE_VERSION}&t=${encodeU
 export function serverParts(text:string){return speechParts(text).filter(part=>/[\p{L}\d]/u.test(part)).flatMap(part=>{if(part.length<=380)return [part];const pieces:string[]=[];let current='';for(const piece of part.split(/(?<=[,;:])\s+/)){if(current&&(current+' '+piece).length>380){pieces.push(current);current=piece}else current=current?`${current} ${piece}`:piece}if(current)pieces.push(current);return pieces.flatMap(x=>x.length<=380?[x]:x.match(/.{1,380}(\s|$)/g)!.map(y=>y.trim()))})}
 function speakServer(text:string,lang:string){const mine=++turn,parts=serverParts(text);if(!parts.length)return;player??=new Audio();const audio=player;if('speechSynthesis'in window)speechSynthesis.cancel();
  const fallback=(from:number)=>{if(mine!==turn)return;serverDownUntil=Date.now()+60000;audio.onended=audio.onerror=audio.onplaying=null;emit('idle');speakDevice(parts.slice(from).join(' '),lang)};
- const play=(i:number)=>{if(mine!==turn)return;if(i>=parts.length){audio.onended=audio.onerror=audio.onplaying=null;emit('idle');return}audio.onended=()=>play(i+1);audio.onerror=()=>fallback(i);audio.onplaying=()=>{if(mine===turn)emit('playing')};emit('loading');audio.src=voiceUrl(parts[i]);audio.play().catch(()=>fallback(i));if(parts[i+1])fetch(voiceUrl(parts[i+1])).catch(()=>{})};
- play(0)}
+ const play=(i:number)=>{if(mine!==turn)return;if(i>=parts.length){audio.onended=audio.onerror=audio.onplaying=null;emit('idle');return}audio.onended=()=>play(i+1);audio.onerror=()=>fallback(i);audio.onplaying=()=>{if(mine===turn)emit('playing')};emit('loading');audio.src=voiceUrl(parts[i]);audio.play().catch(()=>fallback(i))};
+ play(0);
+ /** Sunucu sesleri tek tek üretir. Cümleler sırayla istenir (biri hazır olunca öteki): ilk cümle sonrakilerin arkasında beklemez, sonrakiler o çalınırken hazırlanır. */
+ if(parts.length>1)void (async()=>{for(const part of parts){if(mine!==turn||Date.now()<serverDownUntil)return;try{const r=await fetch(voiceUrl(part));await r.arrayBuffer();if(!r.ok)return}catch{return}}})()}
 export function speak(text:string,lang='tr-TR'):boolean{if(typeof window==='undefined')return false;if(lang==='tr-TR'&&navigator.onLine&&Date.now()>=serverDownUntil&&typeof Audio!=='undefined'){speakServer(text,lang);return true}turn++;player?.pause();emit('idle');return speakDevice(text,lang)}
 export function stopSpeech(){turn++;emit('idle');if(player){player.onended=player.onerror=player.onplaying=null;player.pause()}if(typeof window!=='undefined'&&'speechSynthesis'in window)speechSynthesis.cancel()}

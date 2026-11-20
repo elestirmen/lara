@@ -1,10 +1,10 @@
 import {test,expect,type Page} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 /** Piko sohbeti. /piko servisi taklit edilir: testler gerçek yapay zekâ hizmetine istek göndermez. */
-type Body={messages?:{role:string;text:string}[]};
+type Body={messages?:{role:string;text:string}[];page?:string};
 async function openParents(page:Page){await page.goto('/#parents');await page.getByLabel('Yeni PIN',{exact:true}).fill('4826');await page.getByLabel('PIN’i tekrar girin').fill('4826');await page.getByRole('button',{name:'PIN oluştur ve aç'}).click()}
 
-test('köşedeki Piko’ya dokununca kodsuz sohbet açılır ve cevap verir; ders ekranında gizlenir',async({page})=>{
+test('köşedeki Piko’ya dokununca kodsuz sohbet açılır, ekrandaki sayfayı da gönderir',async({page})=>{
  const bodies:Body[]=[];
  await page.route('**/piko',async route=>{const body=route.request().postDataJSON() as Body;bodies.push(body);
   await route.fulfill({json:{reply:`Cevabım: ${body.messages!.at(-1)!.text}`}})});
@@ -13,15 +13,19 @@ test('köşedeki Piko’ya dokununca kodsuz sohbet açılır ve cevap verir; der
  await piko.click();
  const chat=page.getByRole('dialog',{name:'Piko ile sohbet'});
  await expect(chat).toContainText('Merhaba Lara! Ben Piko.');
+ await expect(chat.locator('.piko-starters button').first()).toHaveText('Bu sayfada neler var?');
  await chat.getByRole('button',{name:'Bana bir bilmece sor'}).click();
  await expect(chat.locator('.piko-msg.piko').last()).toHaveText('Piko: Cevabım: Bana bir bilmece sor');
  await expect(chat.getByRole('button',{name:'Bana bir bilmece sor'})).toHaveCount(0);
  const input=chat.getByLabel('Piko’ya mesajın');
  await input.fill('Kaç bacağın var?');await input.press('Enter');
  await expect(chat.locator('.piko-msg.piko').last()).toHaveText('Piko: Cevabım: Kaç bacağın var?');
- // Selam yalnızca ekranda kalır; sunucuya çocuk ve Piko sırayla gider, kod gönderilmez.
+ // Selam yalnızca ekranda kalır; sunucuya çocuk ve Piko sırayla gider, kod gönderilmez. Ekrandaki sayfanın metni de gider.
  const last=bodies.at(-1)!;
- expect(Object.keys(last)).toEqual(['messages']);
+ expect(Object.keys(last).sort()).toEqual(['messages','page']);
+ expect(last.page).toContain('Merhaba, ben Lara!');
+ expect(last.page).not.toContain('Merakla öğren');
+ expect(last.page!.length).toBeLessThanOrEqual(1500);
  expect(last.messages!.map(m=>m.role)).toEqual(['user','assistant','user']);
  const result=await new AxeBuilder({page}).include('.piko-chat').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();
  expect(result.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)}))).toEqual([]);
@@ -29,17 +33,44 @@ test('köşedeki Piko’ya dokununca kodsuz sohbet açılır ve cevap verir; der
  await input.press('Escape');
  await expect(chat).toHaveCount(0);
  await expect(piko).toBeFocused();
- await page.goto('/#lesson/math-blocks');await expect(page.getByRole('heading',{level:1})).toBeVisible();
- await expect(piko).toHaveCount(0);
- await page.goto('/#subjects');await expect(piko).toBeVisible();
 });
 
-test('Ebeveyn Alanı Piko’yu anlatır, kod istemez',async({page})=>{
+test('derste köşedeki Piko gizlenir; “Piko’ya sor” soruyu bilerek sohbeti açar',async({page})=>{
+ const bodies:Body[]=[];
+ await page.route('**/piko',async route=>{bodies.push(route.request().postDataJSON() as Body);await route.fulfill({json:{reply:'Hadi bakalım! Blokları say.'}})});
+ await page.goto('/#lesson/math-blocks');await expect(page.getByRole('heading',{level:1})).toBeVisible();
+ await expect(page.getByRole('button',{name:'Piko ile konuş'})).toHaveCount(0);
+ for(let i=0;i<8&&!(await page.locator('.question-instruction').count());i++)await page.getByRole('button',{name:/^(Devam|Birlikte yapalım)$/}).click();
+ const question=(await page.locator('.question-instruction').innerText()).trim();
+ const ask=page.getByRole('button',{name:'Piko’ya sor'});
+ await ask.click();
+ const chat=page.getByRole('dialog',{name:'Piko ile sohbet'});
+ await chat.getByRole('button',{name:'Bu soruda ne yapmam gerekiyor?'}).click();
+ await expect(chat.locator('.piko-msg.piko').last()).toHaveText('Piko: Hadi bakalım! Blokları say.');
+ expect(bodies[0].page).toContain(question);
+ expect(bodies[0].messages).toEqual([{role:'user',text:'Bu soruda ne yapmam gerekiyor?'}]);
+ await page.screenshot({path:'artifacts/piko-lesson.png'});
+ await page.keyboard.press('Escape');
+ await expect(chat).toHaveCount(0);
+ await expect(ask).toBeFocused();
+ await page.goto('/#games');await expect(page.getByRole('button',{name:'Piko ile konuş'})).toBeVisible();
+ await page.goto('/#game/memory');await expect(page.getByRole('button',{name:'Piko ile konuş'})).toHaveCount(0);
+});
+
+test('Ebeveyn Alanı Piko’yu anlatır, kod istemez; oradan sorulunca sayfa metni gitmez',async({page})=>{
+ const bodies:Body[]=[];
+ await page.route('**/piko',async route=>{bodies.push(route.request().postDataJSON() as Body);await route.fulfill({json:{reply:'Merhaba!'}})});
  await openParents(page);
  await page.getByRole('button',{name:'Piko sohbeti',exact:true}).click();
  await expect(page.getByText('ayar ya da kod gerekmez')).toBeVisible();
  await expect(page.getByText('Piko bir yapay zekâdır')).toBeVisible();
  await expect(page.getByLabel('Aile kodu')).toHaveCount(0);
+ await page.getByRole('button',{name:'Piko ile konuş'}).click();
+ const chat=page.getByRole('dialog',{name:'Piko ile sohbet'});
+ await expect(chat.locator('.piko-starters button').first()).toHaveText('Bana bir bilmece sor');
+ await chat.getByRole('button',{name:'Bana bir bilmece sor'}).click();
+ await expect(chat.locator('.piko-msg.piko').last()).toHaveText('Piko: Merhaba!');
+ expect(Object.keys(bodies[0])).toEqual(['messages']);
 });
 
 test('mikrofonla sorulan soru yazıya dönüşüp gönderilir',async({page})=>{

@@ -1,5 +1,28 @@
 # Doğrulama
 
+## 21 Kasım 2026: Piko sayfayı biliyor, sesi daha erken başlıyor
+
+Kullanıcı Piko'nun sesinin geç geldiğini söyledi; ayrıca o anki sayfayı açıklayabilmesini istedi.
+
+**Ses.** Ölçüm: yazgı bu sunucuda bir cümleyi sesin kendi süresinin yaklaşık 1,2 katında üretiyor (kısa cümle 1,3–1,6 sn, sekiz kelime 3–4,6 sn); daha hızlı bir CPU ayarı yok. Önceden ilk ses, cevap geldikten sonra ilk cümlenin üretimini bekliyordu. Üstelik ikinci cümlenin ön isteği bazen ilkinden önce üretiliyordu. Şimdi:
+- Piko her cevaba 15 hazır açılıştan biriyle başlıyor. `lara-piko` açılırken bu açılışları, selamı ve hazır cevapları seslendirtiyor: canlıda 28/28, boş önbellekle ~55 sn.
+- Tarayıcı cümleleri sırayla istiyor.
+- Cümleler en fazla sekiz kelime.
+
+Canlı ölçümde açılışın sesi cevapla birlikte hazırdı (cevap 2,6–5 sn, açılış +0,3 sn). Sonraki cümleler 4–8 sn arayla hazırlandı; açılıştan sonra birkaç saniyelik duraklama kalıyor. Gerçek 5 cevabın 5'i hazır açılışla başladı (`açılış=hazır`).
+
+**Sayfa bilgisi.** Tarayıcı ekrandaki `#main` metnini gönderiyor; alt bilgi gönderilmiyor, Ebeveyn Alanı'nda hiç gönderilmiyor. Derslerde sorunun yanında “Piko’ya sor” düğmesi var. Gerçek denemede “Cevabı söyler misin?” sorusuna (27 + 15) Piko cevabı söylemedi, “7 ile 5 kaç eder?” diye ipucu verdi. “Bu sayfada ne var?” sorusunu sayfa metnine göre doğru anlattı.
+
+| Kontrol | Sonuç |
+| --- | --- |
+| Birim testleri | 76 / 76 (+1 atlanan; makine yüklü olduğundan 30 sn süre sınırıyla) |
+| QA container'ında Playwright (ses servisiyle) | 87 / 87 |
+| Canlı HTTPS adresinde eski sürümden yeni sürüme geçiş (`verify-live-upgrade.mjs`) | Geçti |
+| Yayınlanan dosyalar | `out/` ile birebir aynı (337 dosya; nginx'in `50x.html` dosyası dışında) |
+| Yayından sonra production container'ında Playwright testleri | 85 / 87; aralıklı düşen `feedback.spec.ts` ilk testi ve `390px life-friends` 3'er tekrarda 9 / 9 |
+
+Geri dönüş imajları: `laranin-dersleri:before-sayfa-20261121`, `laranin-pikosu:before-sayfa-20261121`.
+
 ## 20 Kasım 2026: Piko sohbeti kodsuz
 
 Kullanıcı sohbeti açmayı (Ebeveyn Alanı → PIN → Piko sekmesi → aile kodu) zahmetli buldu ve kodsuz hâli seçti. Köşedeki Piko'ya dokununca sohbet doğrudan açılıyor; aile kodu, kod doğrulaması ve kodsuz cihazdaki hazır cümle balonu kaldırıldı. Ebeveyn Alanı'ndaki Piko sekmesi artık yalnızca bilgi veriyor. Harcamayı nginx'in dakika sınırı ve bütün ziyaretçiler için ortak olan günlük 300 cevap sınırı tutuyor.

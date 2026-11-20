@@ -2,7 +2,7 @@
 import {useEffect,useRef,useState} from 'react';
 import {Mic,Send,Square,X} from 'lucide-react';
 import {Art} from './Illustration';
-import {askPiko,errorText,MAX_CHILD_TEXT,starters,type PikoLine} from '@/lib/piko';
+import {askPiko,errorText,MAX_CHILD_TEXT,pageContext,pageStarter,starters,type PikoLine} from '@/lib/piko';
 import {speak,stopSpeech} from '@/lib/audio';
 import {profile} from '@/content/profile';
 
@@ -18,10 +18,15 @@ export default function PikoChat({sound,onClose}:{sound:boolean;onClose:()=>void
  const [lines,setLines]=useState<PikoLine[]>([{role:'assistant',text:greeting,local:true}]),[text,setText]=useState(''),[busy,setBusy]=useState(false),[listening,setListening]=useState(false),[note,setNote]=useState('');
  const linesRef=useRef(lines),busyRef=useRef(false),log=useRef<HTMLDivElement>(null),panel=useRef<HTMLDivElement>(null),recognition=useRef<Recognition|null>(null),request=useRef<AbortController|null>(null);
  const canListen=!!recognitionClass();
+ /** Pencere açıldığı andaki sayfa: ilk hazır soru ona göre seçilir, her mesajla sayfanın metni de gider. */
+ const [page]=useState(pageContext),[ideas]=useState(()=>[pageStarter(),...starters].filter(Boolean));
  useEffect(()=>{linesRef.current=lines;log.current?.scrollTo({top:log.current.scrollHeight,behavior:'smooth'})},[lines,busy]);
  useEffect(()=>{panel.current?.focus();if(sound)speak(greeting);
   return()=>{recognition.current?.abort();request.current?.abort()}
  },[]);
+ /** Escape her zaman kapatır: hazır soruya dokununca o düğme kaybolur ve odak pencerenin dışına düşebilir. */
+ const closeRef=useRef(onClose);closeRef.current=onClose;
+ useEffect(()=>{const key=(e:KeyboardEvent)=>{if(e.key==='Escape')closeRef.current()};document.addEventListener('keydown',key);return()=>document.removeEventListener('keydown',key)},[]);
 
  async function send(raw:string){
   const message=raw.replace(/\s+/g,' ').trim().slice(0,MAX_CHILD_TEXT);
@@ -30,7 +35,7 @@ export default function PikoChat({sound,onClose}:{sound:boolean;onClose:()=>void
   const next:PikoLine[]=[...linesRef.current,{role:'user',text:message}];
   linesRef.current=next;setLines(next);busyRef.current=true;setBusy(true);
   const controller=new AbortController();request.current=controller;
-  const result=await askPiko(next,controller.signal);
+  const result=await askPiko(next,page,controller.signal);
   if(controller.signal.aborted)return;
   busyRef.current=false;setBusy(false);
   if('error' in result){setNote(errorText[result.error]);return}
@@ -53,7 +58,7 @@ export default function PikoChat({sound,onClose}:{sound:boolean;onClose:()=>void
  }
 
  const asked=lines.some(l=>l.role==='user');
- return <div ref={panel} className="piko-chat" role="dialog" aria-labelledby="piko-chat-title" tabIndex={-1} onKeyDown={e=>{if(e.key==='Escape')onClose()}}>
+ return <div ref={panel} className="piko-chat" role="dialog" aria-labelledby="piko-chat-title" tabIndex={-1}>
   <header>
    <span className={`piko-chat-face${busy?' thinking':''}`}><Art name="piko-talk" size={52} className="pose-talk" eager/><Art name="piko-think" size={52} className="pose-think" eager/></span>
    <div><h2 id="piko-chat-title">Piko ile sohbet</h2><small>{busy?'Piko düşünüyor…':listening?'Piko seni dinliyor…':'Sor, konuş, birlikte keşfedelim!'}</small></div>
@@ -62,7 +67,7 @@ export default function PikoChat({sound,onClose}:{sound:boolean;onClose:()=>void
   <div className="piko-log" ref={log} aria-live="polite">
    {lines.map((l,i)=><p key={i} className={`piko-msg ${l.role==='user'?'child':'piko'}`}><span className="sr-only">{l.role==='user'?'Sen: ':'Piko: '}</span>{l.text}</p>)}
    {busy&&<p className="piko-msg piko typing"><span className="sr-only">Piko düşünüyor</span><i/><i/><i/></p>}
-   {!asked&&!busy&&<div className="piko-starters">{starters.map(s=><button type="button" key={s} onClick={()=>void send(s)}>{s}</button>)}</div>}
+   {!asked&&!busy&&<div className="piko-starters">{ideas.map(s=><button type="button" key={s} onClick={()=>{panel.current?.focus();void send(s)}}>{s}</button>)}</div>}
   </div>
   {note&&<p className="piko-note" role="alert">{note}</p>}
   <form className="piko-input" onSubmit={e=>{e.preventDefault();void send(text)}}>

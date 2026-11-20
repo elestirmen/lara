@@ -81,6 +81,7 @@ main{padding:14px 14px 108px}.welcome{margin:4px 0 20px;padding:20px 18px;border
 .piko-buddy-button .art{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;animation:piko-bob 3.4s ease-in-out infinite;transform-origin:50% 90%}
 .piko-buddy-button:hover .art{animation:piko-wiggle .5s ease-in-out}
 .piko-buddy-button:focus-visible{outline:3px solid var(--green-mid);outline-offset:2px}
+.icon-button.piko-ask{padding:4px;background:#eef6ea}.icon-button.piko-ask .art{width:100%;height:100%;object-fit:contain}
 @keyframes piko-bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-5px) rotate(-2deg)}}
 @keyframes piko-wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
 @keyframes piko-pop{from{opacity:0;transform:translateY(8px) scale(.9)}to{opacity:1;transform:none}}
