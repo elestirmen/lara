@@ -1,5 +1,21 @@
 # Doğrulama
 
+## 20 Kasım 2026: Piko sohbeti (Claude Haiku 5.5)
+
+Kullanıcı köşedeki Piko'ya dokununca Lara'nın onunla yazılı ve sesli konuşabilmesini istedi. Yeni `lara-piko` servisi (`piko/`) Claude Haiku 5.5'e bağlanır; API anahtarı ve aile kodu depo dışındaki env dosyasındadır. Sohbet yalnızca Ebeveyn Alanı'nda aile kodu girilmiş cihazda açılır; diğer cihazlarda Piko hazır cümleler söyler. Sohbet içeriği kaydedilmez, günlük sınır 300 cevaptır (a01a821).
+
+| Kontrol | Sonuç |
+| --- | --- |
+| Birim testleri | 72 / 72 (+1 ortam değişkenine bağlı atlanan) |
+| QA container'ında Playwright (gerçek Piko servisiyle) | 86 / 86 |
+| Gerçek Haiku cevabı (servis, QA ve canlı) | Kişisel bilgi uyarısı, kural değiştirme denemesi, üzgün çocuk, matematik ipucu denendi; canlıda 2,4 sn |
+| Canlı `/piko`: yanlış kod / GET / doğru kod | 403 / 403 / 200 |
+| Eski sürümden yeni sürüme geçiş (`verify-live-upgrade.mjs`, eski imajla yerelde yeniden oynatıldı) | Geçti |
+| Yayınlanan dosyalar | `out/` ile birebir aynı (337 dosya; nginx'in `50x.html` dosyası dışında) |
+| Yayından sonra production container'ında Playwright testleri | 85 / 86; düşen `390px life-friends` sürükle-bırak testi tek başına 3 kez çalıştırılınca 6 / 6 geçti (aralıklı) |
+
+Kullanıcının “Canlıya al” onayıyla yayına alındı (`docker compose up -d --build --no-deps lara-dersleri lara-piko`; ses servisi değişmedi). Geri dönüş imajı: `laranin-dersleri:before-piko-20261120`; sohbeti kapatmak için `docker compose stop lara-piko` yeter.
+
 ## 15 Kasım 2026: Ahenk sesi (proje bilgisayarında toplu üretim)
 
 Kullanıcı yazgı sesini yine kötü ve yavaş buldu; daha kaliteli ücretsiz bir modelin ekran kartlı proje bilgisayarında çalıştırılmasını istedi. Seçilen Ahenk (VoxCPM2 2B + Türkçe LoRA, kadın ses, CC BY 4.0) ile sitenin okuyacağı 19.842 cümle o bilgisayardaki Claude Code oturumunca üretildi (`tts/pc/`, düz hâl, 16 adım, RTX 5060 Ti 16 GB'ta iki paralel işle ~19 saat). Kullanıcı deneme seslerini dinleyip hâli seçti; toplu üretilen sesler tek tek dinlenmedi.
