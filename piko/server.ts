@@ -1,14 +1,14 @@
 /**
  * Piko sohbet servisi (lara-piko). lara-dersleri nginx'i POST /piko isteklerini buraya yönlendirir.
- * API anahtarı yalnızca bu konteynerde durur (ANTHROPIC_API_KEY); tarayıcıya hiç gitmez.
+ * API anahtarı yalnızca bu konteynerde durur (ANTHROPIC_API_KEY); tarayıcıya hiç gitmez. Sohbet herkese açıktır;
+ * harcamayı nginx'in dakika sınırı ve buradaki günlük cevap sınırı tutar.
  * Sohbetler kaydedilmez: günlüğe yalnızca durum kodu ve token sayıları yazılır.
  */
 import {createServer,type IncomingMessage,type ServerResponse} from 'node:http';
 import Anthropic from '@anthropic-ai/sdk';
-import {LINES,MODEL,SYSTEM,checkCode,cleanReply,parseRequest} from './kurallar.ts';
+import {LINES,MODEL,SYSTEM,cleanReply,parseRequest} from './kurallar.ts';
 
 const PORT=Number(process.env.PORT??8091);
-const CODE=(process.env.PIKO_AILE_KODU??'').trim().toLowerCase();
 /** Günlük cevap sınırı (Türkiye saatiyle gece yarısı sıfırlanır). */
 const DAILY=Number(process.env.PIKO_GUNLUK??300);
 /** Düşünme düzeyi: low hızlıdır ama çocuğun cevabını kontrol etmeyi atlayabiliyor; medium varsayılan. */
@@ -56,7 +56,7 @@ async function chat(res:ServerResponse,messages:Anthropic.MessageParam[]){
 
 const server=createServer(async(req,res)=>{
  try{
-  if(req.method==='GET'&&req.url==='/saglik')return send(res,200,{ok:true,anahtar:!!client,kod:!!CODE});
+  if(req.method==='GET'&&req.url==='/saglik')return send(res,200,{ok:true,anahtar:!!client});
   if(req.url!=='/piko')return send(res,404,{error:'yok'});
   if(req.method!=='POST')return send(res,405,{error:'yontem'});
   const raw=await readBody(req);
@@ -64,12 +64,10 @@ const server=createServer(async(req,res)=>{
   let parsed;
   try{parsed=parseRequest(JSON.parse(raw))}catch{return send(res,400,{error:'bicim'})}
   if('error' in parsed)return send(res,400,{error:parsed.error});
-  if(!checkCode(parsed.code,CODE)){log('403 aile kodu eşleşmedi');return send(res,403,{error:'kod'})}
-  if(parsed.check)return send(res,200,{ok:true});
-  return await chat(res,parsed.messages);
+   return await chat(res,parsed.messages);
  }catch{
   if(!res.headersSent)send(res,500,{reply:LINES.tired});
  }
 });
-server.listen(PORT,()=>log(`Piko ${PORT} portunda; model ${MODEL} (${EFFORT}); anahtar ${client?'var':'YOK'}; aile kodu ${CODE?'var':'YOK'}; günlük sınır ${DAILY}`));
+server.listen(PORT,()=>log(`Piko ${PORT} portunda; model ${MODEL} (${EFFORT}); anahtar ${client?'var':'YOK'}; günlük sınır ${DAILY}`));
 for(const signal of ['SIGTERM','SIGINT'] as const)process.on(signal,()=>server.close(()=>process.exit(0)));

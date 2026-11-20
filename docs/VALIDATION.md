@@ -1,5 +1,20 @@
 # Doğrulama
 
+## 20 Kasım 2026: Piko sohbeti kodsuz
+
+Kullanıcı sohbeti açmayı (Ebeveyn Alanı → PIN → Piko sekmesi → aile kodu) zahmetli buldu ve kodsuz hâli seçti. Köşedeki Piko'ya dokununca sohbet doğrudan açılıyor; aile kodu, kod doğrulaması ve kodsuz cihazdaki hazır cümle balonu kaldırıldı. Ebeveyn Alanı'ndaki Piko sekmesi artık yalnızca bilgi veriyor. Harcamayı nginx'in dakika sınırı ve bütün ziyaretçiler için ortak olan günlük 300 cevap sınırı tutuyor.
+
+| Kontrol | Sonuç |
+| --- | --- |
+| Birim testleri | 70 / 71 (+1 ortam değişkenine bağlı atlanan); `variety.test.ts` makinede başka bir yedek geri yükleme işi çalışırken 5 sn süre sınırını aştı, 60 sn sınırla 5 / 5 |
+| QA container'ında Playwright (`piko.spec.ts`, `world.spec.ts`) | 16 / 16 |
+| Gerçek Haiku cevabı, kodsuz istek (QA ve canlı) | 200; canlıda 2,4 sn. Eski sürümün kod sınama isteği 400 alıyor |
+| Canlı HTTPS adresinde eski sürümden yeni sürüme geçiş (`verify-live-upgrade.mjs`) | Geçti |
+| Yayınlanan dosyalar | `out/` ile birebir aynı (337 dosya; nginx'in `50x.html` dosyası dışında) |
+| Yayından sonra production container'ında Playwright testleri | 85 / 86; ilk sıradaki `feedback.spec.ts` testi soğuk açılışta takıldı, dosya 3 kez tekrarlanınca 15 / 15 |
+
+Geri dönüş imajları: `laranin-dersleri:before-kodsuz-20261120`, `laranin-pikosu:before-kodsuz-20261120` (aile kodlu sürüm; env dosyasına `PIKO_AILE_KODU` yeniden eklenir).
+
 ## 20 Kasım 2026: Piko sohbeti (Claude Haiku 5.5)
 
 Kullanıcı köşedeki Piko'ya dokununca Lara'nın onunla yazılı ve sesli konuşabilmesini istedi. Yeni `lara-piko` servisi (`piko/`) Claude Haiku 5.5'e bağlanır; API anahtarı ve aile kodu depo dışındaki env dosyasındadır. Sohbet yalnızca Ebeveyn Alanı'nda aile kodu girilmiş cihazda açılır; diğer cihazlarda Piko hazır cümleler söyler. Sohbet içeriği kaydedilmez, günlük sınır 300 cevaptır (a01a821).

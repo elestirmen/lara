@@ -2,7 +2,7 @@
 import {useEffect,useRef,useState} from 'react';
 import {Mic,Send,Square,X} from 'lucide-react';
 import {Art} from './Illustration';
-import {askPiko,errorText,MAX_CHILD_TEXT,readPikoCode,starters,type PikoLine} from '@/lib/piko';
+import {askPiko,errorText,MAX_CHILD_TEXT,starters,type PikoLine} from '@/lib/piko';
 import {speak,stopSpeech} from '@/lib/audio';
 import {profile} from '@/content/profile';
 
@@ -30,7 +30,7 @@ export default function PikoChat({sound,onClose}:{sound:boolean;onClose:()=>void
   const next:PikoLine[]=[...linesRef.current,{role:'user',text:message}];
   linesRef.current=next;setLines(next);busyRef.current=true;setBusy(true);
   const controller=new AbortController();request.current=controller;
-  const result=await askPiko(readPikoCode(),next,controller.signal);
+  const result=await askPiko(next,controller.signal);
   if(controller.signal.aborted)return;
   busyRef.current=false;setBusy(false);
   if('error' in result){setNote(errorText[result.error]);return}

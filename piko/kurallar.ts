@@ -2,8 +2,6 @@
  * Piko sohbetinin kuralları: sistem talimatı, istek denetimi ve cevap temizliği.
  * Bağımlılığı yoktur; hem servis (piko/server.ts) hem birim testleri (tests/piko.test.ts) kullanır.
  */
-import {createHash,timingSafeEqual} from 'node:crypto';
-
 export const MODEL='claude-haiku-5-5';
 /** Çocuğun tek mesajı ve Piko'nun sohbet geçmişinde kabul edilen tek cevabı en fazla bu kadar karakterdir. */
 export const MAX_CHILD=200,MAX_PIKO=600,MAX_TURNS=12;
@@ -41,17 +39,15 @@ export const LINES={
 };
 
 export type Turn={role:'user'|'assistant';content:string};
-export type Parsed={code:string;check:true}|{code:string;check:false;messages:Turn[]}|{error:string};
+export type Parsed={messages:Turn[]}|{error:string};
 
 /**
- * Tarayıcıdan gelen isteği denetler: {code, check:true} kodu sınar; {code, messages:[{role,text}]} sohbet ister.
+ * Tarayıcıdan gelen sohbet isteğini ({messages:[{role,text}]}) denetler; başka alanlar yok sayılır.
  * Baştaki Piko selamı atılır, art arda aynı rolden gelenler birleştirilir, yalnızca son MAX_TURNS mesaj kalır.
  */
 export function parseRequest(body:unknown):Parsed{
  if(!body||typeof body!=='object')return {error:'bicim'};
- const {code,check,messages}=body as Record<string,unknown>;
- if(typeof code!=='string'||code.length>64)return {error:'kod'};
- if(check===true)return {code,check:true};
+ const {messages}=body as Record<string,unknown>;
  if(!Array.isArray(messages)||messages.length<1||messages.length>60)return {error:'mesaj'};
  const turns:Turn[]=[];
  for(const m of messages){
@@ -67,14 +63,7 @@ export function parseRequest(body:unknown):Parsed{
  let recent=turns.slice(-MAX_TURNS);
  while(recent[0]?.role==='assistant')recent=recent.slice(1);
  if(recent.at(-1)?.role!=='user')return {error:'mesaj'};
- return {code,check:false,messages:recent};
-}
-
-/** Aile kodu sabit sürede karşılaştırılır; kod tanımlı değilse hiçbir kod kabul edilmez. */
-export function checkCode(given:string,expected:string){
- if(!expected)return false;
- const digest=(s:string)=>createHash('sha256').update(s.trim().toLowerCase()).digest();
- return timingSafeEqual(digest(given),digest(expected));
+ return {messages:recent};
 }
 
 /** Cevap sesli okunacağı için emoji ve yazı biçimi işaretleri atılır; uzun cevap son tam cümlede kesilir. */

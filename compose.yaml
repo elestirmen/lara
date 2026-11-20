@@ -45,8 +45,8 @@ services:
     mem_limit: 2500m
     cpus: 3
   # Piko sohbet servisi: Claude Haiku'ya bağlanır, bu yüzden internete çıkabilen lara-dis ağında da durur. Port açmaz;
-  # lara-dersleri nginx'i /piko adresinden yönlendirir. API anahtarı ve aile kodu depo dışındaki env dosyasındadır
-  # (ANTHROPIC_API_KEY, PIKO_AILE_KODU; bkz. docs/DEPLOYMENT.md). Dosya yoksa servis açılır ama sohbet kapalı kalır.
+  # lara-dersleri nginx'i /piko adresinden yönlendirir. API anahtarı depo dışındaki env dosyasındadır
+  # (ANTHROPIC_API_KEY; bkz. docs/DEPLOYMENT.md). Dosya yoksa servis açılır ama Piko cevap veremez.
   lara-piko:
     build:
       context: .

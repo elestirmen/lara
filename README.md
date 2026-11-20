@@ -108,7 +108,7 @@ Ebeveyn Alanı ilk girişte bu cihaza özel 4–8 rakamlı PIN oluşturur. PIN r
 
 Sesli okuma cihazda uygun **yerel** Türkçe/İngilizce ses varsa kullanılabilir. Yoksa metin ve görsel alternatif gösterilir; bulut TTS'ye metin gönderilmez. Konum ve kamera kullanılmaz; mikrofon yalnızca Piko sohbetinde, düğmeye basılınca açılır. Yazı etkinliği metni kalıcı tutulmaz. Çizim yalnız indirme düğmesiyle dosyaya dönüşür. Hosting/DNS/TLS ağ altyapısının bağlantı işlemesi uygulama verisinden ayrıdır.
 
-**Piko sohbeti (20 Kasım 2026):** Sayfanın köşesindeki Piko'ya dokununca, Ebeveyn Alanı → **Piko sohbeti** sekmesinde aile kodu girilmiş cihazda bir sohbet penceresi açılır. Çocuk yazarak ya da mikrofonla konuşarak sorar, Piko (Claude Haiku 5.5) kısa ve çocuğa uygun cevap verip sesli okur. Kod girilmemiş cihazlarda Piko yalnızca hazır cümleler söyler. Çocuğun mesajları cevap için Anthropic'e gider. Sesli sorularda konuşma, yazıya çevrilmek için tarayıcının hizmetine gider. Site sunucusu sohbeti kaydetmez. Ayrıntılar: `docs/ARCHITECTURE.md` → Piko sohbeti, kurulum: `docs/DEPLOYMENT.md` → Piko sohbet servisi.
+**Piko sohbeti (20 Kasım 2026):** Sayfanın köşesindeki Piko'ya dokununca sohbet penceresi açılır; ayar ya da kod gerekmez. Çocuk yazarak ya da mikrofonla konuşarak sorar, Piko (Claude Haiku 5.5) kısa ve çocuğa uygun cevap verip sesli okur. Çocuğun mesajları cevap için Anthropic'e gider. Sesli sorularda konuşma, yazıya çevrilmek için tarayıcının hizmetine gider. Site sunucusu sohbeti kaydetmez. Ayrıntılar: `docs/ARCHITECTURE.md` → Piko sohbeti, kurulum: `docs/DEPLOYMENT.md` → Piko sohbet servisi.
 
 ## PWA ve güncelleme
 
