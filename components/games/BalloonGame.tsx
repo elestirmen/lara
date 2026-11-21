@@ -4,11 +4,14 @@ import {ArrowRight} from 'lucide-react';
 import {balloonRounds} from '@/lib/games';
 import {newSeed} from '@/lib/random';
 import {sfx} from '@/lib/audio';
+import {setPikoHelp} from '@/lib/piko';
 import GameFinish from './GameFinish';
 export default function BalloonGame({sound,onFinish}:{sound:boolean;onFinish:(firstTry:number)=>void}){
  const [seed,setSeed]=useState(newSeed),[index,setIndex]=useState(0),[wrong,setWrong]=useState<number[]>([]),[popped,setPopped]=useState(false),[score,setScore]=useState(0),[done,setDone]=useState(false);
  const rounds=useMemo(()=>balloonRounds(seed),[seed]),round=rounds[index],heading=useRef<HTMLHeadingElement>(null);
  useEffect(()=>{if(index>0)heading.current?.focus()},[index]);
+ /** Piko bu turun ipucunu ve doğru balonu bilir (cevabı söylemez). */
+ useEffect(()=>{if(done)return;setPikoHelp({hints:[round.hint],question:round.prompt,solution:`${round.prompt} Doğru balon: ${round.answer}.`});return()=>setPikoHelp(null)},[round,done]);
  function pick(value:number){if(popped||wrong.includes(value))return;if(value===round.answer){setPopped(true);if(!wrong.length)setScore(s=>s+1);sfx(sound,'burst');sfx(sound,'correct')}else{setWrong([...wrong,value]);sfx(sound,'wrong')}}
  function next(){if(index+1<rounds.length){setIndex(index+1);setWrong([]);setPopped(false)}else{setDone(true);onFinish(score);sfx(sound,'finish')}}
  function restart(){setSeed(newSeed());setIndex(0);setWrong([]);setPopped(false);setScore(0);setDone(false)}

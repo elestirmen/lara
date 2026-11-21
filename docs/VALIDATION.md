@@ -1,5 +1,38 @@
 # Doğrulama
 
+## 21 Kasım 2026: Piko her sayfada, sayfayı kendiliğinden tanıtıyor, matematik ipuçları doğru
+
+Kullanıcı Piko'nun matematik ipuçlarının düzeltilmesini, her sayfada görünmesini ve dokununca o sayfayı anlatmasını istedi (“daha etkin bir yardımcı”).
+
+**Matematik.** Önceki denemede Haiku hesabı kendisi yapıyordu ve bir ipucu yarım kalmıştı (“kalanı 8'e ekleyeceğiz”). Derslerdeki her sorunun doğru, elle yazılmış ipuçları ve çözümü zaten vardı ama Piko bunları görmüyordu. Şimdi:
+- Ders ve oyun ekranları sorunun ipuçlarını, çözümünü ve cümlesini gönderiyor.
+- Servis sayfadaki ve çocuğun mesajındaki işlemleri kendisi hesaplıyor (`mathNotes`).
+- Talimat sayıları bu notlardan almayı, tek adım vermeyi, belirsiz söz kullanmamayı ve saymayı sonuna kadar yapmamayı istiyor.
+- Sorunun cümlesinde yazmayan doğru sonucu içeren cevap bir kez yeniden yazdırılıyor (`revealsAnswer`).
+
+Gerçek Haiku ile QA'da 25'ten fazla sahne denendi (toplama, çıkarma, 10'a tamamlama, yuvarlama, çarpma, bölme, hece, balon ve kod oyunu):
+- Yanlış ve doğru cevaplar doğru ayırt edildi: “47 mi?” yanlış bulundu, “46 mi?” doğru bulundu.
+- Israrlı “Cevabı söyle” isteklerinde cevap söylenmedi.
+- İlk turda iki kaçak görüldü: “5, 6, 7, 8, 9, 10” diye sonuna kadar sayma ve “15'e kadar say”. Talimat ve denetim bunlar için eklendi. Sonraki turda denetim bir bölme cevabını yakalayıp yeniden yazdırdı (`tekrar=cevap`).
+
+**Hız.** Düşünme düzeyi `medium`'dan `low`'a indi; notlar doğru sonucu verdiği için `low` yetiyor.
+- Tanıtım 4–6 sn'den 1,1–2,4 sn'ye, devam cevapları 1–3 sn'ye indi.
+- `medium` iki tanıtımda 1.000 token sınırına takılıp boş cevap vermişti; sınır şimdi 2.000.
+- Aynı sayfanın tanıtımı servisin önbelleğinden 0,2 sn'de geliyor.
+
+**Her sayfada Piko.** Köşedeki Piko artık derste ve oyunda da duruyor, orada küçülüyor; derslerdeki “Piko’ya sor” düğmesi kaldırıldı. Dokununca Piko sayfayı kendiliğinden tanıtıyor. Kapalı hafıza kartlarının yüzü gönderilmiyor; e2e testi bunu denetliyor. Derste Piko'dan yardım alınan soru “yardımla çözüldü” sayılıyor.
+
+| Kontrol | Sonuç |
+| --- | --- |
+| Birim testleri | 88 / 88 (+1 atlanan; 30 sn süre sınırıyla) |
+| QA container'ında Playwright (ses ve Piko servisiyle) | 87 / 88. Düşen test, eski paketin sorunun cümlesini göndermediğini yakaladı; yeniden derlemeden sonra Piko testleri 7 / 7 |
+| Canlı HTTPS adresinde eski sürümden yeni sürüme geçiş (`verify-live-upgrade.mjs`) | Geçti |
+| Yayınlanan dosyalar | `out/` ile birebir aynı (337 dosya; nginx'in `50x.html` dosyası dışında) |
+| Canlıda gerçek Haiku | Tanıtım 1,2–2,0 sn; “Cevabı söyle” isteğine ipucu verdi; ses hazırlığı 28/28 |
+| Yayından sonra production container'ında Playwright testleri | 88 / 88 |
+
+Geri dönüş imajları: `laranin-dersleri:before-etkin-20261121`, `laranin-pikosu:before-etkin-20261121`.
+
 ## 21 Kasım 2026: Piko sayfayı biliyor, sesi daha erken başlıyor
 
 Kullanıcı Piko'nun sesinin geç geldiğini söyledi; ayrıca o anki sayfayı açıklayabilmesini istedi.

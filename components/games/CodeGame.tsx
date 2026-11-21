@@ -5,6 +5,7 @@ import {codeLevels,codeMaxSteps,codeSize,runProgram,type Cell,type Step} from '@
 import {sfx} from '@/lib/audio';
 import {Art} from '../Illustration';
 import GameFinish from './GameFinish';
+import {setPikoHelp} from '@/lib/piko';
 const arrows:Record<Step,[string,string]>={up:['↑','Yukarı'],down:['↓','Aşağı'],left:['←','Sola'],right:['→','Sağa']};
 const results={goal:'Piko evine ulaştı! Harika bir yol tarifi.',edge:'Piko bahçenin dışına çıkamaz. Adımlarını kontrol et.',rock:'Önünde bir taş var. Başka bir yol dene.',short:'Piko henüz evde değil. Birkaç adım daha ekle.'};
 const place=([x,y]:Cell)=>`${x+1}. sütun ${y+1}. satır`;
@@ -12,6 +13,8 @@ export default function CodeGame({sound,onFinish,solved}:{sound:boolean;onFinish
  const first=Math.min(solved,codeLevels.length-1),[level,setLevel]=useState(first),[best,setBest]=useState(solved),[program,setProgram]=useState<Step[]>([]),[pos,setPos]=useState<Cell>(codeLevels[first].start),[running,setRunning]=useState(false),[result,setResult]=useState<keyof typeof results|''>(''),[hint,setHint]=useState(false);
  const timers=useRef<ReturnType<typeof setTimeout>[]>([]),L=codeLevels[level],last=level===codeLevels.length-1;
  useEffect(()=>()=>timers.current.forEach(clearTimeout),[]);
+ /** Piko bahçenin haritasını ve bölümün yolunu bilir (harita ekranda resim olduğu için sayfa metninde yoktur). */
+ useEffect(()=>{setPikoHelp({hints:[L.hint],solution:`Harita ${codeSize} sütun, ${codeSize} satır. Piko ${place(L.start)}, ev ${place(L.goal)}.${L.rocks.length?` Taşlar: ${L.rocks.map(place).join(', ')}.`:' Taş yok.'} Bir yol: ${L.solution.map(s=>arrows[s][1]).join(', ')}.`});return()=>setPikoHelp(null)},[L]);
  function stop(next=level){timers.current.forEach(clearTimeout);timers.current=[];setRunning(false);setResult('');setPos(codeLevels[next].start)}
  function choose(next:number){setLevel(next);setProgram([]);setHint(false);stop(next)}
  function edit(next:Step[]){sfx(sound,next.length<program.length?'remove':'place');setProgram(next);stop()}

@@ -2,7 +2,7 @@
 import {useEffect,useRef,useState} from 'react';
 import {Mic,Send,Square,X} from 'lucide-react';
 import {Art} from './Illustration';
-import {askPiko,errorText,MAX_CHILD_TEXT,pageContext,pageStarter,starters,type PikoLine} from '@/lib/piko';
+import {askPiko,errorText,followUps,introAsks,MAX_CHILD_TEXT,pageContext,pageKind,starters,type PikoLine} from '@/lib/piko';
 import {speak,stopSpeech} from '@/lib/audio';
 import {profile} from '@/content/profile';
 
@@ -13,29 +13,37 @@ type Recognition={lang:string;interimResults:boolean;continuous:boolean;maxAlter
 const recognitionClass=()=>{if(typeof window==='undefined')return undefined;const w=window as unknown as Record<string,unknown>;return (w.SpeechRecognition??w.webkitSpeechRecognition) as (new()=>Recognition)|undefined};
 const micError=(code:string)=>code==='not-allowed'||code==='service-not-allowed'?'Mikrofon izni yok. Bir büyüğün tarayıcı ayarlarından izin verebilir; yazarak da sorabilirsin.':code==='no-speech'?'Seni duyamadım. Mikrofona biraz daha yakın konuşur musun?':'Sesini anlayamadım. Bir daha dener misin? Yazarak da sorabilirsin.';
 
+/**
+ * Sohbet penceresi. Ebeveyn Alanı dışında Piko açılır açılmaz ekrandaki sayfayı kendiliğinden tanıtır: sayfaya göre seçilen
+ * soru (introAsks) gizli bir çocuk mesajı olarak gönderilir, selam o sırada önceden seslendirilmiş olduğu için hemen duyulur.
+ */
 export default function PikoChat({sound,onClose}:{sound:boolean;onClose:()=>void}){
- const greeting=`Merhaba ${profile.name}! Ben Piko. Bana ne sormak istersin?`;
+ const [kind]=useState(pageKind),[intro]=useState(()=>kind!=='parents'&&!!pageContext());
+ const greeting=intro?`Merhaba ${profile.name}!`:`Merhaba ${profile.name}! Ben Piko. Bana ne sormak istersin?`;
  const [lines,setLines]=useState<PikoLine[]>([{role:'assistant',text:greeting,local:true}]),[text,setText]=useState(''),[busy,setBusy]=useState(false),[listening,setListening]=useState(false),[note,setNote]=useState('');
  const linesRef=useRef(lines),busyRef=useRef(false),log=useRef<HTMLDivElement>(null),panel=useRef<HTMLDivElement>(null),recognition=useRef<Recognition|null>(null),request=useRef<AbortController|null>(null);
  const canListen=!!recognitionClass();
- /** Pencere açıldığı andaki sayfa: ilk hazır soru ona göre seçilir, her mesajla sayfanın metni de gider. */
- const [page]=useState(pageContext),[ideas]=useState(()=>[pageStarter(),...starters].filter(Boolean));
+ /** Tanıtımdan sonra sayfaya göre devam soruları, Ebeveyn Alanı’nda eğlenceli hazır sorular gösterilir. */
+ const [ideas]=useState(()=>intro?followUps(kind):starters);
  useEffect(()=>{linesRef.current=lines;log.current?.scrollTo({top:log.current.scrollHeight,behavior:'smooth'})},[lines,busy]);
  useEffect(()=>{panel.current?.focus();if(sound)speak(greeting);
-  return()=>{recognition.current?.abort();request.current?.abort()}
+  if(intro&&kind!=='parents')void send(introAsks[kind],true);
+  return()=>{recognition.current?.abort();request.current?.abort();busyRef.current=false}
  },[]);
  /** Escape her zaman kapatır: hazır soruya dokununca o düğme kaybolur ve odak pencerenin dışına düşebilir. */
  const closeRef=useRef(onClose);closeRef.current=onClose;
  useEffect(()=>{const key=(e:KeyboardEvent)=>{if(e.key==='Escape')closeRef.current()};document.addEventListener('keydown',key);return()=>document.removeEventListener('keydown',key)},[]);
 
- async function send(raw:string){
+ /** hidden: sayfa tanıtımını başlatan soru; ekranda görünmez, selamın sesi kesilmez. Sohbet selamla yeniden kurulur (React geliştirme modunda açılış iki kez çalışır). */
+ async function send(raw:string,hidden=false){
   const message=raw.replace(/\s+/g,' ').trim().slice(0,MAX_CHILD_TEXT);
   if(!message||busyRef.current)return;
-  stopSpeech();setNote('');setText('');
-  const next:PikoLine[]=[...linesRef.current,{role:'user',text:message}];
+  if(!hidden){stopSpeech();setText('')}
+  setNote('');
+  const next:PikoLine[]=[...hidden?linesRef.current.slice(0,1):linesRef.current,{role:'user',text:message,hidden}];
   linesRef.current=next;setLines(next);busyRef.current=true;setBusy(true);
   const controller=new AbortController();request.current=controller;
-  const result=await askPiko(next,page,controller.signal);
+  const result=await askPiko(next,controller.signal);
   if(controller.signal.aborted)return;
   busyRef.current=false;setBusy(false);
   if('error' in result){setNote(errorText[result.error]);return}
@@ -57,15 +65,15 @@ export default function PikoChat({sound,onClose}:{sound:boolean;onClose:()=>void
   try{r.start()}catch{recognition.current=null;setListening(false);setNote(micError(''))}
  }
 
- const asked=lines.some(l=>l.role==='user');
+ const asked=lines.some(l=>l.role==='user'&&!l.hidden),looking=busy&&!asked;
  return <div ref={panel} className="piko-chat" role="dialog" aria-labelledby="piko-chat-title" tabIndex={-1}>
   <header>
    <span className={`piko-chat-face${busy?' thinking':''}`}><Art name="piko-talk" size={52} className="pose-talk" eager/><Art name="piko-think" size={52} className="pose-think" eager/></span>
-   <div><h2 id="piko-chat-title">Piko ile sohbet</h2><small>{busy?'Piko düşünüyor…':listening?'Piko seni dinliyor…':'Sor, konuş, birlikte keşfedelim!'}</small></div>
+   <div><h2 id="piko-chat-title">Piko ile sohbet</h2><small>{looking&&intro?'Piko sayfaya bakıyor…':busy?'Piko düşünüyor…':listening?'Piko seni dinliyor…':'Sor, konuş, birlikte keşfedelim!'}</small></div>
    <button type="button" className="icon-button" aria-label="Sohbeti kapat" onClick={onClose}><X size={22}/></button>
   </header>
   <div className="piko-log" ref={log} aria-live="polite">
-   {lines.map((l,i)=><p key={i} className={`piko-msg ${l.role==='user'?'child':'piko'}`}><span className="sr-only">{l.role==='user'?'Sen: ':'Piko: '}</span>{l.text}</p>)}
+   {lines.map((l,i)=>!l.hidden&&<p key={i} className={`piko-msg ${l.role==='user'?'child':'piko'}`}><span className="sr-only">{l.role==='user'?'Sen: ':'Piko: '}</span>{l.text}</p>)}
    {busy&&<p className="piko-msg piko typing"><span className="sr-only">Piko düşünüyor</span><i/><i/><i/></p>}
    {!asked&&!busy&&<div className="piko-starters">{ideas.map(s=><button type="button" key={s} onClick={()=>{panel.current?.focus();void send(s)}}>{s}</button>)}</div>}
   </div>
